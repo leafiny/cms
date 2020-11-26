@@ -1,0 +1,38 @@
+<div class="toolbar">
+    <div class="pure-u-md-17-24 left">
+        <div class="pure-u-1 pure-u-md-1-3 box process left">
+            {% set actions = page.getActions %}
+            {% if actions is not empty %}
+                <select name="action">
+                    <option value="filter">{{ 'Filter'|translate }}</option>
+                    {% for action,label in actions %}
+                        <option value="{{ action }}">{{ label|translate }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" class="pure-button black" value="{{ 'Submit'|translate }}" />
+            {% else %}
+                <input type="hidden" name="action" value="filter" />
+                <input type="submit" class="pure-button black" value="{{ 'Filter'|translate }}" />
+            {% endif %}
+        </div>
+        <div class="pure-u-1 pure-u-md-1-3 box pages left">
+            <a href="{{ page.getUpdatePageUrl(page.getPage - 1) }}" class="pure-button first gray"{% if (page.getPage <= 1) %} disabled="disabled"{% endif %}>&lt;</a>
+            {{ 'Page'|translate }} <input type="text" value="{{ page.getPage }}" name="page" class="page" /> {{ 'of'|translate }} {{ page.getTotalPages }}
+            <a href="{{ page.getUpdatePageUrl(page.getPage + 1) }}" class="pure-button last gray"{% if (page.getPage >= page.getTotalPages) %} disabled="disabled"{% endif %}>&gt;</a>
+            <span>{{ page.getSize }} {% if page.getSize > 1 %}{{ 'records'|translate }}{% else %}{{ 'record'|translate }}{% endif %}</span>
+        </div>
+    </div>
+    <div class="pure-u-md-7-24 right">
+        <div class="box">
+            {% if page.getFilters is not empty %}
+                <a href="{{ page.getResetFilterUrl }}" class="pure-button red">{{ 'Reset Filter'|translate }}</a>
+            {% endif %}
+            {% set buttons = page.buttons %}
+            {% if buttons is not empty %}
+                {% for url,label in buttons %}
+                    <a href="{{ page.getUrl(url) }}" class="pure-button green">{{ label|translate }}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

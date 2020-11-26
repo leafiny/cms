@@ -1,0 +1,13 @@
+<div class="dashboard pure-g">
+    {% for title, children in page.getCategories %}
+        {% set class = loop.index %}
+        <div class="pure-u-1">
+            <h2>{{ title|translate }}</h2>
+            <ul class="pure-u-1">
+            {% for link in children %}
+                <li class="pure-u-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-5"><a href="{{ page.getUrl(link.path) }}" class="{{ page.getColor(class) }}">{{ link.title|translate }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>

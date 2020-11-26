@@ -1,0 +1,55 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {% include 'admin.list.toolbar'|block %}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('log_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-50">{{ 'Message'|translate }}</th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('level') }}">{{ 'Level'|translate }}</a></th>
+                    <th class="width-10">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[log_id]" value="{{ page.getFilter('log_id') }}" /></th>
+                    <th></th>
+                    <th><input type="text" name="filter[message]" value="{{ page.getFilter('message') }}" /></th>
+                    <th>
+                        <select name="filter[level]">
+                            <option value=""></option>
+                            {% for level,text in page.getLevels %}
+                                <option value="{{ level }}"{% if page.getFilter('level') != '' and page.getFilter('level') == level %} selected="selected"{% endif %}>{{ text }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="6">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getLogId }}" name="id[]" class="select-id" value="{{ data.getLogId }}" /></td>
+                            <td><label for="id_{{ data.getLogId }}">{{ data.getLogId }}</label></td>
+                            <td>{{ page.formatDate(data.getCreatedAt) }}</td>
+                            <td>{{ data.getMessage|truncate(0, 100, '...') }}</td>
+                            <td>{{ page.getLevelText(data.getLevel) }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getLogId()) }}">{{ 'View'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

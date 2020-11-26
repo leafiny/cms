@@ -1,0 +1,19 @@
+{% set links = page.getCurrent.getLinks ?: page.getCustom('breadcrumb') %}
+{% if links is not empty %}
+<div id="breadcrumb">
+    <div class="breadcrumb-content">
+        <ul>
+            <li class="first"><a href="{{ page.getBaseUrl }}">{{ 'Home'|translate }}</a></li>
+            {% for name,link in links %}
+                <li{% if (loop.index == links|length) %} class="last"{% endif %}>
+                    {% if link %}
+                        <a href="{{ link }}">{{ name }}</a>
+                    {% else %}
+                        <span>{{ name }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}

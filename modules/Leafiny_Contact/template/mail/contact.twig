@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ mail.getLanguage }}" xml:lang="{{ mail.getLanguage }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={{ mail.getCharset }}">
+        <title>{{ mail.getSubject|translate }}</title>
+    </head>
+    <body>
+        <p><strong>{{ 'Name'|translate }} :</strong> {{ mail.getForm.getName }}</p>
+        <p><strong>{{ 'E-mail'|translate }} :</strong> {{ mail.getForm.getEmail }}</p>
+        <p><strong>{{ 'Message'|translate }} :</strong></p>
+        <p>{{ mail.getForm.getMessage }}</p>
+    </body>
+</html>

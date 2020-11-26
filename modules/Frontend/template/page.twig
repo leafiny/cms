@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ page.getLanguage }}" xml:lang="{{ page.getLanguage }}">
+<head>
+{% include 'head'|block  %}
+</head>
+<body class="{{ page.getPageClass }}">
+{% apply spaceless %}
+{% include 'header'|block  %}
+{% include 'catalog.menu'|block  %}
+{% include 'banner'|block %}
+{% include 'breadcrumb'|block %}
+<main>
+    <div class="main-content">
+    <!-- nocache::'message' -->{% include 'message'|block %}<!-- /nocache::'message' -->
+    {% include 'content'|block %}
+    </div>
+</main>
+{% include 'footer'|block %}
+{% include 'script'|block %}
+{% endapply %}
+</body>
+</html>

@@ -1,0 +1,3 @@
+{% for js in page.getCurrent.getScripts %}
+    <script type='text/javascript' src="{{ page.getSkinUrl(js) }}"></script>
+{% endfor %}

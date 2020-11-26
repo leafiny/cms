@@ -1,0 +1,123 @@
+{% set form = page.getFormData %}
+<div class="container-form">
+    <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}" enctype="multipart/form-data">
+        <div class="pure-u-1 toolbar">
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
+        </div>
+
+        <fieldset>
+            <legend>{{ 'General'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="path_key">{{ 'Key'|translate }} <span>*</span> :</label>
+                    <input id="path_key" type="text" class="pure-u-1 pure-u-xl-4-5" name="path_key" value="{{ form.getPathKey }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="title">{{ 'Title'|translate }} <span>*</span> :</label>
+                    <input id="title" type="text" class="pure-u-1 pure-u-xl-4-5" name="title" value="{{ form.getTitle }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="author">{{ 'Author'|translate }} :</label>
+                    <input id="author" type="text" class="pure-u-1 pure-u-xl-4-5" name="author" value="{{ form.getAuthor }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="publish_date">{{ 'Publish Date'|translate }} :</label>
+                    <input id="publish_date" type="text" class="pure-u-1 pure-u-xl-4-5" name="publish_date" value="{{ form.getPublishDate }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="status">{{ 'Status'|translate }} <span>*</span> :</label>
+                    <select id="status" class="pure-u-1 pure-u-xl-4-5" name="status" required>
+                        <option value="0"{% if form.getStatus == '0' %} selected="selected"{% endif %}>{{ 'Disabled'|translate }}</option>
+                        <option value="1"{% if form.getStatus == '1' %} selected="selected"{% endif %}>{{ 'Enabled'|translate }}</option>
+                    </select>
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="language">{{ 'Language'|translate }} <span>*</span> :</label>
+                    <select id="language" class="pure-u-1 pure-u-xl-4-5" name="language" required>
+                        {% for code,lang in page.getActiveLanguages %}
+                            <option value="{{ code }}"{% if form.getLanguage == code %} selected="selected"{% endif %}>{{ lang|translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Content'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 pure-u-xl-4-5 field">
+                    <label for="intro">{{ 'Intro'|translate }} :</label>
+                    <textarea id="intro" class="pure-u-1" name="intro">{{ form.getIntro }}</textarea>
+                </div>
+                <div class="pure-u-1 pure-u-xl-4-5 field">
+                    <label for="content">{{ 'Post'|translate }} :</label>
+                    <textarea id="content" class="pure-u-1 wysiwyg" name="content">{{ form.getContent }}</textarea>
+                </div>
+            </div>
+        </fieldset>
+
+        {% if 'admin.gallery.form'|block %}
+            <fieldset>
+                {% set maxFileNumber = page.getCustom('max_file_number') ?: 10000 %}
+                <legend>{{ maxFileNumber > 1 ? 'Images'|translate : 'Image'|translate }}</legend>
+                <div class="pure-u-1 field pure-u-xl-4-5">
+                    {% include 'admin.gallery.form'|block ignore missing %}
+                </div>
+            </fieldset>
+        {% endif %}
+
+        {% if 'admin.blog.form.categories'|block %}
+            <fieldset>
+                <legend>{{ 'Categories'|translate }}</legend>
+                <div class="pure-u-1 field">
+                    {% include 'admin.blog.form.categories'|block ignore missing %}
+                </div>
+                {% if 'admin.blog.form.breadcrumb'|block %}
+                    <div class="pure-u-1 field">
+                        {% include 'admin.blog.form.breadcrumb'|block ignore missing %}
+                    </div>
+                {% endif %}
+            </fieldset>
+        {% endif %}
+
+        <fieldset>
+            <legend>{{ 'Search Engine'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="meta_title">{{ 'Meta Title'|translate }} :</label>
+                    <input id="meta_title" type="text" class="pure-u-1 pure-u-xl-4-5" name="meta_title" value="{{ form.getMetaTitle }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="meta_description">{{ 'Meta Description'|translate }} :</label>
+                    <input id="meta_description" type="text" class="pure-u-1 pure-u-xl-4-5" name="meta_description" value="{{ form.getMetaDescription }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="canonical">{{ 'Canonical URL'|translate }} :</label>
+                    <input id="canonical" type="text" class="pure-u-1 pure-u-xl-4-5" name="canonical" value="{{ form.getCanonical }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="robots">{{ 'Robots'|translate }} :</label>
+                    <select id="robots" class="pure-u-1 pure-u-xl-4-5" name="robots">
+                        <option value=""></option>
+                        <option value="INDEX,FOLLOW"{% if form.getRobots == 'INDEX,FOLLOW' %} selected="selected"{% endif %}>INDEX,FOLLOW</option>
+                        <option value="NOINDEX,NOFOLLOW"{% if form.getRobots == 'NOINDEX,NOFOLLOW' %} selected="selected"{% endif %}>NOINDEX,NOFOLLOW</option>
+                        <option value="INDEX,NOFOLLOW"{% if form.getRobots == 'INDEX,NOFOLLOW' %} selected="selected"{% endif %}>INDEX,NOFOLLOW</option>
+                        <option value="NOINDEX,FOLLOW"{% if form.getRobots == 'NOINDEX,FOLLOW' %} selected="selected"{% endif %}>NOINDEX,FOLLOW</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="pure-u-1">
+            <p>
+                <span>* {{ 'Required fields'|translate }}</span>
+            </p>
+        </div>
+
+        <div class="pure-u-1 actions">
+            <input type="hidden" name="post_id" value="{{ form.getPostId }}" />
+            <button type="submit" class="pure-button black">{{ 'Save'|translate }} &check;</button>
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+        </div>
+    </form>
+</div>

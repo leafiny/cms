@@ -1,0 +1,69 @@
+{% set form = page.getFormData %}
+<div class="container-form">
+    <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}">
+        <div class="pure-u-1 toolbar">
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
+        </div>
+
+        <fieldset>
+            <legend>{{ 'Account Information'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="firstname">{{ 'First name'|translate }} <span>*</span> :</label>
+                    <input id="firstname" type="text" class="pure-u-1 pure-u-xl-4-5" name="firstname" value="{{ form.getFirstname }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="lastname">{{ 'Last name'|translate }} <span>*</span> :</label>
+                    <input id="lastname" type="text" class="pure-u-1 pure-u-xl-4-5" name="lastname" value="{{ form.getLastname }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="email">{{ 'Email'|translate }} <span>*</span> :</label>
+                    <input id="email" type="email" class="pure-u-1 pure-u-xl-4-5" name="email" value="{{ form.getEmail }}" required />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Connection Information'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="username">{{ 'User name'|translate }} <span>*</span> :</label>
+                    <input id="username" type="text" class="pure-u-1 pure-u-xl-4-5" name="username" value="{{ form.getUsername }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="new_password">{{ 'Password'|translate }} :</label>
+                    <input id="new_password" type="password" class="pure-u-1 pure-u-xl-4-5" name="new_password" value="" />
+                    <p class="note">{{ 'Password must contain at least 8 characters, one letter and one number'|translate }}</p>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'User Resources'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="user-edit-is-admin">{{ 'Admin'|translate }} <span>*</span> :</label>
+                    <select id="user-edit-is-admin" class="pure-u-1 pure-u-xl-4-5" name="is_admin" required>
+                        <option value="1"{% if form.getIsAdmin == '1' %} selected="selected"{% endif %}>{{ 'Yes'|translate }}</option>
+                        <option value="0"{% if form.getIsAdmin == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
+                    </select>
+                </div>
+                <div class="pure-u-1" id="user-edit-resources">
+                    {% include 'admin.user.edit.resources'|block ignore missing %}
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="pure-u-1">
+            <p>
+                <span>* {{ 'Required fields'|translate }}</span>
+            </p>
+        </div>
+
+        <div class="pure-u-1 actions">
+            <input type="hidden" name="user_id" value="{{ form.getUserId }}" />
+            <button type="submit" class="pure-button black">{{ 'Save'|translate }} &check;</button>
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+        </div>
+    </form>
+</div>

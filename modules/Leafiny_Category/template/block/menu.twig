@@ -1,0 +1,32 @@
+{% set tree = page.getCurrent.getTree %}
+{% if tree is not empty %}
+    <nav>
+        <div id="navigation">
+            <div class="navigation-content">
+                <div class="pure-menu pure-menu-horizontal">
+                    <ul class="pure-menu-list menu-catalog-list mobile">
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link" id="menu-mobile-link"><span>Menu</span></a>
+                        </li>
+                    </ul>
+                    <ul class="pure-menu-list menu-catalog-list categories" id="menu-categories">
+                        {% for category in tree %}
+                            <li class="pure-menu-item">
+                                <a href="{{ page.getUrl }}{{ category.path_key }}.html" class="pure-menu-link{% if page.getCurrent.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
+                                {% if category.children %}
+                                    <ul class="pure-menu-list child">
+                                    {% for child in category.children %}
+                                        <li class="pure-menu-item">
+                                            <a href="{{ page.getUrl }}{{ child.path_key }}.html" class="pure-menu-link">{{ child.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% endif %}

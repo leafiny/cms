@@ -1,0 +1,47 @@
+{% set form = page.getFormData %}
+<div class="container-form">
+    <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}">
+        <fieldset>
+            <legend>{{ 'Account Information'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="firstname">{{ 'First name'|translate }} <span>*</span> :</label>
+                    <input id="firstname" type="text" class="pure-u-1 pure-u-xl-4-5" name="firstname" value="{{ form.getFirstname }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="lastname">{{ 'Last name'|translate }} <span>*</span> :</label>
+                    <input id="lastname" type="text" class="pure-u-1 pure-u-xl-4-5" name="lastname" value="{{ form.getLastname }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="email">{{ 'Email'|translate }} <span>*</span> :</label>
+                    <input id="email" type="email" class="pure-u-1 pure-u-xl-4-5" name="email" value="{{ form.getEmail }}" required />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Connection Information'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="username">{{ 'User name'|translate }} <span>*</span> :</label>
+                    <input id="username" type="text" class="pure-u-1 pure-u-xl-4-5" name="username" value="{{ form.getUsername }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="new_password">{{ 'Password'|translate }} :</label>
+                    <input id="new_password" type="password" class="pure-u-1 pure-u-xl-4-5" name="new_password" value="" />
+                    <p class="note">{{ 'Password must contain at least 8 characters, one letter and one number'|translate }}</p>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="pure-u-1">
+            <p>
+                <span>* {{ 'Required fields'|translate }}</span>
+            </p>
+        </div>
+
+        <div class="pure-u-1 actions">
+            <button type="submit" class="pure-button black">{{ 'Update'|translate }} &check;</button>
+        </div>
+    </form>
+</div>

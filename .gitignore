@@ -1,0 +1,8 @@
+.idea
+pub/modules
+pub/media
+var/*
+!var/.htaccess
+media/*
+!media/.htaccess
+etc/config.*.php

@@ -1,0 +1,67 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {% include 'admin.list.toolbar'|block %}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('block_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-30"><a href="{{ page.getSortOrderUrl('path_key') }}">{{ 'Key'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('status') }}">{{ 'Status'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('language') }}">{{ 'Language'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('updated_at') }}">{{ 'Updated At'|translate }}</a></th>
+                    <th class="width-5">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[block_id]" value="{{ page.getFilter('block_id') }}" /></th>
+                    <th><input type="text" name="filter[path_key]" value="{{ page.getFilter('path_key') }}" /></th>
+                    <th>
+                        <select name="filter[status]">
+                            <option value=""></option>
+                            <option value="1"{% if page.getFilter('status') == '1' %} selected="selected"{% endif %}>{{ 'Enabled'|translate }}</option>
+                            <option value="0"{% if page.getFilter('status') == '0' %} selected="selected"{% endif %}>{{ 'Disabled'|translate }}</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select name="filter[language]">
+                            <option value=""></option>
+                            {% for code,lang in page.getActiveLanguages %}
+                                <option value="{{ code }}"{% if page.getFilter('language') == code %} selected="selected"{% endif %}>{{ lang|translate }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="8">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getBlockId }}" name="id[]" class="select-id" value="{{ data.getBlockId }}" /></td>
+                            <td><label for="id_{{ data.getBlockId }}">{{ data.getBlockId }}</label></td>
+                            <td>{{ data.getPathKey }}</td>
+                            <td>{% if data.getStatus == 0 %}{{ 'Disabled'|translate }}{% else %}{{ 'Enabled'|translate }}{% endif %}</td>
+                            <td class="lang_{{ data.getLanguage }}"><span>{{ page.getLanguageByCode(data.getLanguage)|translate }}</span></td>
+                            <td>{{ page.formatDate(data.getCreatedAt) }}</td>
+                            <td>{{ page.formatDate(data.getUpdatedAt) }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getBlockId) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

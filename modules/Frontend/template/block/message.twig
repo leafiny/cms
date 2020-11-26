@@ -1,0 +1,9 @@
+{% if page.getErrorMessage %}
+    <p class="alert-message error">{{ page.getErrorMessage }}</p>
+{% endif %}
+{% if page.getWarningMessage %}
+    <p class="alert-message warning">{{ page.getWarningMessage }}</p>
+{% endif %}
+{% if page.getSuccessMessage %}
+    <p class="alert-message success">{{ page.getSuccessMessage }}</p>
+{% endif %}

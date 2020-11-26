@@ -1,0 +1,64 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {% include 'admin.list.toolbar'|block %}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('redirect_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-25"><a href="{{ page.getSortOrderUrl('source_identifier') }}">{{ 'Source'|translate }}</a></th>
+                    <th class="width-25"><a href="{{ page.getSortOrderUrl('target_identifier') }}">{{ 'Target'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('redirect_type') }}">{{ 'Type'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-10">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[redirect_id]" value="{{ page.getFilter('redirect_id') }}" /></th>
+                    <th><input type="text" name="filter[source_identifier]" value="{{ page.getFilter('source_identifier') }}" /></th>
+                    <th><input type="text" name="filter[target_identifier]" value="{{ page.getFilter('target_identifier') }}" /></th>
+                    <th>
+                        <select name="filter[redirect_type]">
+                            <option value=""></option>
+                            <option value="301"{% if page.getFilter('redirect_type') == '301' %} selected="selected"{% endif %}>301 Moved Permanently</option>
+                            <option value="302"{% if page.getFilter('redirect_type') == '302' %} selected="selected"{% endif %}>302 Found</option>
+                        </select>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="7">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getRedirectId }}" name="id[]" class="select-id" value="{{ data.getRedirectId }}" /></td>
+                            <td><label for="id_{{ data.getRedirectId }}">{{ data.getRedirectId }}</label></td>
+                            <td>{{ data.getSourceIdentifier }}</td>
+                            <td>{{ data.getTargetIdentifier }}</td>
+                            <td>
+                                {% if data.getRedirectType == '301' %}
+                                    301 Moved Permanently
+                                {% endif %}
+                                {% if data.getRedirectType == '302' %}
+                                    302 Found
+                                {% endif %}
+                            </td>
+                            <td>{{ page.formatDate(data.getCreatedAt()) }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getRedirectId()) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

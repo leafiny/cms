@@ -1,0 +1,45 @@
+.gallery-images {
+    margin:0 -10px 0 -10px
+}
+
+.gallery-images .delete {
+    color: #A00;
+}
+
+.gallery-images .image-content {
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: right;
+}
+
+.gallery-images .image-file {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+
+.gallery-images .image-content.disabled .image-file {
+    opacity: 0.5;
+}
+
+.gallery-images .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-size: cover;
+}
+
+.gallery-images a {
+    display: inline-block;
+    font-size: 0.9em;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.gallery-form .info {
+    margin: 0 0 20px 0;
+    padding-left: 1em;
+}

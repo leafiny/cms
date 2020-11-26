@@ -1,0 +1,3 @@
+{% set data = page.getCurrent %}
+
+{{ include(template_from_string(data.getContent)) }}

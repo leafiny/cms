@@ -1,0 +1,55 @@
+# Avoid directory listing
+Options -Indexes
+
+# Prevent character encoding issues from server overrides
+AddDefaultCharset UTF-8
+
+# Enable rewrites
+Options +FollowSymlinks
+RewriteEngine on
+
+# Retrieve requested protocol
+RewriteCond %{HTTPS} =on
+RewriteRule ^(.*)$ - [env=ps:https]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ - [env=ps:http]
+
+# Redirect directory without "/" to directory with "/"
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule (.*)$ %{ENV:ps}://%{HTTP_HOST}/$1/ [R=301,L]
+
+# Redirect page with "/" to page without "/"
+RewriteCond %{REQUEST_URI} (\.[a-zA-Z0-9]{1,5}/{1,255})$
+RewriteRule ^(.+)/$ %{ENV:ps}://%{HTTP_HOST}/$1 [R=301,L]
+
+# Never rewrite for existing files, directories and links
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Rewrite everything else to index.php
+RewriteRule .* index.php [L]
+
+# Add default Expires header
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    <FilesMatch "\.(jpg|jpeg|png|gif|js|css|ico)$">
+        ExpiresDefault "access plus 5 years"
+        Header set Cache-Control "public"
+        FileETag MTime Size
+    </FilesMatch>
+</IfModule>
+
+# Enable apache served files compression
+<ifmodule mod_deflate.c>
+    <FilesMatch "\.(css|js|x?html?|php)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</ifmodule>
+
+# Update header
+<IfModule mod_headers.c>
+    Header set X-Frame-Options DENY
+    Header set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'self'"
+</IfModule>

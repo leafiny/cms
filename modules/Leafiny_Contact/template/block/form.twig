@@ -1,0 +1,24 @@
+<form method="post" class="pure-form pure-form-stacked" action="{{ page.getUrl('/contact/post/') }}">
+    <fieldset>
+        <div class="pure-g">
+            <div class="pure-u-1">
+                <label for="name">{{ 'Name'|translate }} <span>*</span> :</label>
+                <input id="name" type="text" class="pure-u-1" name="name" value="{{ page.getForm.getName }}" required />
+            </div>
+            <div class="pure-u-1">
+                <label for="email">{{ 'E-mail'|translate }} <span>*</span> :</label>
+                <input id="email" type="email" class="pure-u-1" name="email" value="{{ page.getForm.getEmail }}" required />
+            </div>
+            <div class="pure-u-1">
+                <label for="message">{{ 'Message'|translate }} <span>*</span> :</label>
+                <textarea id="message" class="pure-u-1" name="message" required>{{ page.getForm.getMessage }}</textarea>
+            </div>
+            <div class="pure-u-1">
+                <p>
+                    <span>* {{ 'Required fields'|translate }}</span>
+                </p>
+                <button type="submit" class="pure-button black">{{ 'Send Message'|translate }} &check;</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

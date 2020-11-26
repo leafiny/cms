@@ -1,0 +1,29 @@
+{% set data = page.getCustom('post') %}
+
+<div class="post-view">
+    <h2>{{ data.getTitle }}</h2>
+
+    <ul class="info">
+        {% if (data.getAuthor) %}
+            <li class="pure-u-1-2 author">{{ data.getAuthor }}</li>
+        {% endif %}
+        {% if (data.getPublishDate) %}
+            <li class="pure-u-1-2 date">{{ page.getHelper.getDate(data.getPublishDate, '%d %B %Y') }}</li>
+        {% endif %}
+    </ul>
+
+    {% set mainImage = page.getMainImage(data.getPostId) %}
+    {% if mainImage %}
+        <div class="image">
+            <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 940, 940) }}" class="pure-u-1" alt="{{ category.getName }}" />
+        </div>
+    {% endif %}
+
+    {% if (data.getIntro) %}
+        <div class="intro">
+            {{ data.getIntro }}
+        </div>
+    {% endif %}
+
+    {{ include(template_from_string(data.getContent)) }}
+</div>

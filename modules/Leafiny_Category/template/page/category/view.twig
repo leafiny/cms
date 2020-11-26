@@ -1,0 +1,23 @@
+{% set category = page.getCustom('category') %}
+<div class="catalog-category">
+    {% if category.getName %}
+        <h2>{{ category.getName }}</h2>
+    {% endif %}
+
+    {% set mainImage = page.getMainImage(category.getCategoryId) %}
+    {% if mainImage %}
+        <div class="category-image">
+            <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 940, 940) }}" class="pure-u-1" alt="{{ category.getName }}" />
+        </div>
+    {% endif %}
+
+    {% if category.getContent %}
+        <div class="category-content">
+            {{ include(template_from_string(category.getContent)) }}
+        </div>
+    {% endif %}
+
+    {% for child in page.getChildren %}
+        {% include child|block ignore missing %}
+    {% endfor %}
+</div>

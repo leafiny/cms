@@ -1,0 +1,67 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {% include 'admin.list.toolbar'|block %}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('message_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('name') }}">{{ 'Name'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('email') }}">{{ 'E-mail'|translate }}</a></th>
+                    <th class="width-25">{{ 'Message'|translate }}</th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('is_open') }}">{{ 'Open'|translate }}</a></th>
+                    <th class="width-10">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[message_id]" value="{{ page.getFilter('message_id') }}" /></th>
+                    <th></th>
+                    <th><input type="text" name="filter[name]" value="{{ page.getFilter('name') }}" /></th>
+                    <th><input type="text" name="filter[email]" value="{{ page.getFilter('email') }}" /></th>
+                    <th></th>
+                    <th>
+                        <select name="filter[is_open]">
+                            <option value=""></option>
+                            <option value="0"{% if page.getFilter('is_open') == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
+                            <option value="1"{% if page.getFilter('is_open') == '1' %} selected="selected"{% endif %}>{{ 'Yes'|translate }}</option>
+                        </select>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="8">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getMessageId }}" name="id[]" class="select-id" value="{{ data.getMessageId }}" /></td>
+                            <td><label for="id_{{ data.getMessageId }}">{{ data.getMessageId }}</label></td>
+                            <td>{{ page.formatDate(data.getCreatedAt) }}</td>
+                            <td>{{ data.getName }}</td>
+                            <td><a href="mailto:{{ data.getEmail }}">{{ data.getEmail }}</a></td>
+                            <td>{{ data.getMessage|truncate(0, 50, '...') }}</td>
+                            <td>
+                                {% if data.getIsOpen == '0' %}
+                                    {{ 'No'|translate }}
+                                {% endif %}
+                                {% if data.getIsOpen == '1' %}
+                                    {{ 'Yes'|translate }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getMessageId()) }}">{{ 'View'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

@@ -1,0 +1,54 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {% include 'admin.list.toolbar'|block %}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('user_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('firstname') }}">{{ 'First name'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('lastname') }}">{{ 'Last name'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('username') }}">{{ 'User name'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('email') }}">{{ 'Email'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-10">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[user_id]" value="{{ page.getFilter('user_id') }}" /></th>
+                    <th><input type="text" name="filter[firstname]" value="{{ page.getFilter('firstname') }}" /></th>
+                    <th><input type="text" name="filter[lastname]" value="{{ page.getFilter('lastname') }}" /></th>
+                    <th><input type="text" name="filter[username]" value="{{ page.getFilter('username') }}" /></th>
+                    <th><input type="text" name="filter[email]" value="{{ page.getFilter('email') }}" /></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="8">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getUserId() }}" name="id[]" class="select-id" value="{{ data.getUserId() }}" /></td>
+                            <td><label for="id_{{ data.getUserId() }}">{{ data.getUserId() }}</label></td>
+                            <td>{{ data.getFirstname() }}</td>
+                            <td>{{ data.getLastname() }}</td>
+                            <td>{{ data.getUsername() }}</td>
+                            <td>{{ data.getEmail() }}</td>
+                            <td>{{ page.formatDate(data.getCreatedAt()) }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getUserId()) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

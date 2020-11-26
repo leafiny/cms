@@ -1,0 +1,16 @@
+<meta charset="{{ page.getCurrent.getCustom('charset') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.getCustom('meta_title')|translate }}</title>
+<meta name="description" content="{{ page.getCustom('meta_description')|translate }}" />
+{% for css in page.getCurrent.getStylesheets %}
+<link rel="stylesheet" href="{{ page.getSkinUrl(css) }}" />
+{% endfor %}
+{% for js in page.getCurrent.getScripts %}
+<script type="text/javascript" src="{{ page.getSkinUrl(js) }}"></script>
+{% endfor %}
+{% if page.getCustom('canonical') %}
+<link rel="canonical" href="{{ page.getUrl(page.getCustom('canonical')) }}" />
+{% endif %}
+{% if page.getCustom('robots') %}
+<meta name="robots" content="{{ page.getCustom('robots') }}" />
+{% endif %}

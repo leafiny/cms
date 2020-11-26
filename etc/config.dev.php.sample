@@ -1,0 +1,57 @@
+<?php
+
+$config = [
+    'app' => [
+        'secured_port'       => 443,
+        'secured_protocol'   => 'https://',
+        'unsecured_protocol' => 'http://',
+        'twig_cache'         => 0,
+        'config_cache'       => 0,
+        'backend_key'        => 'leafiny',
+        'languages'          => ['fr_FR', 'en_US'],
+    ],
+
+    'session' => [
+        'default' => [
+            'lifetime' => 3600,
+            'samesite' => 'strict',
+        ],
+        'backend' => [
+            'lifetime' => 86400,
+        ],
+    ],
+
+    'model' => [
+        'default' => [
+            'db_host'       => 'localhost',
+            'db_username'   => 'username',
+            'db_password'   => 'password',
+            'db_database'   => 'database',
+            'db_no_writing' => 0,
+            'lc_time_names' => 'fr_FR',
+        ],
+    ],
+
+    'page' => [
+        'default' => [
+            'is_secure' => 0,
+            'locale'    => 'fr_FR.utf8',
+            'fpc'       => 0,
+        ],
+    ],
+
+    'mail' => [
+        'default' => [
+            'recipient_email' => 'contact@example.com',
+            'sender_email'    => 'contact@example.com',
+            'sender_name'     => 'Leafiny',
+            'smtp_enabled'    => 0,
+            'smtp_auth'       => 1,
+            'smtp_secure'     => 'tls',
+            'smtp_host'       => '',
+            'smtp_port'       => 587,
+            'smtp_username'   => '',
+            'smtp_password'   => '',
+        ]
+    ]
+];

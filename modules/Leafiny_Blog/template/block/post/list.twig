@@ -1,0 +1,25 @@
+{% set posts = page.getCurrent.getPosts(category.getCategoryId) %}
+{% if posts is not empty %}
+    <div class="posts pure-g">
+        {% for post in posts %}
+            <div class="post-list pure-u-1">
+                <div class="post-list-content">
+                    <a href="{{ page.getUrl }}{{ post.getPathKey }}.html">{{ post.getTitle }}</a>
+                    <ul class="info">
+                        {% if (post.getAuthor) %}
+                            <li class="pure-u-1-2 author">{{ post.getAuthor }}</li>
+                        {% endif %}
+                        {% if (post.getPublishDate) %}
+                            <li class="pure-u-1-2 date">{{ page.getHelper.getDate(post.getPublishDate, '%d %B %Y') }}</li>
+                        {% endif %}
+                    </ul>
+                    {% if (post.getIntro) %}
+                        <div class="intro">
+                            {{ post.getIntro }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

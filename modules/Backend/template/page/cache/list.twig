@@ -1,0 +1,39 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-30">{{ 'Cache'|translate }}</th>
+                    <th class="width-40">{{ 'Description'|translate }}</th>
+                    <th class="width-15">{{ 'Status'|translate }}</th>
+                    <th class="width-15">{{ 'Action'|translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="8">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td>{{ data.getName }}</td>
+                            <td class="italic">{{ data.getDescription }}</td>
+                            <td class="status">
+                                {% if data.getStatus %}
+                                    <span class="enabled">{{ 'Enabled' }}</span>
+                                {% else %}
+                                    <span class="disabled">{{ 'Disabled' }}</span>
+                                {% endif %}
+                            </td>
+                            <td><a href="{{ page.getUrl(data.getFlush) }}" class="pure-button green">{{ 'Flush'|translate }}</a></td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>
