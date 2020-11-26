@@ -6,7 +6,7 @@
 <body class="{{ page.getPageClass }}">
 {% apply spaceless %}
 {% include 'header'|block  %}
-{% include 'catalog.menu'|block  %}
+<!-- nocache::'catalog.menu' -->{% include 'catalog.menu'|block  %}<!-- /nocache::'catalog.menu' -->
 {% include 'banner'|block %}
 {% include 'breadcrumb'|block %}
 <main>
