@@ -330,7 +330,12 @@ class Core_Page extends Core_Template_Abstract
      */
     public function setErrorMessage(string $message): void
     {
-        $this->setTmpSessionData('error_message', $message);
+        $messages = $this->getTmpSessionData('error_message');
+        $messages[] = $message;
+
+        $messages = array_unique($messages);
+
+        $this->setTmpSessionData('error_message', $messages);
     }
 
     /**
@@ -342,7 +347,12 @@ class Core_Page extends Core_Template_Abstract
      */
     public function setSuccessMessage(string $message): void
     {
-        $this->setTmpSessionData('success_message', $message);
+        $messages = $this->getTmpSessionData('success_message');
+        $messages[] = $message;
+
+        $messages = array_unique($messages);
+
+        $this->setTmpSessionData('success_message', $messages);
     }
 
     /**
@@ -354,37 +364,42 @@ class Core_Page extends Core_Template_Abstract
      */
     public function setWarningMessage(string $message): void
     {
-        $this->setTmpSessionData('warning_message', $message);
+        $messages = $this->getTmpSessionData('warning_message');
+        $messages[] = $message;
+
+        $messages = array_unique($messages);
+
+        $this->setTmpSessionData('warning_message', $messages);
     }
 
     /**
-     * Retrieve error message
+     * Retrieve error messages
      *
-     * @return string|null
+     * @return string[]
      */
-    public function getErrorMessage(): ?string
+    public function getErrorMessages(): array
     {
-        return $this->getTmpSessionData('error_message');
+        return $this->getTmpSessionData('error_message') ?: [];
     }
 
     /**
-     * Retrieve success message
+     * Retrieve success messages
      *
-     * @return string|null
+     * @return string[]
      */
-    public function getSuccessMessage(): ?string
+    public function getSuccessMessages(): array
     {
-        return $this->getTmpSessionData('success_message');
+        return $this->getTmpSessionData('success_message') ?: [];
     }
 
     /**
      * Retrieve warning message
      *
-     * @return string|null
+     * @return string[]
      */
-    public function getWarningMessage(): ?string
+    public function getWarningMessages(): array
     {
-        return $this->getTmpSessionData('warning_message');
+        return $this->getTmpSessionData('warning_message') ?: [];
     }
 
     /**
