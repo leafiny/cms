@@ -13,7 +13,7 @@ final class App
     /**
      * @var string VERSION
      */
-    public const VERSION = '1.1.2';
+    public const VERSION = '1.1.3';
     /**
      * @var string MODULES_DIRECTORY
      */
