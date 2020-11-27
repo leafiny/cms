@@ -32,8 +32,19 @@ class Backend_Page_Cache_Flush_Template extends Backend_Page_Admin_Page_Abstract
                 App::translate('The cache has been flushed.') .
                 ' ' . $files . ' ' . App::translate('file(s) deleted.')
             );
+            App::dispatchEvent(
+                'flush_cache_success',
+                ['type' => 'template']
+            );
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
+            App::dispatchEvent(
+                'flush_cache_error',
+                [
+                    'type'  => 'template',
+                    'error' => $throwable->getMessage(),
+                ]
+            );
         }
 
         $this->redirect($this->getRefererUrl(), true);

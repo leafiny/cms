@@ -41,4 +41,14 @@ class Contact_Page_Contact extends Core_Page
             $this->translate($title) => $this->getBaseUrl() . ltrim($this->getObjectIdentifier(), '/')
         ];
     }
+
+    /**
+     * Retrieve object key
+     *
+     * @return string|null
+     */
+    public function getObjectKey(): ?string
+    {
+        return 'contact';
+    }
 }

@@ -1,0 +1,4 @@
+"FPC Cache Key","FPC Cache Key"
+"Flush cache for specific key. Leave empty for home.","Flush cache for specific key. Leave empty for home."
+"Cache flushed for key:","Cache flushed for key:"
+"There is no cache for this key or it has already been flushed.","There is no cache for this key or it has already been flushed."

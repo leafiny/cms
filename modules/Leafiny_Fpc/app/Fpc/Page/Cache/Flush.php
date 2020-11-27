@@ -32,8 +32,19 @@ class Fpc_Page_Cache_Flush extends Backend_Page_Admin_Page_Abstract
                 App::translate('The cache has been flushed.') .
                 ' ' . $files . ' ' . App::translate('file(s) deleted.')
             );
+            App::dispatchEvent(
+                'flush_cache_success',
+                ['type' => 'fpc']
+            );
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
+            App::dispatchEvent(
+                'flush_cache_error',
+                [
+                    'type'  => 'fpc',
+                    'error' => $throwable->getMessage(),
+                ]
+            );
         }
 
         $this->redirect($this->getRefererUrl(), true);

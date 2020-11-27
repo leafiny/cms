@@ -20,13 +20,13 @@
                 {% else %}
                     {% for key,data in list %}
                         <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
-                            <td>{{ data.getName }}</td>
-                            <td class="italic">{{ data.getDescription }}</td>
+                            <td>{{ data.getName|translate }}</td>
+                            <td class="italic">{{ data.getDescription|translate }}</td>
                             <td class="status">
                                 {% if data.getStatus %}
-                                    <span class="enabled">{{ 'Enabled' }}</span>
+                                    <span class="enabled">{{ 'Enabled'|translate }}</span>
                                 {% else %}
-                                    <span class="disabled">{{ 'Disabled' }}</span>
+                                    <span class="disabled">{{ 'Disabled'|translate }}</span>
                                 {% endif %}
                             </td>
                             <td><a href="{{ page.getUrl(data.getFlush) }}" class="pure-button green">{{ 'Flush'|translate }}</a></td>
@@ -37,3 +37,7 @@
         </table>
     </div>
 </form>
+
+{% for child in page.getChildren %}
+    {% include child|block ignore missing %}
+{% endfor %}

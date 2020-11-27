@@ -21,4 +21,22 @@ class Backend_Page_Cache_List extends Backend_Page_Admin_List
 
         parent::action();
     }
+
+    /**
+     * Retrieve Children blocks
+     *
+     * @return string[]
+     */
+    public function getChildren(): array
+    {
+        $children = $this->getCustom('children');
+
+        if (!$children) {
+            return [];
+        }
+
+        ksort($children);
+
+        return $children;
+    }
 }

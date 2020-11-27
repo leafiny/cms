@@ -51,7 +51,13 @@ $config = [
         ],
         'backend_action_remove_delete_after' => [
             1000 => 'log_backend_action_remove_delete_after',
-        ]
+        ],
+        'flush_cache_success' => [
+            1000 => 'log_flush_cache_success',
+        ],
+        'flush_cache_error' => [
+            1000 => 'log_flush_cache_error',
+        ],
     ],
 
     'event' => [
@@ -63,7 +69,13 @@ $config = [
         ],
         'log_backend_action_remove_delete_after' => [
             'class' => Log_Observer_Backend_Entity_Delete::class,
-        ]
+        ],
+        'log_flush_cache_success' => [
+            'class' => Log_Observer_Backend_Cache_Flush_Success::class,
+        ],
+        'log_flush_cache_error' => [
+            'class' => Log_Observer_Backend_Cache_Flush_Error::class,
+        ],
     ],
 
     'block' => [

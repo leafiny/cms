@@ -164,6 +164,8 @@ class Fpc_Helper_Cache extends Core_Helper
     {
         $directory = $this->getPageCacheDir($cacheKey);
 
+        $isFlushed = false;
+
         if (is_dir($directory)) {
             $files = scandir($directory);
 
@@ -171,6 +173,8 @@ class Fpc_Helper_Cache extends Core_Helper
                 if (!is_file($directory . $file)) {
                     continue;
                 }
+
+                $isFlushed = true;
 
                 if (App::getConfig('app.twig_cache')) {
                     $template = str_replace($this->getCacheDir(), '', $directory . $file);
@@ -186,7 +190,7 @@ class Fpc_Helper_Cache extends Core_Helper
             }
         }
 
-        return true;
+        return $isFlushed;
     }
 
     /**

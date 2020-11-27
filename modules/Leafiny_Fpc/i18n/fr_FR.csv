@@ -1,0 +1,4 @@
+"FPC Cache Key","Clé de cache FPC"
+"Flush cache for specific key. Leave empty for home.","Rafraîchir le cache pour une clé spécifique. Laisser vide pour la page d'accueil."
+"Cache flushed for key:","Cache rafraîchi pour la clé:"
+"There is no cache for this key or it has already been flushed.","Il n'y a pas de cache pour cette clé ou celui-ci a déjà été rafraîchi."

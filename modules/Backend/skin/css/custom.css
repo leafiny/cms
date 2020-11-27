@@ -492,7 +492,10 @@ main {
 }
 
 .container-grid td.status span {
+    display: inline-block;
     padding: 5px 10px;
+    min-width: 90px;
+    text-align: center;
 }
 
 .container-grid td.status .enabled {

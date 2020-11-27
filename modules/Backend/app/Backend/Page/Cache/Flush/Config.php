@@ -28,8 +28,19 @@ class Backend_Page_Cache_Flush_Config extends Backend_Page_Admin_Page_Abstract
                 $file->rmdir($directory);
             }
             $this->setSuccessMessage(App::translate('The cache has been flushed.'));
+            App::dispatchEvent(
+                'flush_cache_success',
+                ['type' => 'config']
+            );
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
+            App::dispatchEvent(
+                'flush_cache_error',
+                [
+                    'type'  => 'config',
+                    'error' => $throwable->getMessage(),
+                ]
+            );
         }
 
         $this->redirect($this->getRefererUrl(), true);

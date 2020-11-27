@@ -15,10 +15,28 @@ $config = [
     ],
 
     'page' => [
+        /* Cache Management */
+        '/admin/*/cache/list/' => [
+            'children' => [
+                'fpc_key' => 'admin.fpc.cache.flush.key',
+            ],
+        ],
         '/admin/*/cache/flush/fpc/' => [
             'class'    => Fpc_Page_Cache_Flush::class,
             'template' => null,
+        ],
+        '/admin/*/cache/flush/fpc/key/' => [
+            'class'    => Fpc_Page_Cache_Flush_Key::class,
+            'template' => null,
         ]
+    ],
+
+    'block' => [
+        'admin.fpc.cache.flush.key' => [
+            'template' => 'Leafiny_Fpc::block/cache/key.twig',
+            'class'    => Fpc_Block_Cache_Key::class,
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+        ],
     ],
 
     'helper' => [
