@@ -25,6 +25,10 @@
             </div>
         </fieldset>
 
+        {% for child in page.getChildren %}
+            {% include child|block ignore missing %}
+        {% endfor %}
+
         <div class="pure-u-1">
             <p>
                 <span>* {{ 'Required fields'|translate }}</span>

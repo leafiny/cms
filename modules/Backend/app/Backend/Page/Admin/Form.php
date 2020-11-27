@@ -93,4 +93,22 @@ class Backend_Page_Admin_Form extends Backend_Page_Admin_Page_Abstract
 
         return $modelIdentifier ? (string)$modelIdentifier : null;
     }
+
+    /**
+     * Retrieve Children blocks
+     *
+     * @return string[]
+     */
+    public function getChildren(): array
+    {
+        $children = $this->getCustom('children');
+
+        if (!$children) {
+            return [];
+        }
+
+        ksort($children);
+
+        return $children;
+    }
 }
