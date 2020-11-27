@@ -90,6 +90,10 @@ final class App
     public static function run(): void
     {
         try {
+            $autoload = self::getRootDir() . 'vendor' . DS . 'autoload.php';
+            if (is_file($autoload)) {
+                require $autoload;
+            }
             self::processMaintenance();
             self::requirements();
             self::processSetup();
