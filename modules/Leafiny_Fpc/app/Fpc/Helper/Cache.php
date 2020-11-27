@@ -171,6 +171,13 @@ class Fpc_Helper_Cache extends Core_Helper
                 if (!is_file($directory . $file)) {
                     continue;
                 }
+
+                if (App::getConfig('app.twig_cache')) {
+                    $template = str_replace($this->getCacheDir(), '', $directory . $file);
+                    $page = new Core_Page();
+                    $page->clearTplCache($template);
+                }
+
                 unlink($directory . $file);
             }
 

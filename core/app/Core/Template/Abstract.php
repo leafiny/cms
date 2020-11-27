@@ -27,6 +27,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
      * @var string $context
      */
     protected $context = self::CONTEXT_DEFAULT;
+
     /**
      * Avoid to render when this var is false
      *
@@ -35,15 +36,77 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     protected $render = true;
 
     /**
+     * Environment
+     *
+     * @var null|Twig\Environment
+     */
+    protected $environment = null;
+
+    /**
+     * Retrieve Twig Environment
+     *
+     * @param array         $options
+     * @param string[]|null $paths
+     *
+     * @return Twig\Environment
+     */
+    public function getEnvironment(array $options = [], ?array $paths = null): Twig\Environment
+    {
+        if (is_null($this->environment)) {
+            if ($paths === null) {
+                $paths = [
+                    $this->getHelper()->getModulesDir(),
+                    $this->getHelper()->getCacheDir(),
+                ];
+            }
+
+            if (App::getConfig('app.twig_cache')) {
+                $options['cache'] = $this->getHelper()->getCacheDir() . self::CACHE_TWIG_DIRECTORY . DS;
+            }
+
+            $loader = new Twig\Loader\FilesystemLoader($paths);
+            $twig = new Twig\Environment($loader, $options);
+            $twig->addExtension(new Twig\Extension\StringLoaderExtension());
+            $this->addFilters($twig);
+
+            $this->environment = $twig;
+        }
+
+        return $this->environment;
+    }
+
+    /**
+     * Clear file template cache
+     *
+     * @param string                $template
+     * @param Twig\Environment|null $environment
+     *
+     * @return void
+     */
+    public function clearTplCache(string $template, ?Twig\Environment $environment = null): void
+    {
+        if ($environment === null) {
+            $environment = $this->getEnvironment();
+        }
+
+        $class = $environment->getTemplateClass($template);
+        $file  = $environment->getCache(false)->generateKey($template, $class);
+
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+
+    /**
      * Render HTML
      *
      * @param array         $options
      * @param string[]|null $paths
      *
      * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Twig\Error\LoaderError
+     * @throws Twig\Error\RuntimeError
+     * @throws Twig\Error\SyntaxError
      */
     public function render(array $options = [], ?array $paths = null): string
     {
@@ -55,21 +118,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             return '';
         }
 
-        if ($paths === null) {
-            $paths = [
-                $this->getHelper()->getModulesDir(),
-                $this->getHelper()->getCacheDir(),
-            ];
-        }
-
-        if (App::getConfig('app.twig_cache')) {
-            $options['cache'] = $this->getHelper()->getCacheDir() . self::CACHE_TWIG_DIRECTORY . DS;
-        }
-
-        $loader = new Twig\Loader\FilesystemLoader($paths);
-        $twig = new Twig\Environment($loader, $options);
-        $twig->addExtension(new Twig\Extension\StringLoaderExtension());
-        $this->addFilters($twig);
+        $twig = $this->getEnvironment($options, $paths);
 
         if (method_exists($this, 'preRender')) {
             $this->preRender();
