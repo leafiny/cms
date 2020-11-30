@@ -114,7 +114,7 @@ $config = [
     'helper' => [
         'catalog_product' => [
             'class'            => Catalog_Helper_Data::class,
-            'product_per_page' => 1,
+            'product_per_page' => 12,
         ],
         'fpc_cache' => [
             'allowed_params' => [
