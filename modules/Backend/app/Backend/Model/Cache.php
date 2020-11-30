@@ -29,7 +29,7 @@ class Backend_Model_Cache extends Leafiny_Object
             }
 
             if (isset($data['active'])) {
-                $data['status'] = App::getConfig($data['active']);
+                $data['status'] = is_string($data['active']) ? App::getConfig($data['active']) : $data['active'];
             }
 
             $caches[] = new Leafiny_Object($data);

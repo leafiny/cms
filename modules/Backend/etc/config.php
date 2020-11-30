@@ -118,6 +118,10 @@ $config = [
             'class'            => Backend_Page_Cache_Flush_Config::class,
             'template'         => null,
         ],
+        '/admin/*/cache/flush/autoload/' => [
+            'class'            => Backend_Page_Cache_Flush_Autoload::class,
+            'template'         => null,
+        ],
     ],
 
     'model' => [
@@ -141,6 +145,12 @@ $config = [
                     'description' => 'Twig compiled templates',
                     'flush'       => '/admin/*/cache/flush/template/',
                     'active'      => 'app.twig_cache'
+                ],
+                'autoload' => [
+                    'name'        => 'Autoload',
+                    'description' => 'Symlinks of module classes for autoload',
+                    'flush'       => '/admin/*/cache/flush/autoload/',
+                    'active'      => true
                 ],
             ],
         ],

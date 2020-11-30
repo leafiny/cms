@@ -27,6 +27,11 @@ final class App
      */
     public const BACKEND_MODULE_NAME = 'backend';
     /**
+     * @var string CLASS_SYMLINKS_DIRECTORY
+     */
+    public const CLASS_SYMLINKS_DIRECTORY = 'load';
+
+    /**
      * Contains Objects
      *
      * @var Leafiny_Object[] $singleton
@@ -479,7 +484,7 @@ final class App
         if (is_array($observers)) {
             ksort($observers);
             foreach ($observers as $event) {
-                /** @var Core_Observer_Abstract $object */
+                /** @var Core_Event $object */
                 $observer = App::getObject('event', $event);
                 $object = new Leafiny_Object();
                 foreach ($data as $key => $value) {
@@ -648,6 +653,22 @@ final class App
     }
 
     /**
+     * Retrieve loaded classes directory
+     *
+     * @return string
+     */
+    public static function getClassSymlinksDir(): string
+    {
+        $directory = self::getRootDir() . 'var' . DS . self::CLASS_SYMLINKS_DIRECTORY . DS;
+
+        if (!is_dir($directory)) {
+            mkdir($directory);
+        }
+
+        return $directory;
+    }
+
+    /**
      * Autoload
      *
      * @param string $class
@@ -662,9 +683,12 @@ final class App
             $class = explode('_', $class);
         }
 
+        $classFile = join(DS, $class) . '.php';
+
         $files = [
-            self::getRootDir() . 'core' . DS . 'app' . DS . join(DS, $class) . '.php',
-            self::getRootDir() . 'core' . DS . 'lib' . DS . join(DS, $class) . '.php',
+            self::getRootDir() . 'core' . DS . 'app' . DS . $classFile,
+            self::getRootDir() . 'core' . DS . 'lib' . DS . $classFile,
+            self::getClassSymlinksDir() . $classFile,
         ];
 
         foreach ($files as $file) {
@@ -675,9 +699,15 @@ final class App
         }
 
         foreach (self::getModules() as $module) {
-            $file = self::getModulesDir($module) . 'app' . DS . join(DS, $class) . '.php';
-            if (is_file($file)) {
-                require_once $file;
+            $include = self::getModulesDir($module) . 'app' . DS . $classFile;
+            if (is_file($include)) {
+                $loaded = self::getClassSymlinksDir() . $classFile;
+                if (!is_dir(dirname($loaded))) {
+                    mkdir(dirname($loaded), 0777, true);
+                }
+                symlink($include, $loaded);
+
+                require_once $include;
                 return;
             }
         }

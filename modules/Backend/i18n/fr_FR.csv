@@ -69,3 +69,4 @@
 "Flush","Rafraîchir"
 "The cache has been flushed.","Le cache a été rafraîchi."
 "file(s) deleted.","fichier(s) supprimé(s)."
+"Class symlinks have been flushed.","Les liens symboliques de classe ont été supprimés."
