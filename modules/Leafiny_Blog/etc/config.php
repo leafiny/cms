@@ -23,6 +23,11 @@ $config = [
             'class'         => Blog_Helper_Data::class,
             'post_per_page' => 10,
         ],
+        'fpc_cache' => [
+            'allowed_params' => [
+                'blog' => Blog_Helper_Data::URL_PARAM_PAGE
+            ],
+        ]
     ],
 
     'block' => [
@@ -119,13 +124,13 @@ $config = [
     ],
 
     'observer' => [
-        'page_identifier_extract_before' => [
-            150 => 'page_rewrite_match_identifier_page',
+        'frontend_page_post_process' => [
+            150 => 'check_page_posts',
         ],
     ],
 
     'event' => [
-        'page_rewrite_match_identifier_page' => [
+        'check_page_posts' => [
             'class' => Blog_Observer_Page::class,
         ],
     ],

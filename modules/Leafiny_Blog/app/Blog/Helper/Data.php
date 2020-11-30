@@ -10,7 +10,12 @@ class Blog_Helper_Data extends Core_Helper
     /**
      * @var string URL_PARAM_PAGE
      */
-    public const URL_PARAM_PAGE = '-blog-page-';
+    public const URL_PARAM_PAGE = 'bp';
+
+    /**
+     * @var null|Leafiny_Object[]
+     */
+    protected $categoryPosts = null;
 
     /**
      * Retrieve Category Post
@@ -18,21 +23,17 @@ class Blog_Helper_Data extends Core_Helper
      * @param int $categoryId
      * @param int $page
      *
-     * @return array
+     * @return Leafiny_Object[]
      * @throws Exception
      */
     public function getCategoryPosts(int $categoryId, int $page = 1): array
     {
+        if ($this->categoryPosts !== null) {
+            return $this->categoryPosts;
+        }
+
         /** @var Blog_Model_Post $model */
         $model = App::getObject('model', 'blog_post');
-
-        $filters = [
-            [
-                'column'   => 'status',
-                'value'    => 1,
-                'operator' => '=',
-            ],
-        ];
 
         $orders = [
             [
@@ -47,7 +48,41 @@ class Blog_Helper_Data extends Core_Helper
 
         $limit = [$this->getOffset($page), $this->getLimit()];
 
-        return $model->addCategoryFilter($categoryId)->getList($filters, $orders, $limit);
+        $this->categoryPosts = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), $orders, $limit);
+
+        return $this->categoryPosts;
+    }
+
+    /**
+     * Retrieve Category Post
+     *
+     * @param int $categoryId
+     *
+     * @return int
+     * @throws Exception
+     */
+    public function getTotalCategoryPosts(int $categoryId): int
+    {
+        /** @var Blog_Model_Post $model */
+        $model = App::getObject('model', 'blog_post');
+
+        return count($model->addCategoryFilter($categoryId)->getList($this->getFilters()));
+    }
+
+    /**
+     * Retrieve posts filters
+     *
+     * @return array[]
+     */
+    public function getFilters(): array
+    {
+        return [
+            [
+                'column'   => 'status',
+                'value'    => 1,
+                'operator' => '=',
+            ],
+        ];
     }
 
     /**

@@ -18,10 +18,53 @@ class Blog_Block_Category_Post extends Core_Block
     public function getPosts(int $categoryId): array
     {
         /** @var Blog_Helper_Data $helper */
-        $helper = App::getObject('helper', 'blog_post');
+        $helper = App::getSingleton('helper', 'blog_post');
 
-        $page = $this->getParentObjectParams()->getData('p') ?: 1;
+        return $helper->getCategoryPosts($categoryId, $this->getPageNumber());
+    }
 
-        return $helper->getCategoryPosts($categoryId, (int)$page);
+    /**
+     * Retrieve current page number
+     *
+     * @return int
+     */
+    public function getPageNumber(): int
+    {
+        return (int)$this->getParentObjectParams()->getData(Blog_Helper_Data::URL_PARAM_PAGE) ?: 1;
+    }
+
+    /**
+     * Retrieve total pages number
+     *
+     * @param int $categoryId
+     *
+     * @return int
+     * @throws Exception
+     */
+    public function getTotalPages(int $categoryId): int
+    {
+        /** @var Blog_Helper_Data $helper */
+        $helper = App::getSingleton('helper', 'blog_post');
+
+        return (int)ceil($helper->getTotalCategoryPosts($categoryId) / $helper->getLimit()) ?: 1;
+    }
+
+    /**
+     * Retrieve page URL
+     *
+     * @param Core_Page $page
+     * @param int       $number
+     *
+     * @return string
+     */
+    public function getPageUrl(Core_Page $page, int $number): string
+    {
+        $url = $page->getUrl($page->getObjectIdentifier());
+
+        if ($number > 1) {
+            $url .= '?' . Blog_Helper_Data::URL_PARAM_PAGE . '=' . $number;
+        }
+
+        return $url;
     }
 }

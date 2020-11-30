@@ -43,7 +43,7 @@ $config = [
         'fpc_cache' => [
             'class' => Fpc_Helper_Cache::class,
             'no_cache_identifiers' => ['http_404'],
-            'allowed_params' => ['p'],
+            'allowed_params' => [],
         ]
     ],
 

@@ -119,6 +119,18 @@ header, main, footer, #banner, #breadcrumb {
     margin: 0 auto;
 }
 
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
 /* Header */
 header {
     position: relative;
@@ -419,6 +431,21 @@ footer a {
     border: 1px solid #006554;
 }
 
+/* Multi-pages */
+.multipage {
+    margin-top: 2em;
+}
+
+.multipage a {
+    border: 1px solid #006554;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.multipage .number a {
+    margin: 0 5px;
+}
+
 /* Posts */
 .post-list-content {
     margin: 10px 0;
@@ -584,6 +611,11 @@ footer a {
     }
 
     .breadcrumb-content li.last {
+        display: none;
+    }
+
+    /* Multi-pages */
+    .multipage .number {
         display: none;
     }
 }
