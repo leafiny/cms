@@ -52,6 +52,12 @@ class Blog_Observer_Page extends Core_Event
             return;
         }
 
+        if ($page->getCustom('canonical')) {
+            $page->setCustom(
+                'canonical',
+                $page->getCustom('canonical') . '?' . Blog_Helper_Data::URL_PARAM_PAGE . '=' . $pageNumber
+            );
+        }
         $page->setCustom(
             'meta_title',
             $page->getCustom('meta_title') . ' - ' . App::translate('Page') . ' ' . $pageNumber
