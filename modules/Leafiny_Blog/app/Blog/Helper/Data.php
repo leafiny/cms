@@ -35,20 +35,10 @@ class Blog_Helper_Data extends Core_Helper
         /** @var Blog_Model_Post $model */
         $model = App::getObject('model', 'blog_post');
 
-        $orders = [
-            [
-                'order' => 'publish_date',
-                'dir'   => 'DESC',
-            ],
-            [
-                'order' => 'created_at',
-                'dir'   => 'DESC',
-            ]
-        ];
-
         $limit = [$this->getOffset($page), $this->getLimit()];
 
-        $this->categoryPosts = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), $orders, $limit);
+        $this->categoryPosts = $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), $this->getOrders(), $limit);
 
         return $this->categoryPosts;
     }
@@ -67,6 +57,25 @@ class Blog_Helper_Data extends Core_Helper
         $model = App::getObject('model', 'blog_post');
 
         return count($model->addCategoryFilter($categoryId)->getList($this->getFilters()));
+    }
+
+    /**
+     * Retrieve product orders
+     *
+     * @return string[][]
+     */
+    public function getOrders(): array
+    {
+        return [
+            [
+                'order' => 'publish_date',
+                'dir'   => 'DESC',
+            ],
+            [
+                'order' => 'created_at',
+                'dir'   => 'DESC',
+            ]
+        ];
     }
 
     /**
