@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Entity_Save
  */
-class Log_Observer_Backend_Entity_Save extends Core_Observer_Abstract
+class Log_Observer_Backend_Entity_Save extends Core_Event
 {
     /**
      * Execute

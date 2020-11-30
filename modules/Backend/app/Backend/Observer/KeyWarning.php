@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Backend_Observer_KeyWarning
  */
-class Backend_Observer_KeyWarning extends Core_Observer_Abstract
+class Backend_Observer_KeyWarning extends Core_Event
 {
     /**
      * Execute

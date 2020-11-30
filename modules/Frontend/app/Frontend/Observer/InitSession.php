@@ -3,7 +3,7 @@
 /**
  * Class Frontend_Observer_InitSession
  */
-class Frontend_Observer_InitSession extends Core_Observer_Abstract
+class Frontend_Observer_InitSession extends Core_Event
 {
     /**
      * Execute

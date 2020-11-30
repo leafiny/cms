@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Gallery_Observer_Backend_Gallery_DeleteImages
  */
-class Gallery_Observer_Backend_Gallery_DeleteImages extends Core_Observer_Abstract
+class Gallery_Observer_Backend_Gallery_DeleteImages extends Core_Event
 {
     /**
      * Execute

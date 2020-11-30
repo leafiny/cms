@@ -3,7 +3,7 @@
 /**
  * Class Frontend_Observer_SetLocaleInformation
  */
-class Frontend_Observer_SetLocaleInformation extends Core_Observer_Abstract
+class Frontend_Observer_SetLocaleInformation extends Core_Event
 {
     /**
      * Execute

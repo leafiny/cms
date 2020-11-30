@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * Class Core_Observer_Abstract
+ * Class Core_Event
  */
-abstract class Core_Observer_Abstract extends Leafiny_Object
+class Core_Event extends Leafiny_Object
 {
     /**
      * Execute
@@ -14,7 +14,7 @@ abstract class Core_Observer_Abstract extends Leafiny_Object
      *
      * @return void
      */
-    abstract public function execute(Leafiny_Object $object): void;
+    public function execute(Leafiny_Object $object): void {}
 
     /**
      * Get custom data

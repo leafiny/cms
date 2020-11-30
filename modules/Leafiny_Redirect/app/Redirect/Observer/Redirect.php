@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Redirect_Observer_Redirect
  */
-class Redirect_Observer_Redirect extends Core_Observer_Abstract
+class Redirect_Observer_Redirect extends Core_Event
 {
     /**
      * Execute

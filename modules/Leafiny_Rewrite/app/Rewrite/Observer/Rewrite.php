@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Rewrite_Observer_Rewrite
  */
-class Rewrite_Observer_Rewrite extends Core_Observer_Abstract
+class Rewrite_Observer_Rewrite extends Core_Event
 {
     /**
      * Execute

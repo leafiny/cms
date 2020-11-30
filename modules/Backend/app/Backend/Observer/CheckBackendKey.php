@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Backend_Observer_CheckBackendKey
  */
-class Backend_Observer_CheckBackendKey extends Core_Observer_Abstract
+class Backend_Observer_CheckBackendKey extends Core_Event
 {
     /**
      * Execute

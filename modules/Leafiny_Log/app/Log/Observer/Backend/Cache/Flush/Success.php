@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Cache_Flush_Success
  */
-class Log_Observer_Backend_Cache_Flush_Success extends Core_Observer_Abstract
+class Log_Observer_Backend_Cache_Flush_Success extends Core_Event
 {
     /**
      * Execute

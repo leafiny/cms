@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Fpc_Observer_GetCache
  */
-class Fpc_Observer_GetCache extends Core_Observer_Abstract
+class Fpc_Observer_GetCache extends Core_Event
 {
     /**
      * Execute
