@@ -474,13 +474,9 @@ footer a {
     margin-bottom: 2em;
 }
 
-.pages {
-    margin: 0 -10px 0 -10px;
-}
-
 .page-list-content {
-    margin: 10px;
-    padding: 10px;
+    margin: 10px 10px 10px 0;
+    padding: 10px 10px 10px 0;
 }
 
 .page-list-content a {
