@@ -22,4 +22,25 @@
             </div>
         {% endfor %}
     </div>
+    {% set totalPage = page.getCurrent.getTotalPages(category.getCategoryId) %}
+    {% if (totalPage > 1) %}
+        {% set currentPage = page.getCurrent.getPageNumber %}
+        <div class="multipage pure-g">
+            <div class="previous pure-u-1-2 pure-u-md-1-5 left">
+                {% if (currentPage > 1) %}
+                    <a href="{{ page.getCurrent.getPageUrl(page, currentPage - 1) }}">{{ 'Previous'|translate }}</a>
+                {% endif %}
+            </div>
+            <div class="number pure-u-3-5 center">
+                {% for i in 1..totalPage %}
+                    <a href="{{ page.getCurrent.getPageUrl(page, i) }}">{{ i }}</a>
+                {% endfor %}
+            </div>
+            <div class="next pure-u-1-2 pure-u-md-1-5 right">
+                {% if (currentPage < totalPage) %}
+                    <a href="{{ page.getCurrent.getPageUrl(page, currentPage + 1) }}">{{ 'Next'|translate }}</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
 {% endif %}

@@ -21,3 +21,6 @@
 "The sku cannot be empty","La référence est obligatoire"
 "The name cannot be empty","Le nom est obligatoire"
 "The key cannot be empty","La clé est obligatoire"
+"Page","Page"
+"Previous","Précédent"
+"Next","Suivant"

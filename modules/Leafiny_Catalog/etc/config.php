@@ -110,4 +110,28 @@ $config = [
         ],
         /* /Admin Products */
     ],
+
+    'helper' => [
+        'catalog_product' => [
+            'class'            => Catalog_Helper_Data::class,
+            'product_per_page' => 1,
+        ],
+        'fpc_cache' => [
+            'allowed_params' => [
+                'catalog' => Catalog_Helper_Data::URL_PARAM_PAGE
+            ],
+        ]
+    ],
+
+    'observer' => [
+        'frontend_page_post_process' => [
+            250 => 'check_page_products',
+        ],
+    ],
+
+    'event' => [
+        'check_page_products' => [
+            'class' => Catalog_Observer_Page::class,
+        ],
+    ],
 ];
