@@ -329,6 +329,9 @@ final class App
     {
         if (self::$config === null) {
             self::$config = new Core_Config();
+            if (!self::$config->get('app.config_cache')) {
+                self::$config->unlock();
+            }
         }
 
         return self::$config->get($path) ?: $default;
@@ -702,6 +705,9 @@ final class App
             $include = self::getModulesDir($module) . 'app' . DS . $classFile;
             if (is_file($include)) {
                 $loaded = self::getClassSymlinksDir() . $classFile;
+                if (is_file($loaded)) {
+                    unlink($loaded);
+                }
                 if (!is_dir(dirname($loaded))) {
                     mkdir(dirname($loaded), 0777, true);
                 }
