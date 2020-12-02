@@ -29,8 +29,8 @@ class Contact_Page_Contact_Post extends Core_Page
         $error = $message->validate($form);
 
         if ($this->isFormCodeRequired()) {
-            $formCode = $this->getTmpSessionData('form_code');
-            if (empty($formCode) || $formCode !== $form->getData('form_code')) {
+            $formCode = $this->getTmpSessionData('form_code') ?: '';
+            if (empty($formCode) || strtolower($formCode) !== strtolower($form->getData('form_code') ?: '')) {
                 $error = 'Invalid security code';
             }
         }
