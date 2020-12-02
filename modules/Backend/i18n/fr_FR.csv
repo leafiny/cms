@@ -70,3 +70,4 @@
 "The cache has been flushed.","Le cache a été rafraîchi."
 "file(s) deleted.","fichier(s) supprimé(s)."
 "Class symlinks have been flushed.","Les liens symboliques de classe ont été supprimés."
+"Backend key is set to ""leafiny"". Please modify for more security.","La clé d'accès au backoffice est ""leafiny"". Merci de modifier pour la sécurité."
