@@ -16,4 +16,5 @@
 "An error occurred when sending message","Une erreur s'est produite lors de l'envoi du message"
 "Yes","Oui"
 "No","Non"
-"Backend key is set to ""leafiny"". Please modify for more security.","La clé d'accès au backoffice est ""leafiny"". Merci de modifier pour la sécurité."
+"Please enter the letters you see","Merci de saisir les lettres affichées"
+"Invalid security code","Code de sécurité erroné"

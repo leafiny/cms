@@ -18,8 +18,9 @@ $config = [
             'canonical'        => 'contact.html',
         ],
         '/contact/post/' => [
-            'class'    => Contact_Page_Contact_Post::class,
-            'template' => null,
+            'class'              => Contact_Page_Contact_Post::class,
+            'template'           => null,
+            'form_code_required' => true,
         ],
         /* /Frontend */
 

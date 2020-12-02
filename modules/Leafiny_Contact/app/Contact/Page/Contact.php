@@ -22,6 +22,20 @@ class Contact_Page_Contact extends Core_Page
     }
 
     /**
+     * Retrieve captcha inline format
+     *
+     * @return string
+     */
+    public function getCaptchaImage(): string
+    {
+        $captcha = new Leafiny_Captcha;
+
+        $this->setTmpSessionData('form_code', $captcha->getText());
+
+        return $captcha->inline();
+    }
+
+    /**
      * Retrieve breadcrumb
      *
      * @return string[]

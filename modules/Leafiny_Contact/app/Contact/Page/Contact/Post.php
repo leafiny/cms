@@ -28,6 +28,13 @@ class Contact_Page_Contact_Post extends Core_Page
         $message = App::getObject('model', 'contact_message');
         $error = $message->validate($form);
 
+        if ($this->isFormCodeRequired()) {
+            $formCode = $this->getTmpSessionData('form_code');
+            if (empty($formCode) || $formCode !== $form->getData('form_code')) {
+                $error = 'Invalid security code';
+            }
+        }
+
         if (!empty($error)) {
             $this->setErrorMessage($this->translate($error));
             $this->redirect($this->getUrl('/contact.html'));
@@ -64,5 +71,15 @@ class Contact_Page_Contact_Post extends Core_Page
         }
 
         $this->redirect($this->getUrl('/contact.html'));
+    }
+
+    /**
+     * Is Form code required
+     *
+     * @return bool
+     */
+    public function isFormCodeRequired(): bool
+    {
+        return (bool)$this->getCustom('form_code_required');
     }
 }

@@ -14,6 +14,17 @@
                 <textarea id="message" class="pure-u-1" name="message" required>{{ page.getForm.getMessage }}</textarea>
             </div>
             <div class="pure-u-1">
+                <label for="form_code">{{ 'Please enter the letters you see'|translate }} <span>*</span> :</label>
+                <div class="pure-u-8-24 pure-u-md-4-24">
+                    <div class="form-code">
+                        <img src="{{ page.getCaptchaImage }}" alt="Text" />
+                    </div>
+                </div>
+                <div class="pure-u-16-24 pure-u-md-20-24">
+                    <input id="form_code" type="text" class="pure-u-1" name="form_code" value="" required />
+                </div>
+            </div>
+            <div class="pure-u-1">
                 <p>
                     <span>* {{ 'Required fields'|translate }}</span>
                 </p>

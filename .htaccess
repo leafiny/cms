@@ -57,5 +57,5 @@ RewriteRule .* index.php [L]
 # Update header
 <IfModule mod_headers.c>
     Header set X-Frame-Options DENY
-    Header set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'self'"
+    Header set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'self'"
 </IfModule>
