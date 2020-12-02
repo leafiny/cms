@@ -52,6 +52,31 @@ class Backend_Block_Menu extends Core_Block
     }
 
     /**
+     * Retrieve if menu is active
+     *
+     * @param Core_Page $page
+     * @param string    $path
+     *
+     * @return bool
+     */
+    public function isActive(Core_Page $page, string $path): bool
+    {
+        if ($page->getCustom('active_menu') === $path) {
+            return true;
+        }
+
+        if ($page->getCustom('referer_identifier') === $path) {
+            return true;
+        }
+
+        if ($page->getObjectIdentifier() === $path) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if resource is allowed for current admin user
      *
      * @param string $resource

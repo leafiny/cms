@@ -9,7 +9,7 @@
             <span class="pure-menu-heading">{{ title|translate }}</span>
             <ul class="pure-menu-list">
                 {% for link in children %}
-                    <li class="pure-menu-item{% if page.getObjectIdentifier == link.path %} pure-menu-active{% endif %}"><a href="{{ page.getUrl(link.path) }}" class="pure-menu-link">{{ link.title|translate }}</a></li>
+                    <li class="pure-menu-item{% if page.getCurrent.isActive(page, link.path) %} pure-menu-active{% endif %}"><a href="{{ page.getUrl(link.path) }}" class="pure-menu-link">{{ link.title|translate }}</a></li>
                 {% endfor %}
             </ul>
         {% endfor %}
