@@ -1,14 +1,15 @@
+{% set form = page.getFormData %}
 {% for language in page.getLanguages %}
     <div class="form-category-selector form_category_{{ language }}">
-        <label for="category_id_{{ language }}_{{ page.getCurrent.getName }}">{{ page.getCurrent.getLabel|translate }} :</label>
-        <select id="category_id_{{ language }}_{{ page.getCurrent.getName }}" class="pure-u-1 pure-u-xl-4-5" name="{{ page.getCurrent.getName }}{% if page.getCurrent.isMultiple %}[]{% endif %}" disabled="disabled"{% if page.getCurrent.isMultiple %} multiple="multiple"{% endif %}>
+        <label for="category_id_{{ language }}_{{ block.getName }}">{{ block.getLabel|translate }} :</label>
+        <select id="category_id_{{ language }}_{{ block.getName }}" class="pure-u-1 pure-u-xl-4-5" name="{{ block.getName }}{% if block.isMultiple %}[]{% endif %}" disabled="disabled"{% if block.isMultiple %} multiple="multiple"{% endif %}>
             <option value=""></option>
-            {% set categories = page.getCurrent.getCategories(language, form.getCategoryId ?: null) %}
+            {% set categories = block.getCategories(language, form.getCategoryId ?: null) %}
             {% for category in categories %}
-                {% if page.getCurrent.isMultiple %}
-                    <option value="{{ category.value }}"{% if category.value and category.value in form.getData(page.getCurrent.getName) %} selected="selected"{% endif %}>{{ category.label }}</option>
+                {% if block.isMultiple %}
+                    <option value="{{ category.value }}"{% if category.value and category.value in form.getData(block.getName) %} selected="selected"{% endif %}>{{ category.label }}</option>
                 {% else %}
-                    <option value="{{ category.value }}"{% if category.value and form.getData(page.getCurrent.getName) == category.value %} selected="selected"{% endif %}>{{ category.label }}</option>
+                    <option value="{{ category.value }}"{% if category.value and form.getData(block.getName) == category.value %} selected="selected"{% endif %}>{{ category.label }}</option>
                 {% endif %}
             {% endfor %}
         </select>

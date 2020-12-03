@@ -160,7 +160,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             }
         }
 
-        $twig->addFilter(new Twig\TwigFilter('block', [$this, 'getBlock']));
+        $twig->addFilter(new Twig\TwigFilter('block', [$this, 'blockHtml']));
     }
 
     /**
@@ -353,25 +353,51 @@ abstract class Core_Template_Abstract extends Leafiny_Object
      *
      * @param string $identifier
      *
-     * @return string|null
+     * @return Core_Block|null
      * @throws Exception
      */
-    public function getBlock(string $identifier): ?string
+    public function getBlock(string $identifier): ?Core_Block
     {
         /** @var Core_Block $block */
         $block = App::getSingleton('block', $identifier);
-        if (!$block->hasData()) {
+
+        if (!$block->getCustom('template')) {
             return null;
         }
 
         $block->setCurrentContext($this->getContext());
+
+        if (!$block->getTemplate()) {
+            return null;
+        }
+
         $block->setParentObjectIdentifier($this->getObjectIdentifier());
         $block->setParentObjectKey($this->getObjectKey());
         $block->setParentObjectParams($this->getObjectParams());
 
-        $this->setData('current', $block);
+        return $block;
+    }
 
-        return $block->getTemplate();
+    /**
+     * Show block template
+     *
+     * @param string $identifier
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function blockHtml(string $identifier): void
+    {
+        $block = $this->getBlock($identifier);
+
+        if ($block) {
+            try {
+                $environment = $this->getEnvironment();
+                $environment->display($block->getTemplate(), ['page' => $this, 'block' => $block]);
+            } catch (Twig\Error\LoaderError $exception) {
+                // Ignore missing template
+            }
+        }
     }
 
     /**

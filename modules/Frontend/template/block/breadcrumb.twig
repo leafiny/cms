@@ -1,4 +1,4 @@
-{% set links = page.getCurrent.getLinks ?: page.getCustom('breadcrumb') %}
+{% set links = block.getLinks ?: page.getCustom('breadcrumb') %}
 {% if links is not empty %}
 <div id="breadcrumb">
     <div class="breadcrumb-content">

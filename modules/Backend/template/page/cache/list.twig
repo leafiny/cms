@@ -39,5 +39,5 @@
 </form>
 
 {% for child in page.getChildren %}
-    {% include child|block ignore missing %}
+    {{ child|block }}
 {% endfor %}

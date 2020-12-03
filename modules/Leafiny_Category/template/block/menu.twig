@@ -1,4 +1,4 @@
-{% set tree = page.getCurrent.getTree %}
+{% set tree = block.getTree %}
 {% if tree is not empty %}
     <nav>
         <div id="navigation">
@@ -12,7 +12,7 @@
                     <ul class="pure-menu-list menu-catalog-list categories" id="menu-categories">
                         {% for category in tree %}
                             <li class="pure-menu-item">
-                                <a href="{{ page.getUrl }}{{ category.path_key }}.html" class="pure-menu-link{% if page.getCurrent.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
+                                <a href="{{ page.getUrl }}{{ category.path_key }}.html" class="pure-menu-link{% if block.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
                                 {% if category.children %}
                                     <ul class="pure-menu-list child">
                                     {% for child in category.children %}

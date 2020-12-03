@@ -55,7 +55,7 @@
             <legend>{{ 'Hierarchy'|translate }}</legend>
             <div class="pure-g">
                 <div class="pure-u-1 field">
-                    {% include 'admin.catalog.category.form.categories'|block ignore missing %}
+                    {{ 'admin.catalog.category.form.categories'|block }}
                 </div>
                 <div class="pure-u-1 field">
                     <label for="position">{{ 'Position'|translate }} <span>*</span> :</label>
@@ -64,12 +64,12 @@
             </div>
         </fieldset>
 
-        {% if 'admin.gallery.form'|block %}
+        {% if page.getBlock('admin.gallery.form') %}
             <fieldset>
                 {% set maxFileNumber = page.getCustom('max_file_number') ?: 10000 %}
                 <legend>{{ maxFileNumber > 1 ? 'Images'|translate : 'Image'|translate }}</legend>
                 <div class="pure-u-1 field pure-u-xl-4-5">
-                    {% include 'admin.gallery.form'|block ignore missing %}
+                    {{ 'admin.gallery.form'|block }}
                 </div>
             </fieldset>
         {% endif %}
@@ -103,7 +103,7 @@
         </fieldset>
 
         {% for child in page.getChildren %}
-            {% include child|block ignore missing %}
+            {{ child|block }}
         {% endfor %}
 
         <div class="pure-u-1">

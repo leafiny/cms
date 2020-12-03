@@ -1,14 +1,14 @@
-<meta charset="{{ page.getCurrent.getCustom('charset') }}">
+<meta charset="{{ block.getCustom('charset') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ page.getCustom('meta_title')|translate }}</title>
 <meta name="description" content="{{ page.getCustom('meta_description')|translate }}" />
-{% for css in page.getCurrent.getStylesheets %}
+{% for css in block.getStylesheets %}
 <link rel="stylesheet" href="{{ page.getSkinUrl(css) }}" />
 {% endfor %}
-{% for js in page.getCurrent.getScripts %}
+{% for js in block.getScripts %}
 <script type="text/javascript" src="{{ page.getSkinUrl(js) }}"></script>
 {% endfor %}
-{% for child in page.getCurrent.getChildren %}
-    {% include child|block ignore missing %}
+{% for child in block.getChildren %}
+    {{ child|block }}
 {% endfor %}
 <meta name="robots" content="NOINDEX,NOFOLLOW" />

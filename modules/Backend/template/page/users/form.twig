@@ -49,13 +49,13 @@
                     </select>
                 </div>
                 <div class="pure-u-1" id="user-edit-resources">
-                    {% include 'admin.user.edit.resources'|block ignore missing %}
+                    {{ 'admin.user.edit.resources'|block }}
                 </div>
             </div>
         </fieldset>
 
         {% for child in page.getChildren %}
-            {% include child|block ignore missing %}
+            {{ child|block }}
         {% endfor %}
 
         <div class="pure-u-1">

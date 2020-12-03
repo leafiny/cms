@@ -1,8 +1,8 @@
-{% set resources = page.getCurrent.getResources %}
-{% set userResources = page.getCurrent.getUserResources(form.getUserId) %}
+{% set resources = block.getResources %}
+{% set userResources = block.getUserResources(form.getUserId) %}
 <div class="pure-u-lg-1-4">
 {% for resource,title in resources %}
-    {% if loop.index > 1 and (loop.index - 1) is divisible by(page.getCurrent.getColumnElementNumber) %}
+    {% if loop.index > 1 and (loop.index - 1) is divisible by(block.getColumnElementNumber) %}
         </div><div class="pure-u-lg-1-4">
     {% endif %}
     <label for="resource_{{ loop.index }}" class="pure-checkbox">

@@ -28,4 +28,4 @@
     {{ include(template_from_string(data.getContent)) }}
 </div>
 
-<!-- nocache::'blog.post.comments' -->{% include 'blog.post.comments'|block ignore missing %}<!-- /nocache::'blog.post.comments' -->
+<!-- nocache::'blog.post.comments' -->{{ 'blog.post.comments'|block }}<!-- /nocache::'blog.post.comments' -->

@@ -19,7 +19,7 @@
         </fieldset>
 
         {% for child in page.getChildren %}
-            {% include child|block ignore missing %}
+            {{ child|block }}
         {% endfor %}
 
         <div class="pure-u-1">

@@ -1,4 +1,5 @@
-{% set blocks = page.getCurrent.getBlocks(category.getCategoryId) %}
+{% set category = page.getCustom('category') %}
+{% set blocks = block.getBlocks(category.getCategoryId) %}
 {% if blocks is not empty %}
     <div class="blocks pure-g">
         {% for cms_block in blocks %}

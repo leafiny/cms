@@ -56,25 +56,25 @@
             </div>
         </fieldset>
 
-        {% if 'admin.gallery.form'|block %}
+        {% if page.getBlock('admin.gallery.form') %}
             <fieldset>
                 {% set maxFileNumber = page.getCustom('max_file_number') ?: 10000 %}
                 <legend>{{ maxFileNumber > 1 ? 'Images'|translate : 'Image'|translate }}</legend>
                 <div class="pure-u-1 field pure-u-xl-4-5">
-                    {% include 'admin.gallery.form'|block ignore missing %}
+                    {{ 'admin.gallery.form'|block }}
                 </div>
             </fieldset>
         {% endif %}
 
-        {% if 'admin.catalog.product.form.categories'|block %}
+        {% if page.getBlock('admin.catalog.product.form.categories') %}
             <fieldset>
                 <legend>{{ 'Categories'|translate }}</legend>
                 <div class="pure-u-1 field">
-                    {% include 'admin.catalog.product.form.categories'|block ignore missing %}
+                    {{ 'admin.catalog.product.form.categories'|block }}
                 </div>
-                {% if 'admin.catalog.product.form.breadcrumb'|block %}
+                {% if page.getBlock('admin.catalog.product.form.breadcrumb') %}
                     <div class="pure-u-1 field">
-                        {% include 'admin.catalog.product.form.breadcrumb'|block ignore missing %}
+                        {{ 'admin.catalog.product.form.breadcrumb'|block }}
                     </div>
                 {% endif %}
             </fieldset>
@@ -109,7 +109,7 @@
         </fieldset>
 
         {% for child in page.getChildren %}
-            {% include child|block ignore missing %}
+            {{ child|block }}
         {% endfor %}
 
         <div class="pure-u-1">

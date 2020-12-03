@@ -1,7 +1,8 @@
-<div id="form_gallery_{{ page.getCurrent.getInputDataName }}" class="form-gallery-selector">
+{% set form = page.getFormData %}
+<div id="form_gallery_{{ block.getInputDataName }}" class="form-gallery-selector">
     {% set fileNumber = 0 %}
     {% if form.getData(page.getModel.getPrimaryKey) %}
-        {% set images = page.getCurrent.getImages(form.getData(page.getModel.getPrimaryKey), page.getModel.getObjectIdentifier) %}
+        {% set images = block.getImages(form.getData(page.getModel.getPrimaryKey), page.getModel.getObjectIdentifier) %}
         {% if images is not empty %}
             {% set fileNumber = images|length %}
             <div class="gallery-images pure-g">
@@ -11,14 +12,14 @@
                             <div class="image-file">
                                 <div class="image" style="background-image: url('{{ page.getMediaUrl }}{{ image.getImage }}')"></div>
                             </div>
-                            <a href="{{ page.getCurrent.getDeleteUrl(image.getImageId) }}#form_gallery_{{ page.getCurrent.getInputDataName }}" class="delete">{{ 'Delete'|translate }}</a>
+                            <a href="{{ block.getDeleteUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}" class="delete">{{ 'Delete'|translate }}</a>
                             {% if image.getStatus == 1 %}
-                                <a href="{{ page.getCurrent.getStatusUrl(image.getImageId) }}#form_gallery_{{ page.getCurrent.getInputDataName }}">{{ 'Disable'|translate }}</a>
+                                <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">{{ 'Disable'|translate }}</a>
                             {% else %}
-                                <a href="{{ page.getCurrent.getStatusUrl(image.getImageId) }}#form_gallery_{{ page.getCurrent.getInputDataName }}">{{ 'Enable'|translate }}</a>
+                                <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">{{ 'Enable'|translate }}</a>
                             {% endif %}
 
-                            <select name="{{ page.getCurrent.getInputDataName }}[position][{{ image.getImageId }}]" class="pure-u-1">
+                            <select name="{{ block.getInputDataName }}[position][{{ image.getImageId }}]" class="pure-u-1">
                                 {% for i in range(1, images|length) %}
                                     <option value="{{ i }}"{% if i == image.position %} selected="selected"{% endif %}>
                                         {{ 'Position'|translate }} {{ i }}{% if i == 1 %} ({{ 'Main'|translate }}){% endif %}
@@ -35,13 +36,13 @@
     {% if (fileNumber < maxFileNumber) %}
         <div class="gallery-form">
             <ul class="info">
-                <li><strong>{{ 'Maximum file upload size:'|translate }}</strong> {{ page.getCurrent.getMaxFileSize() }}Mo</li>
+                <li><strong>{{ 'Maximum file upload size:'|translate }}</strong> {{ block.getMaxFileSize() }}Mo</li>
                 {% if (page.getCustom('recommended_file_size')) %}
                     <li><strong>{{ 'Recommended file size:'|translate }}</strong> {{ page.getCustom('recommended_file_size') }}</li>
                 {% endif %}
             </ul>
             <button class="pure-button green" type="button" data-max-file-number="{{ maxFileNumber }}">{{ 'Add'|translate }}</button>
-            <input type="file" name="{{ page.getCurrent.getInputFileName }}[]" style="display: none"/>
+            <input type="file" name="{{ block.getInputFileName }}[]" style="display: none"/>
         </div>
     {% endif %}
 </div>
