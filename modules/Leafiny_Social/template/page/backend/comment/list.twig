@@ -1,0 +1,79 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {% include 'admin.list.toolbar'|block %}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('comment_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('name') }}">{{ 'Name'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('referer') }}">{{ 'Referer'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('comment') }}">{{ 'Comment'|translate }}</a></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('note') }}">{{ 'Note'|translate }}</a></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('status') }}">{{ 'Status'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('language') }}">{{ 'Language'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-5">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[comment_id]" value="{{ page.getFilter('comment_id') }}" /></th>
+                    <th><input type="text" name="filter[name]" value="{{ page.getFilter('name') }}" /></th>
+                    <th><input type="text" name="filter[referer]" value="{{ page.getFilter('referer') }}" /></th>
+                    <th></th>
+                    <th><input type="text" name="filter[note]" value="{{ page.getFilter('note') }}" /></th>
+                    <th>
+                        <select name="filter[status]">
+                            <option value=""></option>
+                            <option value="1"{% if page.getFilter('status') == '1' %} selected="selected"{% endif %}>{{ 'Enabled'|translate }}</option>
+                            <option value="0"{% if page.getFilter('status') == '0' %} selected="selected"{% endif %}>{{ 'Disabled'|translate }}</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select name="filter[language]">
+                            <option value=""></option>
+                            {% for code,lang in page.getActiveLanguages %}
+                                <option value="{{ code }}"{% if page.getFilter('language') == code %} selected="selected"{% endif %}>{{ lang|translate }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="9">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getCommentId }}" name="id[]" class="select-id" value="{{ data.getCommentId }}" /></td>
+                            <td><label for="id_{{ data.getCommentId }}">{{ data.getCommentId }}</label></td>
+                            <td>{{ data.getName }}</td>
+                            <td>{{ data.getReferer }}</td>
+                            <td>{{ data.getComment|truncate(0, 40, '...') }}</td>
+                            <td>{{ data.getNote }}</td>
+                            <td class="status">
+                                {% if data.getStatus %}
+                                    <span class="enabled">{{ 'Enabled'|translate }}</span>
+                                {% else %}
+                                    <span class="disabled">{{ 'Disabled'|translate }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="lang_{{ data.getLanguage }}"><span>{{ page.getLanguageByCode(data.getLanguage)|translate }}</span></td>
+                            <td>{{ page.formatDate(data.getCreatedAt) }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getCommentId) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

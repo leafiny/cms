@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ mail.getLanguage }}" xml:lang="{{ mail.getLanguage }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={{ mail.getCharset }}">
+        <title>{{ mail.getSubject|translate }}</title>
+    </head>
+    <body>
+    {% apply spaceless %}
+        <p>{{ 'A new comment has been posted.'|translate }}</p>
+        <p>
+        {% if mail.getComment.getLink %}
+            <a href="{{ mail.getComment.getLink }}">{{ mail.getComment.getReferer }}</a>
+        {% else %}
+            {{ mail.getComment.getReferer }}
+        {% endif %}
+        </p>
+        <p>
+            {% if mail.getComment.getStatus %}
+                {{ 'The comment is enabled.'|translate }}
+            {% else %}
+                {{ 'The comment is disabled. A validation is required.'|translate }}
+            {% endif %}
+        </p>
+    {% endapply %}
+    </body>
+</html>

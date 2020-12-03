@@ -204,6 +204,52 @@ class Blog_Model_Post extends Core_Model
     }
 
     /**
+     * Add comment to post
+     *
+     * @param int $postId
+     * @param int $commentId
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function addComment(int $postId, int $commentId): bool
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return false;
+        }
+
+        return $adapter->insert(
+            'blog_post_comment',
+            [
+                'post_id'    => $postId,
+                'comment_id' => $commentId,
+            ]
+        );
+    }
+
+    /**
+     * Retrieve post comments
+     *
+     * @param int $postId
+     *
+     * @return int[]
+     * @throws Exception
+     */
+    public function getComments(int $postId): array
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return [];
+        }
+
+        $adapter->where('post_id', $postId);
+        $result = $adapter->get('blog_post_comment', null, ['comment_id']);
+
+        return array_column($result, 'comment_id');
+    }
+
+    /**
      * Object validation
      *
      * @param Leafiny_Object $form

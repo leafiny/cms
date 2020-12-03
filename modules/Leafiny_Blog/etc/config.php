@@ -35,6 +35,10 @@ $config = [
             'template' => 'Leafiny_Blog::block/post/list.twig',
             'class'    => Blog_Block_Category_Post::class
         ],
+        'blog.post.comments' => [
+            'template' => 'Leafiny_Blog::block/post/comments.twig',
+            'class'    => Blog_Block_Post_Comments::class
+        ],
 
         'admin.blog.form.categories' => [
             'disabled' => !class_exists('Category_Block_Backend_Form_Categories'),
@@ -81,6 +85,11 @@ $config = [
         '/post/*.html' => [
             'class'   => Blog_Page_Post_View::class,
             'content' => 'Leafiny_Blog::page/view.twig',
+        ],
+        '/post/comment/post/' => [
+            'class'              => Blog_Page_Post_Comment_Post::class,
+            'template'           => null,
+            'form_code_required' => true,
         ],
 
         /* Admin Pages */
