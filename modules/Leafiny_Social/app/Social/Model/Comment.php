@@ -36,7 +36,7 @@ class Social_Model_Comment extends Core_Model
         if (!$object->getData('ip_address')) {
             $object->setData('ip_address', $this->getClientIp());
         }
-        if (!$object->getData('status')) {
+        if ($object->getData('status') === null) {
             $object->setData('status', $this->getDefaultStatus());
         }
         if ($object->getData('comment')) {
