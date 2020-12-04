@@ -1,6 +1,6 @@
 <form action="{{ page.getLoginPost }}" method="post" class="login-form pure-form pure-form-stacked">
     <img src="{{ page.getMediaUrl('Backend::logo-login.png') }}" alt="Leafiny" />
-    {% include page.getBlock('admin.message') %}
+    {{ 'admin.message'|block }}
     <fieldset>
         <div class="pure-g">
             <div class="pure-u-1 field">
