@@ -11,6 +11,18 @@ class Blog_Helper_Data extends Core_Helper
      * @var string URL_PARAM_PAGE
      */
     public const URL_PARAM_PAGE = 'bp';
+    /**
+     * @var string COMMENT_FORM_DATA_KEY
+     */
+    public const COMMENT_FORM_DATA_KEY = 'form_comment_post_data';
+    /**
+     * @var string COMMENT_FORM_ERROR_KEY
+     */
+    public const COMMENT_FORM_ERROR_KEY = 'comment_form_error_message';
+    /**
+     * @var string COMMENT_FORM_SUCCESS_KEY
+     */
+    public const COMMENT_FORM_SUCCESS_KEY = 'comment_form_success_message';
 
     /**
      * @var null|Leafiny_Object[]

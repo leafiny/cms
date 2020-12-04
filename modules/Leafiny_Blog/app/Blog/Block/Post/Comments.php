@@ -99,4 +99,46 @@ class Blog_Block_Post_Comments extends Core_Block
 
         return $captcha->inline();
     }
+
+    /**
+     * Retrieve form data
+     *
+     * @param Core_Page $page
+     *
+     * @return Leafiny_Object
+     */
+    public function getFormData(Core_Page $page): Leafiny_Object
+    {
+        $key = Blog_Helper_Data::COMMENT_FORM_DATA_KEY;
+
+        if (!$this->getData($key)) {
+            $this->setData($key, $page->getTmpSessionData($key) ?: new Leafiny_Object());
+        }
+
+        return $this->getData($key);
+    }
+
+    /**
+     * Retrieve error message
+     *
+     * @param Core_Page $page
+     *
+     * @return string|null
+     */
+    public function getErrorMessage(Core_Page $page): ?string
+    {
+        return $page->getTmpSessionData(Blog_Helper_Data::COMMENT_FORM_ERROR_KEY);
+    }
+
+    /**
+     * Retrieve success message
+     *
+     * @param Core_Page $page
+     *
+     * @return string|null
+     */
+    public function getSuccessMessage(Core_Page $page): ?string
+    {
+        return $page->getTmpSessionData(Blog_Helper_Data::COMMENT_FORM_SUCCESS_KEY);
+    }
 }

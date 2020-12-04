@@ -44,9 +44,6 @@ class Blog_Page_Post_View extends Core_Page
         if ($post->getData('robots')) {
             $this->setCustom('robots', $post->getData('robots'));
         }
-
-        $data = $this->getTmpSessionData('form_comment_post_data');
-        $this->setData('form_comment', $data);
     }
 
     /**

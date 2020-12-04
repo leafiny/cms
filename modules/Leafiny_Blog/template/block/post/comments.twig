@@ -1,4 +1,4 @@
-<div class="post-comment">
+<div class="post-comment" id="comments">
     <h2>{{ 'Comments'|translate }}</h2>
 
     {% set comments = block.getComments(page.getCustom('post').getPostId) %}
@@ -9,6 +9,9 @@
         <p class="comment-count">{{ comments|length }} {{ 'comment'|translate }}{{ comments|length > 1 ? 's' : '' }}</p>
 
         <div class="comments-container pure-g">
+            {% if block.getSuccessMessage(page) %}
+                <p class="alert-message success pure-u-1">{{ block.getSuccessMessage(page) }}</p>
+            {% endif %}
             {% for comment in comments %}
                 <div class="comment-content pure-u-1">
                     <div class="user pure-u-1">
@@ -29,17 +32,20 @@
         </div>
     {% endif %}
 
-    <form method="post" id="form-comment" class="pure-form pure-form-stacked" action="{{ page.getUrl('/post/comment/post/') }}">
+    <form method="post" id="comment-form" class="pure-form pure-form-stacked" action="{{ page.getUrl('/post/comment/post/') }}">
+        {% if block.getErrorMessage(page) %}
+            <p class="alert-message error">{{ block.getErrorMessage(page) }}</p>
+        {% endif %}
         <fieldset>
             <legend>{{ 'Add a comment'|translate }}</legend>
             <div class="pure-g">
                 <div class="pure-u-1">
                     <label for="name">{{ 'Name'|translate }} <span>*</span> :</label>
-                    <input id="name" type="text" class="pure-u-1" name="name" value="{{ page.getFormComment.getName }}" required />
+                    <input id="name" type="text" class="pure-u-1" name="name" value="{{ block.getFormData(page).getName }}" required />
                 </div>
                 <div class="pure-u-1">
                     <label for="comment">{{ 'Comment'|translate }} <span>*</span> :</label>
-                    <textarea id="comment" class="pure-u-1" name="comment" required>{{ page.getFormComment.getComment }}</textarea>
+                    <textarea id="comment" class="pure-u-1" name="comment" required>{{ block.getFormData(page).getComment }}</textarea>
                 </div>
                 <div class="pure-u-1">
                     <label for="form_code">{{ 'Please enter the letters you see'|translate }} <span>*</span> :</label>

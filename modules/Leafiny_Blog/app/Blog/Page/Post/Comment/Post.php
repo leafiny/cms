@@ -36,7 +36,7 @@ class Blog_Page_Post_Comment_Post extends Core_Page
             $this->redirect($this->getRefererUrl());
         }
 
-        $this->setTmpSessionData('form_comment_post_data', $form);
+        $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_DATA_KEY, $form);
 
         /** @var Social_Model_Comment $comment */
         $comment = App::getObject('model', 'social_comment');
@@ -50,8 +50,8 @@ class Blog_Page_Post_Comment_Post extends Core_Page
         }
 
         if (!empty($error)) {
-            $this->setErrorMessage($this->translate($error));
-            $this->redirect($this->getRefererUrl());
+            $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_ERROR_KEY, $this->translate($error));
+            $this->redirect($this->getRefererUrl() . '#comment-form');
         }
 
         try {
@@ -79,21 +79,26 @@ class Blog_Page_Post_Comment_Post extends Core_Page
                 $this->translate('Your comment was added successfully.')
             ];
             if (!$comment->getDefaultStatus()) {
-                $success[] = $this->translate('It will be displayed after validation.');
+                $success = [
+                    $this->translate('Your comment was submitted successfully.'),
+                    $this->translate('It will be displayed after validation.')
+                ];
             }
 
-            $this->setSuccessMessage(join(' ', $success));
-            $this->unsTmpSessionData('form_comment_post_data');
+            $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_SUCCESS_KEY, join(' ', $success));
+            $this->unsTmpSessionData(Blog_Helper_Data::COMMENT_FORM_DATA_KEY);
         } catch (Throwable $throwable) {
             /** @var Log_Model_File $log */
             $log = App::getObject('model', 'log_file');
             $log->add($throwable->getMessage());
-            $this->setErrorMessage(
+            $this->setTmpSessionData(
+                Blog_Helper_Data::COMMENT_FORM_ERROR_KEY,
                 $this->translate('An error occurred when adding comment')
             );
+            $this->redirect($this->getRefererUrl() . '#comment-form');
         }
 
-        $this->redirect($this->getRefererUrl());
+        $this->redirect($this->getRefererUrl() . '#comments');
     }
 
     /**

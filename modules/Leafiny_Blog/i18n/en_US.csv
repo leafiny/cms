@@ -29,6 +29,7 @@
 "Add a comment","Add a comment"
 "An error occurred when adding comment","An error occurred when adding comment"
 "Your comment was added successfully.","Your comment was added successfully."
+"Your comment was submitted successfully.","Your comment was submitted successfully."
 "It will be displayed after validation.","It will be displayed after validation."
 "The comment is enabled.","The comment is enabled."
 "The comment is disabled. A validation is required.","The comment is disabled. A validation is required."
