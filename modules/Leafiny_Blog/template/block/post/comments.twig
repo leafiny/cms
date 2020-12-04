@@ -3,15 +3,16 @@
 
     {% set comments = block.getComments(page.getCustom('post').getPostId) %}
 
+    {% if block.getSuccessMessage(page) %}
+        <p class="alert-message success pure-u-1">{{ block.getSuccessMessage(page) }}</p>
+    {% endif %}
+
     {% if comments is empty %}
         <p class="comment-count no-comment">{{ 'No comment'|translate }}</p>
     {% else %}
         <p class="comment-count">{{ comments|length }} {{ 'comment'|translate }}{{ comments|length > 1 ? 's' : '' }}</p>
 
         <div class="comments-container pure-g">
-            {% if block.getSuccessMessage(page) %}
-                <p class="alert-message success pure-u-1">{{ block.getSuccessMessage(page) }}</p>
-            {% endif %}
             {% for comment in comments %}
                 <div class="comment-content pure-u-1">
                     <div class="user pure-u-1">
