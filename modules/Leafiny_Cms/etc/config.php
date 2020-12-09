@@ -30,9 +30,6 @@ $config = [
             'template' => 'Leafiny_Cms::block/static/block/list.twig',
             'class'    => Cms_Block_Category_Block::class
         ],
-        'default' => [
-            'template' => 'Leafiny_Cms::block/default.twig',
-        ],
         'block.static::*' => [
             'template' => 'Leafiny_Cms::block/content.twig',
             'class'    => Cms_Block_Static_Content::class
