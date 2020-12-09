@@ -553,7 +553,9 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     {
         $objectKey = $this->getParentObjectKey() ?: $this->getObjectKey();
 
-        $path = preg_replace('/\*/', $objectKey, $path);
+        if ($objectKey !== null) {
+            $path = preg_replace('/\*/', $objectKey, $path);
+        }
 
         return $path;
     }
