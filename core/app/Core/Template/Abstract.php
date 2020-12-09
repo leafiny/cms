@@ -339,16 +339,6 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     }
 
     /**
-     * Retrieve if cache is enabled
-     *
-     * @return int|null
-     */
-    public function getCache(): ?int
-    {
-        return $this->getCustom('cache');
-    }
-
-    /**
      * Retrieve block
      *
      * @param string $identifier
