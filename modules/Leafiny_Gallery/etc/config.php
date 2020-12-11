@@ -10,7 +10,7 @@ $config = [
     'block' => [
         'admin.head' => [
             'stylesheet' => [
-                500 => 'Leafiny_Gallery::backend/css/gallery.css',
+                310 => 'Leafiny_Gallery::backend/css/gallery.css',
             ],
         ],
         'admin.script' => [

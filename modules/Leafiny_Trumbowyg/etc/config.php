@@ -16,8 +16,8 @@ $config = [
     'block' => [
         'admin.head' => [
             'stylesheet' => [
-                410 => 'Leafiny_Trumbowyg::backend/css/trumbowyg/trumbowyg.min.css',
-                420 => 'Leafiny_Trumbowyg::backend/css/style.css',
+                320 => 'Leafiny_Trumbowyg::backend/css/trumbowyg/trumbowyg.min.css',
+                330 => 'Leafiny_Trumbowyg::backend/css/style.css',
             ],
             'javascript' => [
                 210 => 'Leafiny_Trumbowyg::backend/js/trumbowyg/trumbowyg.min.js',
