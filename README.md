@@ -16,7 +16,7 @@ Leafiny is a CMS who not bloated with features that you don't need.
 
 * [Demo Admin EN](https://demo.en.leafiny.com/admin/leafiny/)
 * [Demo Admin FR](https://demo.fr.leafiny.com/admin/leafiny/)
-* [Demo Frontend FR](https://demo.fr.leafiny.com)
+* [Demo Frontend EN](https://demo.en.leafiny.com)
 
 # Installation
 
