@@ -63,7 +63,13 @@
                             <td class="lang_{{ data.getLanguage }}"><span>{{ page.getLanguageByCode(data.getLanguage)|translate }}</span></td>
                             <td>{{ data.getName }}</td>
                             <td>{{ data.getSku }}</td>
-                            <td>{% if data.getStatus == 0 %}{{ 'Disabled'|translate }}{% else %}{{ 'Enabled'|translate }}{% endif %}</td>
+                            <td class="status">
+                                {% if data.getStatus == 0 %}
+                                    <span class="disabled">{{ 'Disabled'|translate }}</span>
+                                {% else %}
+                                    <span class="enabled">{{ 'Enabled'|translate }}</span>
+                                {% endif %}
+                            </td>
                             <td>{{ page.formatDate(data.getCreatedAt) }}</td>
                             <td>
                                 <a href="{{ page.getEditUrl(data.getProductId) }}">{{ 'Edit'|translate }}</a>

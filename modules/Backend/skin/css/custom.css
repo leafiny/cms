@@ -498,16 +498,32 @@ main {
     text-align: center;
 }
 
-.container-grid td.status .enabled {
+.container-grid td.status .enabled,
+.container-grid td.status .info
+{
     background: #d4edda;
     border: 1px solid #c3e6cb;
     color: #155724;
 }
 
-.container-grid td.status .disabled {
+.container-grid td.status .disabled,
+.container-grid td.status .error,
+.container-grid td.status .emergency,
+.container-grid td.status .critical,
+.container-grid td.status .alert
+{
     background: #f8d7da;
     border: 1px solid #f5c6cb;
     color: #721c24;
+}
+
+.container-grid td.status .warning,
+.container-grid td.status .notice,
+.container-grid td.status .debug
+{
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
 }
 
 /* Messages */

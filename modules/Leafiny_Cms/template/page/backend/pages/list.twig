@@ -54,7 +54,13 @@
                             <td><label for="id_{{ data.getPageId }}">{{ data.getPageId }}</label></td>
                             <td>{{ data.getPathKey }}</td>
                             <td>{{ data.getTitle }}</td>
-                            <td>{% if data.getStatus == 0 %}{{ 'Disabled'|translate }}{% else %}{{ 'Enabled'|translate }}{% endif %}</td>
+                            <td class="status">
+                                {% if data.getStatus == 0 %}
+                                    <span class="disabled">{{ 'Disabled'|translate }}</span>
+                                {% else %}
+                                    <span class="enabled">{{ 'Enabled'|translate }}</span>
+                                {% endif %}
+                            </td>
                             <td class="lang_{{ data.getLanguage }}"><span>{{ page.getLanguageByCode(data.getLanguage)|translate }}</span></td>
                             <td>{{ page.formatDate(data.getCreatedAt) }}</td>
                             <td>{{ page.formatDate(data.getUpdatedAt) }}</td>

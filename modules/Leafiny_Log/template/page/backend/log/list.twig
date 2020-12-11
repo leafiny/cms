@@ -42,7 +42,9 @@
                             <td><label for="id_{{ data.getLogId }}">{{ data.getLogId }}</label></td>
                             <td>{{ page.formatDate(data.getCreatedAt) }}</td>
                             <td>{{ data.getMessage|truncate(0, 100, '...') }}</td>
-                            <td>{{ page.getLevelText(data.getLevel) }}</td>
+                            <td class="status">
+                                <span class="{{ page.getLevelText(data.getLevel)|lower }}">{{ page.getLevelText(data.getLevel) }}</span>
+                            </td>
                             <td>
                                 <a href="{{ page.getEditUrl(data.getLogId()) }}">{{ 'View'|translate }}</a>
                             </td>
