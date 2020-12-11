@@ -164,8 +164,9 @@ $config = [
             'stylesheet' => [
                 100 => 'Backend::css/pure-min.css',
                 200 => 'Backend::css/grids-responsive-min.css',
-                300 => 'Backend::css/custom.css',
-                400 => 'Backend::css/jquery-ui.min.css'
+                300 => 'Backend::css/leafiny.css',
+                400 => 'Backend::css/custom.css',
+                500 => 'Backend::css/jquery-ui.min.css'
             ],
             'javascript' => [
                 100 => 'Backend::js/jquery-3.5.1.min.js',
