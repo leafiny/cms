@@ -1,8 +1,17 @@
 $(document).ready(function() {
     let categoryFormPage = $('.page-admin-categories-edit:first');
-
     if (categoryFormPage.length) {
         categoryFormPage.leafinyCategorySelector();
+
+        let pathKey = categoryFormPage.find('#path_key');
+        if (pathKey.length) {
+            pathKey.leafinyCopyValue('#name', true);
+        }
+
+        let metaTitle = categoryFormPage.find('#meta_title');
+        if (metaTitle.length) {
+            metaTitle.leafinyCopyValue('#name', false);
+        }
     }
 });
 

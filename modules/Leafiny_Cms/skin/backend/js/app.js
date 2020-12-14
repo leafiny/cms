@@ -4,6 +4,16 @@ $(document).ready(function() {
 
     if (pagesFormPage.length) {
         pagesFormPage.leafinyCategorySelector();
+
+        let pathKey = pagesFormPage.find('#path_key');
+        if (pathKey.length) {
+            pathKey.leafinyCopyValue('#title', true);
+        }
+
+        let metaTitle = pagesFormPage.find('#meta_title');
+        if (metaTitle.length) {
+            metaTitle.leafinyCopyValue('#title', false);
+        }
     }
 
     if (blocksFormPage.length) {

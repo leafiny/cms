@@ -71,3 +71,36 @@ $.fn.leafinyResponsiveCloseMenu = function () {
         }
     });
 }
+
+$.fn.leafinyCopyValue = function (refererId, normalize) {
+    let key = this;
+    let referer = $(refererId);
+
+    if (!key.val() && referer.length) {
+        referer.change(function () {
+            let value = $(this).val();
+            if (normalize) {
+                value = removeAccents($(this).val()).toLowerCase().replace(/[\W_]+/g, '-');
+            }
+            key.val(value);
+        });
+    }
+}
+
+function removeAccents (str) {
+    let map = {
+        'a':'á|à|ã|â|À|Á|Ã|Â',
+        'e':'é|è|ê|É|È|Ê',
+        'i':'í|ì|î|Í|Ì|Î',
+        'o':'ó|ò|ô|õ|Ó|Ò|Ô|Õ',
+        'u':'ú|ù|û|ü|Ú|Ù|Û|Ü',
+        'c':'ç|Ç',
+        'n':'ñ|Ñ'
+    };
+
+    for (let pattern in map) {
+        str = str.replace(new RegExp(map[pattern], 'g'), pattern);
+    }
+
+    return str;
+}
