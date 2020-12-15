@@ -21,11 +21,11 @@ if (blockSnippet) {
  */
 function copyBlockSnippet () {
     let copyLink = document.getElementById('block-copy-snippet');
-    let buttonText = copyLink.innerText;
+    let buttonText = copyLink.innerHTML;
 
     copyLink.addEventListener('click', function (event) {
         event.preventDefault();
         copyInClipboard(blockSnippet);
-        copyLink.innerHtml = buttonText + ' &check;';
+        copyLink.innerHTML = buttonText + ' &check;';
     });
 }
