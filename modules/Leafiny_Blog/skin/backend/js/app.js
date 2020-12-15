@@ -4,14 +4,7 @@ $(document).ready(function() {
     if (postsFormPage.length) {
         postsFormPage.leafinyCategorySelector();
 
-        let pathKey = postsFormPage.find('#path_key');
-        if (pathKey.length) {
-            pathKey.leafinyCopyValue('#title', true);
-        }
-
-        let metaTitle = postsFormPage.find('#meta_title');
-        if (metaTitle.length) {
-            metaTitle.leafinyCopyValue('#title', false);
-        }
+        copyValue('title', 'path_key', true);
+        copyValue('title', 'meta_title', false);
     }
 });

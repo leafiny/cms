@@ -4,14 +4,7 @@ $(document).ready(function () {
     if (productFormPage.length) {
         productFormPage.leafinyCategorySelector();
 
-        let pathKey = productFormPage.find('#path_key');
-        if (pathKey.length) {
-            pathKey.leafinyCopyValue('#name', true);
-        }
-
-        let metaTitle = productFormPage.find('#meta_title');
-        if (metaTitle.length) {
-            metaTitle.leafinyCopyValue('#name', false);
-        }
+        copyValue('name', 'path_key', true);
+        copyValue('name', 'meta_title', false);
     }
 });

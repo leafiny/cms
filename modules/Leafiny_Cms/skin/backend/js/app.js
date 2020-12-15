@@ -5,15 +5,8 @@ $(document).ready(function() {
     if (pagesFormPage.length) {
         pagesFormPage.leafinyCategorySelector();
 
-        let pathKey = pagesFormPage.find('#path_key');
-        if (pathKey.length) {
-            pathKey.leafinyCopyValue('#title', true);
-        }
-
-        let metaTitle = pagesFormPage.find('#meta_title');
-        if (metaTitle.length) {
-            metaTitle.leafinyCopyValue('#title', false);
-        }
+        copyValue('title', 'path_key', true);
+        copyValue('title', 'meta_title', false);
     }
 
     if (blocksFormPage.length) {
@@ -28,7 +21,7 @@ $(document).ready(function() {
 
         copyLink.click(function (event) {
             event.preventDefault();
-            blockSnippet.leafinyCopy();
+            copyInClipboard(blockSnippet);
             $(this).html(buttonText + ' &check;');
         });
     }

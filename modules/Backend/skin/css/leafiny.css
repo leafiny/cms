@@ -630,6 +630,10 @@ main {
         display: block;
     }
 
+    #admin-menu-button:focus + nav, nav:hover, nav:focus-within {
+        margin-left: 0;
+    }
+
     .head-user-account {
         float: none;
         text-align: right;

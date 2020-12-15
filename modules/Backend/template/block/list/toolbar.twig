@@ -3,7 +3,7 @@
         <div class="pure-u-1 pure-u-md-1-3 box process left">
             {% set actions = page.getActions %}
             {% if actions is not empty %}
-                <select name="action">
+                <select name="action" id="toolbar-select-action">
                     <option value="filter">{{ 'Filter'|translate }}</option>
                     {% for action,label in actions %}
                         <option value="{{ action }}">{{ label|translate }}</option>
