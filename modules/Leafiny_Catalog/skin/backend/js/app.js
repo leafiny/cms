@@ -1,10 +1,7 @@
-$(document).ready(function () {
-    let productFormPage  = $('.page-admin-products-edit:first');
+let productFormPage = document.querySelector('.page-admin-products-edit');
 
-    if (productFormPage.length) {
-        productFormPage.leafinyCategorySelector();
-
-        copyValue('name', 'path_key', true);
-        copyValue('name', 'meta_title', false);
-    }
-});
+if (productFormPage) {
+    categorySelector('language');
+    copyValue('name', 'path_key', true);
+    copyValue('name', 'meta_title', false);
+}

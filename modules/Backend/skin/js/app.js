@@ -74,7 +74,7 @@ function userResources () {
         }
     }
 
-    userIsAdmin.addEventListener('change', function (event) {
+    userIsAdmin.addEventListener('change', function () {
         if (this.value === '1') {
             userResources.style.display = 'none';
         } else {
@@ -119,7 +119,7 @@ function copyValue (fromElementId, toElementId, normalize) {
     fromElement.addEventListener('change', function () {
         let value = this.value;
         if (normalize) {
-            value = removeAccents($(this).val()).toLowerCase().replace(/[\W_]+/g, '-');
+            value = removeAccents(value).toLowerCase().replace(/[\W_]+/g, '-');
         }
         toElement.value = value;
     });
@@ -127,6 +127,13 @@ function copyValue (fromElementId, toElementId, normalize) {
     return true;
 }
 
+/**
+ * Remove accents in string
+ *
+ * @param {string} str
+ *
+ * @returns {string}
+ */
 function removeAccents (str) {
     let map = {
         'a':'á|à|ã|â|À|Á|Ã|Â',

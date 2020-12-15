@@ -130,8 +130,6 @@ You need tu update credentials on first connexion.
 **Frontend**
 
 * [Pure CSS](https://github.com/pure-css/pure/): Responsive CSS modules
-* [jQuery](https://github.com/jquery/jquery/): JavaScript Library (admin)
-* [Trumbowyg](https://github.com/Alex-D/Trumbowyg/): Optional WYSIWYG JavaScript editor (admin)
 * *What you want:* You can use your favorite tools and frameworks. Default theme is light and rendered with Pure CSS and Vanilla JS.
 
 **PHP libraries**

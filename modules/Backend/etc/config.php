@@ -167,9 +167,6 @@ $config = [
                 300 => 'Backend::css/leafiny.css',
                 400 => 'Backend::css/custom.css',
             ],
-            'javascript' => [
-                100 => 'Backend::js/jquery-3.5.1.min.js',
-            ],
             'class'    => Backend_Block_Head::class,
         ],
         'admin.menu' => [

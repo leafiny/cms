@@ -1,28 +1,31 @@
-$(document).ready(function() {
-    let pagesFormPage = $('.page-admin-pages-edit:first');
-    let blocksFormPage = $('.page-admin-blocks-edit:first');
+let pagesFormPage  = document.querySelector('.page-admin-pages-edit');
+let blocksFormPage = document.querySelector('.page-admin-blocks-edit');
+let blockSnippet   = document.getElementById('block-snippet');
 
-    if (pagesFormPage.length) {
-        pagesFormPage.leafinyCategorySelector();
+if (pagesFormPage) {
+    categorySelector('language');
+    copyValue('title', 'path_key', true);
+    copyValue('title', 'meta_title', false);
+}
 
-        copyValue('title', 'path_key', true);
-        copyValue('title', 'meta_title', false);
-    }
+if (blocksFormPage) {
+    categorySelector('language');
+}
 
-    if (blocksFormPage.length) {
-        blocksFormPage.leafinyCategorySelector();
-    }
+if (blockSnippet) {
+    copyBlockSnippet();
+}
 
-    let blockSnippet = $('#block-snippet');
+/**
+ * Copy block Snippet to clipboard
+ */
+function copyBlockSnippet () {
+    let copyLink = document.getElementById('block-copy-snippet');
+    let buttonText = copyLink.innerText;
 
-    if (blockSnippet.length) {
-        let copyLink = $('#block-copy-snippet');
-        let buttonText = copyLink.text();
-
-        copyLink.click(function (event) {
-            event.preventDefault();
-            copyInClipboard(blockSnippet);
-            $(this).html(buttonText + ' &check;');
-        });
-    }
-});
+    copyLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        copyInClipboard(blockSnippet);
+        copyLink.innerHtml = buttonText + ' &check;';
+    });
+}

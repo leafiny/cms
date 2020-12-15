@@ -1,32 +1,42 @@
-$(document).ready(function() {
-    let categoryFormPage = $('.page-admin-categories-edit:first');
-    if (categoryFormPage.length) {
-        categoryFormPage.leafinyCategorySelector();
+let categoryFormPage = document.querySelector('.page-admin-categories-edit');
 
-        copyValue('name', 'path_key', true);
-        copyValue('name', 'meta_title', false);
+if (categoryFormPage) {
+    categorySelector('language');
+    copyValue('name', 'path_key', true);
+    copyValue('name', 'meta_title', false);
+}
+
+function categorySelector (languageId) {
+    let languageSelector   = document.getElementById(languageId);
+    let categoryContainers = document.querySelectorAll('.form-category-selector');
+
+    if (!languageSelector || !categoryContainers.length) {
+        return false;
     }
-});
-
-$.fn.leafinyCategorySelector = function () {
-    let languageSelector   = this.find('#language');
-    let categoryContainers = $('.form-category-selector');
 
     let showLanguage = function(language) {
-        categoryContainers.hide();
-        categoryContainers.find('select').attr('disabled', 'disabled');
+        for (let i = 0; i < categoryContainers.length; i++) {
+            categoryContainers[i].style.display = 'none';
+            let select = categoryContainers[i].querySelector('select');
+            if (select) {
+                select.setAttribute('disabled', 'disabled');
+            }
+        }
 
-        let categorySelector = $('.form_category_' + language);
+        let categorySelectors = document.querySelectorAll('.form_category_' + language);
 
-        categorySelector.each(function () {
-            $(this).show();
-            $(this).find('select').removeAttr('disabled');
-        });
+        for (let i = 0; i < categorySelectors.length; i++) {
+            categorySelectors[i].style.display = 'block';
+            let select = categorySelectors[i].querySelector('select');
+            if (select) {
+                select.removeAttribute('disabled');
+            }
+        }
     };
 
-    showLanguage(languageSelector.val());
+    showLanguage(languageSelector.value);
 
-    languageSelector.change(function () {
-        showLanguage($(this).val());
+    languageSelector.addEventListener('change', function (event) {
+        showLanguage(this.value);
     });
 }

@@ -1,10 +1,7 @@
-$(document).ready(function() {
-    let postsFormPage = $('.page-admin-posts-edit:first');
+let postsFormPage = document.querySelector('.page-admin-posts-edit');
 
-    if (postsFormPage.length) {
-        postsFormPage.leafinyCategorySelector();
-
-        copyValue('title', 'path_key', true);
-        copyValue('title', 'meta_title', false);
-    }
-});
+if (postsFormPage) {
+    categorySelector('language');
+    copyValue('title', 'path_key', true);
+    copyValue('title', 'meta_title', false);
+}
