@@ -25,6 +25,4 @@ $(document).ready(function() {
             $(this).html(buttonText + ' &check;');
         });
     }
-
-    $('#publish_date').datepicker({ dateFormat: 'yy-mm-dd' });
 });

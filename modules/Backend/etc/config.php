@@ -166,11 +166,9 @@ $config = [
                 200 => 'Backend::css/grids-responsive-min.css',
                 300 => 'Backend::css/leafiny.css',
                 400 => 'Backend::css/custom.css',
-                500 => 'Backend::css/jquery-ui.min.css'
             ],
             'javascript' => [
                 100 => 'Backend::js/jquery-3.5.1.min.js',
-                110 => 'Backend::js/jquery-ui-datepicker.min.js',
             ],
             'class'    => Backend_Block_Head::class,
         ],
