@@ -52,6 +52,13 @@ $config = [
             'name'     => 'breadcrumb',
             'label'    => 'Breadcrumb',
         ],
+        'admin.cms.form.editor' => [
+            'template' => 'Leafiny_Editor::block/backend/form/editor.twig',
+            'class'    => Editor_Block_Backend_Form_Editor::class,
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'name'     => 'content',
+            'actions'  => ['Markdown', 'HTML', 'Preview']
+        ],
         'admin.menu' => [
             'tree' => [
                 200 => [
@@ -70,7 +77,7 @@ $config = [
         ],
         'admin.script' => [
             'javascript' => [
-                310 => 'Leafiny_Cms::backend/js/app.js'
+                610 => 'Leafiny_Cms::backend/js/app.js'
             ]
         ],
     ],

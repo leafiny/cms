@@ -1,0 +1,16 @@
+{% set form = page.getFormData %}
+<div class="editor" id="editor_{{ block.getName }}">
+    <div class="pure-u-1 pure-u-xl-4-5 field">
+        {% if block.getLabel %}
+            <label>{{ block.getLabel|translate }} :</label>
+        {% endif %}
+        <div class="editor-actions">
+            {% for action in block.actions %}
+                <a href="#" id="editor_{{ action|lower }}_{{ block.getName }}" class="editor-action pure-button {% if action|lower == 'preview' %}black{% else %}green{% endif %}">{{ action }}</a>
+            {% endfor %}
+        </div>
+        <textarea class="pure-u-1 editor-content editor-html editor_html_{{ block.getName }}" name="{{ block.getName }}" spellcheck="false">{{ form.getData(block.getName) }}</textarea>
+        <textarea class="pure-u-1 editor-content editor-markdown editor_markdown_{{ block.getName }}" spellcheck="false"></textarea>
+        <div class="pure-u-1 editor-content editor-preview editor_preview_{{ block.getName }}"></div>
+    </div>
+</div>

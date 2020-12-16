@@ -40,6 +40,14 @@ $config = [
             'name'     => 'breadcrumb',
             'label'    => 'Breadcrumb',
         ],
+        'admin.catalog.product.form.editor' => [
+            'template' => 'Leafiny_Editor::block/backend/form/editor.twig',
+            'class'    => Editor_Block_Backend_Form_Editor::class,
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'name'     => 'description',
+            'label'    => 'Description',
+            'actions'  => ['Markdown', 'HTML', 'Preview']
+        ],
         'admin.menu' => [
             'tree' => [
                 300 => [
@@ -54,7 +62,7 @@ $config = [
         ],
         'admin.script' => [
             'javascript' => [
-                300 => 'Leafiny_Catalog::backend/js/app.js'
+                310 => 'Leafiny_Catalog::backend/js/app.js'
             ]
         ],
     ],

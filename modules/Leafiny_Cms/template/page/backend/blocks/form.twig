@@ -41,8 +41,16 @@
 
         <fieldset>
             <legend>{{ 'Content'|translate }}</legend>
-            <div class="pure-u-1 pure-u-xl-4-5 field">
-                <textarea class="pure-u-1 wysiwyg" name="content">{{ form.getContent }}</textarea>
+            <div class="pure-g">
+                {% if page.getBlock('admin.default.form.editor') %}
+                    <div class="pure-u-1 field">
+                        {{ 'admin.default.form.editor'|block }}
+                    </div>
+                {% else %}
+                    <div class="pure-u-1 pure-u-xl-4-5 field">
+                        <textarea id="content" class="pure-u-1 wysiwyg" name="content">{{ form.getContent }}</textarea>
+                    </div>
+                {% endif %}
             </div>
         </fieldset>
 

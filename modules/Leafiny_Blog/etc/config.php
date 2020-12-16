@@ -40,6 +40,11 @@ $config = [
             'class'    => Blog_Block_Post_Comments::class
         ],
 
+        'admin.head' => [
+            'stylesheet' => [
+                410 => 'Leafiny_Blog::backend/css/post.css',
+            ],
+        ],
         'admin.blog.form.categories' => [
             'disabled' => !class_exists('Category_Block_Backend_Form_Categories'),
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
@@ -57,6 +62,14 @@ $config = [
             'name'     => 'breadcrumb',
             'label'    => 'Breadcrumb',
         ],
+        'admin.blog.form.editor' => [
+            'template' => 'Leafiny_Editor::block/backend/form/editor.twig',
+            'class'    => Editor_Block_Backend_Form_Editor::class,
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'name'     => 'content',
+            'label'    => 'Post',
+            'actions'  => ['Markdown', 'HTML', 'Preview']
+        ],
         'admin.menu' => [
             'tree' => [
                 250 => [
@@ -71,7 +84,7 @@ $config = [
         ],
         'admin.script' => [
             'javascript' => [
-                320 => 'Leafiny_Blog::backend/js/app.js'
+                410 => 'Leafiny_Blog::backend/js/app.js'
             ]
         ],
     ],

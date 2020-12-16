@@ -29,7 +29,7 @@ $config = [
             'template' => 'Leafiny_Category::block/menu.twig',
             'class'    => Category_Block_Menu::class
         ],
-        'admin.catalog.category.form.categories' => [
+        'admin.category.form.categories' => [
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
             'class'    => Category_Block_Backend_Form_Categories::class,
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
@@ -50,7 +50,7 @@ $config = [
         ],
         'admin.script' => [
             'javascript' => [
-                200 => 'Leafiny_Category::backend/js/app.js'
+                210 => 'Leafiny_Category::backend/js/app.js'
             ]
         ],
     ],
