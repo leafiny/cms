@@ -129,7 +129,8 @@ You need tu update credentials on first connexion.
 
 **Frontend**
 
-* [Pure CSS](https://github.com/pure-css/pure/): Responsive CSS modules
+* [Pure CSS](https://github.com/pure-css/pure): Responsive CSS modules
+* [Showdown](https://github.com/showdownjs/showdown): A bidirectional Markdown converter (admin)
 * *What you want:* You can use your favorite tools and frameworks. Default theme is light and rendered with Pure CSS and Vanilla JS.
 
 **PHP libraries**
