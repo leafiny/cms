@@ -158,17 +158,14 @@ header .quote p {
     position: relative;
 }
 
-.menu-catalog-list.mobile {
+#menu-sm-link {
     display: none;
-}
-
-.menu-catalog-list.mobile .pure-menu-link {
+    line-height: 42px;
     background: url(../images/menu.png) no-repeat center left;
-    display: block;
     padding-left: 35px;
+    cursor: pointer;
 }
-
-.menu-catalog-list.mobile .pure-menu-link.open {
+#menu-sm-link:focus {
     background-image: url(../images/close.png);
 }
 
@@ -176,7 +173,7 @@ header .quote p {
     line-height: 40px;
 }
 
-.menu-catalog-list.mobile .pure-menu-item {
+.menu-list.mobile .pure-menu-item {
     line-height: 43px;
 }
 
@@ -185,7 +182,8 @@ header .quote p {
     border-bottom: 3px solid #FFFFFF;
 }
 
-.pure-menu-link:focus,.pure-menu-link:hover {
+.pure-menu-link:focus,
+.pure-menu-link:hover {
     background: none;
 }
 
@@ -578,15 +576,11 @@ footer a {
     }
 
     /* Menu */
-    .menu-catalog-list.mobile {
+    #menu-sm-link {
         display: block;
     }
 
-    .menu-catalog-list.mobile .pure-menu-link:hover {
-        border: 0;
-    }
-
-    .menu-catalog-list.categories {
+    .menu-list.categories {
         display: none;
         position: absolute;
         background: #ffffff;
@@ -600,27 +594,34 @@ footer a {
         box-shadow: 0 15px 10px -15px #666;
     }
 
+    #menu-sm-link:focus + ul,
+    .menu-list.categories:hover,
+    .menu-list.categories:focus-within,
+    .menu-list.categories:active {
+        display: block;
+    }
+
     .pure-menu-link {
         padding-left: 0;
         border: 0;
     }
 
-    .menu-catalog-list.categories a,.menu-catalog-list.categories a:hover {
+    .menu-list.categories a,.menu-list.categories a:hover {
         border: 0;
     }
 
-    .menu-catalog-list.categories li {
+    .menu-list.categories li {
         display: block;
         padding: 0 50px 0 27px;
         background: url(../images/list.png) no-repeat top 15px right 20px;
     }
 
-    .menu-catalog-list.categories .pure-menu-list li {
+    .menu-list.categories .pure-menu-list li {
         background: none;
         padding-right: 0;
     }
 
-    .menu-catalog-list .pure-menu-list {
+    .menu-list .pure-menu-list {
         position: relative;
         box-shadow: none;
     }
@@ -633,10 +634,6 @@ footer a {
     .pure-menu-list.child .pure-menu-link {
         padding-right: 0;
         background: none;
-    }
-
-    .pure-menu-item:hover .pure-menu-list.child {
-        display: none;
     }
 
     /* Banner */

@@ -630,7 +630,10 @@ main {
         display: block;
     }
 
-    #admin-menu-button:focus + nav, nav:hover, nav:focus-within {
+    #admin-menu-button:focus + nav,
+    nav:hover,
+    nav:active,
+    nav:focus-within {
         margin-left: 0;
     }
 

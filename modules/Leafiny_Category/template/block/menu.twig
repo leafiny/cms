@@ -4,15 +4,11 @@
         <div id="navigation">
             <div class="navigation-content">
                 <div class="pure-menu pure-menu-horizontal">
-                    <ul class="pure-menu-list menu-catalog-list mobile">
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link" id="menu-mobile-link"><span>Menu</span></a>
-                        </li>
-                    </ul>
-                    <ul class="pure-menu-list menu-catalog-list categories" id="menu-categories">
+                    <button class="pure-menu-link" id="menu-sm-link"><span>Menu</span></button>
+                    <ul class="pure-menu-list menu-list categories">
                         {% for category in tree %}
                             <li class="pure-menu-item">
-                                <a href="{{ page.getUrl }}{{ category.path_key }}.html" class="pure-menu-link{% if block.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
+                                <a href="{{ page.getUrl }}{{ category.path_key }}.html" class="pure-menu-link{% if category.children %} has-children{% endif %}{% if block.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
                                 {% if category.children %}
                                     <ul class="pure-menu-list child">
                                     {% for child in category.children %}

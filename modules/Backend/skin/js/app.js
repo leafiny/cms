@@ -100,7 +100,7 @@ function copyInClipboard (element) {
  *
  * @param {string} fromElementId
  * @param {string} toElementId
- * @param {bool}   normalize
+ * @param {boolean}   normalize
  *
  * @returns {boolean}
  */
