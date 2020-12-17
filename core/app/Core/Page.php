@@ -543,7 +543,7 @@ class Core_Page extends Core_Template_Abstract
 
         $identifier = 'page-' . ($helper->formatKey($this->getObjectIdentifier(), ['html']) ?: 'root');
         if ($this->getObjectKey()) {
-            $identifier .= ' ' . $helper->formatKey($this->getObjectKey()) ?: '';
+            $identifier .= ' body-key-' . $helper->formatKey($this->getObjectKey()) ?: '';
         }
 
         return trim($identifier);
