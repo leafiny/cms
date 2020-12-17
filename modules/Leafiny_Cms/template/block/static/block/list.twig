@@ -3,7 +3,7 @@
 {% if blocks is not empty %}
     <div class="blocks pure-g">
         {% for cms_block in blocks %}
-            <div class="block-list pure-u-md-1-2 pure-u-1">
+            <div class="block-list pure-u-1 pure-u-md-1-2">
                 <div class="block-list-content">
                     {{ include(template_from_string(cms_block.getContent)) }}
                 </div>
