@@ -60,11 +60,6 @@ $config = [
                 ]
             ]
         ],
-        'admin.script' => [
-            'javascript' => [
-                310 => 'Leafiny_Catalog::backend/js/app.js'
-            ]
-        ],
     ],
 
     'page' => [
@@ -109,7 +104,10 @@ $config = [
             'meta_title'            => 'Edit',
             'meta_description'      => '',
             'allow_params'          => 1,
-            'recommended_file_size' => '600x600'
+            'recommended_file_size' => '600x600',
+            'javascript'            => [
+                1310 => 'Leafiny_Catalog::backend/js/products/form.js'
+            ]
         ],
         '/admin/*/products/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,

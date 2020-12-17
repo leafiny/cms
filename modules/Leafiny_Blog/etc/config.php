@@ -82,11 +82,6 @@ $config = [
                 ]
             ]
         ],
-        'admin.script' => [
-            'javascript' => [
-                410 => 'Leafiny_Blog::backend/js/app.js'
-            ]
-        ],
     ],
 
     'page' => [
@@ -136,6 +131,9 @@ $config = [
             'meta_title'         => 'Edit',
             'meta_description'   => '',
             'allow_params'       => 1,
+            'javascript'         => [
+                1410 => 'Leafiny_Blog::backend/js/posts/form.js'
+            ]
         ],
         '/admin/*/posts/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,

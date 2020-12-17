@@ -1,7 +1,3 @@
-gridSelectAll();
-gridFilter();
-userResources();
-
 /**
  * Check or un-check all lines when input in table head is checked
  *

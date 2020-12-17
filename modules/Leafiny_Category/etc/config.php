@@ -36,6 +36,11 @@ $config = [
             'name'     => 'parent_id',
             'label'    => 'Parent',
         ],
+        'admin.head' => [
+            'javascript' => [
+                210 => 'Leafiny_Category::backend/js/category.js',
+            ]
+        ],
         'admin.menu' => [
             'tree' => [
                 100 => [
@@ -46,11 +51,6 @@ $config = [
                         ],
                     ]
                 ]
-            ]
-        ],
-        'admin.script' => [
-            'javascript' => [
-                210 => 'Leafiny_Category::backend/js/app.js'
             ]
         ],
     ],
@@ -95,6 +95,9 @@ $config = [
             'allow_params'          => 1,
             'recommended_file_size' => '940x200',
             'max_file_number'       => 1,
+            'javascript' => [
+                1210 => 'Leafiny_Category::backend/js/categories/form.js'
+            ]
         ],
         '/admin/*/categories/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,

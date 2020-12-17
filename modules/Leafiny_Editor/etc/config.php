@@ -12,7 +12,7 @@ $config = [
         ],
         'admin.script' => [
             'javascript' => [
-                710 => 'Leafiny_Editor::backend/js/app.js'
+                710 => 'Leafiny_Editor::backend/js/editor.js'
             ],
         ],
         'admin.default.form.editor' => [

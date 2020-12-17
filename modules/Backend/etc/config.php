@@ -92,6 +92,9 @@ $config = [
             'meta_title'         => 'Edit',
             'meta_description'   => '',
             'allow_params'       => 1,
+            'javascript'         => [
+                100 => 'Backend::js/users/form.js'
+            ],
         ],
         '/admin/*/users/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,
@@ -167,7 +170,10 @@ $config = [
                 300 => 'Backend::css/leafiny.css',
                 400 => 'Backend::css/custom.css',
             ],
-            'class'    => Backend_Block_Head::class,
+            'class'      => Backend_Block_Head::class,
+            'javascript' => [
+                100 => 'Backend::js/backend.js'
+            ],
         ],
         'admin.menu' => [
             'template' => 'Backend::block/menu.twig',
@@ -213,7 +219,7 @@ $config = [
             'template' => 'Backend::block/script.twig',
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'javascript' => [
-                100 => 'Backend::js/app.js'
+                100 => 'Backend::js/grids.js'
             ],
             'class'    => Backend_Block_Script::class,
         ],

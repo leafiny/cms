@@ -1,7 +1,5 @@
-productGallery();
-
 /**
- * Product Gallery on product page
+ * Product Gallery
  *
  * @returns {boolean}
  */

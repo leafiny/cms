@@ -75,11 +75,6 @@ $config = [
                 ]
             ]
         ],
-        'admin.script' => [
-            'javascript' => [
-                610 => 'Leafiny_Cms::backend/js/app.js'
-            ]
-        ],
     ],
 
     'page' => [
@@ -125,6 +120,9 @@ $config = [
             'meta_title'         => 'Edit',
             'meta_description'   => '',
             'allow_params'       => 1,
+            'javascript' => [
+                1610 => 'Leafiny_Cms::backend/js/pages/form.js'
+            ]
         ],
         '/admin/*/pages/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,
@@ -164,6 +162,9 @@ $config = [
             'meta_title'         => 'Edit',
             'meta_description'   => '',
             'allow_params'       => 1,
+            'javascript' => [
+                1610 => 'Leafiny_Cms::backend/js/blocks/form.js'
+            ]
         ],
         '/admin/*/blocks/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,

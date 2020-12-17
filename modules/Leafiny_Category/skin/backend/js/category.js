@@ -1,11 +1,3 @@
-let categoryFormPage = document.querySelector('.page-admin-categories-edit');
-
-if (categoryFormPage) {
-    categorySelector('language');
-    copyValue('name', 'path_key', true);
-    copyValue('name', 'meta_title', false);
-}
-
 function categorySelector (languageId) {
     let languageSelector   = document.getElementById(languageId);
     let categoryContainers = document.querySelectorAll('.form-category-selector');

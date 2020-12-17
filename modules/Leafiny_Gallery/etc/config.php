@@ -15,7 +15,7 @@ $config = [
         ],
         'admin.script' => [
             'javascript' => [
-                510 => 'Leafiny_Gallery::backend/js/app.js'
+                510 => 'Leafiny_Gallery::backend/js/gallery.js'
             ]
         ],
         'admin.gallery.form' => [
