@@ -160,13 +160,15 @@ header .quote p {
 
 #menu-sm-link {
     display: none;
+}
+
+.menu-toggle {
+    display: none;
     line-height: 42px;
     background: url(../images/menu.png) no-repeat center left;
     padding-left: 35px;
     cursor: pointer;
-}
-#menu-sm-link:focus {
-    background-image: url(../images/close.png);
+    color: #777;
 }
 
 .pure-menu-item {
@@ -576,12 +578,8 @@ footer a {
     }
 
     /* Menu */
-    #menu-sm-link {
+    .menu-toggle {
         display: block;
-    }
-
-    #menu-sm-link:focus {
-        outline: 0;
     }
 
     .menu-list.categories {
@@ -598,10 +596,11 @@ footer a {
         box-shadow: 0 15px 10px -15px #666;
     }
 
-    #menu-sm-link:focus + ul,
-    .menu-list.categories:hover,
-    .menu-list.categories:focus-within,
-    .menu-list.categories:active {
+    #menu-sm-link:checked + label {
+        background-image: url(../images/close.png);
+    }
+
+    #menu-sm-link:checked ~ ul {
         display: block;
     }
 

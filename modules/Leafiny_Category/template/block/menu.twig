@@ -4,7 +4,7 @@
         <div id="navigation">
             <div class="navigation-content">
                 <div class="pure-menu pure-menu-horizontal">
-                    <button class="pure-menu-link" id="menu-sm-link"><span>Menu</span></button>
+                    <input type="checkbox" id="menu-sm-link" value="1" /> <label for="menu-sm-link" class="menu-toggle">{{ 'Menu'|translate }}</label>
                     <ul class="pure-menu-list menu-list categories">
                         {% for category in tree %}
                             <li class="pure-menu-item">

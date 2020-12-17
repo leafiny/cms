@@ -135,7 +135,11 @@ blockquote {
 }
 
 /* Menu */
-#admin-menu-button {
+#menu-sm-link {
+    display: none;
+}
+
+.menu-toggle.pure-button {
     display: none;
     position: absolute;
     padding: 8px 20px;
@@ -626,14 +630,11 @@ main {
 .dashboard li a.purple {background: #6B5976}
 
 @media (max-width: 778px) {
-    #admin-menu-button {
+    .menu-toggle.pure-button {
         display: block;
     }
 
-    #admin-menu-button:focus + nav,
-    nav:hover,
-    nav:active,
-    nav:focus-within {
+    #menu-sm-link:checked ~ nav {
         margin-left: 0;
     }
 
