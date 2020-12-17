@@ -7,9 +7,10 @@ copyBlockSnippet();
  * @returns {boolean}
  */
 function copyBlockSnippet () {
+    let blockSnippet = document.getElementById('block-snippet');
     let copyLink = document.getElementById('block-copy-snippet');
 
-    if (!copyLink) {
+    if (!copyLink || !blockSnippet) {
         return false;
     }
 
