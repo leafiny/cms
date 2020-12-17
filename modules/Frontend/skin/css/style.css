@@ -580,6 +580,10 @@ footer a {
         display: block;
     }
 
+    #menu-sm-link:focus {
+        outline: 0;
+    }
+
     .menu-list.categories {
         display: none;
         position: absolute;
@@ -634,6 +638,10 @@ footer a {
     .pure-menu-list.child .pure-menu-link {
         padding-right: 0;
         background: none;
+    }
+
+    .pure-menu-item:hover .pure-menu-list.child {
+        display: none;
     }
 
     /* Banner */
