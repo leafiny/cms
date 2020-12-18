@@ -636,12 +636,12 @@ main {
     }
 
     #menu-sm-link:checked + label {
-        left: 186px;
-        top: 19px;
+        left: 180px;
+        top: 10px;
         padding: 0;
-        width: 25px;
-        height: 25px;
-        background: url(../images/icon/close.png) no-repeat;
+        width: 40px;
+        height: 40px;
+        background: url(../images/icon/close.png) no-repeat center center;
     }
 
     #menu-sm-link:checked + label span {
