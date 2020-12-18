@@ -26,6 +26,8 @@ class Backend_Block_Script extends Core_Block
             $scripts = array_replace($scripts, $page->getCustom('javascript') ?: []);
         }
 
+        $scripts = array_filter($scripts);
+
         ksort($scripts);
 
         return $scripts;

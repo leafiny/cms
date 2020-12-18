@@ -35,11 +35,6 @@ $config = [
         '/page/*.html' => [
             'content' => 'Frontend::page/cms.twig', // Optional template override (Leafiny_Cms)
         ],
-        '/product/*.html' => [
-            'javascript' => [
-                1000 => 'Frontend::js/product.js'
-            ],
-        ],
     ],
 
     'observer' => [

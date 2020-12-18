@@ -38,6 +38,8 @@ class Backend_Block_Head extends Core_Block
             return [];
         }
 
+        $scripts = array_filter($scripts);
+
         ksort($scripts);
 
         return $scripts;

@@ -71,6 +71,9 @@ $config = [
         '/product/*.html' => [
             'class'   => Catalog_Page_Product_View::class,
             'content' => 'Leafiny_Catalog::page/product/view.twig',
+            'javascript' => [
+                1310 => 'Leafiny_Catalog::js/product.js'
+            ],
         ],
 
         /* Admin Products */
