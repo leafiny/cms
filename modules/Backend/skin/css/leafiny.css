@@ -110,7 +110,7 @@ blockquote {
 }
 
 .layout {
-    padding-left: 200px;
+    padding-left: 230px;
     position: relative;
 }
 
@@ -147,12 +147,13 @@ blockquote {
     border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     -webkit-border-radius: 0 5px 5px 0;
+    z-index: 1001;
 }
 
 nav {
-    left: 200px;
-    margin-left: -200px;
-    width: 200px;
+    left: 230px;
+    margin-left: -230px;
+    width: 230px;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -192,7 +193,7 @@ nav .pure-menu-active > .pure-menu-link {
 footer {
     bottom: 0;
     right: 0;
-    left: 200px;
+    left: 230px;
     background: #efefef;
     text-align: center;
     padding: 40px 0;
@@ -317,7 +318,7 @@ main {
     position: fixed;
     bottom: 0;
     right: 0;
-    left: 200px;
+    left: 230px;
     border-top: 1px solid #ddd;
     z-index: 1000;
     padding: 40px 20px;
@@ -632,6 +633,19 @@ main {
 @media (max-width: 778px) {
     .menu-toggle.pure-button {
         display: block;
+    }
+
+    #menu-sm-link:checked + label {
+        left: 186px;
+        top: 19px;
+        padding: 0;
+        width: 25px;
+        height: 25px;
+        background: url(../images/icon/close.png) no-repeat;
+    }
+
+    #menu-sm-link:checked + label span {
+        display: none;
     }
 
     #menu-sm-link:checked ~ nav {
