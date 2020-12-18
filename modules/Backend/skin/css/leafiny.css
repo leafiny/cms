@@ -148,6 +148,7 @@ blockquote {
     -moz-border-radius: 0 5px 5px 0;
     -webkit-border-radius: 0 5px 5px 0;
     z-index: 1001;
+    -webkit-tap-highlight-color: transparent;
 }
 
 nav {
