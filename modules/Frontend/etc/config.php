@@ -29,7 +29,7 @@ $config = [
             'title'            => 'Home',
             'content'          => 'Frontend::page/index.twig',
             'meta_title'       => 'Home',
-            'meta_description' => '',
+            'meta_description' => 'Welcome to Leafiny!',
             'banner_text'      => 'Welcome to Leafiny',
         ],
         '/page/*.html' => [
@@ -63,7 +63,7 @@ $config = [
                 300 => 'Frontend::css/style.css'
             ],
             'javascript' => [
-                // Default theme use Vanilla Javascript
+                // Load the necessary head scripts, Example:
                 // 100 => 'Frontend::js/jquery-3.5.1.min.js'
             ],
             'class' => Frontend_Block_Head::class
@@ -90,6 +90,7 @@ $config = [
         'script' => [
             'template' => 'Frontend::block/script.twig',
             'javascript' => [
+                // Load the necessary scripts before body end
                 100 => 'Frontend::js/app.js'
             ],
             'class' => Frontend_Block_Script::class
