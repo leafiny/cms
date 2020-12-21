@@ -266,8 +266,12 @@ main {
 }
 
 /* forms */
+button, input, optgroup, select, textarea {
+    line-height: 1.3em;
+}
+
 .pure-form select {
-    height: 2.4em;
+    height: 2.5em;
 }
 
 .container-form {
