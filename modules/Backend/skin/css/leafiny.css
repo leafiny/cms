@@ -381,6 +381,11 @@ main {
     color: #000;
 }
 
+.pure-button.blue {
+    background: #004465;
+    color: #fff;
+}
+
 /* Tables */
 .container-grid .grid {
     overflow-x: auto;
@@ -695,5 +700,26 @@ main {
 
     .container-grid .toolbar .pages span {
         display: none;
+    }
+
+    .container-grid .toolbar .actions {
+        text-align: left;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        border-top: 1px solid #ddd;
+        z-index: 900;
+        padding: 40px 20px 30px 20px;
+        background: #fff;
+    }
+
+    .container-grid .toolbar .actions .pure-button {
+        margin: 0 20px 10px 0;
+    }
+
+    .container-grid .toolbar .actions .box {
+        margin: 0;
     }
 }

@@ -22,7 +22,7 @@
             <span>{{ page.getSize }} {% if page.getSize > 1 %}{{ 'records'|translate }}{% else %}{{ 'record'|translate }}{% endif %}</span>
         </div>
     </div>
-    <div class="pure-u-md-7-24 right">
+    <div class="pure-u-md-7-24 right actions">
         <div class="box">
             {% if page.getFilters is not empty %}
                 <a href="{{ page.getResetFilterUrl }}" class="pure-button red">{{ 'Reset Filter'|translate }}</a>
