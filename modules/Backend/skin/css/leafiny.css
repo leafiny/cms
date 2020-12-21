@@ -398,7 +398,7 @@ main {
 .container-grid .toolbar .right button,
 .container-grid .toolbar .right a,
 .container-grid .toolbar .right input[type="submit"] {
-    margin-left: 10px;
+    margin: 0 0 10px 10px;
 }
 
 .container-grid .toolbar select,
@@ -419,7 +419,7 @@ main {
 }
 
 .container-grid .toolbar .pages {
-    min-width: 425px;
+    min-width: 440px;
     line-height: 35px;
 }
 
@@ -688,10 +688,6 @@ main {
 
     .container-grid .toolbar .right {
         text-align: left;
-    }
-
-    .container-grid .toolbar .right a {
-        margin: 0 10px 10px 0;
     }
 
     .container-grid .toolbar .pages {
