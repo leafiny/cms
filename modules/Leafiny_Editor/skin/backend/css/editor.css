@@ -3,7 +3,7 @@
 }
 
 .editor .editor-actions a {
-    margin-right: 10px;
+    margin: 0 10px 5px 0;
 }
 
 .editor .editor-actions a.active {
