@@ -14,7 +14,7 @@ $config = [
         /* Admin */
         '/admin/*/log/list/' => [
             'title'            => 'Logs',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Log_Page_Backend_Log_List::class,
             'content'          => 'Leafiny_Log::page/backend/log/list.twig',
             'model_identifier' => 'log_db',
@@ -30,7 +30,7 @@ $config = [
         ],
         '/admin/*/log/edit/' => [
             'title'              => 'Log',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Log_Page_Backend_Log_View::class,
             'content'            => 'Leafiny_Log::page/backend/log/view.twig',
             'referer_identifier' => '/admin/*/log/list/',

@@ -101,7 +101,7 @@ class Core_Helper extends Leafiny_Object
      */
     public function getModuleUrl(string $path): string
     {
-        return App::getDomain() . App::MODULES_DIRECTORY . DS . $path;
+        return App::getDomain() . App::MODULES_DIRECTORY . US . str_replace(DS, US, $path);
     }
 
     /**

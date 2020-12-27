@@ -36,6 +36,13 @@ $config = [
             'name'     => 'parent_id',
             'label'    => 'Parent',
         ],
+        'admin.category.form.editor' => [
+            'template' => 'Leafiny_Editor::block/backend/form/editor.twig',
+            'class'    => Editor_Block_Backend_Form_Editor::class,
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'name'     => 'content',
+            'actions'  => ['Markdown', 'HTML', 'Preview']
+        ],
         'admin.head' => [
             'javascript' => [
                 210 => 'Leafiny_Category::backend/js/category.js',
@@ -65,7 +72,7 @@ $config = [
         /* Admin Categories */
         '/admin/*/categories/list/' => [
             'title'            => 'Categories',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Category::page/backend/categories/list.twig',
             'model_identifier' => 'category',
@@ -85,7 +92,7 @@ $config = [
         ],
         '/admin/*/categories/edit/' => [
             'title'                 => 'Edit',
-            'template'              => 'Backend::page.twig',
+            'template'              => 'Leafiny_Backend::page.twig',
             'class'                 => Backend_Page_Admin_Form::class,
             'content'               => 'Leafiny_Category::page/backend/categories/form.twig',
             'referer_identifier'    => '/admin/*/categories/list/',

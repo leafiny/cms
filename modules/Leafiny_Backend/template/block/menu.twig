@@ -1,7 +1,7 @@
 <input type="checkbox" id="menu-sm-link" value="1" /> <label for="menu-sm-link" class="menu-toggle pure-button black"><span>{{ 'Menu'|translate }}</span></label>
 <nav>
     <div class="nav-content pure-menu">
-        <a href="{{ page.getUrl }}" id="admin-menu-logo"><img class="logo" src="{{ page.getMediaUrl('Backend::logo-admin.png') }}" alt="Leafiny" /></a>
+        <a href="{{ page.getUrl }}" id="admin-menu-logo"><img class="logo" src="{{ page.getMediaUrl('Leafiny_Backend::logo-admin.png') }}" alt="Leafiny" /></a>
 
         {% for title, children in block.getTree %}
             <span class="pure-menu-heading">{{ title|translate }}</span>

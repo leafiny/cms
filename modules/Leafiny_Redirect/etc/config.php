@@ -10,7 +10,7 @@ $config = [
     'page' => [
         '/admin/*/redirect/list/' => [
             'title'            => 'Redirects',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Redirect::page/backend/redirect/list.twig',
             'model_identifier' => 'redirect',
@@ -30,7 +30,7 @@ $config = [
         ],
         '/admin/*/redirect/edit/' => [
             'title'              => 'Edit',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Backend_Page_Admin_Form::class,
             'content'            => 'Leafiny_Redirect::page/backend/redirect/form.twig',
             'referer_identifier' => '/admin/*/redirect/list/',

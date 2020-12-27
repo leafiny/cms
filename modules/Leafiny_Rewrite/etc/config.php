@@ -10,7 +10,7 @@ $config = [
     'page' => [
         '/admin/*/rewrite/list/' => [
             'title'            => 'Rewrites',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Rewrite::page/backend/rewrite/list.twig',
             'model_identifier' => 'rewrite',
@@ -41,7 +41,7 @@ $config = [
         ],
         '/admin/*/rewrite/edit/' => [
             'title'              => 'Edit',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Backend_Page_Admin_Form::class,
             'content'            => 'Leafiny_Rewrite::page/backend/rewrite/form.twig',
             'referer_identifier' => '/admin/*/rewrite/list/',

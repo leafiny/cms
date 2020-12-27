@@ -26,7 +26,7 @@ $config = [
         /* Admin Comment */
         '/admin/*/comment/list/' => [
             'title'            => 'Comments',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Social::page/backend/comment/list.twig',
             'model_identifier' => 'social_comment',
@@ -47,7 +47,7 @@ $config = [
         ],
         '/admin/*/comment/edit/' => [
             'title'                 => 'Edit',
-            'template'              => 'Backend::page.twig',
+            'template'              => 'Leafiny_Backend::page.twig',
             'class'                 => Backend_Page_Admin_Form::class,
             'content'               => 'Leafiny_Social::page/backend/comment/form.twig',
             'referer_identifier'    => '/admin/*/comment/list/',

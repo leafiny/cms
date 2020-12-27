@@ -103,7 +103,7 @@ $config = [
         /* Admin Pages */
         '/admin/*/posts/list/' => [
             'title'            => 'Posts',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Blog::page/backend/posts/list.twig',
             'model_identifier' => 'blog_post',
@@ -123,7 +123,7 @@ $config = [
         ],
         '/admin/*/posts/edit/' => [
             'title'              => 'Edit',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Backend_Page_Admin_Form::class,
             'content'            => 'Leafiny_Blog::page/backend/posts/form.twig',
             'referer_identifier' => '/admin/*/posts/list/',

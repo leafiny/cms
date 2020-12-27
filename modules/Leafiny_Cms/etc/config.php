@@ -92,7 +92,7 @@ $config = [
         /* Admin Pages */
         '/admin/*/pages/list/' => [
             'title'            => 'Pages',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Cms::page/backend/pages/list.twig',
             'model_identifier' => 'cms_page',
@@ -112,7 +112,7 @@ $config = [
         ],
         '/admin/*/pages/edit/' => [
             'title'              => 'Edit',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Backend_Page_Admin_Form::class,
             'content'            => 'Leafiny_Cms::page/backend/pages/form.twig',
             'referer_identifier' => '/admin/*/pages/list/',
@@ -134,7 +134,7 @@ $config = [
         /* Admin Blocks */
         '/admin/*/blocks/list/' => [
             'title'            => 'Blocks',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Cms::page/backend/blocks/list.twig',
             'model_identifier' => 'cms_block',
@@ -154,7 +154,7 @@ $config = [
         ],
         '/admin/*/blocks/edit/' => [
             'title'              => 'Edit',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Backend_Page_Admin_Form::class,
             'content'            => 'Leafiny_Cms::page/backend/blocks/form.twig',
             'referer_identifier' => '/admin/*/blocks/list/',

@@ -79,7 +79,7 @@ $config = [
         /* Admin Products */
         '/admin/*/products/list/' => [
             'title'            => 'Products',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Catalog_Page_Backend_Product_List::class,
             'content'          => 'Leafiny_Catalog::page/backend/products/list.twig',
             'model_identifier' => 'catalog_product',
@@ -99,7 +99,7 @@ $config = [
         ],
         '/admin/*/products/edit/' => [
             'title'                 => 'Edit',
-            'template'              => 'Backend::page.twig',
+            'template'              => 'Leafiny_Backend::page.twig',
             'class'                 => Backend_Page_Admin_Form::class,
             'content'               => 'Leafiny_Catalog::page/backend/products/form.twig',
             'referer_identifier'    => '/admin/*/products/list/',

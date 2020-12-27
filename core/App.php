@@ -21,11 +21,11 @@ final class App
     /**
      * @var string FRONTEND_MODULE_NAME
      */
-    public const FRONTEND_MODULE_NAME = 'frontend';
+    public const FRONTEND_MODULE_NAME = 'Frontend';
     /**
      * @var string BACKEND_MODULE_NAME
      */
-    public const BACKEND_MODULE_NAME = 'backend';
+    public const BACKEND_MODULE_NAME = 'Backend';
     /**
      * @var string CLASS_SYMLINKS_DIRECTORY
      */
@@ -626,10 +626,11 @@ final class App
     public static function getModules(): array
     {
         if (self::$modules === null) {
+            self::$modules = [];
             $exclude = ['.', '..', self::FRONTEND_MODULE_NAME, self::BACKEND_MODULE_NAME];
             $directory = self::getModulesDir();
             if (is_dir($directory)) {
-                $modules = scandir($directory, 1);
+                $modules = scandir($directory, SCANDIR_SORT_DESCENDING);
                 foreach ($modules as $module) {
                     if (preg_match('/^_/', $module)) {
                         continue;
@@ -638,6 +639,11 @@ final class App
                         continue;
                     }
                     if (in_array($module, $exclude)) {
+                        continue;
+                    }
+
+                    if (preg_match('/^Leafiny_/', $module)) {
+                        array_unshift(self::$modules, $module);
                         continue;
                     }
 

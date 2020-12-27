@@ -27,7 +27,7 @@ $config = [
         /* Admin */
         '/admin/*/messages/list/' => [
             'title'            => 'Messages',
-            'template'         => 'Backend::page.twig',
+            'template'         => 'Leafiny_Backend::page.twig',
             'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Contact::page/backend/message/list.twig',
             'model_identifier' => 'contact_message',
@@ -43,7 +43,7 @@ $config = [
         ],
         '/admin/*/messages/edit/' => [
             'title'              => 'Message',
-            'template'           => 'Backend::page.twig',
+            'template'           => 'Leafiny_Backend::page.twig',
             'class'              => Contact_Page_Backend_Message_View::class,
             'content'            => 'Leafiny_Contact::page/backend/message/view.twig',
             'referer_identifier' => '/admin/*/messages/list/',
