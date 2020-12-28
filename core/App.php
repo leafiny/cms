@@ -719,7 +719,7 @@ final class App
                 }
                 symlink($include, $loaded);
 
-                require_once $include;
+                require_once $loaded;
                 return;
             }
         }
