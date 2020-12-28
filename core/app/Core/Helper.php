@@ -111,7 +111,7 @@ class Core_Helper extends Leafiny_Object
      */
     public function getMediaUrl(): string
     {
-        return App::getDomain() . self::MEDIA_DIRECTORY . DS;
+        return App::getDomain() . self::MEDIA_DIRECTORY . US;
     }
 
     /**
