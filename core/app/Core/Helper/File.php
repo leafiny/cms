@@ -32,14 +32,13 @@ class Core_Helper_File extends Core_Helper
      */
     function imageResize(string $directory, string $filename, int $maxWidth, int $maxHeight, string $sub = 'cache'): ?string
     {
+        $info = pathinfo($filename);
         $directory = rtrim($directory, DS);
         $filename = $directory . DS . $filename;
 
         if (!is_file($filename)) {
             return null;
         }
-
-        $info = pathinfo($filename);
 
         if (!isset($info['extension'], $info['dirname'], $info['filename'])) {
             return null;
