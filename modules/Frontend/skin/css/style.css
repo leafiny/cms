@@ -176,10 +176,6 @@ header .quote p {
     line-height: 40px;
 }
 
-.menu-list.mobile .pure-menu-item {
-    line-height: 43px;
-}
-
 .pure-menu-link {
     padding: 0 1em;
     border-bottom: 3px solid #FFFFFF;
