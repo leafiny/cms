@@ -78,6 +78,8 @@ class Category_Page_Category_View extends Core_Page
             return [];
         }
 
+        $children = array_filter($children);
+
         ksort($children);
 
         return $children;
