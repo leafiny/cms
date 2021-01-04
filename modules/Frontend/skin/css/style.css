@@ -293,6 +293,14 @@ footer a {
 }
 
 /* Forms */
+button, input, optgroup, select, textarea {
+    line-height: 1.3em;
+}
+
+.pure-form select {
+    height: 2.5em;
+}
+
 .pure-form textarea {
     height: 200px;
     max-width: 100%;
