@@ -145,7 +145,7 @@ $config = [
 
     'observer' => [
         'frontend_page_post_process' => [
-            150 => 'check_page_posts',
+            'check_page_posts' => 150,
         ],
     ],
 

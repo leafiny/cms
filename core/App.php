@@ -485,14 +485,20 @@ final class App
         $observers = self::getConfig('observer.' . $name);
 
         if (is_array($observers)) {
-            ksort($observers);
-            foreach ($observers as $event) {
+            $observers = array_filter($observers, 'strlen');
+            asort($observers);
+            foreach ($observers as $event => $position) {
+                if ($event === 0) {
+                    throw new Exception('The event position is missing for "' . $position . '"');
+                }
+
                 /** @var Core_Event $object */
                 $observer = App::getObject('event', $event);
                 $object = new Leafiny_Object();
                 foreach ($data as $key => $value) {
                     $object->setData($key, $value);
                 }
+                $object->setData('event_position', $position);
                 $observer->execute($object);
             }
         }

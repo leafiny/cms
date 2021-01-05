@@ -244,20 +244,20 @@ $config = [
 
     'observer' => [
         'page_object_init_after' => [
-            100 => 'backend_check_backend_key',
+            'backend_check_backend_key' => 100,
         ],
         'backend_page_pre_process' => [
-            100 => 'backend_page_set_locale_information',
-            200 => 'backend_page_init_session',
-            300 => 'backend_check_user_is_allowed',
-            400 => 'backend_object_key_warning',
-            500 => 'backend_db_warning',
+            'backend_page_set_locale_information' => 100,
+            'backend_page_init_session' => 200,
+            'backend_check_user_is_allowed' => 300,
+            'backend_object_key_warning' => 400,
+            'backend_db_warning' => 500,
         ],
         'backend_page_process' => [
-            100 => 'backend_check_user_name',
+            'backend_check_user_name' => 100,
         ],
         'backend_object_save_after' => [
-            100 => 'backend_user_save_resources',
+            'backend_user_save_resources' => 100,
         ]
     ],
 

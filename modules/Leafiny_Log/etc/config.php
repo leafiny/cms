@@ -44,19 +44,19 @@ $config = [
 
     'observer' => [
         'backend_user_connect' => [
-            1000 => 'log_backend_user_connect',
+            'log_backend_user_connect' => 1000,
         ],
         'backend_object_save_after' => [
-            1000 => 'log_object_save_after',
+            'log_object_save_after' => 1000,
         ],
         'backend_action_remove_delete_after' => [
-            1000 => 'log_backend_action_remove_delete_after',
+            'log_backend_action_remove_delete_after' => 1000,
         ],
         'flush_cache_success' => [
-            1000 => 'log_flush_cache_success',
+            'log_flush_cache_success' => 1000,
         ],
         'flush_cache_error' => [
-            1000 => 'log_flush_cache_error',
+            'log_flush_cache_error' => 1000,
         ],
     ],
 

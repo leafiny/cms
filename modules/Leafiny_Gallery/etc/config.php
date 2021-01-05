@@ -44,10 +44,10 @@ $config = [
 
     'observer' => [
         'backend_object_save_after' => [
-            200 => 'backend_gallery_image_add',
+            'backend_gallery_image_add' => 200,
         ],
         'object_delete_after' => [
-            200 => 'backend_gallery_image_delete',
+            'backend_gallery_image_delete' => 200,
         ],
     ],
 

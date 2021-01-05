@@ -74,7 +74,7 @@ $config = [
 
     'observer' => [
         'page_identifier_extract_before' => [
-            200 => 'page_rewrite_match_identifier',
+            'page_rewrite_match_identifier' => 200,
         ],
     ],
 

@@ -63,7 +63,7 @@ $config = [
 
     'observer' => [
         'page_identifier_extract_before' => [
-            100 => 'page_redirect_match_identifier',
+            'page_redirect_match_identifier' => 100,
         ],
     ],
 

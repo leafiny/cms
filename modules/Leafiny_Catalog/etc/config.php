@@ -134,7 +134,7 @@ $config = [
 
     'observer' => [
         'frontend_page_post_process' => [
-            250 => 'check_page_products',
+            'check_page_products' => 250,
         ],
     ],
 

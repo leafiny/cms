@@ -49,14 +49,14 @@ $config = [
 
     'observer' => [
         'page_render_before' => [
-            0 => 'fpc_get_cache',
+            'fpc_get_cache' => 10,
         ],
         'page_render_after' => [
-            0 => 'fpc_save_cache',
-            1 => 'fpc_clean_html',
+            'fpc_save_cache' => 10,
+            'fpc_clean_html' => 20,
         ],
         'object_save_before' => [
-            0 => 'fpc_flush_cache',
+            'fpc_flush_cache' => 10,
         ]
     ],
 

@@ -39,8 +39,8 @@ $config = [
 
     'observer' => [
         'frontend_page_pre_process' => [
-            100 => 'frontend_page_set_locale_information',
-            200 => 'frontend_page_init_session',
+            'frontend_page_set_locale_information' => 100,
+            'frontend_page_init_session' => 200,
         ],
     ],
 
