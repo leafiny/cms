@@ -72,7 +72,7 @@ $config = [
             'class'   => Catalog_Page_Product_View::class,
             'content' => 'Leafiny_Catalog::page/product/view.twig',
             'javascript' => [
-                1310 => 'Leafiny_Catalog::js/product.js'
+                'Leafiny_Catalog::js/product.js' => 100
             ],
         ],
 
@@ -109,7 +109,7 @@ $config = [
             'allow_params'          => 1,
             'recommended_file_size' => '600x600',
             'javascript'            => [
-                1310 => 'Leafiny_Catalog::backend/js/products/form.js'
+                'Leafiny_Catalog::backend/js/products/form.js' => 100
             ]
         ],
         '/admin/*/products/edit/save/' => [

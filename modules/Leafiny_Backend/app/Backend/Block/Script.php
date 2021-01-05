@@ -26,10 +26,10 @@ class Backend_Block_Script extends Core_Block
             $scripts = array_replace($scripts, $page->getCustom('javascript') ?: []);
         }
 
-        $scripts = array_filter($scripts);
+        $scripts = array_filter($scripts, 'strlen');
 
-        ksort($scripts);
+        asort($scripts);
 
-        return $scripts;
+        return array_keys($scripts);
     }
 }

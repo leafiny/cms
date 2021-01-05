@@ -10,12 +10,12 @@ $config = [
     'block' => [
         'admin.head' => [
             'stylesheet' => [
-                510 => 'Leafiny_Gallery::backend/css/gallery.css',
+                'Leafiny_Gallery::backend/css/gallery.css' => 600,
             ],
         ],
         'admin.script' => [
             'javascript' => [
-                510 => 'Leafiny_Gallery::backend/js/gallery.js'
+                'Leafiny_Gallery::backend/js/gallery.js' => 200
             ]
         ],
         'admin.gallery.form' => [

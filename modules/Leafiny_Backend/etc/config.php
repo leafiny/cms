@@ -93,7 +93,7 @@ $config = [
             'meta_description'   => '',
             'allow_params'       => 1,
             'javascript'         => [
-                100 => 'Leafiny_Backend::js/users/form.js'
+                'Leafiny_Backend::js/users/form.js' => 100
             ],
         ],
         '/admin/*/users/edit/save/' => [
@@ -165,13 +165,13 @@ $config = [
             'context'    => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'charset'    => 'utf-8',
             'stylesheet' => [
-                100 => 'Leafiny_Backend::css/pure-min.css',
-                200 => 'Leafiny_Backend::css/grids-responsive-min.css',
-                300 => 'Leafiny_Backend::css/leafiny.css',
+                'Leafiny_Backend::css/pure-min.css' => 100,
+                'Leafiny_Backend::css/grids-responsive-min.css' => 200,
+                'Leafiny_Backend::css/leafiny.css' => 300,
             ],
             'class'      => Backend_Block_Head::class,
             'javascript' => [
-                100 => 'Leafiny_Backend::js/backend.js'
+                'Leafiny_Backend::js/backend.js' => 100
             ],
         ],
         'admin.menu' => [
@@ -218,7 +218,7 @@ $config = [
             'template' => 'Leafiny_Backend::block/script.twig',
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'javascript' => [
-                100 => 'Leafiny_Backend::js/grids.js'
+                'Leafiny_Backend::js/grids.js' => 100
             ],
             'class'    => Backend_Block_Script::class,
         ],

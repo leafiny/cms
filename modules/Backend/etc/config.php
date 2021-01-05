@@ -5,13 +5,13 @@ $config = [
         'admin.head' => [
             'stylesheet' => [
                 // Custom CSS if needed
-                // 1000 => 'Backend::css/custom.css',
+                // 'Backend::css/custom.css' => 1000,
             ],
         ],
         'admin.script' => [
             'javascript' => [
                 // Custom JavaScript if needed
-                // 1000 => 'Backend::js/custom.js'
+                // 'Backend::js/custom.js' => 1000,
             ],
         ],
     ],

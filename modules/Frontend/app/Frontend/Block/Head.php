@@ -20,9 +20,11 @@ class Frontend_Block_Head extends Core_Block
             return [];
         }
 
-        ksort($stylesheets);
+        $stylesheets = array_filter($stylesheets, 'strlen');
 
-        return $stylesheets;
+        asort($stylesheets);
+
+        return array_keys($stylesheets);
     }
 
     /**
@@ -38,10 +40,10 @@ class Frontend_Block_Head extends Core_Block
             return [];
         }
 
-        $scripts = array_filter($scripts);
+        $scripts = array_filter($scripts, 'strlen');
 
-        ksort($scripts);
+        asort($scripts);
 
-        return $scripts;
+        return array_keys($scripts);
     }
 }

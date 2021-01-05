@@ -121,7 +121,7 @@ $config = [
             'meta_description'   => '',
             'allow_params'       => 1,
             'javascript' => [
-                1610 => 'Leafiny_Cms::backend/js/pages/form.js'
+                'Leafiny_Cms::backend/js/pages/form.js' => 100
             ]
         ],
         '/admin/*/pages/edit/save/' => [
@@ -163,7 +163,7 @@ $config = [
             'meta_description'   => '',
             'allow_params'       => 1,
             'javascript' => [
-                1610 => 'Leafiny_Cms::backend/js/blocks/form.js'
+                'Leafiny_Cms::backend/js/blocks/form.js' => 100
             ]
         ],
         '/admin/*/blocks/edit/save/' => [

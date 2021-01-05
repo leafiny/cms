@@ -42,7 +42,7 @@ $config = [
 
         'admin.head' => [
             'stylesheet' => [
-                410 => 'Leafiny_Blog::backend/css/post.css',
+                'Leafiny_Blog::backend/css/post.css' => 400,
             ],
         ],
         'admin.blog.form.categories' => [
@@ -132,7 +132,7 @@ $config = [
             'meta_description'   => '',
             'allow_params'       => 1,
             'javascript'         => [
-                1410 => 'Leafiny_Blog::backend/js/posts/form.js'
+                'Leafiny_Blog::backend/js/posts/form.js' => 100
             ]
         ],
         '/admin/*/posts/edit/save/' => [

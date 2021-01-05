@@ -58,13 +58,13 @@ $config = [
             'template'   => 'Frontend::block/head.twig',
             'charset'    => 'utf-8',
             'stylesheet' => [
-                100 => 'Frontend::css/pure-min.css',
-                200 => 'Frontend::css/grids-responsive-min.css',
-                300 => 'Frontend::css/style.css'
+                'Frontend::css/pure-min.css' => 100,
+                'Frontend::css/grids-responsive-min.css' => 200,
+                'Frontend::css/style.css' => 300
             ],
             'javascript' => [
                 // Load the necessary head scripts, Example:
-                // 100 => 'Frontend::js/jquery-3.5.1.min.js'
+                // 'Frontend::js/jquery-3.5.1.min.js' => 100
             ],
             'class' => Frontend_Block_Head::class
         ],
@@ -91,7 +91,7 @@ $config = [
             'template' => 'Frontend::block/script.twig',
             'javascript' => [
                 // Load the necessary scripts before body end
-                100 => 'Frontend::js/app.js'
+                'Frontend::js/app.js' => 100
             ],
             'class' => Frontend_Block_Script::class
         ],

@@ -45,7 +45,7 @@ $config = [
         ],
         'admin.head' => [
             'javascript' => [
-                210 => 'Leafiny_Category::backend/js/category.js',
+                'Leafiny_Category::backend/js/category.js' => 200
             ]
         ],
         'admin.menu' => [
@@ -103,7 +103,7 @@ $config = [
             'recommended_file_size' => '940x200',
             'max_file_number'       => 1,
             'javascript' => [
-                1210 => 'Leafiny_Category::backend/js/categories/form.js'
+                'Leafiny_Category::backend/js/categories/form.js' => 100
             ]
         ],
         '/admin/*/categories/edit/save/' => [

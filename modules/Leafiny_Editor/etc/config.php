@@ -4,15 +4,15 @@ $config = [
     'block' => [
         'admin.head' => [
             'stylesheet' => [
-                710 => 'Leafiny_Editor::backend/css/editor.css',
+                'Leafiny_Editor::backend/css/editor.css' => 500,
             ],
             'javascript' => [
-                710 => 'Leafiny_Editor::backend/js/showdown.min.js',
+                'Leafiny_Editor::backend/js/showdown.min.js' => 300,
             ]
         ],
         'admin.script' => [
             'javascript' => [
-                710 => 'Leafiny_Editor::backend/js/editor.js'
+                'Leafiny_Editor::backend/js/editor.js' => 300
             ],
         ],
         'admin.default.form.editor' => [
