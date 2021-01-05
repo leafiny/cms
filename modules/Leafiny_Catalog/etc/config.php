@@ -65,7 +65,7 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                100 => 'category.product.list',
+                'category.product.list' => 100,
             ]
         ],
         '/product/*.html' => [

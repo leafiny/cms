@@ -478,6 +478,7 @@ final class App
      * @param array  $data
      *
      * @return void
+     * @throws Exception
      */
     public static function dispatchEvent(string $name, array $data = []): void
     {

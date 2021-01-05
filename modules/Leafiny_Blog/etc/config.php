@@ -87,7 +87,7 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                250 => 'category.post.list',
+                'category.post.list' => 250,
             ]
         ],
         '/post/*.html' => [

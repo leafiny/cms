@@ -107,8 +107,10 @@ class Backend_Page_Admin_Form extends Backend_Page_Admin_Page_Abstract
             return [];
         }
 
-        ksort($children);
+        $children = array_filter($children, 'strlen');
 
-        return $children;
+        asort($children);
+
+        return array_keys($children);
     }
 }

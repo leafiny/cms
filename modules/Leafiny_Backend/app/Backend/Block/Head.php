@@ -60,8 +60,10 @@ class Backend_Block_Head extends Core_Block
             return [];
         }
 
-        ksort($children);
+        $children = array_filter($children, 'strlen');
 
-        return $children;
+        asort($children);
+
+        return array_keys($children);
     }
 }

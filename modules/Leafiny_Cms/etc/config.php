@@ -80,8 +80,8 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                200 => 'category.cms.block.list',
-                300 => 'category.cms.page.list',
+                'category.cms.block.list' => 200,
+                'category.cms.page.list' => 300,
             ]
         ],
         '/page/*.html' => [

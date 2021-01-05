@@ -69,6 +69,7 @@ class Category_Page_Category_View extends Core_Page
      * Retrieve Children blocks
      *
      * @return string[]
+     * @throws Exception
      */
     public function getChildren(): array
     {
@@ -78,11 +79,17 @@ class Category_Page_Category_View extends Core_Page
             return [];
         }
 
-        $children = array_filter($children);
+        $children = array_filter($children, 'strlen');
 
-        ksort($children);
+        foreach ($children as $child => $position) {
+            if ($child === 0) {
+                throw new Exception('The block position value is missing for "' . $position . '"');
+            }
+        }
 
-        return $children;
+        asort($children);
+
+        return array_keys($children);
     }
 
     /**
