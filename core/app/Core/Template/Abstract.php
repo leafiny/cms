@@ -218,7 +218,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
         if ($key === null) {
             return '';
         }
-        
+
         return App::translate($key) ?: $key;
     }
 
