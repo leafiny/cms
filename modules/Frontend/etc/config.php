@@ -3,7 +3,7 @@
 $config = [
     'app' => [
         'twig_filters' => [
-            'number_format' => 'number_format',
+            'frontend' => Frontend_Twig_Filters::class,
         ],
     ],
 

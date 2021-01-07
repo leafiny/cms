@@ -3,7 +3,7 @@
 $config = [
     'app' => [
         'twig_filters' => [
-            'truncate'  => 'mb_strimwidth',
+            'backend' => Backend_Twig_Filters::class,
         ],
     ],
 

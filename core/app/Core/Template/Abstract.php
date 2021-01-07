@@ -155,8 +155,8 @@ abstract class Core_Template_Abstract extends Leafiny_Object
         $filters = App::getConfig('app.twig_filters');
 
         if (is_array($filters)) {
-            foreach ($filters as $name => $callable) {
-                $twig->addFilter(new Twig\TwigFilter($name, $callable));
+            foreach ($filters as $class) {
+                new $class($twig);
             }
         }
 
