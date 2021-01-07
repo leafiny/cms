@@ -209,12 +209,16 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     /**
      * Translate
      *
-     * @param string $key
+     * @param string|null $key
      *
      * @return string
      */
-    public function translate(string $key): string
+    public function translate(?string $key): string
     {
+        if ($key === null) {
+            return '';
+        }
+        
         return App::translate($key) ?: $key;
     }
 
