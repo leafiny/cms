@@ -66,8 +66,8 @@ abstract class Core_Template_Abstract extends Leafiny_Object
 
             $loader = new Twig\Loader\FilesystemLoader($paths);
             $twig = new Twig\Environment($loader, $options);
-            $twig->addExtension(new Twig\Extension\StringLoaderExtension());
             $this->addFilters($twig);
+            $this->addExtensions($twig);
 
             $this->environment = $twig;
         }
@@ -160,7 +160,30 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             }
         }
 
+        /* Required filters */
         $twig->addFilter(new Twig\TwigFilter('block', [$this, 'blockHtml']));
+        $twig->addFilter(new Twig\TwigFilter('translate', [$this, 'translate']));
+    }
+
+    /**
+     * Add twig extension
+     *
+     * @param Twig\Environment $twig
+     *
+     * @return void
+     */
+    public function addExtensions(Twig\Environment $twig): void
+    {
+        $extensions = App::getConfig('app.twig_extensions');
+
+        if (is_array($extensions)) {
+            foreach ($extensions as $class) {
+                new $class($twig);
+            }
+        }
+
+        /* Required Extensions */
+        $twig->addExtension(new Twig\Extension\StringLoaderExtension());
     }
 
     /**

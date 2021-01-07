@@ -3,7 +3,6 @@
 $config = [
     'app' => [
         'twig_filters' => [
-            'translate'     => 'App::translate',
             'number_format' => 'number_format',
         ],
     ],

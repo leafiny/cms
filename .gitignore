@@ -6,3 +6,4 @@ var/*
 media/*
 !media/.htaccess
 etc/config.*.php
+vendor/*
