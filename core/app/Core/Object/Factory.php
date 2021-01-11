@@ -10,10 +10,11 @@ class Core_Object_Factory
     /**
      * Retrieve Object
      *
-     * @param string      $type
+     * @param string $type
      * @param string|null $identifier
      *
      * @return Object|Leafiny_Object
+     * @throws Exception
      */
     public function getObject(string $type, ?string $identifier = null): Object
     {
@@ -193,6 +194,7 @@ class Core_Object_Factory
      * @param string $type
      *
      * @return void
+     * @throws Exception
      */
     protected function process(Object $object, string $type): void
     {

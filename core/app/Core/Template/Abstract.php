@@ -107,6 +107,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
      * @throws Twig\Error\LoaderError
      * @throws Twig\Error\RuntimeError
      * @throws Twig\Error\SyntaxError
+     * @throws Exception
      */
     public function render(array $options = [], ?array $paths = null): string
     {
