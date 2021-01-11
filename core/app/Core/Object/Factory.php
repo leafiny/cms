@@ -26,19 +26,23 @@ class Core_Object_Factory
             $extract = new Leafiny_Object();
             $extract->setData('identifier', $identifier);
 
-            App::dispatchEvent(
-                $type . '_identifier_extract_before',
-                ['identifier' => $identifier, 'extract' => $extract]
-            );
+            if ($this->canDispatchEvent($type)) {
+                App::dispatchEvent(
+                    $type . '_identifier_extract_before',
+                    ['identifier' => $identifier, 'extract' => $extract]
+                );
+            }
 
             $extract->setData(
                 $this->extract($type, $extract->getData('identifier'))
             );
 
-            App::dispatchEvent(
-                $type . '_identifier_extract_after',
-                ['identifier' => $identifier, 'extract' => $extract]
-            );
+            if ($this->canDispatchEvent($type)) {
+                App::dispatchEvent(
+                    $type . '_identifier_extract_after',
+                    ['identifier' => $identifier, 'extract' => $extract]
+                );
+            }
 
             $params     = $extract->getData('params');
             $key        = $extract->getData('key');
@@ -77,8 +81,10 @@ class Core_Object_Factory
             $object->setData('object_params', new Leafiny_Object($params));
         }
 
-        App::dispatchEvent('object_init_after', ['object' => $object]);
-        App::dispatchEvent($type . '_object_init_after', ['object' => $object]);
+        if ($this->canDispatchEvent($type)) {
+            App::dispatchEvent('object_init_after', ['object' => $object]);
+            App::dispatchEvent($type . '_object_init_after', ['object' => $object]);
+        }
 
         $this->process($object, $type);
 
@@ -195,22 +201,38 @@ class Core_Object_Factory
         }
 
         if (method_exists($object, 'process')) {
-            App::dispatchEvent(
-                $type . '_process_before',
-                ['object' => $object]
-            );
+            if ($this->canDispatchEvent($type)) {
+                App::dispatchEvent(
+                    $type . '_process_before',
+                    ['object' => $object]
+                );
+            }
 
             $object->process();
 
-            App::dispatchEvent(
-                $type . '_process_after',
-                ['object' => $object]
-            );
+            if ($this->canDispatchEvent($type)) {
+                App::dispatchEvent(
+                    $type . '_process_after',
+                    ['object' => $object]
+                );
+            }
         }
 
         if (method_exists($object, 'postProcess')) {
             $object->postProcess();
         }
+    }
+
+    /**
+     * Can Dispatch Event
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function canDispatchEvent(string $type): bool
+    {
+        return $type !== 'event';
     }
 
     /**
