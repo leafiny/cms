@@ -21,6 +21,12 @@ $config = [
         ],
     ],
 
+    'helper' => [
+        'cms' => [
+            'class' => Cms_Helper_Cms::class,
+        ],
+    ],
+
     'block' => [
         'category.cms.page.list' => [
             'template' => 'Leafiny_Cms::block/static/page/list.twig',

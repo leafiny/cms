@@ -23,36 +23,10 @@ class Cms_Block_Static_Content extends Core_Block
             return null;
         }
 
-        return $this->secureChildBlocks($block->getData('content'));
-    }
+        /** @var Cms_Helper_Cms $helper */
+        $helper = App::getObject('helper', 'cms');
+        $helper->secureChildBlocks($block);
 
-    /**
-     * Secure child blocks
-     *
-     * @param string|null $content
-     *
-     * @return string|null
-     */
-    protected function secureChildBlocks(?string $content): ?string
-    {
-        if (!$content) {
-            return $content;
-        }
-
-        $identifier = $this->getIdentifierPath($this->getObjectIdentifier());
-        $pattern = '/{{ (\'|")' . $identifier . '(\'|")\|block }}/';
-
-        if (preg_match($pattern, $content)) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add(
-                'Unable to load child block "' . $identifier . '" (infinite loop)',
-                Log_Model_Log_Interface::ERR
-            );
-
-            return preg_replace($pattern, '', $content);
-        }
-
-        return $content;
+        return $block->getData('content');
     }
 }

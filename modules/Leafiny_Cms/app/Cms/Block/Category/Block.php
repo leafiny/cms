@@ -35,6 +35,15 @@ class Cms_Block_Category_Block extends Core_Block
             ]
         ];
 
-        return $model->addCategoryFilter($categoryId)->getList($filters, $orders);
+        $blocks = $model->addCategoryFilter($categoryId)->getList($filters, $orders);
+
+        /** @var Cms_Helper_Cms $helper */
+        $helper = App::getObject('helper', 'cms');
+
+        foreach ($blocks as $block) {
+            $helper->secureChildBlocks($block);
+        }
+
+        return $blocks;
     }
 }
