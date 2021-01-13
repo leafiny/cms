@@ -603,10 +603,12 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     /**
      * Retrieve Helper
      *
+     * @param string|null $identifier
+     *
      * @return Core_Helper
      */
-    public function getHelper(): Core_Helper
+    public function getHelper(?string $identifier = null): Core_Helper
     {
-        return App::getSingleton('helper');
+        return App::getSingleton('helper', $identifier);
     }
 }
