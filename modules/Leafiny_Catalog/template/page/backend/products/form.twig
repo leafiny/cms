@@ -45,9 +45,16 @@
                     <label for="price">{{ 'Price'|translate }} :</label>
                     <input id="price" type="text" class="pure-u-1 pure-u-xl-4-5" name="price" value="{{ form.getPrice }}" />
                 </div>
-                <div class="pure-u-1 field">
-                    {{ 'admin.catalog.product.form.editor'|block }}
-                </div>
+                {% if page.getBlock('admin.catalog.product.form.editor') %}
+                    <div class="pure-u-1 field">
+                        {{ 'admin.catalog.product.form.editor'|block }}
+                    </div>
+                {% else %}
+                    <div class="pure-u-1 pure-u-xl-4-5 field">
+                        <label for="description">{{ 'Description'|translate }} :</label>
+                        <textarea id="description" class="pure-u-1 wysiwyg" name="description">{{ form.getDescription }}</textarea>
+                    </div>
+                {% endif %}
             </div>
         </fieldset>
 
