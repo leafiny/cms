@@ -164,9 +164,9 @@ final class App
      *
      * @return string
      * @throws Throwable
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Twig\Error\LoaderError
+     * @throws Twig\Error\RuntimeError
+     * @throws Twig\Error\SyntaxError
      */
     public static function getPage(string $requestUri): string
     {
@@ -350,7 +350,10 @@ final class App
             return '';
         }
 
-        return self::getSingleton('translate')->get($key);
+        /** @var Core_Translate $translate */
+        $translate = self::getSingleton('translate');
+
+        return $translate->get($key);
     }
 
     /**
@@ -478,7 +481,6 @@ final class App
      * @param array  $data
      *
      * @return void
-     * @throws Exception
      */
     public static function dispatchEvent(string $name, array $data = []): void
     {
@@ -490,7 +492,7 @@ final class App
             asort($observers);
             foreach ($observers as $event => $position) {
                 if ($event === 0) {
-                    throw new Exception('The event position is missing for "' . $position . '"');
+                    continue;
                 }
 
                 /** @var Core_Event $object */

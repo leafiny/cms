@@ -70,7 +70,6 @@ class Core_Page extends Core_Template_Abstract
      * postProcess
      *
      * @return void
-     * @throws Exception
      */
     public function postProcess(): void
     {
@@ -84,7 +83,6 @@ class Core_Page extends Core_Template_Abstract
      * Dispatch
      *
      * @return void
-     * @throws Exception
      */
     public function process(): void
     {
@@ -102,7 +100,6 @@ class Core_Page extends Core_Template_Abstract
      * Execute action
      *
      * @return void
-     * @throws Exception
      */
     public function action(): void
     {
@@ -241,7 +238,6 @@ class Core_Page extends Core_Template_Abstract
      * @param $identifier
      *
      * @return Core_Page
-     * @throws Exception
      */
     public function forward(string $identifier): Core_Page
     {
