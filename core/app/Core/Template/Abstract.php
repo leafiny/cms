@@ -419,19 +419,6 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     }
 
     /**
-     * Retrieve current block if exists
-     *
-     * @return Core_Block
-     */
-    public function getCurrent(): Core_Block
-    {
-        /** @var Core_Block $block */
-        $block = App::getObject('block');
-
-        return $this->getData('current') ?: $block;
-    }
-
-    /**
      * Retrieve current context
      *
      * @return string
