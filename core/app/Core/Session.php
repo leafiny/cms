@@ -95,7 +95,7 @@ class Core_Session extends Leafiny_Object
     public function getCustom(string $key)
     {
         /** @var Leafiny_Object $custom */
-        $custom = $this->getData('custom');
+        $custom = $this->getData(Core_Object_Factory::CUSTOM_KEY);
 
         if (!$custom) {
             return null;

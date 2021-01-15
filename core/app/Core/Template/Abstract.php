@@ -449,7 +449,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     public function getCustom(string $key)
     {
         /** @var Leafiny_Object $custom */
-        $custom = $this->getData('custom');
+        $custom = $this->getData(Core_Object_Factory::CUSTOM_KEY);
 
         if (!$custom) {
             return null;
@@ -469,7 +469,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     public function setCustom(string $key, $value): Core_Template_Abstract
     {
         /** @var Leafiny_Object $custom */
-        $custom = $this->getData('custom');
+        $custom = $this->getData(Core_Object_Factory::CUSTOM_KEY);
 
         $custom->setData($key, $value);
 

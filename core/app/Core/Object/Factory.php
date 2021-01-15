@@ -8,6 +8,13 @@ declare(strict_types=1);
 class Core_Object_Factory
 {
     /**
+     * Custom data key
+     *
+     * @var string CUSTOM_KEY
+     */
+    const CUSTOM_KEY = 'custom';
+
+    /**
      * Retrieve Object
      *
      * @param string $type
@@ -69,7 +76,7 @@ class Core_Object_Factory
         if ($object instanceof Leafiny_Object) {
             $configObject = new Leafiny_Object();
             $configObject->setData($config);
-            $object->setData('custom', $configObject);
+            $object->setData(self::CUSTOM_KEY, $configObject);
 
             if ($params) {
                 parse_str($params, $params);
