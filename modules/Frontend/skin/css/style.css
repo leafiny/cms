@@ -408,8 +408,9 @@ button, input, optgroup, select, textarea {
 
 .catalog-category .product-content {
     text-align: center;
-    border: 1px solid #006554;
-    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 15px 10px -15px #666;
+    margin: 20px 10px;
 }
 
 .catalog-category .product-content a {
@@ -439,11 +440,12 @@ button, input, optgroup, select, textarea {
 }
 
 .block-list-content {
-    margin: 10px;
+    margin: 20px 10px;
     padding: 10px;
-    background: #F6F6F6;
+    background: #fff;
     min-height: 180px;
-    border: 1px solid #006554;
+    border: 1px solid #ccc;
+    box-shadow: 0 15px 10px -15px #666;
 }
 
 /* Multi-pages */
@@ -463,10 +465,11 @@ button, input, optgroup, select, textarea {
 
 /* Posts */
 .post-list-content {
-    margin: 10px 0;
+    margin: 20px 0;
     padding: 10px;
-    background: #F6F6F6;
-    border: 1px solid #006554;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 15px 10px -15px #666;
 }
 
 .post-list-content ul {
@@ -506,8 +509,9 @@ button, input, optgroup, select, textarea {
 
 .post-view .intro {
     padding: 10px;
-    background: #F6F6F6;
-    border: 1px solid #006554;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 15px 10px -15px #666;
     margin-bottom: 2em;
 }
 
