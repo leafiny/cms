@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Core_Page
  */
-class Core_Page extends Core_Template_Abstract
+class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
 {
     /**
      * Contains session var name to destroy in post render

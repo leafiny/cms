@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Fpc_Observer_GetCache
  */
-class Fpc_Observer_GetCache extends Core_Event
+class Fpc_Observer_GetCache extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -33,9 +33,7 @@ class Fpc_Observer_GetCache extends Core_Event
                 $page->setCustom('template', $template);
             }
         } catch (Throwable $throwable) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($throwable->getMessage());
+            App::log($throwable, Core_Interface_Log::ERR);
         }
     }
 }

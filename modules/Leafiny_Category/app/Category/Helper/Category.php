@@ -29,9 +29,7 @@ class Category_Helper_Category extends Core_Helper
                 }
             }
         } catch (Throwable $throwable) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($throwable->getMessage());
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return array_reverse($categories);

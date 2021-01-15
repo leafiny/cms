@@ -43,8 +43,8 @@ class Contact_Page_Backend_Message_View extends Backend_Page_Admin_Page_Abstract
             }
             $this->message = $message;
             App::dispatchEvent('backend_contact_message_view', ['message' => $message]);
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
             $this->message = new Leafiny_Object();
         }
     }

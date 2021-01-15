@@ -74,8 +74,8 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
                     'object_ids' => $param->toArray(),
                 ]
             );
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
             $this->redirect($this->getRefererUrl(), true);
         }
 
@@ -201,8 +201,8 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
 
         try {
             $size = $this->getModel()->size();
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
         }
 
         return $size;

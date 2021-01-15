@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Entity_Delete
  */
-class Log_Observer_Backend_Entity_Delete extends Core_Event
+class Log_Observer_Backend_Entity_Delete extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -26,21 +26,14 @@ class Log_Observer_Backend_Entity_Delete extends Core_Event
             return;
         }
 
-        /** @var Log_Model_Db $log */
-        $log = App::getObject('model', 'log_db');
-
         $count = count($objectIds);
 
         if ($count === 1) {
-            $log->add(
-                'Object ' . $objectIdentifier . ' with id ' . join(',', $objectIds) . ' has been deleted'
-            );
+            Log::db('Object ' . $objectIdentifier . ' with id ' . join(',', $objectIds) . ' has been deleted');
         }
 
         if ($count > 1) {
-            $log->add(
-                'Objects ' . $objectIdentifier . ' with ids ' . join(',', $objectIds) . ' have been deleted'
-            );
+            Log::db('Objects ' . $objectIdentifier . ' with ids ' . join(',', $objectIds) . ' have been deleted');
         }
     }
 }

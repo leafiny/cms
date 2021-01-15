@@ -32,9 +32,7 @@ class Blog_Block_Post_Comments extends Core_Block
 
             $comments = $model->getList($this->getFilters($commentIds), $this->getSortOrders());
         } catch (Throwable $throwable) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($throwable->getMessage());
+            App::log($throwable, Core_Interface_Log::ERR);
             return [];
         }
 

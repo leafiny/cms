@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Rewrite_Observer_Rewrite
  */
-class Rewrite_Observer_Rewrite extends Core_Event
+class Rewrite_Observer_Rewrite extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -34,10 +34,8 @@ class Rewrite_Observer_Rewrite extends Core_Event
 
         try {
             $identifier = $rewrite->getBySource($identifier)->getData('target_identifier');
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         if ($identifier) {

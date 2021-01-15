@@ -23,8 +23,8 @@ class Rewrite_Page_Backend_Refresh extends Backend_Page_Admin_Page_Abstract
             if ($rewrite->refreshAll()) {
                 $this->setSuccessMessage(App::translate('URL rewrites have been refreshed'));
             }
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
         }
 
         $this->redirect($this->getRefererUrl(), true);

@@ -46,8 +46,8 @@ class Backend_Page_Admin_Form extends Backend_Page_Admin_Page_Abstract
                 $this->setErrorMessage($this->translate('This element no longer exists'));
                 $this->redirect($this->getRefererUrl(), true);
             }
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
             $this->formData = new Leafiny_Object();
         }
     }

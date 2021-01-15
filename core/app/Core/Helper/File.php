@@ -52,7 +52,7 @@ class Core_Helper_File extends Core_Helper
 
         try {
             $this->mkdir($resizeDirectory);
-        } catch (Exception $exception) {
+        } catch (Throwable $throwable) {
             return null;
         }
 

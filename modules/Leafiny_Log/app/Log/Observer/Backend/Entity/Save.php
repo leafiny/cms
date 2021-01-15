@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Entity_Save
  */
-class Log_Observer_Backend_Entity_Save extends Core_Event
+class Log_Observer_Backend_Entity_Save extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -26,9 +26,6 @@ class Log_Observer_Backend_Entity_Save extends Core_Event
             return;
         }
 
-        /** @var Log_Model_Db $log */
-        $log = App::getObject('model', 'log_db');
-
-        $log->add('Object ' . $objectIdentifier . ' with id ' . $objectId . ' has been saved');
+        Log::db('Object ' . $objectIdentifier . ' with id ' . $objectId . ' has been saved');
     }
 }

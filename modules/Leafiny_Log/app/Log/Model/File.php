@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Model_File
  */
-class Log_Model_File extends Leafiny_Object implements Log_Model_Log_Interface
+class Log_Model_File extends Leafiny_Object implements Core_Interface_Log
 {
     /**
      * @var string LOG_DIR
@@ -34,6 +34,9 @@ class Log_Model_File extends Leafiny_Object implements Log_Model_Log_Interface
      */
     public function add($message, int $level = self::INFO): int
     {
+        if ($message instanceof Throwable) {
+            $message = $message->getMessage() . "\n" . $message->getTraceAsString();
+        }
         if (is_array($message) || is_object($message)) {
             $message = print_r($message, true);
         }

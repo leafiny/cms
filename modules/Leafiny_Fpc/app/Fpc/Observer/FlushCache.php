@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Fpc_Observer_FlushCache
  */
-class Fpc_Observer_FlushCache extends Core_Event
+class Fpc_Observer_FlushCache extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute

@@ -69,7 +69,7 @@ class Blog_Page_Post_View extends Core_Page
                 if ($helper instanceof Category_Helper_Category) {
                     $links = $helper->getBreadcrumb($post->getData('breadcrumb'));
                 }
-            } catch (Exception $exception) {
+            } catch (Throwable $throwable) {
                 return $links;
             }
         }
@@ -93,10 +93,8 @@ class Blog_Page_Post_View extends Core_Page
 
         try {
             return $image->getMainImage($postId, 'blog_post');
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return null;

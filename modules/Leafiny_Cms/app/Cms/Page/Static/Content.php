@@ -69,7 +69,8 @@ class Cms_Page_Static_Content extends Core_Page
                 if ($helper instanceof Category_Helper_Category) {
                     $links = $helper->getBreadcrumb($page->getData('breadcrumb'));
                 }
-            } catch (Exception $exception) {
+            } catch (Throwable $throwable) {
+                App::log($throwable, Core_Interface_Log::ERR);
                 return $links;
             }
         }
@@ -93,10 +94,8 @@ class Cms_Page_Static_Content extends Core_Page
 
         try {
             return $image->getMainImage($pageId, 'cms_page');
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return null;

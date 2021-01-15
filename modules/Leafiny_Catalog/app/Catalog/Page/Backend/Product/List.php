@@ -22,7 +22,9 @@ class Catalog_Page_Backend_Product_List extends Backend_Page_Admin_List
 
         try {
             return $image->getMainImage($productId, 'catalog_product');
-        } catch (Exception $exception) {}
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
 
         return null;
     }

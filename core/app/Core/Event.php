@@ -8,15 +8,6 @@ declare(strict_types=1);
 class Core_Event extends Leafiny_Object
 {
     /**
-     * Execute
-     *
-     * @param Leafiny_Object $object
-     *
-     * @return void
-     */
-    public function execute(Leafiny_Object $object): void {}
-
-    /**
      * Get custom data
      *
      * @param string $key

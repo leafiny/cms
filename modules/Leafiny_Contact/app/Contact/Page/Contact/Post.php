@@ -62,9 +62,7 @@ class Contact_Page_Contact_Post extends Core_Page
             );
             $this->unsTmpSessionData('form_post_data');
         } catch (Throwable $throwable) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($throwable->getMessage());
+            App::log($throwable, Core_Interface_Log::ERR);
             $this->setErrorMessage(
                 $this->translate('An error occurred when sending message')
             );

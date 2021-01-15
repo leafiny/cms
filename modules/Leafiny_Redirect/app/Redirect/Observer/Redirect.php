@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Redirect_Observer_Redirect
  */
-class Redirect_Observer_Redirect extends Core_Event
+class Redirect_Observer_Redirect extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -36,10 +36,8 @@ class Redirect_Observer_Redirect extends Core_Event
                     (int)$target->getData('redirect_type')
                 );
             }
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
     }
 }

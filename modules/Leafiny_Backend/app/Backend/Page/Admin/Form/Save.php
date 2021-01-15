@@ -48,8 +48,8 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
                 $redirect = $this->getPathName($this->getObjectIdentifier()) . '?id=' . $objectId;
             }
             $this->redirect($redirect);
-        } catch (Exception $exception) {
-            $this->setErrorMessage(App::translate($exception->getMessage()));
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage(App::translate($throwable->getMessage()));
         }
 
         $this->redirect($this->getRefererUrl(), true);

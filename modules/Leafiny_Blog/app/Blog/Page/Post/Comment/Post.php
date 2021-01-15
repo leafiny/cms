@@ -88,9 +88,7 @@ class Blog_Page_Post_Comment_Post extends Core_Page
             $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_SUCCESS_KEY, join(' ', $success));
             $this->unsTmpSessionData(Blog_Helper_Data::COMMENT_FORM_DATA_KEY);
         } catch (Throwable $throwable) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($throwable->getMessage());
+            App::log($throwable, Core_Interface_Log::ERR);
             $this->setTmpSessionData(
                 Blog_Helper_Data::COMMENT_FORM_ERROR_KEY,
                 $this->translate('An error occurred when adding comment')

@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Cache_Flush_Success
  */
-class Log_Observer_Backend_Cache_Flush_Success extends Core_Event
+class Log_Observer_Backend_Cache_Flush_Success extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -19,9 +19,7 @@ class Log_Observer_Backend_Cache_Flush_Success extends Core_Event
     {
         /** @var string $type */
         $type = $object->getData('type');
-        /** @var Log_Model_Db $log */
-        $log = App::getObject('model', 'log_db');
 
-        $log->add('Cache successfully flushed for ' . $type);
+        Log::db('Cache successfully flushed for ' . $type);
     }
 }

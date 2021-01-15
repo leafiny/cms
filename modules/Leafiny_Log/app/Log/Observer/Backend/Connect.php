@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Connect
  */
-class Log_Observer_Backend_Connect extends Core_Event
+class Log_Observer_Backend_Connect extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
@@ -20,11 +20,8 @@ class Log_Observer_Backend_Connect extends Core_Event
         /** @var Leafiny_Object $user */
         $user = $object->getData('user');
 
-        /** @var Log_Model_Db $log */
-        $log = App::getObject('model', 'log_db');
-
         $fullName = $user->getData('firstname') . ' ' . $user->getData('lastname');
 
-        $log->add('User ' . $fullName . ' is connected to backend');
+        Log::db('User ' . $fullName . ' is connected to backend');
     }
 }

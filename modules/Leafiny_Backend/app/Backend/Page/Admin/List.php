@@ -37,8 +37,8 @@ class Backend_Page_Admin_List extends Backend_Page_Admin_Page_Abstract
                     [$this->getSortOrder()],
                     [$this->getOffset(), $this->getLimit()]
                 );
-            } catch (Exception $exception) {
-                $this->setErrorMessage($exception->getMessage());
+            } catch (Throwable $throwable) {
+                $this->setErrorMessage($throwable->getMessage());
             }
         }
     }

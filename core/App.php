@@ -105,8 +105,8 @@ final class App
             self::setIdentifier(self::getRequestUri());
 
             echo self::getPage(self::getIdentifier());
-        } catch (Exception $exception) {
-            self::processError($exception);
+        } catch (Throwable $throwable) {
+            self::processError($throwable);
         }
     }
 
@@ -537,20 +537,22 @@ final class App
     /**
      * Process Error
      *
-     * @param Exception $exception
+     * @param Throwable $throwable
      *
      * @return void
      */
-    public static function processError(Exception $exception): void
+    public static function processError(Throwable $throwable): void
     {
+        self::log($throwable, Core_Interface_Log::EMERG);
+
         header('HTTP/1.0 503 Service Unavailable');
 
         $message = 'There has been an error processing your request';
         $trace   = 'Contact your site administrator for more details';
 
         if (ini_get('display_errors') === '1') {
-            $message = $exception->getMessage();
-            $trace   = $exception->getTraceAsString();
+            $message = $throwable->getMessage();
+            $trace   = $throwable->getTraceAsString();
         }
 
         $template = file_get_contents(self::getRootDir() . 'include' . DS . 'error.html');
@@ -562,6 +564,40 @@ final class App
         }
 
         exit;
+    }
+
+    /**
+     * Log data in file if class exists
+     *
+     * @param mixed    $data
+     * @param int|null $level
+     *
+     * @return void
+     */
+    public static function log($data, int $level = Core_Interface_Log::INFO): void
+    {
+        /** @var Log|object $logInstance */
+        $logInstance = self::getLogInstance();
+
+        if ($logInstance) {
+            $logInstance::save($data, $level);
+        }
+    }
+
+    /**
+     * Retrieve log instance
+     *
+     * @return object|null
+     */
+    public static function getLogInstance(): ?object
+    {
+        $logClassName = isset($_SERVER['log_class_name']) ? $_SERVER['log_class_name'] : 'Log';
+
+        if (class_exists($logClassName)) {
+            return new $logClassName;
+        }
+
+        return null;
     }
 
     /**

@@ -106,10 +106,8 @@ class Category_Page_Category_View extends Core_Page
 
         try {
             return $image->getMainImage($categoryId, 'category');
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return null;

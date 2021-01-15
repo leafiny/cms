@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * Interface Log_Model_Log_Interface
+ * Interface Core_Interface_Log
  */
-interface Log_Model_Log_Interface
+interface Core_Interface_Log
 {
     public const EMERG  = 0;  // Emergency: system is unusable
     public const ALERT  = 1;  // Alert: action must be taken immediately

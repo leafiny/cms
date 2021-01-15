@@ -37,10 +37,8 @@ class Catalog_Block_Category_Product extends Core_Block
 
         try {
             return $image->getMainImage($productId, 'catalog_product');
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return null;

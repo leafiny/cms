@@ -38,8 +38,8 @@ class Log_Page_Backend_Log_View extends Backend_Page_Admin_Page_Abstract
                 $this->redirect($this->getRefererUrl(), true);
             }
             $this->log = $log;
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
             $this->log = new Leafiny_Object();
         }
     }

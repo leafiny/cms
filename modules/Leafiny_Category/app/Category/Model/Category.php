@@ -47,10 +47,8 @@ class Category_Model_Category extends Core_Model
             }
 
             App::dispatchEvent($this->getObjectIdentifier() . '_get_after', ['object' => $object]);
-        } catch (Exception $exception) {
-            /** @var Log_Model_File $log */
-            $log = App::getObject('model', 'log_file');
-            $log->add($exception->getMessage());
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return $object;

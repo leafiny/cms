@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Gallery_Observer_Backend_Gallery_ProcessImages
  */
-class Gallery_Observer_Backend_Gallery_ProcessImages extends Core_Event
+class Gallery_Observer_Backend_Gallery_ProcessImages extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute

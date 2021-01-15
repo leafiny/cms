@@ -39,8 +39,8 @@ class Backend_Page_Users_List_Action extends Backend_Page_Admin_List_Action
                     $this->redirect($this->getRefererUrl(), true);
                 }
             }
-        } catch (Exception $exception) {
-            $this->setErrorMessage($exception->getMessage());
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage($throwable->getMessage());
             $this->redirect($this->getRefererUrl(), true);
         }
 

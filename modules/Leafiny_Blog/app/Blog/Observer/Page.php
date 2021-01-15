@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Class Rewrite_Observer_Rewrite
  */
-class Blog_Observer_Page extends Core_Event
+class Blog_Observer_Page extends Core_Event implements Core_Interface_Event
 {
     /**
      * Execute
