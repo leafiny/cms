@@ -8,7 +8,7 @@
                     {% set image = block.getMainImage(product.getProductId) %}
                     <a href="{{ page.getUrl }}{{ product.getPathKey }}.html">
                         {% if image %}
-                            <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600) }}" class="pure-u-1" alt="{{ product.getName }}" />
+                            <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600) }}" class="pure-u-1" alt="{{ product.getName }}" loading="lazy" />
                         {% else %}
                             <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
                         {% endif %}
