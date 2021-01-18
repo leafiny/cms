@@ -400,6 +400,9 @@ button, input, optgroup, select, textarea {
 /* Category */
 .catalog-category .category-image {
     margin-bottom: 2em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    border: 1px solid #006554;
+    padding: 3px;
 }
 
 .catalog-category .products {
@@ -409,7 +412,8 @@ button, input, optgroup, select, textarea {
 .catalog-category .product-content {
     text-align: center;
     border: 1px solid #ccc;
-    box-shadow: 0 15px 10px -15px #666;
+    border-top: 3px solid #006554;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
     margin: 20px 10px;
 }
 
@@ -441,11 +445,12 @@ button, input, optgroup, select, textarea {
 
 .block-list-content {
     margin: 20px 10px;
-    padding: 10px;
+    padding: 15px 10px;
     background: #fff;
     min-height: 180px;
     border: 1px solid #ccc;
-    box-shadow: 0 15px 10px -15px #666;
+    border-top: 3px solid #006554;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
 }
 
 /* Multi-pages */
@@ -466,10 +471,11 @@ button, input, optgroup, select, textarea {
 /* Posts */
 .post-list-content {
     margin: 20px 0;
-    padding: 10px;
+    padding: 15px 10px;
     background: #fff;
     border: 1px solid #ccc;
-    box-shadow: 0 15px 10px -15px #666;
+    border-top: 3px solid #006554;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
 }
 
 .post-list-content ul {
@@ -496,6 +502,9 @@ button, input, optgroup, select, textarea {
 
 .post-view .image {
     margin-bottom: 2em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    border: 1px solid #006554;
+    padding: 3px;
 }
 
 .post-view .info li {
@@ -508,10 +517,11 @@ button, input, optgroup, select, textarea {
 }
 
 .post-view .intro {
-    padding: 10px;
+    padding: 15px 10px;
     background: #fff;
     border: 1px solid #ccc;
-    box-shadow: 0 15px 10px -15px #666;
+    border-top: 3px solid #006554;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
     margin-bottom: 2em;
 }
 
@@ -552,6 +562,9 @@ button, input, optgroup, select, textarea {
 /* Pages */
 .cms-page .page-image {
     margin-bottom: 2em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    border: 1px solid #006554;
+    padding: 3px;
 }
 
 .page-list-content {
