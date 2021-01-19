@@ -667,7 +667,7 @@ button, input, optgroup, select, textarea {
 
     /* Banner */
     .banner-content {
-        min-height: 180px;
+        min-height: 120px;
     }
 
     .banner-content p {
