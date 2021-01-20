@@ -1,7 +1,7 @@
 {% set category = page.getCustom('category') %}
 {% set posts = block.getPosts(category.getCategoryId) %}
 {% if posts is not empty %}
-    <div class="posts pure-g">
+    <div class="posts pure-g" id="posts">
         {% for post in posts %}
             <div class="post-list pure-u-1">
                 <div class="post-list-content">
@@ -29,17 +29,17 @@
         <div class="multipage pure-g">
             <div class="previous pure-u-1-2 pure-u-md-1-5 left">
                 {% if (currentPage > 1) %}
-                    <a href="{{ block.getPageUrl(page, currentPage - 1) }}">{{ 'Previous'|translate }}</a>
+                    <a href="{{ block.getPageUrl(page, currentPage - 1) }}#posts">{{ 'Previous'|translate }}</a>
                 {% endif %}
             </div>
             <div class="number pure-u-3-5 center">
                 {% for i in 1..totalPage %}
-                    <a href="{{ block.getPageUrl(page, i) }}">{{ i }}</a>
+                    <a href="{{ block.getPageUrl(page, i) }}#posts"{% if block.getPageNumber == i %} class="active"{% endif %}>{{ i }}</a>
                 {% endfor %}
             </div>
             <div class="next pure-u-1-2 pure-u-md-1-5 right">
                 {% if (currentPage < totalPage) %}
-                    <a href="{{ block.getPageUrl(page, currentPage + 1) }}">{{ 'Next'|translate }}</a>
+                    <a href="{{ block.getPageUrl(page, currentPage + 1) }}#posts">{{ 'Next'|translate }}</a>
                 {% endif %}
             </div>
         </div>
