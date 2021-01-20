@@ -22,9 +22,9 @@ class Core_Mail extends Core_Template_Abstract
      *
      * @return bool
      * @throws Throwable
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws Twig\Error\LoaderError
+     * @throws Twig\Error\RuntimeError
+     * @throws Twig\Error\SyntaxError
      */
     public function send(array $variables = []): bool
     {
@@ -52,10 +52,10 @@ class Core_Mail extends Core_Template_Abstract
      *
      * @return bool
      * @throws Throwable
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \PHPMailer\PHPMailer\Exception
+     * @throws Twig\Error\LoaderError
+     * @throws Twig\Error\RuntimeError
+     * @throws Twig\Error\SyntaxError
+     * @throws PHPMailer\PHPMailer\Exception
      */
     protected function advancedMail(): bool
     {
@@ -88,9 +88,9 @@ class Core_Mail extends Core_Template_Abstract
      *
      * @return bool
      * @throws Throwable
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Runtime
-     * @throws Twig_Error_Syntax
+     * @throws Twig\Error\LoaderError
+     * @throws Twig\Error\RuntimeError
+     * @throws Twig\Error\SyntaxError
      */
     protected function simpleMail(): bool
     {
