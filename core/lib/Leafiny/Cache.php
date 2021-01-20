@@ -245,7 +245,7 @@ class Leafiny_Cache
         }
 
         $filename = $this->getCacheName();
-        $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
+        $filename = preg_replace('/[^0-9a-z._-]/i', '', strtolower($filename));
 
         return $this->getCachePath() . $this->getHash($filename) . $this->getExtension();
     }
