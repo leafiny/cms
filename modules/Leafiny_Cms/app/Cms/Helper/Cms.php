@@ -29,7 +29,7 @@ class Cms_Helper_Cms extends Core_Helper
         }
 
         $identifier = 'block.static::' . $block->getData('path_key');
-        $pattern = '/{{ (\'|")' . $identifier . '(\'|")\|block }}/';
+        $pattern = '/{{\s?child\((\'|")' . $identifier . '(\'|")\)\s?}}/';
 
         if (!preg_match($pattern, $content)) {
             return;

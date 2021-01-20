@@ -206,7 +206,7 @@ class Fpc_Helper_Cache extends Core_Helper
             foreach ($matches['blocks'] as $block) {
                 $render = preg_replace(
                     '@<!-- nocache::' . $block . ' -->(.*)<!-- /nocache::' . $block . ' -->@s',
-                    '{% apply spaceless %}{{ ' . $block . '|block }}{% endapply %}',
+                    '{% apply spaceless %}{{ child(' . $block . ') }}{% endapply %}',
                     $render
                 );
             }

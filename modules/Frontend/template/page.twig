@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ page.getLanguage }}" xml:lang="{{ page.getLanguage }}">
 <head>
-{{ 'head'|block }}
+{{ child('head') }}
 </head>
 <body class="{{ page.getPageClass }}">
 {% apply spaceless %}
-{{ 'header'|block }}
-<!-- nocache::'catalog.menu' -->{{ 'catalog.menu'|block }}<!-- /nocache::'catalog.menu' -->
-{{ 'banner'|block }}
-{{ 'breadcrumb'|block }}
+{{ child('header') }}
+<!-- nocache::'catalog.menu' -->{{ child('catalog.menu') }}<!-- /nocache::'catalog.menu' -->
+{{ child('banner') }}
+{{ child('breadcrumb') }}
 <main>
     <div class="main-content">
-    <!-- nocache::'message' -->{{ 'message'|block }}<!-- /nocache::'message' -->
-    {{ 'content'|block }}
+    <!-- nocache::'message' -->{{ child('message') }}<!-- /nocache::'message' -->
+    {{ child('content') }}
     </div>
 </main>
-{{ 'footer'|block }}
-{{ 'script'|block }}
+{{ child('footer') }}
+{{ child('script') }}
 {% endapply %}
 </body>
 </html>

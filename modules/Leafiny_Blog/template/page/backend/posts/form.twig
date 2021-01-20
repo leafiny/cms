@@ -47,7 +47,7 @@
                 </div>
                 {% if page.getBlock('admin.blog.form.editor') %}
                     <div class="pure-u-1 field">
-                        {{ 'admin.blog.form.editor'|block }}
+                        {{ child('admin.blog.form.editor') }}
                     </div>
                 {% else %}
                     <div class="pure-u-1 pure-u-xl-4-5 field">
@@ -63,7 +63,7 @@
                 {% set maxFileNumber = page.getCustom('max_file_number') ?: 10000 %}
                 <legend>{{ maxFileNumber > 1 ? 'Images'|translate : 'Image'|translate }}</legend>
                 <div class="pure-u-1 field pure-u-xl-4-5">
-                    {{ 'admin.gallery.form'|block }}
+                    {{ child('admin.gallery.form') }}
                 </div>
             </fieldset>
         {% endif %}
@@ -72,11 +72,11 @@
             <fieldset>
                 <legend>{{ 'Categories'|translate }}</legend>
                 <div class="pure-u-1 field">
-                    {{ 'admin.blog.form.categories'|block }}
+                    {{ child('admin.blog.form.categories') }}
                 </div>
                 {% if page.getBlock('admin.blog.form.breadcrumb') %}
                     <div class="pure-u-1 field">
-                        {{ 'admin.blog.form.breadcrumb'|block }}
+                        {{ child('admin.blog.form.breadcrumb') }}
                     </div>
                 {% endif %}
             </fieldset>
@@ -115,7 +115,7 @@
         </fieldset>
 
         {% for child in page.getChildren %}
-            {{ child|block }}
+            {{ child(child) }}
         {% endfor %}
 
         <div class="pure-u-1">

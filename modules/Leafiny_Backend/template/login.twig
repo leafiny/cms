@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ page.getLanguage }}" xml:lang="{{ page.getLanguage }}">
 <head>
-{{ 'admin.head'|block }}
+{{ child('admin.head') }}
 </head>
 <body class="page-login">
 {% apply spaceless %}
-{{ 'admin.content'|block }}
+{{ child('admin.content') }}
 {% endapply %}
 </body>
 </html>

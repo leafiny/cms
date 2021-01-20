@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ page.getLanguage }}" xml:lang="{{ page.getLanguage }}">
 <head>
-{{ 'admin.head'|block }}
+{{ child('admin.head') }}
 </head>
 <body class="{{ page.getPageClass }}">
 {% apply spaceless %}
 <div class="layout">
-    {{ 'admin.menu'|block }}
+    {{ child('admin.menu') }}
     <main>
         <div class="main-content">
-            {{ 'admin.account'|block }}
-            {{ 'admin.title'|block }}
-            {{ 'admin.message'|block }}
-            {{ 'admin.content'|block }}
+            {{ child('admin.account') }}
+            {{ child('admin.title') }}
+            {{ child('admin.message') }}
+            {{ child('admin.content') }}
         </div>
     </main>
-    {{ 'admin.footer'|block }}
+    {{ child('admin.footer') }}
 </div>
-{{ 'admin.script'|block }}
+{{ child('admin.script') }}
 {% endapply %}
 </body>
 </html>

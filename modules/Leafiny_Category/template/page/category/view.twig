@@ -18,6 +18,6 @@
     {% endif %}
 
     {% for child in page.getChildren %}
-        {{ child|block }}
+        {{ child(child) }}
     {% endfor %}
 </div>

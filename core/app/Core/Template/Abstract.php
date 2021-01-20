@@ -75,6 +75,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             $loader = new Twig\Loader\FilesystemLoader($paths);
             $twig = new Twig\Environment($loader, $options);
             $this->addFilters($twig);
+            $this->addFunctions($twig);
             $this->addExtensions($twig);
 
             $this->environment = $twig;
@@ -169,8 +170,28 @@ abstract class Core_Template_Abstract extends Leafiny_Object
         }
 
         /* Required filters */
-        $twig->addFilter(new Twig\TwigFilter('block', [$this, 'blockHtml']));
         $twig->addFilter(new Twig\TwigFilter('translate', [$this, 'translate']));
+    }
+
+    /**
+     * Add functions to twig
+     *
+     * @param Twig\Environment $twig
+     *
+     * @return void
+     */
+    public function addFunctions(Twig\Environment $twig): void
+    {
+        $functions = App::getConfig('app.twig_functions');
+
+        if (is_array($functions)) {
+            foreach ($functions as $class) {
+                new $class($twig);
+            }
+        }
+
+        /* Required functions */
+        $twig->addFunction(new Twig\TwigFunction('child', [$this, 'blockHtml']));
     }
 
     /**

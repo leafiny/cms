@@ -26,7 +26,7 @@
         </fieldset>
 
         {% for child in page.getChildren %}
-            {{ child|block }}
+            {{ child(child) }}
         {% endfor %}
 
         <div class="pure-u-1">

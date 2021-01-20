@@ -9,6 +9,6 @@
 <script type="text/javascript" src="{{ page.getSkinUrl(js) }}"></script>
 {% endfor %}
 {% for child in block.getChildren %}
-    {{ child|block }}
+    {{ child(child) }}
 {% endfor %}
 <meta name="robots" content="NOINDEX,NOFOLLOW" />
