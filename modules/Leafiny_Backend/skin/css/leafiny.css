@@ -247,7 +247,7 @@ main {
     margin: 0 0 1.5em 0;
 }
 
-.login-form button {
+.login-form.pure-form button {
     display: block;
     margin: 0 auto;
 }
