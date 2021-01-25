@@ -398,17 +398,22 @@ abstract class Core_Template_Abstract extends Leafiny_Object
      * Retrieve block
      *
      * @param string $identifier
+     * @param array  $vars
      *
      * @return Core_Block|null
      * @throws Exception
      */
-    public function getBlock(string $identifier): ?Core_Block
+    public function getBlock(string $identifier, array $vars = []): ?Core_Block
     {
         /** @var Core_Block $block */
         $block = App::getSingleton('block', $identifier);
 
         if (!$block->getCustom('template')) {
             return null;
+        }
+
+        foreach ($vars as $var => $value) {
+            $block->setCustom($var, $value);
         }
 
         $block->setCurrentContext($this->getContext());
@@ -428,13 +433,14 @@ abstract class Core_Template_Abstract extends Leafiny_Object
      * Show block template
      *
      * @param string $identifier
+     * @param array  $vars
      *
      * @return void
      * @throws Exception
      */
-    public function blockHtml(string $identifier): void
+    public function blockHtml(string $identifier, array $vars = []): void
     {
-        $block = $this->getBlock($identifier);
+        $block = $this->getBlock($identifier, $vars);
 
         if ($block) {
             try {
