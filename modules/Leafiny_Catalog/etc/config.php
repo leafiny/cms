@@ -23,6 +23,9 @@ $config = [
             'template' => 'Leafiny_Catalog::block/product/list.twig',
             'class'    => Catalog_Block_Category_Product::class
         ],
+        'catalog.product.price' => [
+            'template' => 'Leafiny_Catalog::block/product/price.twig',
+        ],
         'admin.catalog.product.form.categories' => [
             'disabled' => !class_exists('Category_Block_Backend_Form_Categories'),
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',

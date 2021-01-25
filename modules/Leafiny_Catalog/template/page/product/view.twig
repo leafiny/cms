@@ -31,10 +31,7 @@
             {% if product.getSku %}
                 <div class="product-sku"><strong>{{ 'Sku:'|translate }}</strong> {{ product.getSku }}</div>
             {% endif %}
-
-            {% if product.getPrice %}
-                <div class="product-price">{{ product.getPrice|number_format(2, ',', '') }} &euro;</div>
-            {% endif %}
+            {{ child('catalog.product.price', {'product':product}) }}
         </div>
     </div>
 
