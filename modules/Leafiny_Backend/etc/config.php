@@ -236,9 +236,6 @@ $config = [
         'admin_data' => [
             'class' => Backend_Helper_Data::class,
         ],
-        'admin_language' => [
-            'class' => Backend_Helper_Language::class,
-        ],
     ],
 
     'observer' => [

@@ -115,8 +115,8 @@ abstract class Backend_Page_Admin_Page_Abstract extends Core_Page
      */
     public function getActiveLanguages(): array
     {
-        /** @var Backend_Helper_Language $helper */
-        $helper = App::getObject('helper', 'admin_language');
+        /** @var Core_Helper_Language $helper */
+        $helper = App::getObject('helper_language');
 
         $actives   = $this->getLanguages();
         $languages = [];
@@ -137,8 +137,8 @@ abstract class Backend_Page_Admin_Page_Abstract extends Core_Page
      */
     public function getLanguageByCode(string $code): string
     {
-        /** @var Backend_Helper_Language $helper */
-        $helper = App::getObject('helper', 'admin_language');
+        /** @var Core_Helper_Language $helper */
+        $helper = App::getObject('helper_language');
 
         return $helper->translate($code);
     }
