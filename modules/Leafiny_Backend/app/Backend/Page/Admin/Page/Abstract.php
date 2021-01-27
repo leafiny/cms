@@ -109,6 +109,32 @@ abstract class Backend_Page_Admin_Page_Abstract extends Core_Page
     }
 
     /**
+     * Retrieve all countries
+     *
+     * @return string[]
+     */
+    public function getAllCountries(): array
+    {
+        /** @var Core_Helper_Country $helper */
+        $helper = App::getObject('helper_country');
+
+        return $helper->getList();
+    }
+
+    /**
+     * Retrieve all languages
+     *
+     * @return string[]
+     */
+    public function getAllLanguages(): array
+    {
+        /** @var Core_Helper_Language $helper */
+        $helper = App::getObject('helper_language');
+
+        return $helper->getList();
+    }
+
+    /**
      * Retrieve active languages
      *
      * @return array
