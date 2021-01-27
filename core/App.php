@@ -21,7 +21,7 @@ final class App
     /**
      * @var string VERSION
      */
-    public const VERSION = '1.6.1';
+    public const VERSION = '1.6.2';
     /**
      * @var string MODULES_DIRECTORY
      */
