@@ -148,7 +148,7 @@ abstract class Backend_Page_Admin_Page_Abstract extends Core_Page
         $languages = [];
 
         foreach ($actives as $code) {
-            $languages[$code] = $helper->translate($code);
+            $languages[$code] = $helper->getName($code);
         }
 
         return $languages;
@@ -166,7 +166,7 @@ abstract class Backend_Page_Admin_Page_Abstract extends Core_Page
         /** @var Core_Helper_Language $helper */
         $helper = App::getObject('helper_language');
 
-        return $helper->translate($code);
+        return $helper->getName($code);
     }
 
     /**

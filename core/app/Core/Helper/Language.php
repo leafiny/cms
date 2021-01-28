@@ -16,13 +16,13 @@ declare(strict_types=1);
 class Core_Helper_Language extends Core_Helper
 {
     /**
-     * Retrieve language by code
+     * Retrieve language name by code
      * 
      * @param string $code
      * 
      * @return string
      */
-    public function translate(string $code): string
+    public function getName(string $code): string
     {
         $languages = $this->getList();
 
