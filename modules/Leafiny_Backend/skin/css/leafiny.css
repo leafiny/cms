@@ -479,6 +479,15 @@ button, input, optgroup, select, textarea {
 .container-grid table .width-40 {width: 40%; min-width: 240px}
 .container-grid table .width-45 {width: 45%; min-width: 270px}
 .container-grid table .width-50 {width: 50%; min-width: 300px}
+.container-grid table .width-55 {width: 55%; min-width: 300px}
+.container-grid table .width-60 {width: 60%; min-width: 300px}
+.container-grid table .width-65 {width: 65%; min-width: 300px}
+.container-grid table .width-70 {width: 70%; min-width: 300px}
+.container-grid table .width-75 {width: 75%; min-width: 300px}
+.container-grid table .width-80 {width: 80%; min-width: 300px}
+.container-grid table .width-85 {width: 85%; min-width: 300px}
+.container-grid table .width-90 {width: 90%; min-width: 300px}
+.container-grid table .width-95 {width: 95%; min-width: 300px}
 
 .container-grid .headings {
     border-bottom: 1px solid #fff;
