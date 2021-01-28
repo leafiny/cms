@@ -32,7 +32,7 @@
                 {% endif %}
                 {% if buttons is not empty %}
                     {% for url,label in buttons %}
-                        <a href="{{ page.getUrl(url) }}" class="pure-button green">{{ label|translate }}</a>
+                        <a href="{{ page.getUrl(url) }}" class="pure-button {% if loop.index == buttons|length %}green{% else %}blue{% endif %}">{{ label|translate }}</a>
                     {% endfor %}
                 {% endif %}
             </div>
