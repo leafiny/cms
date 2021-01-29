@@ -708,6 +708,7 @@ button, input, optgroup, select, textarea {
 
     .container-form .actions {
         left: 0;
+        padding: 10px 20px 20px 20px;
     }
 
     .container-form .actions .form-go-to {
