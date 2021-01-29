@@ -334,6 +334,7 @@ button, input, optgroup, select, textarea {
 .container-form .pure-form .actions .pure-button {
     margin: 10px 40px 0 0;
     vertical-align: top;
+    line-height: 1.3em;
 }
 
 .container-form .actions .form-go-to {
@@ -747,6 +748,7 @@ button, input, optgroup, select, textarea {
 
     .container-grid .toolbar .actions .pure-button {
         margin: 10px 40px 0 0;
+        line-height: 1.3em;
     }
 
     .container-grid .toolbar .actions .box {
