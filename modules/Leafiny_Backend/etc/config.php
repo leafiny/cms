@@ -217,12 +217,17 @@ $config = [
             'template' => 'Leafiny_Backend::block/script.twig',
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'javascript' => [
-                'Leafiny_Backend::js/grids.js' => 100
+                'Leafiny_Backend::js/grids.js' => 100,
+                'Leafiny_Backend::js/form.js' => 100
             ],
             'class'    => Backend_Block_Script::class,
         ],
         'admin.list.toolbar' => [
             'template' => 'Leafiny_Backend::block/list/toolbar.twig',
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+        ],
+        'admin.form.goto' => [
+            'template' => 'Leafiny_Backend::block/form/goto.twig',
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
         ],
         'admin.user.edit.resources' => [

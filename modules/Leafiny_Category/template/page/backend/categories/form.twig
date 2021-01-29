@@ -121,6 +121,7 @@
             <input type="hidden" name="category_id" value="{{ form.getCategoryId }}" />
             <button type="submit" class="pure-button green">{{ 'Save'|translate }} &check;</button>
             <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+            {{ child('admin.form.goto') }}
         </div>
     </form>
 </div>

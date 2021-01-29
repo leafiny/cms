@@ -327,8 +327,27 @@ button, input, optgroup, select, textarea {
     left: 230px;
     border-top: 1px solid #ddd;
     z-index: 900;
-    padding: 40px 20px;
+    padding: 30px 20px 40px 20px;
     background: #fff;
+}
+
+.container-form .pure-form .actions .pure-button {
+    margin: 10px 40px 0 0;
+    vertical-align: top;
+}
+
+.container-form .actions .form-go-to {
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.container-form .actions .form-go-to label {
+    display: inline-block;
+    margin-right: 10px;
+}
+.container-form .actions .form-go-to select {
+    display: inline-block;
+    width: 200px;
 }
 
 .container-form .pure-button {
@@ -691,8 +710,9 @@ button, input, optgroup, select, textarea {
         left: 0;
     }
 
-    .container-form .pure-form .actions .pure-button {
-        margin: 0 40px 0 0;
+    .container-form .actions .form-go-to {
+        display: block;
+        margin-top: 10px;
     }
 
     .container-grid .toolbar {

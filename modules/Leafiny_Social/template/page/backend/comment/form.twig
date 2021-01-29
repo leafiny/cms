@@ -76,6 +76,7 @@
             <input type="hidden" name="comment_id" value="{{ form.getCommentId }}" />
             <button type="submit" class="pure-button green">{{ 'Save'|translate }} &check;</button>
             <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+            {{ child('admin.form.goto') }}
         </div>
     </form>
 </div>

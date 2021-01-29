@@ -128,6 +128,7 @@
             <input type="hidden" name="post_id" value="{{ form.getPostId }}" />
             <button type="submit" class="pure-button green">{{ 'Save'|translate }} &check;</button>
             <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+            {{ child('admin.form.goto') }}
         </div>
     </form>
 </div>
