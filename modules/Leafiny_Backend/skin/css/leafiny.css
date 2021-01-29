@@ -741,12 +741,12 @@ button, input, optgroup, select, textarea {
         left: 0;
         border-top: 1px solid #ddd;
         z-index: 900;
-        padding: 40px 20px 30px 20px;
+        padding: 10px 20px 20px 20px;
         background: #fff;
     }
 
     .container-grid .toolbar .actions .pure-button {
-        margin: 0 20px 10px 0;
+        margin: 10px 40px 0 0;
     }
 
     .container-grid .toolbar .actions .box {
