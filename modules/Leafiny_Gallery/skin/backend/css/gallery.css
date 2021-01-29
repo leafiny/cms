@@ -4,13 +4,13 @@
 
 .gallery-images .delete {
     color: #A00;
+    float: right;
 }
 
 .gallery-images .image-content {
     margin: 10px;
     padding: 5px;
     border: 1px solid #ddd;
-    text-align: right;
 }
 
 .gallery-images .image-file {
@@ -35,7 +35,7 @@
 .gallery-images a {
     display: inline-block;
     font-size: 0.9em;
-    margin: 5px;
+    margin: 5px 0;
     font-weight: bold;
 }
 

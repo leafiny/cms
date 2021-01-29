@@ -12,12 +12,18 @@
                             <div class="image-file">
                                 <div class="image" style="background-image: url('{{ page.getMediaUrl }}{{ image.getImage }}')"></div>
                             </div>
-                            <a href="{{ block.getDeleteUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}" class="delete">{{ 'Delete'|translate }}</a>
                             {% if image.getStatus == 1 %}
-                                <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">{{ 'Disable'|translate }}</a>
+                                <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">
+                                    <img src="{{ page.getSkinUrl('Leafiny_Gallery::backend/images/toggle-on.png') }}" alt="{{ 'Disable'|translate }}" />
+                                </a>
                             {% else %}
-                                <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">{{ 'Enable'|translate }}</a>
+                                <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">
+                                    <img src="{{ page.getSkinUrl('Leafiny_Gallery::backend/images/toggle-off.png') }}" alt="{{ 'Enable'|translate }}" />
+                                </a>
                             {% endif %}
+                            <a href="{{ block.getDeleteUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}" class="delete">
+                                <img src="{{ page.getSkinUrl('Leafiny_Gallery::backend/images/trash.png') }}" alt="{{ 'Delete'|translate }}" />
+                            </a>
 
                             <select name="{{ block.getInputDataName }}[position][{{ image.getImageId }}]" class="pure-u-1">
                                 {% for i in range(1, images|length) %}
