@@ -28,7 +28,7 @@ class Backend_Observer_DbWarning extends Core_Event implements Core_Interface_Ev
         /** @var Core_Model $model */
         $model = App::getObject('model');
 
-        if ($model->isNoWriting() && !empty($_POST)) {
+        if ($model->isDbNoWriting() && !empty($_POST)) {
             /** @var Backend_Page_Admin_Page_Abstract $page */
             $page = $object->getData('object');
 

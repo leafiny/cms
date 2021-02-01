@@ -56,10 +56,13 @@ class Core_Model extends Leafiny_Object
                 $this->getDbDatabase(),
                 $this->getDbPort() ? $this->getDbPort() : null
             );
-            if ($this->getLcTimeNames()) {
-                self::$resource[$key]->rawQuery('SET lc_time_names = ?', [$this->getLcTimeNames()]);
+            if ($this->isDbDebug()) {
+                self::$resource[$key]->setDebug(true);
             }
-            if ($this->isNoWriting()) {
+            if ($this->getDbLcTimeNames()) {
+                self::$resource[$key]->rawQuery('SET lc_time_names = ?', [$this->getDbLcTimeNames()]);
+            }
+            if ($this->isDbNoWriting()) {
                 self::$resource[$key]->setNoWriting(true);
             }
         }
@@ -448,7 +451,7 @@ class Core_Model extends Leafiny_Object
      *
      * @return string|null
      */
-    public function getLcTimeNames(): ?string
+    public function getDbLcTimeNames(): ?string
     {
         return $this->getCustom('lc_time_names');
     }
@@ -458,9 +461,19 @@ class Core_Model extends Leafiny_Object
      *
      * @return bool
      */
-    public function isNoWriting(): bool
+    public function isDbNoWriting(): bool
     {
         return (bool)$this->getCustom('db_no_writing');
+    }
+
+    /**
+     * Retrieve if debug is enabled
+     *
+     * @return bool
+     */
+    public function isDbDebug(): bool
+    {
+        return (bool)$this->getCustom('db_debug');
     }
 
     /**
@@ -480,5 +493,23 @@ class Core_Model extends Leafiny_Object
         }
 
         return $custom->getData($key);
+    }
+
+    /**
+     * Set custom data
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return Core_Model
+     */
+    public function setCustom(string $key, $value): Core_Model
+    {
+        /** @var Leafiny_Object $custom */
+        $custom = $this->getData(Core_Object_Factory::CUSTOM_KEY);
+
+        $custom->setData($key, $value);
+
+        return $this;
     }
 }
