@@ -27,6 +27,18 @@ class Leafiny_MysqliDb extends MysqliDb
      * @var bool $noWriting
      */
     protected $noWriting = false;
+    /**
+     * Debug all queries
+     *
+     * @var bool $debug
+     */
+    protected $debug = false;
+    /**
+     * Save all queries
+     *
+     * @var Leafiny_Object[] $queries
+     */
+    protected $queries = [];
 
     /**
      * Method attempts to prepare the SQL query
@@ -38,6 +50,12 @@ class Leafiny_MysqliDb extends MysqliDb
     protected function _prepareQuery()
     {
         if (!$this->noWriting) {
+            if ($this->debug) {
+                $this->queries[] = new Leafiny_Object(
+                    ['number' => count($this->queries) + 1, 'query' => $this->_query, 'params' => $this->_bindParams]
+                );
+            }
+
             return parent::_prepareQuery();
         }
 
@@ -75,6 +93,26 @@ class Leafiny_MysqliDb extends MysqliDb
     public function setNoWriting(bool $noWriting): void
     {
         $this->noWriting = $noWriting;
+    }
+
+    /**
+     * Enabled debug
+     *
+     * @param bool $debug
+     */
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
+    }
+
+    /**
+     * Retrieve all queries when debug is enabled
+     *
+     * @return array
+     */
+    public function getQueries(): array
+    {
+        return $this->queries;
     }
 
     /**
