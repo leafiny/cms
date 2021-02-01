@@ -45,7 +45,7 @@ class Log_Model_Db extends Core_Model implements Core_Interface_Log
         if (is_array($message) || is_object($message)) {
             $message = print_r($message, true);
         }
-        $message = addcslashes($message, '<?');
+        $message = addcslashes((string)$message, '<?');
 
         $data = new Leafiny_Object(
             [

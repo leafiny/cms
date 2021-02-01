@@ -48,7 +48,7 @@ class Log_Model_File extends Leafiny_Object implements Core_Interface_Log
         if (is_array($message) || is_object($message)) {
             $message = print_r($message, true);
         }
-        $message = addcslashes($message, '<?');
+        $message = addcslashes((string)$message, '<?');
         $message = $this->getPrefix($level) . $message . "\n";
 
         /** @var Core_Helper $helper */
