@@ -340,4 +340,22 @@ class Core_Helper extends Leafiny_Object
 
         return $custom->getData($key);
     }
+
+    /**
+     * Set custom data
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return Core_Helper
+     */
+    public function setCustom(string $key, $value): Core_Helper
+    {
+        /** @var Leafiny_Object $custom */
+        $custom = $this->getData(Core_Object_Factory::CUSTOM_KEY);
+
+        $custom->setData($key, $value);
+
+        return $this;
+    }
 }
