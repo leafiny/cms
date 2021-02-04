@@ -51,6 +51,6 @@ class Backend_Page_Cache_Flush_Config extends Backend_Page_Admin_Page_Abstract
             );
         }
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 }

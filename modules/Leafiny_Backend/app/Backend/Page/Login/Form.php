@@ -29,7 +29,7 @@ class Backend_Page_Login_Form extends Backend_Page_Admin_Page_Abstract
         $user = App::getObject('model', 'admin_user');
 
         if ($user->isLoggedIn()) {
-            $this->redirect('/admin/*/');
+            $this->redirect($this->getUrl('/admin/*/'));
         }
 
         $loginPost = $this->getUrl($this->getBackendHelper()->getLoginPostPath());

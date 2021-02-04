@@ -40,24 +40,6 @@ abstract class Backend_Page_Admin_Page_Abstract extends Core_Page
     }
 
     /**
-     * Redirect
-     *
-     * @param string|null $page
-     * @param bool        $direct
-     * @param int         $code
-     *
-     * @return void
-     */
-    public function redirect(?string $page = null, $direct = false, int $code = 302): void
-    {
-        if (!$direct) {
-            $page = $this->getUrl($page);
-        }
-
-        parent::redirect($page, $code);
-    }
-
-    /**
      * Retrieve backend URL
      *
      * @param string|null $page

@@ -43,7 +43,7 @@ class Contact_Page_Backend_Message_View extends Backend_Page_Admin_Page_Abstract
             $message = $model->get($params->getData('id'));
             if (!$message->hasData()) {
                 $this->setErrorMessage($this->translate('This element no longer exists'));
-                $this->redirect($this->getRefererUrl(), true);
+                $this->redirect($this->getRefererUrl());
             }
             if (!$message->getData('is_open')) {
                 $message->setData('is_open', 1);

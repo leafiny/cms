@@ -27,7 +27,7 @@ class Fpc_Page_Cache_Flush_Key extends Backend_Page_Admin_Page_Abstract
         $post = $this->getPost();
 
         if (!$post->hasData('cache_key')) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         $cacheKey = $post->getData('cache_key') ?: 'default';
@@ -53,6 +53,6 @@ class Fpc_Page_Cache_Flush_Key extends Backend_Page_Admin_Page_Abstract
             ]
         );
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 }

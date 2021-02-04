@@ -52,7 +52,7 @@ class Backend_Page_Admin_Form extends Backend_Page_Admin_Page_Abstract
             $this->formData = $this->getModel()->get($params->getData('id'));
             if (!$this->formData->hasData()) {
                 $this->setErrorMessage($this->translate('This element no longer exists'));
-                $this->redirect($this->getRefererUrl(), true);
+                $this->redirect($this->getRefererUrl());
             }
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());

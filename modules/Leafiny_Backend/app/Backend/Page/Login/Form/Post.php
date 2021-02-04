@@ -52,7 +52,7 @@ class Backend_Page_Login_Form_Post extends Backend_Page_Admin_Page_Abstract
 
         $model->connect($user);
 
-        $this->redirect('/admin/*/');
+        $this->redirect($this->getUrl('/admin/*/'));
     }
 
     /**
@@ -66,7 +66,7 @@ class Backend_Page_Login_Form_Post extends Backend_Page_Admin_Page_Abstract
     {
         parent::setErrorMessage($message);
 
-        $this->redirect($this->getBackendHelper()->getLoginPath());
+        $this->redirect($this->getUrl($this->getBackendHelper()->getLoginPath()));
     }
 
     /**

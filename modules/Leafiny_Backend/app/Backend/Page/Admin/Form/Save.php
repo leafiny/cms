@@ -27,7 +27,7 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
         $post = $this->getPost();
 
         if (empty($post->getData())) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         foreach ($post->getData() as $field => $value) {
@@ -55,12 +55,12 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
             if ($redirect === null) {
                 $redirect = $this->getPathName($this->getObjectIdentifier()) . '?id=' . $objectId;
             }
-            $this->redirect($redirect);
+            $this->redirect($this->getUrl($redirect));
         } catch (Throwable $throwable) {
             $this->setErrorMessage(App::translate($throwable->getMessage()));
         }
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 
     /**
@@ -127,6 +127,6 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
     {
         parent::setErrorMessage($message);
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 }

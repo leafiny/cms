@@ -48,7 +48,7 @@ class Backend_Observer_CheckUserIsAllowed extends Core_Event implements Core_Int
         }
 
         $page->setErrorMessage(App::translate('This action is not allowed.'));
-        $page->redirect($this->getRedirectPath());
+        $page->redirect($page->getUrl($this->getRedirectPath()));
     }
 
     /**

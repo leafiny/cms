@@ -43,7 +43,7 @@ class Backend_Observer_CheckUserName extends Core_Event implements Core_Interfac
         }
 
         $page->setWarningMessage(App::translate('Welcome! Please update user information before continuing'));
-        $page->redirect($this->getRedirectPath());
+        $page->redirect($page->getUrl($this->getRedirectPath()));
     }
 
     /**

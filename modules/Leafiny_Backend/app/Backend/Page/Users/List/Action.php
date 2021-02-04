@@ -26,7 +26,7 @@ class Backend_Page_Users_List_Action extends Backend_Page_Admin_List_Action
     {
         if (!$post->getData('id')) {
             $this->setErrorMessage(App::translate('Please select items'));
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         /** @var Leafiny_Object $param */
@@ -38,18 +38,18 @@ class Backend_Page_Users_List_Action extends Backend_Page_Admin_List_Action
 
             if ($user->size() === count($param->getData())) {
                 $this->setErrorMessage(App::translate('You must keep at least one user'));
-                $this->redirect($this->getRefererUrl(), true);
+                $this->redirect($this->getRefererUrl());
             }
 
             foreach ($param->getData() as $id) {
                 if ((int)$id === $user->getCurrentUserId()) {
                     $this->setErrorMessage(App::translate('You can not delete your own account'));
-                    $this->redirect($this->getRefererUrl(), true);
+                    $this->redirect($this->getRefererUrl());
                 }
             }
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         parent::remove($post);

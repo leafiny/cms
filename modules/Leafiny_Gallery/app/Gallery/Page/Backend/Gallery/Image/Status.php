@@ -28,7 +28,7 @@ class Gallery_Page_Backend_Gallery_Image_Status extends Backend_Page_Admin_Page_
         $params = $this->getParams();
 
         if (!$params->getData('image_id')) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         $imageId = $params->getData('image_id');
@@ -39,7 +39,7 @@ class Gallery_Page_Backend_Gallery_Image_Status extends Backend_Page_Admin_Page_
         $image = $model->get($imageId);
 
         if (!$image->getData('image_id')) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         $image->setData('status', !$image->getData('status'));
@@ -47,6 +47,6 @@ class Gallery_Page_Backend_Gallery_Image_Status extends Backend_Page_Admin_Page_
 
         $this->setSuccessMessage($this->translate('Image status has been updated'));
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 }

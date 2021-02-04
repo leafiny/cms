@@ -55,6 +55,6 @@ class Fpc_Page_Cache_Flush extends Backend_Page_Admin_Page_Abstract
             );
         }
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 }

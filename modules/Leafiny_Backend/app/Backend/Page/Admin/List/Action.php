@@ -28,7 +28,7 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
         $params = $this->getParams();
 
         if (empty($params->getData())) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         $this->page($params);
@@ -49,7 +49,7 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
             $this->remove($params);
         }
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 
     /**
@@ -63,7 +63,7 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
     {
         if (!$post->getData('id')) {
             $this->setErrorMessage(App::translate('Please select items'));
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         /** @var Leafiny_Object $param */
@@ -84,7 +84,7 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
             );
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         $this->setSuccessMessage(App::translate('Selected records have been deleted'));
@@ -100,7 +100,7 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
     protected function sortOrder(Leafiny_Object $post): void
     {
         if (!$post->getData('column')) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         $column = trim($post->getData('column'));
@@ -137,7 +137,7 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
     protected function filter(Leafiny_Object $post): void
     {
         if (!$post->getData('filter')) {
-            $this->redirect($this->getRefererUrl(), true);
+            $this->redirect($this->getRefererUrl());
         }
 
         /** @var Leafiny_Object $param */

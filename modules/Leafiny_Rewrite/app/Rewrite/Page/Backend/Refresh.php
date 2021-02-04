@@ -35,6 +35,6 @@ class Rewrite_Page_Backend_Refresh extends Backend_Page_Admin_Page_Abstract
             $this->setErrorMessage($throwable->getMessage());
         }
 
-        $this->redirect($this->getRefererUrl(), true);
+        $this->redirect($this->getRefererUrl());
     }
 }

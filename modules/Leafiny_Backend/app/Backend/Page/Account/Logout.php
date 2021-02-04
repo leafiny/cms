@@ -29,6 +29,6 @@ class Backend_Page_Account_Logout extends Backend_Page_Admin_Page_Abstract
         $user = App::getObject('model', 'admin_user');
         $user->disconnect();
 
-        $this->redirect($this->getBackendHelper()->getLoginPath());
+        $this->redirect($this->getUrl($this->getBackendHelper()->getLoginPath()));
     }
 }

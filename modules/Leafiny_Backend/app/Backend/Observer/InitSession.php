@@ -49,6 +49,6 @@ class Backend_Observer_InitSession extends Core_Event implements Core_Interface_
 
         App::getSession('backend')->destroy();
 
-        $page->redirect($page->getBackendHelper()->getLoginPath());
+        $page->redirect($page->getUrl($page->getBackendHelper()->getLoginPath()));
     }
 }

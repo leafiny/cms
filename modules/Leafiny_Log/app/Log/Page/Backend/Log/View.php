@@ -43,7 +43,7 @@ class Log_Page_Backend_Log_View extends Backend_Page_Admin_Page_Abstract
             $log = $model->get($params->getData('id'));
             if (!$log->hasData()) {
                 $this->setErrorMessage($this->translate('This element no longer exists'));
-                $this->redirect($this->getRefererUrl(), true);
+                $this->redirect($this->getRefererUrl());
             }
             $this->log = $log;
         } catch (Throwable $throwable) {
