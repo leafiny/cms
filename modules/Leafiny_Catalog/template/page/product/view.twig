@@ -14,15 +14,18 @@
                     <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
                 {% endif %}
             </div>
-            <div class="image-selector">
-                {% for image in page.getImages(product.getProductId) %}
-                    <div class="pure-u-1-4">
-                        <a href="#" data-image="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600) }}">
-                            <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 150, 150) }}" alt="" class="pure-u-1"/>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+            {% set images = page.getImages(product.getProductId) %}
+            {% if images|length > 1 %}
+                <div class="image-selector">
+                    {% for image in images %}
+                        <div class="pure-u-1-4">
+                            <a href="#" data-image="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600) }}">
+                                <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 150, 150) }}" alt="" class="pure-u-1"/>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -33,9 +36,8 @@
             {% endif %}
             {{ child('catalog.product.price', {'product':product}) }}
         </div>
-    </div>
-
-    <div class="product-description pure-u-1">
-        {{ product.getDescription|raw }}
+        <div class="product-description">
+            {{ product.getDescription|raw }}
+        </div>
     </div>
 </div>
