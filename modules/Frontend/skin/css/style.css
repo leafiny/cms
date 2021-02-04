@@ -469,13 +469,31 @@ button, input, optgroup, select, textarea {
 }
 
 /* Posts */
+.post-list {
+    position: relative;
+}
+
+.post-list-image {
+    position: absolute;
+    top: 20px;
+    z-index: 5;
+    height: 200px;
+    width: 100%;
+}
+
 .post-list-content {
-    margin: 20px 0;
+    position: relative;
+    margin: 20px;
     padding: 15px 10px;
     background: #fff;
     border: 1px solid #ccc;
     border-top: 3px solid #006554;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+}
+
+.post-list-content.with-image {
+    margin-top: 170px;
 }
 
 .post-list-content ul {

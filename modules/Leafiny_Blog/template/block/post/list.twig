@@ -4,7 +4,11 @@
     <div class="posts pure-g" id="posts">
         {% for post in posts %}
             <div class="post-list pure-u-1">
-                <div class="post-list-content">
+                {% set image = block.getMainImage(post.getPostId) %}
+                {% if image %}
+                    <div class="post-list-image" style="background: url({{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 900, 200) }})"></div>
+                {% endif %}
+                <div class="post-list-content{% if image %} with-image{% endif %}">
                     <a href="{{ page.getUrl }}{{ post.getPathKey }}.html">{{ post.getTitle }}</a>
                     <ul class="info">
                         {% if (post.getAuthor) %}
