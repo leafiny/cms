@@ -23,6 +23,10 @@ $config = [
             'template' => 'Leafiny_Catalog::block/product/list.twig',
             'class'    => Catalog_Block_Category_Product::class
         ],
+        'category.product.list.multipage' => [
+            'template' => 'Leafiny_Catalog::block/product/list/multipage.twig',
+            'class'    => Catalog_Block_Category_Product_Multipage::class
+        ],
         'catalog.product.price' => [
             'template' => 'Leafiny_Catalog::block/product/price.twig',
         ],

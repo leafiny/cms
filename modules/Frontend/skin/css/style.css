@@ -455,7 +455,7 @@ button, input, optgroup, select, textarea {
 
 /* Multi-pages */
 .multipage {
-    margin-top: 2em;
+    margin: 1.5em 0 0.5em 0;
 }
 
 .multipage a {

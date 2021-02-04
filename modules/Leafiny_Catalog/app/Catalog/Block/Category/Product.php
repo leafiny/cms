@@ -61,39 +61,4 @@ class Catalog_Block_Category_Product extends Core_Block
     {
         return (int)$this->getParentObjectParams()->getData(Catalog_Helper_Data::URL_PARAM_PAGE) ?: 1;
     }
-
-    /**
-     * Retrieve total pages number
-     *
-     * @param int $categoryId
-     *
-     * @return int
-     * @throws Exception
-     */
-    public function getTotalPages(int $categoryId): int
-    {
-        /** @var Catalog_Helper_Data $helper */
-        $helper = App::getSingleton('helper', 'catalog_product');
-
-        return (int)ceil($helper->getTotalCategoryProducts($categoryId) / $helper->getLimit()) ?: 1;
-    }
-
-    /**
-     * Retrieve page URL
-     *
-     * @param Core_Page $page
-     * @param int       $number
-     *
-     * @return string
-     */
-    public function getPageUrl(Core_Page $page, int $number): string
-    {
-        $url = $page->getUrl($page->getObjectIdentifier());
-
-        if ($number > 1) {
-            $url .= '?' . Catalog_Helper_Data::URL_PARAM_PAGE . '=' . $number;
-        }
-
-        return $url;
-    }
 }
