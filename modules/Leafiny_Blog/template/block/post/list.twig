@@ -23,25 +23,5 @@
             </div>
         {% endfor %}
     </div>
-    {% set totalPage = block.getTotalPages(category.getCategoryId) %}
-    {% if (totalPage > 1) %}
-        {% set currentPage = block.getPageNumber %}
-        <div class="multipage pure-g">
-            <div class="previous pure-u-1-2 pure-u-md-1-5 left">
-                {% if (currentPage > 1) %}
-                    <a href="{{ block.getPageUrl(page, currentPage - 1) }}#posts">{{ 'Previous'|translate }}</a>
-                {% endif %}
-            </div>
-            <div class="number pure-u-3-5 center">
-                {% for i in 1..totalPage %}
-                    <a href="{{ block.getPageUrl(page, i) }}#posts"{% if block.getPageNumber == i %} class="active"{% endif %}>{{ i }}</a>
-                {% endfor %}
-            </div>
-            <div class="next pure-u-1-2 pure-u-md-1-5 right">
-                {% if (currentPage < totalPage) %}
-                    <a href="{{ block.getPageUrl(page, currentPage + 1) }}#posts">{{ 'Next'|translate }}</a>
-                {% endif %}
-            </div>
-        </div>
-    {% endif %}
+    {{ child('category.post.list.multipage', {'category_id':category.getCategoryId}) }}
 {% endif %}

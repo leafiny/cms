@@ -35,6 +35,10 @@ $config = [
             'template' => 'Leafiny_Blog::block/post/list.twig',
             'class'    => Blog_Block_Category_Post::class
         ],
+        'category.post.list.multipage' => [
+            'template' => 'Leafiny_Blog::block/post/list/multipage.twig',
+            'class'    => Blog_Block_Category_Post_Multipage::class
+        ],
         'blog.post.comments' => [
             'template' => 'Leafiny_Blog::block/post/comments.twig',
             'class'    => Blog_Block_Post_Comments::class
