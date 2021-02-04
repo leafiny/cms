@@ -471,11 +471,12 @@ button, input, optgroup, select, textarea {
 /* Posts */
 .post-list {
     position: relative;
+    margin: 20px 0 10px 0;
 }
 
 .post-list-image {
     position: absolute;
-    top: 20px;
+    top: 0;
     z-index: 5;
     height: 200px;
     width: 100%;
@@ -493,7 +494,7 @@ button, input, optgroup, select, textarea {
 }
 
 .post-list-content.with-image {
-    margin-top: 170px;
+    margin-top: 150px;
 }
 
 .post-list-content ul {
