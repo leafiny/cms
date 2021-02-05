@@ -1,0 +1,1 @@
+ALTER TABLE `cms_page` ADD COLUMN `inline_css` TEXT NULL AFTER `breadcrumb`;

@@ -1,0 +1,1 @@
+ALTER TABLE `category` ADD COLUMN `inline_css` TEXT NULL AFTER `robots`;

@@ -1,0 +1,1 @@
+ALTER TABLE `blog_post` ADD COLUMN `inline_css` TEXT NULL AFTER `publish_date`;

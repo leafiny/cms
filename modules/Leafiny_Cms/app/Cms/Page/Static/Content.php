@@ -48,6 +48,7 @@ class Cms_Page_Static_Content extends Core_Page
         $this->setCustom('canonical', $page->getData('canonical'));
         $this->setCustom('meta_title', $page->getData('meta_title'));
         $this->setCustom('meta_description', $page->getData('meta_description'));
+        $this->setCustom('inline_css', $page->getData('inline_css'));
         $this->setCustom('breadcrumb', $this->getBreadcrumb($page));
         if ($page->getData('robots')) {
             $this->setCustom('robots', $page->getData('robots'));

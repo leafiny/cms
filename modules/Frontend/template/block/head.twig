@@ -14,3 +14,8 @@
 {% if page.getCustom('robots') %}
 <meta name="robots" content="{{ page.getCustom('robots') }}" />
 {% endif %}
+{% if page.getCustom('inline_css') %}
+<style>
+{{ page.getCustom('inline_css') }}
+</style>
+{% endif %}

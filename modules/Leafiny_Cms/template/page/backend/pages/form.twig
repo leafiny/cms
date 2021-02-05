@@ -101,6 +101,16 @@
             </div>
         </fieldset>
 
+        <fieldset>
+            <legend>{{ 'Style'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="inline_css">{{ 'Inline CSS'|translate }} :</label>
+                    <textarea id="inline_css" class="pure-u-1" name="inline_css">{{ form.getInlineCss }}</textarea>
+                </div>
+            </div>
+        </fieldset>
+
         {% for child in page.getChildren %}
             {{ child(child) }}
         {% endfor %}

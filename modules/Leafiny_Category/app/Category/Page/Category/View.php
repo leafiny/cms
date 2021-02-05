@@ -48,6 +48,7 @@ class Category_Page_Category_View extends Core_Page
         $this->setCustom('canonical', $category->getData('canonical'));
         $this->setCustom('meta_title', $category->getData('meta_title'));
         $this->setCustom('meta_description', $category->getData('meta_description'));
+        $this->setCustom('inline_css', $category->getData('inline_css'));
         $this->setCustom('breadcrumb', $this->getBreadcrumb($category));
         if ($category->getData('robots')) {
             $this->setCustom('robots', $category->getData('robots'));

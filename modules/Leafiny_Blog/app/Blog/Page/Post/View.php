@@ -48,6 +48,7 @@ class Blog_Page_Post_View extends Core_Page
         $this->setCustom('canonical', $post->getData('canonical'));
         $this->setCustom('meta_title', $post->getData('meta_title'));
         $this->setCustom('meta_description', $post->getData('meta_description'));
+        $this->setCustom('inline_css', $post->getData('inline_css'));
         $this->setCustom('breadcrumb', $this->getBreadcrumb($post));
         if ($post->getData('robots')) {
             $this->setCustom('robots', $post->getData('robots'));
