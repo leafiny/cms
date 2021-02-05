@@ -9,9 +9,9 @@
             <div id="product-image" class="image-main">
                 {% set mainImage = page.getMainImage(product.getProductId) %}
                 {% if mainImage %}
-                    <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 600, 600) }}" class="pure-u-1" alt="{{ product.getName }}" />
+                    <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 600, 600) }}" class="pure-u-1" alt="{{ mainImage.getLabel ?: product.getName }}" />
                 {% else %}
-                    <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
+                    <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" class="pure-u-1" alt="{{ mainImage.getLabel ?: product.getName }}" />
                 {% endif %}
             </div>
             {% set images = page.getImages(product.getProductId) %}
@@ -20,7 +20,7 @@
                     {% for image in images %}
                         <div class="pure-u-1-4">
                             <a href="#" data-image="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600) }}">
-                                <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 150, 150) }}" alt="" class="pure-u-1"/>
+                                <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 150, 150) }}" alt="{{ image.getLabel ?: product.getName }}" class="pure-u-1"/>
                             </a>
                         </div>
                     {% endfor %}

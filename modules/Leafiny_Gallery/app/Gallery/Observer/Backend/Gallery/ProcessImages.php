@@ -39,16 +39,20 @@ class Gallery_Observer_Backend_Gallery_ProcessImages extends Core_Event implemen
 
         if ($data->getData('gallery_image')) {
             $image = $data->getData('gallery_image');
-            if (isset($image['position'])) {
-                foreach ($image['position'] as $imageId => $position) {
-                    $data = new Leafiny_Object();
-                    $data->setData(
-                        [
-                            'image_id' => $imageId,
-                            'position' => $position,
-                        ]
-                    );
-                    $model->save($data);
+
+            $fields = ['position', 'label', 'link', 'text'];
+
+            foreach ($fields as $field) {
+                if (isset($image[$field])) {
+                    foreach ($image[$field] as $imageId => $value) {
+                        $data = new Leafiny_Object(
+                            [
+                                'image_id' => $imageId,
+                                $field     => $value,
+                            ]
+                        );
+                        $model->save($data);
+                    }
                 }
             }
         }

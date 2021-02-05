@@ -220,6 +220,23 @@ class Core_Helper_File extends Core_Helper
     }
 
     /**
+     * Unlink file
+     *
+     * @param string $file
+     *
+     * @return bool
+     */
+    public function unlink(string $file): bool
+    {
+        if (is_file($file)) {
+            @unlink($file);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Remove directory recursive
      *
      * @param string $directory
@@ -235,8 +252,7 @@ class Core_Helper_File extends Core_Helper
         $files = @glob($directory . '*');
 
         foreach ($files as $file) {
-            if (is_file($file)) {
-                @unlink($file);
+            if ($this->unlink($file)) {
                 $count++;
             }
             if (is_dir($file)) {

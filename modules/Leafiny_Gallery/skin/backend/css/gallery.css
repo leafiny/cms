@@ -29,7 +29,10 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-size: cover;
+    background-color: #f6f6f6;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .gallery-images a {
@@ -42,4 +45,8 @@
 .gallery-form .info {
     margin: 0 0 20px 0;
     padding-left: 1em;
+}
+
+.gallery-images .snippet {
+    font-size: 0.8em;
 }

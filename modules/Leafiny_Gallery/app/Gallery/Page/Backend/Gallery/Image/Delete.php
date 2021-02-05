@@ -44,14 +44,12 @@ class Gallery_Page_Backend_Gallery_Image_Delete extends Backend_Page_Admin_Page_
 
         $model->delete($image->getData('image_id'));
 
-        /** @var Backend_Helper_Data $helper */
-        $helper = App::getObject('helper', 'admin_data');
+        /** @var Core_Helper_File $helper */
+        $helper = App::getObject('helper_file');
 
         $file = $helper->getMediaDir() . $image->getData('image');
 
-        if (is_file($file)) {
-            unlink($file);
-        }
+        $helper->unlink($file);
 
         $this->setSuccessMessage($this->translate('Image has been deleted'));
 

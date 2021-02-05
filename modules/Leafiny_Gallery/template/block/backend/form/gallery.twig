@@ -7,7 +7,7 @@
             {% set fileNumber = images|length %}
             <div class="gallery-images pure-g">
                 {% for image in images %}
-                    <div class="image-container pure-u-1-2 pure-u-lg-4-24">
+                    <div class="image-container pure-u-1-2 pure-u-lg-{{ block.getContainerSize }}-24">
                         <div class="image-content{% if image.getStatus == 0 %} disabled{% endif %}">
                             <div class="image-file">
                                 <div class="image" style="background-image: url('{{ page.getMediaUrl }}{{ image.getImage }}')"></div>
@@ -25,13 +25,27 @@
                                 <img src="{{ page.getSkinUrl('Leafiny_Gallery::backend/images/trash.png') }}" alt="{{ 'Delete'|translate }}" />
                             </a>
 
-                            <select name="{{ block.getInputDataName }}[position][{{ image.getImageId }}]" class="pure-u-1">
-                                {% for i in range(1, images|length) %}
-                                    <option value="{{ i }}"{% if i == image.position %} selected="selected"{% endif %}>
-                                        {{ 'Position'|translate }} {{ i }}{% if i == 1 %} ({{ 'Main'|translate }}){% endif %}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            {% if block.showPosition %}
+                                <select name="{{ block.getInputDataName }}[position][{{ image.getImageId }}]" class="pure-u-1">
+                                    {% for i in range(1, images|length) %}
+                                        <option value="{{ i }}"{% if i == image.position %} selected="selected"{% endif %}>
+                                            {{ 'Position'|translate }} {{ i }}{% if i == 1 %} ({{ 'Main'|translate }}){% endif %}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
+
+                            {% if block.showLabel %}
+                                <input name="{{ block.getInputDataName }}[label][{{ image.getImageId }}]" class="pure-u-1" value="{{ image.getLabel }}" placeholder="{{ 'Label'|translate }}" />
+                            {% endif %}
+
+                            {% if block.showLink %}
+                                <input name="{{ block.getInputDataName }}[link][{{ image.getImageId }}]" class="pure-u-1" value="{{ image.getLink }}" placeholder="{{ 'Link'|translate }}" />
+                            {% endif %}
+
+                            {% if block.showTag %}
+                                <input class="pure-u-1 snippet" value="{{ block.getTag(image)|raw }}" readonly />
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}

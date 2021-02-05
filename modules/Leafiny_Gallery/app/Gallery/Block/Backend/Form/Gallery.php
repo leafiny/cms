@@ -36,6 +36,84 @@ class Gallery_Block_Backend_Form_Gallery extends Core_Block
     }
 
     /**
+     * Retrieve container size
+     *
+     * @return int
+     */
+    public function getContainerSize(): int
+    {
+        $numberPerRow = $this->getCustom('number_per_row');
+
+        return $numberPerRow ? 24 / (int)$numberPerRow : 4;
+    }
+
+    /**
+     * Retrieve image tag
+     *
+     * @param Leafiny_Object $image
+     *
+     * @return string
+     */
+    public function getTag(Leafiny_Object $image): string
+    {
+        $tag = '&lt;img
+            src=&quot;&lbrace;&lbrace; page.getMediaUrl &rbrace;&rbrace;' . $image->getData('image') . '&quot;
+            alt=&quot;' . $image->getData('label') . '&quot;
+        /&gt;';
+
+        $link = $image->getData('link');
+
+        if ($link) {
+            if (!preg_match('/^http/', strtolower($link))) {
+                $link = '&lbrace;&lbrace; page.getUrl(\'' . $link . '\') &rbrace;&rbrace;';
+            }
+            $tag = '&lt;a href=&quot;' . $link . '&quot;&gt;' . $tag . '&lt;/a&gt;';
+        }
+
+        return preg_replace('/\s+/', ' ', $tag);
+    }
+
+    /**
+     * Retrieve if label must be shown
+     *
+     * @return bool
+     */
+    public function showLabel(): bool
+    {
+        return (bool)$this->getCustom('show_label');
+    }
+
+    /**
+     * Retrieve if tag must be shown
+     *
+     * @return bool
+     */
+    public function showTag(): bool
+    {
+        return (bool)$this->getCustom('show_tag');
+    }
+
+    /**
+     * Retrieve if link must be shown
+     *
+     * @return bool
+     */
+    public function showLink(): bool
+    {
+        return (bool)$this->getCustom('show_link');
+    }
+
+    /**
+     * Retrieve if position must be shown
+     *
+     * @return bool
+     */
+    public function showPosition(): bool
+    {
+        return (bool)$this->getCustom('show_position');
+    }
+
+    /**
      * Retrieve max file size
      *
      * @return int
