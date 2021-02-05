@@ -90,7 +90,10 @@ class Core_Setup extends Leafiny_Object
         /** @var Core_Model $model */
         $model = App::getObject('model');
 
-        return $model->getAdapter();
+        $adapter = $model->getAdapter();
+        $adapter->setNoWriting(false);
+
+        return $adapter;
     }
 
     /**
