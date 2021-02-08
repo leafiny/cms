@@ -51,6 +51,7 @@ $config = [
             'model_identifier' => 'admin_user',
             'meta_title'       => 'Account',
             'meta_description' => '',
+            'allow_params'     => 1,
         ],
         '/admin/*/account/save/' => [
             'class'               => Backend_Page_Account_Form_Save::class,
