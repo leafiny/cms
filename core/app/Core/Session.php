@@ -36,6 +36,10 @@ class Core_Session extends Leafiny_Object
             return;
         }
 
+        if (session_status() !== PHP_SESSION_NONE) {
+            return;
+        }
+
         $dir = $this->getHelper()->getSessionDir();
         if (is_writable($dir)) {
             session_save_path($dir);
