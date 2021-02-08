@@ -39,6 +39,8 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
         $this->setTmpSessionData('form_post_data', $data);
         $this->validate($post);
 
+        $objectId = null;
+
         try {
             $objectId = $this->getModel()->save($post);
             $this->setSuccessMessage(App::translate('Data has been successfully saved'));
@@ -51,13 +53,16 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
                 ]
             );
             $this->unsTmpSessionData('form_post_data');
-            $redirect = $this->getCustom('redirect_identifier');
-            if ($redirect === null) {
-                $redirect = $this->getPathName($this->getObjectIdentifier()) . '?id=' . $objectId;
-            }
-            $this->redirect($this->getUrl($redirect));
         } catch (Throwable $throwable) {
             $this->setErrorMessage(App::translate($throwable->getMessage()));
+        }
+
+        if ($objectId) {
+            $redirect = $this->getCustom('redirect_identifier');
+            if ($redirect === null) {
+                $redirect = $this->getPathName($this->getObjectIdentifier());
+            }
+            $this->redirect($this->getUrl($redirect) . '?id=' . $objectId);
         }
 
         $this->redirect($this->getRefererUrl());
@@ -115,18 +120,4 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
      * @param Leafiny_Object $post
      */
     public function validate(Leafiny_Object $post): void {}
-
-    /**
-     * Set error message and redirect
-     *
-     * @param string $message
-     *
-     * @return void
-     */
-    public function setErrorMessage(string $message): void
-    {
-        parent::setErrorMessage($message);
-
-        $this->redirect($this->getRefererUrl());
-    }
 }
