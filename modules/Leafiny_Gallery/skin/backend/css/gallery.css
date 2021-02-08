@@ -35,6 +35,25 @@
     background-position: center center;
 }
 
+.gallery-images .image.auto {
+    background-size: auto;
+}
+
+.gallery-images .image-info {
+    font-size: 0.7em;
+    margin: 5px 0 0 0;
+    color: #333;
+}
+
+.container-form .image-info span {
+    color: #666;
+    border: 1px solid #ccc;
+    padding: 3px 5px;
+    margin: 0 5px 5px 0;
+    background: #f6f6f6;
+    display: inline-block;
+}
+
 .gallery-images a {
     display: inline-block;
     font-size: 0.9em;

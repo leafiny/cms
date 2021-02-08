@@ -10,7 +10,7 @@
                     <div class="image-container pure-u-1-2 pure-u-lg-{{ block.getContainerSize }}-24">
                         <div class="image-content{% if image.getStatus == 0 %} disabled{% endif %}">
                             <div class="image-file">
-                                <div class="image" style="background-image: url('{{ page.getMediaUrl }}{{ image.getImage }}')"></div>
+                                <div class="gallery-image image" data-width="{{ image.getWidth }}" data-height="{{ image.getHeight }}" style="background-image: url('{{ page.getMediaUrl }}{{ image.getImage }}')"></div>
                             </div>
                             {% if image.getStatus == 1 %}
                                 <a href="{{ block.getStatusUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}">
@@ -24,6 +24,15 @@
                             <a href="{{ block.getDeleteUrl(image.getImageId) }}#form_gallery_{{ block.getInputDataName }}" class="delete">
                                 <img src="{{ page.getSkinUrl('Leafiny_Gallery::backend/images/trash.png') }}" alt="{{ 'Delete'|translate }}" />
                             </a>
+
+                            <div class="image-info">
+                                {% if image.getWidth and image.getHeight %}
+                                    <span>{{ image.getWidth }}x{{ image.getHeight }}</span>
+                                {% endif %}
+                                {% if image.getSize %}
+                                    <span>{{ image.getSize }} kb</span>
+                                {% endif %}
+                            </div>
 
                             {% if block.showPosition %}
                                 <select name="{{ block.getInputDataName }}[position][{{ image.getImageId }}]" class="pure-u-1">

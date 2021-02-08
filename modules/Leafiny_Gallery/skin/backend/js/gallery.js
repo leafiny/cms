@@ -34,5 +34,24 @@ function gallery () {
         counter++;
     });
 
+    let galleryImages = document.getElementsByClassName('gallery-image');
+
+    if (!galleryImages) {
+        return false;
+    }
+
+    for (let i = 0; i < galleryImages.length; i++) {
+        let element = galleryImages[i];
+
+        let width = element.getAttribute('data-width');
+        let height = element.getAttribute('data-height');
+
+        let size = element.offsetWidth;
+
+        if (width && height && width < size && height < size) {
+            element.className = element.className + ' auto';
+        }
+    }
+
     return true;
 }

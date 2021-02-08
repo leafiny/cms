@@ -194,6 +194,34 @@ class Gallery_Block_Backend_Form_Gallery extends Core_Block
             'dir'   => 'ASC',
         ];
 
-        return $model->getList($filters, [$order]);
+        $images = $model->getList($filters, [$order]);
+
+        /** @var Core_Helper_File $helper */
+        $helper = $this->getHelper('core_file');
+
+        foreach ($images as $image) {
+            $file = $helper->getMediaDir() . $image->getData('image');
+
+            if (!is_file($file)) {
+                continue;
+            }
+
+            $dimension = getimagesize($file);
+            if (!$dimension) {
+                continue;
+            }
+
+            $image->setData('width', $dimension[0]);
+            $image->setData('height', $dimension[1]);
+
+            $size = filesize($file);
+            if (!$size) {
+                continue;
+            }
+
+            $image->setData('size', round($size / 1024, 2));
+        }
+
+        return $images;
     }
 }
