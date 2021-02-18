@@ -15,10 +15,10 @@ if (!is_dir($cryptKeyDir)) {
     mkdir($cryptKeyDir);
 }
 
-$cryptKeyFile = $cryptKeyDir . 'salt.key';
+$cryptKeyFile = $cryptKeyDir . 'deploy.key';
 
 if (!is_file($cryptKeyFile)) {
-    $salt =  uniqid('', true) . '.' . rand(10000000, 99999999);
+    $salt = uniqid('', true) . '.' . rand(10000000, 99999999);
     file_put_contents($cryptKeyFile, $salt);
 }
 

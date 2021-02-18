@@ -72,7 +72,7 @@ class Core_Helper extends Leafiny_Object
     {
         if (preg_match('/^(?P<module>.*)::(?P<file>.*)$/', $path, $match)) {
             $module = $match['module'];
-            $salt = $this->getSaltKey();
+            $salt = $this->getDeploymentKey();
             if ($crypt && !empty($salt)) {
                 $module = md5($salt . $module);
             }
@@ -83,14 +83,14 @@ class Core_Helper extends Leafiny_Object
     }
 
     /**
-     * Retrieve salt key
+     * Retrieve deployment key
      *
      * @return string
      */
-    public function getSaltKey(): string
+    public function getDeploymentKey(): string
     {
         if ($this->saltKey === null) {
-            $file = $this->getVarDir() . 'crypt' . DS . 'salt.key';
+            $file = $this->getCryptDir() . 'deploy.key';
             $this->saltKey = '';
             if (is_file($file)) {
                 $this->saltKey = file_get_contents($file) ?: '';
@@ -200,6 +200,22 @@ class Core_Helper extends Leafiny_Object
     public function getMediaDir(): string
     {
         return App::getRootDir() . self::MEDIA_DIRECTORY . DS;
+    }
+
+    /**
+     * Retrieve crypt directory
+     *
+     * @return string
+     */
+    public function getCryptDir(): string
+    {
+        $crypt = $this->getVarDir() . DS . 'crypt' . DS;
+
+        if (!is_dir($crypt)) {
+            mkdir($crypt);
+        }
+
+        return $crypt;
     }
 
     /**
