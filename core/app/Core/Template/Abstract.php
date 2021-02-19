@@ -171,6 +171,8 @@ abstract class Core_Template_Abstract extends Leafiny_Object
 
         /* Required filters */
         $twig->addFilter(new Twig\TwigFilter('translate', [$this, 'translate']));
+        $twig->addFilter(new Twig\TwigFilter('crypt', [$this, 'crypt']));
+        $twig->addFilter(new Twig\TwigFilter('decrypt', [$this, 'decrypt']));
     }
 
     /**
@@ -631,5 +633,35 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     public function getHelper(?string $identifier = null): Core_Helper
     {
         return App::getSingleton('helper', $identifier);
+    }
+
+    /**
+     * Crypt a text
+     *
+     * @param mixed $message
+     *
+     * @return string
+     */
+    public function crypt($message): string
+    {
+        /** @var Core_Helper_Crypt $helper */
+        $helper = App::getObject('helper_crypt');
+
+        return $helper->crypt((string)$message);
+    }
+
+    /**
+     * Decrypt a text
+     *
+     * @param string $message
+     *
+     * @return string
+     */
+    public function decrypt(string $message): string
+    {
+        /** @var Core_Helper_Crypt $helper */
+        $helper = App::getObject('helper_crypt');
+
+        return $helper->decrypt($message);
     }
 }
