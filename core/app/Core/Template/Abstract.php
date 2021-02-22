@@ -645,7 +645,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     public function crypt($message): string
     {
         /** @var Core_Helper_Crypt $helper */
-        $helper = App::getObject('helper_crypt');
+        $helper = App::getSingleton('helper_crypt');
 
         return $helper->crypt((string)$message);
     }
@@ -660,7 +660,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     public function decrypt(string $message): string
     {
         /** @var Core_Helper_Crypt $helper */
-        $helper = App::getObject('helper_crypt');
+        $helper = App::getSingleton('helper_crypt');
 
         return $helper->decrypt($message);
     }

@@ -67,7 +67,13 @@ class Core_Helper_Crypt extends Core_Helper
      */
     public function crypt(string $message): string
     {
-        return openssl_encrypt($message, self::CIPHER_ALGO, $this->getKey(), 0, $this->getIv()) ?: '';
+        $encrypt = openssl_encrypt($message, self::CIPHER_ALGO, $this->getKey(), 0, $this->getIv());
+
+        if (!$encrypt) {
+            return '';
+        }
+
+        return strtr($encrypt, '+/=', '-_,');
     }
 
     /**
@@ -79,7 +85,9 @@ class Core_Helper_Crypt extends Core_Helper
      */
     public function decrypt(string $message): string
     {
-        return openssl_decrypt($message, self::CIPHER_ALGO, $this->getKey(), 0, $this->getIv()) ?: '';
+        $decrypt = strtr($message, '-_,', '+/=');
+
+        return openssl_decrypt($decrypt, self::CIPHER_ALGO, $this->getKey(), 0, $this->getIv()) ?: '';
     }
 
     /**
