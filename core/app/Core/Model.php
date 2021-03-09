@@ -166,11 +166,14 @@ class Core_Model extends Leafiny_Object
         }
 
         foreach ($filters as $filter) {
-            if (!isset($filter['column'], $filter['value'], $filter['operator'])) {
+            if (!isset($filter['column'], $filter['value'])) {
                 continue;
             }
             if (!$adapter->tableColumnExists($this->getMainTable(), $filter['column'])) {
                 continue;
+            }
+            if (!isset($filter['operator'])) {
+                $filter['operator'] = '=';
             }
 
             $adapter->where($filter['column'], $filter['value'], $filter['operator']);
