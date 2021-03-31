@@ -86,6 +86,48 @@ class Leafiny_MysqliDb extends MysqliDb
     }
 
     /**
+     * Abstraction method that will build the part of the WHERE conditions
+     *
+     * @param string $operator
+     * @param array  $conditions
+     *
+     * @return void
+     */
+    protected function _buildCondition($operator, &$conditions): void
+    {
+        if (empty($conditions)) {
+            return;
+        }
+
+        foreach ($conditions as $key => $condition) {
+            list ($concat, $column, $type, $value) = $condition;
+
+            if (strtolower($type) === 'find_in_set') {
+                if ($key === 0) {
+                    $this->_query .= ' ' . $operator;
+                    $operator = '';
+                }
+
+                if (is_array($value)) {
+                    $all = [];
+                    foreach ($value as $val) {
+                        $this->_bindParam($val);
+                        $all[] = $type . '(? , ' . $column . ')';
+                    }
+                    $this->_query .= ' ' . $concat . ' (' . join(' OR ', $all) . ')';
+                } else {
+                    $this->_bindParam($value);
+                    $this->_query .= ' ' . $concat . ' ' . $type . '(? , ' . $column . ')';
+                }
+
+                unset($conditions[$key]);
+            }
+        }
+
+        parent::_buildCondition($operator, $conditions);
+    }
+
+    /**
      * Prevent writing to database
      *
      * @param bool $noWriting
