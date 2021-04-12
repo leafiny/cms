@@ -212,9 +212,14 @@ class Fpc_Helper_Cache extends Core_Helper
     {
         if (preg_match_all('@<!-- nocache::(?P<blocks>.*) -->@U', $render, $matches)) {
             foreach ($matches['blocks'] as $block) {
+                $child = explode(',', $block);
+                if (!isset($child[1])) {
+                    $child[1] = '{}';
+                }
+
                 $render = preg_replace(
-                    '@<!-- nocache::' . $block . ' -->(.*)<!-- /nocache::' . $block . ' -->@s',
-                    '{% apply spaceless %}{{ child(' . $block . ') }}{% endapply %}',
+                    '@<!-- nocache::' . $block . ' -->(.*)<!-- /nocache::' . $child[0] . ' -->@s',
+                    '{% apply spaceless %}{{ child(' . $child[0] . ', ' . $child[1] . ') }}{% endapply %}',
                     $render
                 );
             }
