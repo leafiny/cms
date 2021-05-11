@@ -315,14 +315,15 @@ class Core_Helper extends Leafiny_Object
      *
      * @param string   $value
      * @param string[] $toRemove
+     * @param string   $replace
      *
      * @return string
      */
-    public function formatKey(string $value, array $toRemove = []): string
+    public function formatKey(string $value, array $toRemove = [], string $replace = '-'): string
     {
         $key = new Leafiny_Key();
 
-        return $key->format($value, $toRemove);
+        return $key->format($value, $toRemove, $replace);
     }
 
     /**
