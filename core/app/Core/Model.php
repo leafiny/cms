@@ -95,7 +95,7 @@ class Core_Model extends Leafiny_Object
         }
 
         foreach ($filters as $filter) {
-            if (!isset($filter['column'], $filter['value'])) {
+            if (!isset($filter['column'])) {
                 continue;
             }
             if (!$adapter->tableColumnExists($this->getMainTable(), $filter['column'])) {
@@ -166,7 +166,7 @@ class Core_Model extends Leafiny_Object
         }
 
         foreach ($filters as $filter) {
-            if (!isset($filter['column'], $filter['value'])) {
+            if (!isset($filter['column'])) {
                 continue;
             }
             if (!$adapter->tableColumnExists($this->getMainTable(), $filter['column'])) {
