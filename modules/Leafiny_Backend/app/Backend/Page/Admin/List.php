@@ -216,9 +216,12 @@ class Backend_Page_Admin_List extends Backend_Page_Admin_Page_Abstract
      */
     public function getFilters(): array
     {
-        $default = $this->getCustom('default_filters') ?: [];
+        $default   = $this->getCustom('default_filters') ?: [];
+        $permanent = $this->getCustom('permanent_filters') ?: [];
 
-        return App::getSession('backend')->get($this->getGridId() . '_filters') ?: $default;
+        $filters = App::getSession('backend')->get($this->getGridId() . '_filters') ?: $default;
+
+        return array_merge($filters, $permanent);
     }
 
     /**
