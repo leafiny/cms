@@ -67,8 +67,7 @@ Basic non secure Apache virtual host for a Leafiny website :
     <Directory /var/www/example/pub>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from all
+        Require all granted
     </Directory>
 
     ErrorLog ${APACHE_LOG_DIR}/error.example.log
