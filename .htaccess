@@ -32,8 +32,7 @@ RewriteRule .* index.php [L]
 
 # Disallow files access
 <FilesMatch "\.(?:sql|twig)$">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
 # Add default Expires header
