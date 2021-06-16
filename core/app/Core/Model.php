@@ -321,6 +321,7 @@ class Core_Model extends Leafiny_Object
         }
 
         $data     = $object->getData();
+        $origin   = $data;
         $columns  = $this->getAdapter()->getTableColumns($this->getMainTable());
         $nullable = $this->getAdapter()->getNullableTableColumns($this->getMainTable());
 
@@ -340,12 +341,14 @@ class Core_Model extends Leafiny_Object
         } else {
             $object->setData($this->getPrimaryKey(), null);
             $objectId = $adapter->insert($this->mainTable, $object->getData());
-            $object->setData($this->getPrimaryKey(), $objectId);
+            $origin[$this->getPrimaryKey()] = $objectId;
         }
 
         if ($adapter->getLastErrno()) {
             throw new Exception($this->getAdapter()->getLastError());
         }
+
+        $object->addData($origin);
 
         App::dispatchEvent(
             'object_save_after',
