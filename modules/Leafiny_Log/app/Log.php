@@ -34,16 +34,17 @@ final class Log
     /**
      * Log data in file
      *
-     * @param mixed $data
-     * @param int $level
+     * @param mixed  $data
+     * @param int    $level
+     * @param string $logFile
      *
      * @return void
      */
-    public static function file($data, int $level = Core_Interface_Log::INFO): void
+    public static function file($data, int $level = Core_Interface_Log::INFO, ?string $logFile = null): void
     {
         /** @var Log_Model_File $log */
         $log = App::getSingleton('model', 'log_file');
-        $log->add($data, $level);
+        $log->add($data, $level, $logFile);
     }
 
     /**

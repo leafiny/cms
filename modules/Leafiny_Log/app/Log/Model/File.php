@@ -35,13 +35,17 @@ class Log_Model_File extends Leafiny_Object implements Core_Interface_Log
     /**
      * Add Log
      *
-     * @param mixed $message
-     * @param int   $level
+     * @param mixed  $message
+     * @param int    $level
+     * @param string $logFile
      *
      * @return int
      */
-    public function add($message, int $level = self::INFO): int
+    public function add($message, int $level = self::INFO, ?string $logFile = null): int
     {
+        if ($logFile) {
+            $this->setLogFile($logFile);
+        }
         if ($message instanceof Throwable) {
             $message = $message->getMessage() . "\n" . $message->getTraceAsString();
         }
