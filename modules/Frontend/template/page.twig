@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="{{ page.getLanguage }}" xml:lang="{{ page.getLanguage }}">
+
 <head>
-{{ child('head') }}
+    {{ child('head') }}
 </head>
+
 <body class="{{ page.getPageClass }}">
-{% apply spaceless %}
-{{ child('header') }}
-<!-- nocache::'catalog.menu' -->{{ child('catalog.menu') }}<!-- /nocache::'catalog.menu' -->
-{{ child('banner') }}
-{{ child('breadcrumb') }}
-<main>
-    <div class="main-content">
-    <!-- nocache::'message' -->{{ child('message') }}<!-- /nocache::'message' -->
-    {{ child('content') }}
-    </div>
-</main>
-{{ child('footer') }}
-{{ child('script') }}
-{% endapply %}
+    {{ nocache }} 
+    {% apply spaceless %}
+    {{ child('header') }} 
+    <!-- nocache::'catalog.menu' -->
+    {{ child('catalog.menu') }}
+    <!-- /nocache::'catalog.menu' -->
+    
+    {{ child('banner') }}
+
+    <!-- nocache::'catalog.submenu' -->
+    {{ child('catalog.submenu') }}
+    <!-- /nocache::'catalog.submenu' -->
+    {{ child('breadcrumb') }}
+    <main>
+        <div class="main-content">
+            <!-- nocache::'message' -->
+            {{ child('message') }}
+            <!-- /nocache::'message' -->
+            {{ child('content') }}
+        </div>
+    </main>
+    {{ child('footer') }}
+    {{ child('script') }}
+    {% endapply %}
+    {{ endnocache }}
 </body>
+
 </html>

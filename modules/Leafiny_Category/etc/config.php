@@ -29,6 +29,10 @@ $config = [
             'template' => 'Leafiny_Category::block/menu.twig',
             'class'    => Category_Block_Menu::class
         ],
+        'catalog.submenu' => [
+            'template' => 'Leafiny_Category::block/submenu.twig',
+            'class'    => Category_Block_Menu::class
+        ],
         'admin.category.form.categories' => [
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
             'class'    => Category_Block_Backend_Form_Categories::class,

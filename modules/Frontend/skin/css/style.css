@@ -708,3 +708,32 @@ button, input, optgroup, select, textarea {
         display: none;
     }
 }
+
+
+/*
+   Menu overrides
+*/
+.sub-menu {
+    white-space: unset !important;
+ }
+ 
+ .sub-list {
+    display: block !important;
+    position: relative !important;
+    background: #ffffff;
+    border-bottom:  0px !important;
+    border-top: 0px !important;
+    padding: 10px 0;
+    z-index: 1000;
+    text-align: left;
+    left: 0;
+    right: 0;
+    box-shadow: unset !important;
+ }
+ 
+ .sub-item {
+    display: inline-block !important;
+    padding: 0 25px 0 13px !important;
+    background: none !important;
+ }
+ 

@@ -1,0 +1,33 @@
+{% set tree = block.getTree %}
+{% if tree is not empty %}
+    <nav>
+        <div id="navigation">
+            <div class="navigation-content">
+                <div class="pure-menu pure-menu-horizontal sub-menu">
+                    <ul class="pure-menu-list menu-list categories sub-list">
+                        {% for category in tree %}
+                            {% for child in category.children %}
+                                {% if page.getTrimmedPath == child.path_key %}
+                                    {% for child in category.children %}
+                                        <li class="pure-menu-item sub-item">
+                                            <a href="{{ page.getUrl }}{{ child.path_key }}.html" class="pure-menu-link{% if block.isActive(child.path_key) %} active{% endif %}">{{ child.name }}</a>
+                                        </li>
+                                    {% endfor %}                                                                        
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page.getTrimmedPath == category.path_key %}
+                                {% for child in category.children %}
+                                    <li class="pure-menu-item sub-item">
+                                        <a href="{{ page.getUrl }}{{ child.path_key }}.html" class="pure-menu-link{% if block.isActive(child.path_key) %} active{% endif %}">{{ child.name }}</a>
+                                    </li>
+                                {% endfor %}                                                                        
+                            {% endif %}
+                            
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+{% endif %}

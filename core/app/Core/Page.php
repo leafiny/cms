@@ -503,6 +503,27 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
     }
 
     /**
+     * Retrieve current path through App interface  
+     *
+     * @return string|null
+     */
+    public function getCurrentPath(): ?string
+    {
+        return App::getRequestUri();
+    }
+
+    /**
+     * Retrieve current path, trimmed of .html
+     *
+     * @return string|null
+     */
+    public function getTrimmedPath(): ?string
+    {
+        $result = str_replace(".html", "", App::getRequestUri());
+        return str_replace("/", "", $result);
+    }
+
+    /**
      * Get image resized file name in media directory
      *
      * @param string $filename
