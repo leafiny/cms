@@ -36,14 +36,14 @@ $config = [
         ],
     ],
 
-    'observer' => [
+    'events' => [
         'frontend_page_pre_process' => [
             'frontend_page_set_locale_information' => 100,
             'frontend_page_init_session' => 200,
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'frontend_page_set_locale_information' => [
             'class' => Frontend_Observer_SetLocaleInformation::class,
         ],

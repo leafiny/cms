@@ -47,7 +47,7 @@ $config = [
         ]
     ],
 
-    'observer' => [
+    'events' => [
         'page_render_before' => [
             'fpc_get_cache' => 10,
         ],
@@ -60,7 +60,7 @@ $config = [
         ]
     ],
 
-    'event' => [
+    'observer' => [
         'fpc_get_cache' => [
             'class' => Fpc_Observer_GetCache::class,
         ],

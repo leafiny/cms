@@ -21,7 +21,7 @@ final class App
     /**
      * @var string VERSION
      */
-    public const VERSION = '1.7.3';
+    public const VERSION = '1.8.0';
     /**
      * @var string MODULES_DIRECTORY
      */
@@ -492,24 +492,24 @@ final class App
      */
     public static function dispatchEvent(string $name, array $data = []): void
     {
-        /* @var array $observers */
-        $observers = self::getConfig('observer.' . $name);
+        /* @var array $events */
+        $events = self::getConfig('events.' . $name);
 
-        if (is_array($observers)) {
-            $observers = array_filter($observers, 'strlen');
-            asort($observers);
-            foreach ($observers as $event => $position) {
-                if ($event === 0) {
+        if (is_array($events)) {
+            $events = array_filter($events, 'strlen');
+            asort($events);
+            foreach ($events as $identifier => $position) {
+                if ($identifier === 0) {
                     continue;
                 }
 
                 /** @var Core_Event $object */
-                $observer = App::getObject('event', $event);
+                $observer = App::getObject('observer', $identifier);
                 $object = new Leafiny_Object();
                 foreach ($data as $key => $value) {
                     $object->setData($key, $value);
                 }
-                $object->setData('event_position', $position);
+                $object->setData('observer_position', $position);
                 $observer->execute($object);
             }
         }
