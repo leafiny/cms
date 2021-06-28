@@ -72,13 +72,13 @@ $config = [
         ],
     ],
 
-    'observer' => [
+    'events' => [
         'page_identifier_extract_before' => [
             'page_rewrite_match_identifier' => 200,
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'page_rewrite_match_identifier' => [
             'class' => Rewrite_Observer_Rewrite::class,
         ],

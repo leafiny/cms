@@ -42,7 +42,7 @@ $config = [
         /* /Admin */
     ],
 
-    'observer' => [
+    'events' => [
         'backend_user_connect' => [
             'log_backend_user_connect' => 1000,
         ],
@@ -60,7 +60,7 @@ $config = [
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'log_backend_user_connect' => [
             'class' => Log_Observer_Backend_Connect::class,
         ],

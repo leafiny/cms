@@ -147,13 +147,13 @@ $config = [
         /* /Admin Pages */
     ],
 
-    'observer' => [
+    'events' => [
         'frontend_page_post_process' => [
             'check_page_posts' => 150,
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'check_page_posts' => [
             'class' => Blog_Observer_Page::class,
         ],

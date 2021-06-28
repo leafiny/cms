@@ -247,7 +247,7 @@ class Core_Object_Factory
      */
     public function canDispatchEvent(string $type): bool
     {
-        return $type !== 'event';
+        return $type !== 'observer';
     }
 
     /**

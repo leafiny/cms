@@ -102,7 +102,7 @@ $config = [
         /* /Gallery Groups */
     ],
 
-    'observer' => [
+    'events' => [
         'backend_object_save_after' => [
             'backend_gallery_image_add' => 200,
         ],
@@ -111,7 +111,7 @@ $config = [
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'backend_gallery_image_add' => [
             'class' => Gallery_Observer_Backend_Gallery_ProcessImages::class,
             'allowed_extensions' => ['jpg', 'jpeg', 'gif', 'png'],

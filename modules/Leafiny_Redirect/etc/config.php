@@ -61,13 +61,13 @@ $config = [
         ],
     ],
 
-    'observer' => [
+    'events' => [
         'page_identifier_extract_before' => [
             'page_redirect_match_identifier' => 100,
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'page_redirect_match_identifier' => [
             'class' => Redirect_Observer_Redirect::class,
         ],

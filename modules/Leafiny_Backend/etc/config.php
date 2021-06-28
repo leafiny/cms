@@ -244,7 +244,7 @@ $config = [
         ],
     ],
 
-    'observer' => [
+    'events' => [
         'page_object_init_after' => [
             'backend_check_backend_key' => 100,
         ],
@@ -263,7 +263,7 @@ $config = [
         ]
     ],
 
-    'event' => [
+    'observer' => [
         'backend_page_set_locale_information' => [
             'class' => Backend_Observer_SetLocaleInformation::class,
         ],

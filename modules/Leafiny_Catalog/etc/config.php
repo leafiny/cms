@@ -139,13 +139,13 @@ $config = [
         ]
     ],
 
-    'observer' => [
+    'events' => [
         'frontend_page_post_process' => [
             'check_page_products' => 250,
         ],
     ],
 
-    'event' => [
+    'observer' => [
         'check_page_products' => [
             'class' => Catalog_Observer_Page::class,
         ],
