@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Redirect_Observer_Redirect
  */
-class Redirect_Observer_Redirect extends Core_Event implements Core_Interface_Event
+class Redirect_Observer_Redirect extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute

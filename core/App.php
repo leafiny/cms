@@ -503,7 +503,7 @@ final class App
                     continue;
                 }
 
-                /** @var Core_Event $object */
+                /** @var Core_Observer $object */
                 $observer = App::getObject('observer', $identifier);
                 $object = new Leafiny_Object();
                 foreach ($data as $key => $value) {

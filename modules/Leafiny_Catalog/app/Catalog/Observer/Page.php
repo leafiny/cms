@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Catalog_Observer_Page
  */
-class Catalog_Observer_Page extends Core_Event implements Core_Interface_Event
+class Catalog_Observer_Page extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute

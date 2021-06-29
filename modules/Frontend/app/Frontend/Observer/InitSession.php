@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Frontend_Observer_InitSession
  */
-class Frontend_Observer_InitSession extends Core_Event implements Core_Interface_Event
+class Frontend_Observer_InitSession extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute

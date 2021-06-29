@@ -11,11 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Core_Event
- * @deprecated since 1.8.1
- * @see Core_Observer
+ * Class Core_Observer
  */
-class Core_Event extends Leafiny_Object
+class Core_Observer extends Leafiny_Object
 {
     /**
      * Get custom data

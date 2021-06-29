@@ -11,11 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Interface Core_Interface_Event
- * @deprecated since 1.8.1
- * @see Core_Interface_Observer
+ * Interface Core_Interface_Observer
  */
-interface Core_Interface_Event
+interface Core_Interface_Observer
 {
     /**
      * Add Log

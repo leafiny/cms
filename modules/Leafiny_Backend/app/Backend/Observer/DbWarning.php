@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Backend_Observer_DbWarning
  */
-class Backend_Observer_DbWarning extends Core_Event implements Core_Interface_Event
+class Backend_Observer_DbWarning extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute

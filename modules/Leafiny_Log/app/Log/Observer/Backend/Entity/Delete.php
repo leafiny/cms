@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Log_Observer_Backend_Entity_Delete
  */
-class Log_Observer_Backend_Entity_Delete extends Core_Event implements Core_Interface_Event
+class Log_Observer_Backend_Entity_Delete extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute

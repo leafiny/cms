@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Backend_Observer_CheckUserIsAllowed
  */
-class Backend_Observer_CheckUserIsAllowed extends Core_Event implements Core_Interface_Event
+class Backend_Observer_CheckUserIsAllowed extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Execute
