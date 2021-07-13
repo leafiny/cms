@@ -30,11 +30,9 @@ class Catalog_Page_Product_View extends Core_Page
             return;
         }
 
-        /** @var Catalog_Model_Product $model */
-        $model = App::getObject('model', 'catalog_product');
-        $product = $model->getByKey($this->getObjectKey(), App::getLanguage());
+        $product = $this->getProduct($this->getObjectKey());
 
-        if (!$product->getData('product_id')) {
+        if (!$product) {
             $this->error(true);
             return;
         }
@@ -52,6 +50,26 @@ class Catalog_Page_Product_View extends Core_Page
         if ($product->getData('robots')) {
             $this->setCustom('robots', $product->getData('robots'));
         }
+    }
+
+    /**
+     * Retrieve product
+     *
+     * @param string $pathKey
+     *
+     * @return Leafiny_Object|null
+     */
+    protected function getProduct(string $pathKey): ?Leafiny_Object
+    {
+        /** @var Catalog_Model_Product $model */
+        $model = App::getObject('model', 'catalog_product');
+        $product = $model->getByKey($pathKey, App::getLanguage());
+
+        if (!$product->getData('product_id')) {
+            return null;
+        }
+
+        return $product;
     }
 
     /**
