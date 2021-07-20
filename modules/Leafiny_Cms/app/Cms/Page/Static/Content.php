@@ -30,11 +30,9 @@ class Cms_Page_Static_Content extends Core_Page
             return;
         }
 
-        /** @var Cms_Model_Page $model */
-        $model = App::getObject('model', 'cms_page');
-        $page = $model->getByKey($this->getObjectKey(), App::getLanguage());
+        $page = $this->getCmsPage($this->getObjectKey());
 
-        if (!$page->getData('page_id')) {
+        if (!$page) {
             $this->error(true);
             return;
         }
@@ -53,6 +51,26 @@ class Cms_Page_Static_Content extends Core_Page
         if ($page->getData('robots')) {
             $this->setCustom('robots', $page->getData('robots'));
         }
+    }
+
+    /**
+     * Retrieve CMS Page
+     *
+     * @param string $pathKey
+     *
+     * @return Leafiny_Object|null
+     */
+    protected function getCmsPage(string $pathKey): ?Leafiny_Object
+    {
+        /** @var Cms_Model_Page $model */
+        $model = App::getObject('model', 'cms_page');
+        $page = $model->getByKey($pathKey, App::getLanguage());
+
+        if (!$page->getData('page_id')) {
+            return null;
+        }
+
+        return $page;
     }
 
     /**
