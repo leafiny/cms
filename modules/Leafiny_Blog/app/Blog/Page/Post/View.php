@@ -30,11 +30,9 @@ class Blog_Page_Post_View extends Core_Page
             return;
         }
 
-        /** @var Blog_Model_Post $model */
-        $model = App::getObject('model', 'blog_post');
-        $post = $model->getByKey($this->getObjectKey(), App::getLanguage());
+        $post = $this->getBlogPost($this->getObjectKey());
 
-        if (!$post->getData('post_id')) {
+        if (!$post) {
             $this->error(true);
             return;
         }
@@ -53,6 +51,26 @@ class Blog_Page_Post_View extends Core_Page
         if ($post->getData('robots')) {
             $this->setCustom('robots', $post->getData('robots'));
         }
+    }
+
+    /**
+     * Retrieve blog post
+     *
+     * @param string $pathKey
+     *
+     * @return Leafiny_Object|null
+     */
+    protected function getBlogPost(string $pathKey): ?Leafiny_Object
+    {
+        /** @var Blog_Model_Post $model */
+        $model = App::getObject('model', 'blog_post');
+        $post = $model->getByKey($pathKey, App::getLanguage());
+
+        if (!$post->getData('post_id')) {
+            return null;
+        }
+
+        return $post;
     }
 
     /**
