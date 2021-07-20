@@ -30,11 +30,9 @@ class Category_Page_Category_View extends Core_Page
             return;
         }
 
-        /** @var Category_Model_Category $model */
-        $model = App::getObject('model', 'category');
-        $category = $model->getByKey($this->getObjectKey(), App::getLanguage());
+        $category = $this->getCategory($this->getObjectKey());
 
-        if (!$category->getData('category_id')) {
+        if (!$category) {
             $this->error(true);
             return;
         }
@@ -53,6 +51,26 @@ class Category_Page_Category_View extends Core_Page
         if ($category->getData('robots')) {
             $this->setCustom('robots', $category->getData('robots'));
         }
+    }
+
+    /**
+     * Retrieve the category
+     *
+     * @param string $pathKey
+     *
+     * @return Leafiny_Object|null
+     */
+    protected function getCategory(string $pathKey): ?Leafiny_Object
+    {
+        /** @var Category_Model_Category $model */
+        $model = App::getObject('model', 'category');
+        $category = $model->getByKey($pathKey, App::getLanguage());
+
+        if (!$category->getData('category_id')) {
+            return null;
+        }
+
+        return $category;
     }
 
     /**
