@@ -23,11 +23,10 @@
         </div>
     </div>
     {% set buttons = page.buttons %}
-    {% set filters = page.getFilters %}
-    {% if filters is not empty or buttons is not empty %}
+    {% if page.canResetFilters or buttons is not empty %}
         <div class="pure-u-md-7-24 right actions">
             <div class="box">
-                {% if filters is not empty %}
+                {% if page.canResetFilters %}
                     <a href="{{ page.getResetFilterUrl }}" class="pure-button red">{{ 'Reset Filter'|translate }}</a>
                 {% endif %}
                 {% if buttons is not empty %}

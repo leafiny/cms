@@ -225,6 +225,16 @@ class Backend_Page_Admin_List extends Backend_Page_Admin_Page_Abstract
     }
 
     /**
+     * Can reset filters
+     *
+     * @return bool
+     */
+    public function canResetFilters(): bool
+    {
+        return !empty(App::getSession('backend')->get($this->getGridId() . '_filters'));
+    }
+
+    /**
      * Retrieve current sort order
      *
      * @return array
