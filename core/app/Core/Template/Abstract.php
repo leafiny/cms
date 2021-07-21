@@ -455,6 +455,34 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     }
 
     /**
+     * Render a block
+     *
+     * @param string $identifier
+     * @param array  $vars
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function renderBlock(string $identifier, array $vars = []): string
+    {
+        $block = $this->getBlock($identifier, $vars);
+        $content = '';
+
+        if (!$block) {
+            return $content;
+        }
+
+        try {
+            $environment = $this->getEnvironment();
+            $content = $environment->render($block->getTemplate(), ['page' => $this, 'block' => $block]);
+        } catch (Twig\Error\LoaderError $exception) {
+            // Ignore missing template
+        }
+
+        return $content;
+    }
+
+    /**
      * Retrieve current context
      *
      * @return string
