@@ -442,16 +442,7 @@ abstract class Core_Template_Abstract extends Leafiny_Object
      */
     public function blockHtml(string $identifier, array $vars = []): void
     {
-        $block = $this->getBlock($identifier, $vars);
-
-        if ($block) {
-            try {
-                $environment = $this->getEnvironment();
-                $environment->display($block->getTemplate(), ['page' => $this, 'block' => $block]);
-            } catch (Twig\Error\LoaderError $exception) {
-                // Ignore missing template
-            }
-        }
+        print $this->renderBlock($identifier, $vars);
     }
 
     /**
