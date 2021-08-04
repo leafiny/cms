@@ -31,9 +31,6 @@ $config = [
             'meta_description' => 'Welcome to Leafiny!',
             'banner_text'      => 'Welcome to Leafiny',
         ],
-        '/page/*.html' => [
-            'content' => 'Frontend::page/cms.twig', // Optional template override (Leafiny_Cms)
-        ],
     ],
 
     'events' => [
