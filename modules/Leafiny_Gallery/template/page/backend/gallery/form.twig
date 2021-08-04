@@ -5,6 +5,15 @@
             <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
         </div>
 
+        {% if form.getGroupId %}
+            <div class="snippet pure-u-1 pure-u-xl-4-5">
+                <div class="snippet-content">
+                    <input type="text" value="&lbrace;&lbrace; child('gallery::{{ form.getPathKey }}') &rbrace;&rbrace;" class="block-snippet-content pure-u-16-24" id="block-snippet" readonly />
+                    <a href="#" id="block-copy-snippet" class="pure-button gray">{{ 'Copy'|translate }}</a>
+                </div>
+            </div>
+        {% endif %}
+
         <fieldset>
             <legend>{{ 'General'|translate }}</legend>
             <div class="pure-g">

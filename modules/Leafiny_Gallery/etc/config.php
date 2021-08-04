@@ -11,6 +11,10 @@ $config = [
     ],
 
     'block' => [
+        'gallery::*' => [
+            'template' => 'Leafiny_Gallery::block/gallery.twig',
+            'class'    => Gallery_Block_Gallery::class
+        ],
         'admin.head' => [
             'stylesheet' => [
                 'Leafiny_Gallery::backend/css/gallery.css' => 600,
