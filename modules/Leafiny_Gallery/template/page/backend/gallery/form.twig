@@ -59,6 +59,15 @@
             </div>
         </fieldset>
 
+        {% if page.getBlock('admin.gallery.group.form.categories') %}
+            <fieldset>
+                <legend>{{ 'Categories'|translate }}</legend>
+                <div class="pure-u-1 field">
+                    {{ child('admin.gallery.group.form.categories') }}
+                </div>
+            </fieldset>
+        {% endif %}
+
         {% for child in page.getChildren %}
             {{ child(child) }}
         {% endfor %}

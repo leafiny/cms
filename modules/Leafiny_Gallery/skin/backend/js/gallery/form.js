@@ -1,4 +1,5 @@
 copyValue('name', 'path_key', true);
+categorySelector('language');
 copyBlockSnippet();
 
 /**

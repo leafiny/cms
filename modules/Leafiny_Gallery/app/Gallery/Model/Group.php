@@ -44,7 +44,18 @@ class Gallery_Model_Group extends Core_Model
             $object->setData('path_key', $helper->formatKey($object->getData('path_key')));
         }
 
-        return parent::save($object);
+        $result = parent::save($object);
+
+        $categories = $object->getData('category_ids');
+
+        if ($result && $categories) {
+            $this->saveCategories(
+                $result,
+                $categories instanceof Leafiny_Object ? $categories->getData() : $categories
+            );
+        }
+
+        return $result;
     }
 
     /**
@@ -84,6 +95,27 @@ class Gallery_Model_Group extends Core_Model
     }
 
     /**
+     * Retrieve data
+     *
+     * @param mixed $value
+     * @param string|null $column
+     *
+     * @return Leafiny_Object
+     * @throws Exception
+     */
+    public function get($value, ?string $column = null): Leafiny_Object
+    {
+        $object = parent::get($value, $column);
+
+        $groupId = $object->getData($this->getPrimaryKey());
+        if ($groupId) {
+            $object->setData('category_ids', $this->getCategories($groupId));
+        }
+
+        return $object;
+    }
+
+    /**
      * Retrieve group by key and language
      *
      * @param string      $key
@@ -105,12 +137,96 @@ class Gallery_Model_Group extends Core_Model
                 $adapter->where('language', $language);
             }
 
-            return parent::get($key, 'path_key');
+            return $this->get($key, 'path_key');
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }
 
         return $object;
+    }
+
+    /**
+     * Add category Filter
+     *
+     * @param int $categoryId
+     *
+     * @return Gallery_Model_Group
+     * @throws Exception
+     */
+    public function addCategoryFilter(int $categoryId): Gallery_Model_Group
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return $this;
+        }
+
+        $adapter->join(
+            'gallery_group_category as ggc',
+            'main_table.group_id = ggc.group_id AND ggc.category_id = ' . $categoryId
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assign categories to gallery group
+     *
+     * @param int   $groupId
+     * @param int[] $categories
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function saveCategories(int $groupId, array $categories): bool
+    {
+        $this->getCategories($groupId);
+
+        if (empty($categories)) {
+            return false;
+        }
+
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return false;
+        }
+
+        $adapter->where('group_id', $groupId);
+        $adapter->delete('gallery_group_category');
+
+        $data = [];
+
+        foreach ($categories as $categoryId) {
+            if (!$categoryId) {
+                continue;
+            }
+            $data[] = [
+                'group_id'    => $groupId,
+                'category_id' => $categoryId,
+            ];
+        }
+
+        return $adapter->insertMulti('gallery_group_category', $data) ? true : false;
+    }
+
+    /**
+     * Retrieve gallery group categories
+     *
+     * @param int $groupId
+     *
+     * @return int[]
+     * @throws Exception
+     */
+    public function getCategories(int $groupId): array
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return [];
+        }
+
+        $adapter->where('group_id', $groupId);
+        $result = $adapter->get('gallery_group_category', null, ['category_id']);
+
+        return array_column($result, 'category_id');
     }
 
     /**

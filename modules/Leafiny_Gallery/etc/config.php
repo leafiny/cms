@@ -15,6 +15,11 @@ $config = [
             'template' => 'Leafiny_Gallery::block/gallery.twig',
             'class'    => Gallery_Block_Gallery::class
         ],
+        'category.gallery.list' => [
+            'template' => 'Leafiny_Gallery::block/category/gallery.twig',
+            'class'    => Gallery_Block_Category_Gallery::class
+        ],
+
         'admin.head' => [
             'stylesheet' => [
                 'Leafiny_Gallery::backend/css/gallery.css' => 600,
@@ -24,6 +29,15 @@ $config = [
             'javascript' => [
                 'Leafiny_Gallery::backend/js/gallery.js' => 200
             ]
+        ],
+        'admin.gallery.group.form.categories' => [
+            'disabled' => !class_exists('Category_Block_Backend_Form_Categories'),
+            'template' => 'Leafiny_Category::block/backend/form/categories.twig',
+            'class'    => 'Category_Block_Backend_Form_Categories',
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'multiple' => 1,
+            'name'     => 'category_ids',
+            'label'    => 'Categories',
         ],
         'admin.gallery.form' => [
             'template'          => 'Leafiny_Gallery::block/backend/form/gallery.twig',
@@ -51,6 +65,12 @@ $config = [
     ],
 
     'page' => [
+        '/category/*.html' => [
+            'children' => [
+                'category.gallery.list' => 50,
+            ]
+        ],
+
         '/admin/*/gallery/image/delete/' => [
             'class'            => Gallery_Page_Backend_Gallery_Image_Delete::class,
             'template'         => null,
