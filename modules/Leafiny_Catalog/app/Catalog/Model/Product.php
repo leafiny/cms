@@ -46,15 +46,9 @@ class Catalog_Model_Product extends Core_Model
                 return $object;
             }
 
-            $adapter->where('path_key', $key);
             $adapter->where('language', $language);
 
-            $result = $adapter->getOne($this->getMainTable());
-            if ($result) {
-                $object->setData($result);
-            }
-
-            App::dispatchEvent($this->getObjectIdentifier() . '_get_after', ['object' => $object]);
+            return $this->get($key, 'path_key');
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }
