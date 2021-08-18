@@ -134,13 +134,13 @@ class Core_Helper_File extends Core_Helper
         $resized = null;
 
         if ($info['extension'] === 'jpg') {
-            $resized = imagejpeg($result, $destination);
+            $resized = imagejpeg($result, $destination, 100);
         }
         if ($info['extension'] === 'jpeg') {
-            $resized = imagejpeg($result, $destination);
+            $resized = imagejpeg($result, $destination, 100);
         }
         if ($info['extension'] === 'png') {
-            $resized = imagepng($result, $destination);
+            $resized = imagepng($result, $destination, 100);
         }
         if ($info['extension'] === 'gif') {
             $resized = imagegif($result, $destination);
