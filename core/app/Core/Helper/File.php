@@ -30,15 +30,25 @@ class Core_Helper_File extends Core_Helper
      * New image is stored in sub directory
      * Return the new filename with sub directory
      *
-     * @param string $directory
-     * @param string $filename
-     * @param int    $maxWidth
-     * @param int    $maxHeight
-     * @param string $sub
+     * @param string      $directory
+     * @param string      $filename
+     * @param int         $maxWidth
+     * @param int         $maxHeight
+     * @param int         $quality
+     * @param string|null $toExt
+     * @param string      $sub
      *
      * @return string|null
      */
-    function imageResize(string $directory, string $filename, int $maxWidth, int $maxHeight, string $sub = 'cache'): ?string
+    function imageResize(
+        string $directory,
+        string $filename,
+        int $maxWidth,
+        int $maxHeight,
+        int $quality = 100,
+        string $toExt = null,
+        string $sub = 'cache'
+    ): ?string
     {
         $info = pathinfo($filename);
         $directory = rtrim($directory, DS);
@@ -54,7 +64,9 @@ class Core_Helper_File extends Core_Helper
 
         $size = $maxWidth === $maxHeight ? $maxWidth : $maxWidth . 'x' . $maxHeight;
 
-        $file = $info['filename'] . '-' . $size . '.' . $info['extension'];
+        $toExt = $toExt ?: $info['extension'];
+
+        $file = $info['filename'] . '-' . $size . '.' . $toExt;
 
         $resizeDirectory = $directory . DS . $info['dirname'] . DS . ($sub ? $sub . DS : '');
 
@@ -133,16 +145,19 @@ class Core_Helper_File extends Core_Helper
 
         $resized = null;
 
-        if ($info['extension'] === 'jpg') {
-            $resized = imagejpeg($result, $destination, 100);
+        if ($toExt === 'jpg') {
+            $resized = imagejpeg($result, $destination, $quality);
         }
-        if ($info['extension'] === 'jpeg') {
-            $resized = imagejpeg($result, $destination, 100);
+        if ($toExt === 'jpeg') {
+            $resized = imagejpeg($result, $destination, $quality);
         }
-        if ($info['extension'] === 'png') {
-            $resized = imagepng($result, $destination, 100);
+        if ($toExt === 'webp') {
+            $resized = imagewebp($result, $destination, $quality);
         }
-        if ($info['extension'] === 'gif') {
+        if ($toExt === 'png') {
+            $resized = imagepng($result, $destination);
+        }
+        if ($toExt === 'gif') {
             $resized = imagegif($result, $destination);
         }
 

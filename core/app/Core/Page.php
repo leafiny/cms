@@ -516,7 +516,38 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
         /** @var Core_Helper_File $helper */
         $helper = App::getObject('helper_file');
 
-        return $helper->imageResize($helper->getMediaDir(), $filename, $maxWidth, $maxHeight) ?: $filename;
+        return $helper->imageResize(
+            $helper->getMediaDir(),
+            $filename,
+            $maxWidth,
+            $maxHeight,
+            $this->getResizedImageQuality(),
+            $this->getResizedImageExtension()
+        ) ?: $filename;
+    }
+
+    /**
+     * Retrieve resized image quality
+     *
+     * @return string|null
+     */
+    public function getResizedImageExtension(): ?string
+    {
+        $extension = $this->getCustom('resized_image_extension');
+
+        return $extension ? (string)$extension : null;
+    }
+
+    /**
+     * Retrieve resized image quality
+     *
+     * @return int
+     */
+    public function getResizedImageQuality(): int
+    {
+        $quality = $this->getCustom('resized_image_quality');
+
+        return $quality ? (int)$quality : 100;
     }
 
     /**
