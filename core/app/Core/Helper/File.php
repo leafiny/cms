@@ -49,7 +49,7 @@ class Core_Helper_File extends Core_Helper
         int $quality = 100,
         string $newName = null,
         string $toExt = null,
-        string $sub = 'cache'
+        string $sub = 'web'
     ): ?string
     {
         $info = pathinfo($filename);
