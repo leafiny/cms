@@ -28,7 +28,7 @@ $config = [
             'db_password'   => 'password',
             'db_database'   => 'database',
             'db_no_writing' => 0,
-            'lc_time_names' => 'fr_FR',
+            'lc_time_names' => 'en_US',
         ],
         'social_comment' => [
             'default_status' => 1,
@@ -37,9 +37,10 @@ $config = [
 
     'page' => [
         'default' => [
-            'is_secure' => 0,
-            'locale'    => 'fr_FR.utf8',
-            'fpc'       => 0,
+            'is_secure'               => 0,
+            'locale'                  => 'en_US.utf8',
+            'fpc'                     => 0,
+            'resized_image_extension' => 'webp',
         ],
     ],
 
