@@ -7,7 +7,7 @@
     {% set mainImage = page.getMainImage(category.getCategoryId) %}
     {% if mainImage %}
         <div class="category-image">
-            <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 940, 940) }}" class="pure-u-1" alt="{{ category.getName }}" />
+            <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 940, 940, category.getName ~ '-' ~ mainImage.getImageId) }}" class="pure-u-1" alt="{{ category.getName }}" />
         </div>
     {% endif %}
 

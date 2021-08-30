@@ -508,10 +508,11 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
      * @param string $filename
      * @param int    $maxWidth
      * @param int    $maxHeight
+     * @param string $newName
      *
      * @return string
      */
-    public function imageResize(string $filename, int $maxWidth, int $maxHeight): string
+    public function imageResize(string $filename, int $maxWidth, int $maxHeight, string $newName = null): string
     {
         /** @var Core_Helper_File $helper */
         $helper = App::getObject('helper_file');
@@ -522,6 +523,7 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
             $maxWidth,
             $maxHeight,
             $this->getResizedImageQuality(),
+            $newName,
             $this->getResizedImageExtension()
         ) ?: $filename;
     }

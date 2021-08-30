@@ -15,7 +15,7 @@
     {% set mainImage = page.getMainImage(data.getPostId) %}
     {% if mainImage %}
         <div class="image">
-            <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 940, 940) }}" class="pure-u-1" alt="{{ category.getName }}" />
+            <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 940, 940, data.getTitle ~ '-' ~ mainImage.getImageId) }}" class="pure-u-1" alt="{{ data.getTitle }}" />
         </div>
     {% endif %}
 

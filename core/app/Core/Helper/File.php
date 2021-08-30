@@ -35,6 +35,7 @@ class Core_Helper_File extends Core_Helper
      * @param int         $maxWidth
      * @param int         $maxHeight
      * @param int         $quality
+     * @param string|null $newName
      * @param string|null $toExt
      * @param string      $sub
      *
@@ -46,6 +47,7 @@ class Core_Helper_File extends Core_Helper
         int $maxWidth,
         int $maxHeight,
         int $quality = 100,
+        string $newName = null,
         string $toExt = null,
         string $sub = 'cache'
     ): ?string
@@ -65,6 +67,10 @@ class Core_Helper_File extends Core_Helper
         $size = $maxWidth === $maxHeight ? $maxWidth : $maxWidth . 'x' . $maxHeight;
 
         $toExt = $toExt ?: $info['extension'];
+
+        if ($newName !== null) {
+            $info['filename'] = $this->formatKey($newName);
+        }
 
         $file = $info['filename'] . '-' . $size . '.' . $toExt;
 
