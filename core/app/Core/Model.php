@@ -77,11 +77,12 @@ class Core_Model extends Leafiny_Object
      * @param array $orders
      * @param array|null $limit
      * @param array $joins
+     * @param array $columns
      *
      * @return Leafiny_Object[]
      * @throws Exception
      */
-    public function getList(array $filters = [], array $orders = [], ?array $limit = null, array $joins = []): array
+    public function getList(array $filters = [], array $orders = [], ?array $limit = null, array $joins = [], array $columns = []): array
     {
         $result = [];
 
@@ -126,7 +127,11 @@ class Core_Model extends Leafiny_Object
             $adapter->join($join['table'], $join['condition']);
         }
 
-        $result = $adapter->get($this->getMainTable() . ' as main_table', $limit);
+        if (empty($columns)) {
+            $columns = '*';
+        }
+
+        $result = $adapter->get($this->getMainTable() . ' as main_table', $limit, $columns);
 
         if ($adapter->getLastErrno()) {
             throw new Exception($this->getAdapter()->getLastError());
