@@ -270,22 +270,24 @@ class Core_Model extends Leafiny_Object
         App::dispatchEvent($this->getObjectIdentifier() . '_delete_before', ['object_id' => $id]);
 
         $adapter->where($this->getPrimaryKey(), $id);
-        $adapter->delete($this->getMainTable());
+        $result = $adapter->delete($this->getMainTable());
 
         if ($adapter->getLastErrno()) {
             throw new Exception($this->getAdapter()->getLastError());
         }
 
-        App::dispatchEvent(
-            'object_delete_after',
-            [
-                'identifier' => $this->getObjectIdentifier(),
-                'object_id'  => $id
-            ]
-        );
-        App::dispatchEvent($this->getObjectIdentifier() . '_delete_after', ['object_id' => $id]);
+        if ($result) {
+            App::dispatchEvent(
+                'object_delete_after',
+                [
+                    'identifier' => $this->getObjectIdentifier(),
+                    'object_id'  => $id
+                ]
+            );
+            App::dispatchEvent($this->getObjectIdentifier() . '_delete_after', ['object_id' => $id]);
+        }
 
-        return true;
+        return $result;
     }
 
     /**

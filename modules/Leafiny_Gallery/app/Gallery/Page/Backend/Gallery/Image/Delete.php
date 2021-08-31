@@ -19,7 +19,6 @@ class Gallery_Page_Backend_Gallery_Image_Delete extends Backend_Page_Admin_Page_
      * Execute action
      *
      * @return void
-     * @throws Exception
      */
     public function action(): void
     {
@@ -36,22 +35,24 @@ class Gallery_Page_Backend_Gallery_Image_Delete extends Backend_Page_Admin_Page_
         /** @var Gallery_Model_Image $model */
         $model = App::getObject('model', 'gallery_image');
 
-        $image = $model->get($imageId);
+        try {
+            $image = $model->get($imageId);
 
-        if (!$image->getData('image_id')) {
-            $this->redirect($this->getRefererUrl());
+            if (!$image->getData('image_id')) {
+                $this->redirect($this->getRefererUrl());
+            }
+
+            if ($model->delete($image->getData('image_id'))) {
+                /** @var Core_Helper_File $helper */
+                $helper = App::getObject('helper_file');
+                $file = $helper->getMediaDir() . $image->getData('image');
+                $helper->unlink($file);
+
+                $this->setSuccessMessage($this->translate('Image has been deleted'));
+            }
+        } catch (Throwable $throwable) {
+            $this->setErrorMessage(App::translate($throwable->getMessage()));
         }
-
-        $model->delete($image->getData('image_id'));
-
-        /** @var Core_Helper_File $helper */
-        $helper = App::getObject('helper_file');
-
-        $file = $helper->getMediaDir() . $image->getData('image');
-
-        $helper->unlink($file);
-
-        $this->setSuccessMessage($this->translate('Image has been deleted'));
 
         $this->redirect($this->getRefererUrl());
     }
