@@ -208,12 +208,22 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
         $size = 0;
 
         try {
-            $size = $this->getModel()->size();
+            $size = $this->getModel()->size($this->getFilters());
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
         }
 
         return $size;
+    }
+
+    /**
+     * Retrieve current filter
+     *
+     * @return array
+     */
+    public function getFilters(): array
+    {
+        return App::getSession('backend')->get($this->getGridId() . '_filters') ?: [];
     }
 
     /**
