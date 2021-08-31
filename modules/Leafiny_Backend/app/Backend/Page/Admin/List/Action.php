@@ -31,8 +31,6 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
             $this->redirect($this->getRefererUrl());
         }
 
-        $this->page($params);
-
         if ($params->getData('action') === 'reset_filter') {
             App::getSession('backend')->destroy($this->getGridId() . '_filters');
         }
@@ -48,6 +46,8 @@ class Backend_Page_Admin_List_Action extends Backend_Page_Admin_Page_Abstract
         if ($params->getData('action') === 'remove') {
             $this->remove($params);
         }
+
+        $this->page($params);
 
         $this->redirect($this->getRefererUrl());
     }
