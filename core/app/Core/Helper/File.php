@@ -227,7 +227,7 @@ class Core_Helper_File extends Core_Helper
      * @return bool
      * @throws Exception
      */
-    protected function mkdir(string $directory): bool
+    public function mkdir(string $directory): bool
     {
         if (!is_dir($directory)) {
             @mkdir($directory, 0777, true);
