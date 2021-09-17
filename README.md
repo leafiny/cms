@@ -4,7 +4,7 @@ Leafiny is a CMS who not bloated with features that you don't need.
 
 * Less is better. Leafiny can generate a page in less than 10ms.
 * Add modules and use technology as you want. Override core modules if needed.
-* Leafiny work in standalone. You don't need composer, npm, gulp or any third party software, but you are free to use it if needed.
+* Leafiny works in standalone. You don't need composer, npm, gulp or any other third party software, but you are free to use it if needed.
 * Secure with isolated web root and safe Content Security Policy (avoid inline JS).
 
 # Requirements
