@@ -1,11 +1,12 @@
-goTo();
+formGoTo();
+formFieldDepends();
 
 /**
  * Form go to
  *
  * @returns {boolean}
  */
-function goTo () {
+function formGoTo () {
     let goTo = document.getElementById('form-go-to');
     if (!goTo) {
         return false;
@@ -39,4 +40,44 @@ function goTo () {
     }
 
     return true;
+}
+
+/**
+ * Add dependencies between fields
+ *
+ * <div class="pure-u-1 field depends" data-parent="parent_id" data-values="john,peter,alex">...</div>
+ */
+function formFieldDepends () {
+    let depends = document.getElementsByClassName('depends');
+
+    if (depends.length) {
+        for (let i = 0; i < depends.length; i++) {
+            let parentId = depends[i].getAttribute('data-parent');
+            let values = depends[i].getAttribute('data-values');
+
+            let parent = document.getElementById(parentId);
+
+            if (parent) {
+                toggle(depends[i], parent, values);
+
+                parent.addEventListener('change', function () {
+                    toggle(depends[i], this, values);
+                });
+            }
+        }
+    }
+
+    /**
+     * Toggle field
+     *
+     * @param {Object} element
+     * @param {Object} parent
+     * @param {string} values
+     */
+    function toggle (element, parent, values) {
+        element.style.display = 'none';
+        if (values.split(',').indexOf(parent.value) >= 0) {
+            element.style.display = 'block';
+        }
+    }
 }
