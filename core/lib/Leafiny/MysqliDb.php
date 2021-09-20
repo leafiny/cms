@@ -99,32 +99,62 @@ class Leafiny_MysqliDb extends MysqliDb
             return;
         }
 
-        foreach ($conditions as $key => $condition) {
-            list ($concat, $column, $type, $value) = $condition;
+        $this->_query .= ' ' . $operator;
 
-            if (strtolower($type) === 'find_in_set') {
-                if ($key === 0) {
-                    $this->_query .= ' ' . $operator;
-                    $operator = '';
-                }
+        foreach ($conditions as $cond) {
+            list ($concat, $column, $operator, $val) = $cond;
 
-                if (is_array($value)) {
-                    $all = [];
-                    foreach ($value as $val) {
-                        $this->_bindParam($val);
-                        $all[] = $type . '(? , ' . $column . ')';
+            switch (strtolower($operator)) {
+                case 'not in':
+                case 'in':
+                    $this->_query .= ' ' . $concat . ' ' . $column;
+                    $comparison = ' ' . $operator . ' (';
+                    if (is_object($val)) {
+                        $comparison .= $this->_buildPair('', $val);
+                    } else {
+                        foreach ($val as $v) {
+                            $comparison .= ' ?,';
+                            $this->_bindParam($v);
+                        }
                     }
-                    $this->_query .= ' ' . $concat . ' (' . join(' OR ', $all) . ')';
-                } else {
-                    $this->_bindParam($value);
-                    $this->_query .= ' ' . $concat . ' ' . $type . '(? , ' . $column . ')';
-                }
-
-                unset($conditions[$key]);
+                    $this->_query .= rtrim($comparison, ',') . ' ) ';
+                    break;
+                case 'not between':
+                case 'between':
+                    $this->_query .= ' ' . $concat . ' ' . $column;
+                    $this->_query .= ' $operator ? AND ? ';
+                    $this->_bindParams($val);
+                    break;
+                case 'not exists':
+                case 'exists':
+                    $this->_query .= ' ' . $concat . ' ' . $column;
+                    $this->_query .= $operator . $this->_buildPair('', $val);
+                    break;
+                case 'find_in_set':
+                    $this->_query .= ' ' . $concat . ' ';
+                    if (is_array($val)) {
+                        $all = [];
+                        foreach ($val as $value) {
+                            $this->_bindParam($value);
+                            $all[] = $operator . ' (? , ' . $column . ')';
+                        }
+                        $this->_query .= ' (' . join(' OR ', $all) . ')';
+                    } else {
+                        $this->_bindParam($val);
+                        $this->_query .= $operator . ' (? , ' . $column . ')';
+                    }
+                    break;
+                default:
+                    $this->_query .= ' ' . $concat . ' ' . $column;
+                    if (is_array($val)) {
+                        $this->_bindParams($val);
+                    } elseif ($val === null) {
+                        $this->_query .= ' ' . $operator . ' NULL';
+                    } elseif ($val != 'DBNULL' || $val == '0') {
+                        $this->_query .= $this->_buildPair($operator, $val);
+                    }
             }
         }
-
-        parent::_buildCondition($operator, $conditions);
     }
 
     /**
