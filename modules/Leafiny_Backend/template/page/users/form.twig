@@ -48,7 +48,7 @@
                         <option value="0"{% if form.getIsAdmin == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
                     </select>
                 </div>
-                <div class="pure-u-1" id="user-edit-resources">
+                <div class="pure-u-1 depends" id="user-edit-resources" data-parent="user-edit-is-admin" data-values="0">
                     {{ child('admin.user.edit.resources') }}
                 </div>
             </div>

@@ -92,9 +92,6 @@ $config = [
             'meta_title'         => 'Edit',
             'meta_description'   => '',
             'allow_params'       => 1,
-            'javascript'         => [
-                'Leafiny_Backend::js/users/form.js' => 100
-            ],
         ],
         '/admin/*/users/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,
