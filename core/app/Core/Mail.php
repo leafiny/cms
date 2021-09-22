@@ -97,7 +97,7 @@ class Core_Mail extends Core_Template_Abstract
         $headers = array_merge(
             [
                 'From: ' . $this->getSenderName() . ' <' . $this->getSenderEmail() . '>',
-                'Reply-To: ' . $this->getReplyTo() ?: $this->getSenderEmail(),
+                'Reply-To: ' . ($this->getReplyTo() ?: $this->getSenderEmail()),
                 'Content-type: ' . $this->getContentType() . '; charset=' . $this->getCharset(),
             ],
             $this->getHeaders()
