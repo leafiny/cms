@@ -96,16 +96,23 @@ class Core_Mail extends Core_Template_Abstract
     {
         $headers = array_merge(
             [
-                'From: ' . $this->getSenderName() . ' <' . $this->getSenderEmail() . '>',
+                'From: "' . $this->getSenderName() . '" <' . $this->getSenderEmail() . '>',
                 'Reply-To: ' . ($this->getReplyTo() ?: $this->getSenderEmail()),
+                'MIME-Version: 1.0',
+                'Content-Transfer-Encoding: 8bit',
                 'Content-type: ' . $this->getContentType() . '; charset=' . $this->getCharset(),
             ],
             $this->getHeaders()
         );
 
+        $subject = $this->translate($this->getSubject());
+        if (extension_loaded('mbstring')) {
+            $subject = mb_encode_mimeheader($subject);
+        }
+
         return mail(
             $this->getRecipientEmail(),
-            $this->translate($this->getSubject()),
+            $subject,
             $this->render(),
             join("\r\n", $headers)
         );
