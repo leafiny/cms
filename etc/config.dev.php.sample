@@ -37,10 +37,9 @@ $config = [
 
     'page' => [
         'default' => [
-            'is_secure'               => 0,
-            'locale'                  => 'en_US.utf8',
-            'fpc'                     => 0,
-            'resized_image_extension' => 'webp',
+            'is_secure' => 0,
+            'locale'    => 'en_US.utf8',
+            'fpc'       => 0,
         ],
     ],
 

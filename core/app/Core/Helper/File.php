@@ -26,20 +26,18 @@ class Core_Helper_File extends Core_Helper
     }
 
     /**
-     * Resize an image and keep the proportions
-     * New image is stored in sub directory
-     * Return the new filename with sub directory
+     * Resize an image and keep the ratio
      *
-     * @param string      $directory
-     * @param string      $filename
-     * @param int         $maxWidth
-     * @param int         $maxHeight
-     * @param int         $quality
-     * @param string|null $newName
-     * @param string|null $toExt
-     * @param string      $sub
+     * @param string      $directory image directory with the full absolute path
+     * @param string      $filename image name in the directory
+     * @param int         $maxWidth image maximum width (keep the ratio)
+     * @param int         $maxHeight image maximum height (keep the ratio)
+     * @param int         $quality between 0 and 100 (only for jpg and webp)
+     * @param string|null $newName the new file name (null keep the same file name)
+     * @param string|null $toExt convert image to jpg, webp, png, gif (null keep the same extension)
+     * @param string      $sub copy resized image in this subdirectory
      *
-     * @return string|null
+     * @return string|null the new filename prefixed with the subdirectory
      */
     function imageResize(
         string $directory,

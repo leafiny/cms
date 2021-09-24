@@ -505,15 +505,23 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
     /**
      * Get image resized file name in media directory
      *
-     * @param string $filename
-     * @param int    $maxWidth
-     * @param int    $maxHeight
-     * @param string $newName
+     * @param string      $filename image name
+     * @param int         $maxWidth image maximum width (keep the ratio)
+     * @param int         $maxHeight image maximum height (keep the ratio)
+     * @param string|null $newName the new file name (null keep the same file name)
+     * @param int|null    $quality between 0 and 100 (only for jpg and webp)
+     * @param string|null $extension convert image to jpg, webp, png, gif (null keep the same extension)
      *
      * @return string
      */
-    public function imageResize(string $filename, int $maxWidth, int $maxHeight, string $newName = null): string
-    {
+    public function imageResize(
+        string $filename,
+        int $maxWidth,
+        int $maxHeight,
+        string $newName = null,
+        int $quality = null,
+        string $extension = null
+    ): string {
         /** @var Core_Helper_File $helper */
         $helper = App::getObject('helper_file');
 
@@ -522,9 +530,9 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
             $filename,
             $maxWidth,
             $maxHeight,
-            $this->getResizedImageQuality(),
+            $quality ?: $this->getDefaultResizedImageQuality(),
             $newName,
-            $this->getResizedImageExtension()
+            $extension ?: $this->getDefaultResizedImageExtension()
         ) ?: $filename;
     }
 
@@ -533,7 +541,7 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
      *
      * @return string|null
      */
-    public function getResizedImageExtension(): ?string
+    public function getDefaultResizedImageExtension(): ?string
     {
         $extension = $this->getCustom('resized_image_extension');
 
@@ -545,7 +553,7 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
      *
      * @return int
      */
-    public function getResizedImageQuality(): int
+    public function getDefaultResizedImageQuality(): int
     {
         $quality = $this->getCustom('resized_image_quality');
 
