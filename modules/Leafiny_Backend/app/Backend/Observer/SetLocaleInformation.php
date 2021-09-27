@@ -37,5 +37,8 @@ class Backend_Observer_SetLocaleInformation extends Core_Observer implements Cor
         if ($page->getCustom('locale')) {
             setlocale(LC_ALL, $page->getCustom('locale'));
         }
+        if ($page->getCustom('timezone')) {
+            date_default_timezone_set($page->getCustom('timezone'));
+        }
     }
 }
