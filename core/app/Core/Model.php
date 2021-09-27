@@ -106,7 +106,14 @@ class Core_Model extends Leafiny_Object
                 $filter['operator'] = '=';
             }
 
-            $adapter->where('main_table.' . $filter['column'], $filter['value'], $filter['operator']);
+            $condition = $filter['condition'] ?? 'and';
+
+            if (strtolower($condition) === 'and') {
+                $adapter->where('main_table.' . $filter['column'], $filter['value'], $filter['operator']);
+            }
+            if (strtolower($condition) === 'or') {
+                $adapter->orWhere('main_table.' . $filter['column'], $filter['value'], $filter['operator']);
+            }
         }
 
         foreach ($orders as $order) {
@@ -120,7 +127,7 @@ class Core_Model extends Leafiny_Object
             $adapter->orderBy('main_table.' . $order['order'], $order['dir']);
         }
 
-        foreach ($joins as $key => $join) {
+        foreach ($joins as $join) {
             if (!isset($join['table'], $join['condition'])) {
                 continue;
             }

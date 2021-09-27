@@ -101,9 +101,16 @@ class Leafiny_MysqliDb extends MysqliDb
 
         $this->_query .= ' ' . $operator;
 
-        foreach ($conditions as $cond) {
+        foreach ($conditions as $key => $cond) {
             list ($concat, $column, $operator, $val) = $cond;
 
+            if (empty($concat)) {
+                $concat = $concat . ' (';
+            }
+            if (strtolower($concat) === 'and') {
+                $concat = ') ' . $concat . ' (';
+            }
+            
             switch (strtolower($operator)) {
                 case 'not in':
                 case 'in':
@@ -153,6 +160,10 @@ class Leafiny_MysqliDb extends MysqliDb
                     } elseif ($val != 'DBNULL' || $val == '0') {
                         $this->_query .= $this->_buildPair($operator, $val);
                     }
+            }
+
+            if (count($conditions) === ($key + 1)) {
+                $this->_query .= ')';
             }
         }
     }
