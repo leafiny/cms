@@ -51,8 +51,11 @@ class Rewrite_Model_Rewrite extends Core_Model
      */
     public function refreshAll(string $rewriteType = null): bool
     {
+        /** "refresh" var is @deprecated since 1.9.1, use "entity" instead */
         /** @var array[] $refresh */
-        $refresh = $this->getCustom('refresh');
+        $refresh = $this->getCustom('refresh') ?: [];
+
+        $refresh = array_merge($this->getCustom('entity') ?: [], $refresh);
 
         if (!is_array($refresh)) {
             return false;

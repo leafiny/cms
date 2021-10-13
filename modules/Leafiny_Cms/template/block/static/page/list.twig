@@ -5,7 +5,7 @@
         {% for cms_page in pages %}
             <div class="page-list pure-u-md-1-2 pure-u-1">
                 <div class="page-list-content">
-                    <a href="{{ page.getUrl }}{{ cms_page.getPathKey }}.html">{{ cms_page.getTitle }}</a>
+                    <a href="{{ page.getUrlRewrite(cms_page.getPathKey, 'cms_page') }}">{{ cms_page.getTitle }}</a>
                 </div>
             </div>
         {% endfor %}

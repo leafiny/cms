@@ -346,6 +346,31 @@ final class App
     }
 
     /**
+     * Retrieve object URL rewrite
+     *
+     * @param string $key
+     * @param string $type
+     *
+     * @return string
+     */
+    public static function getUrlRewrite(string $key, string $type): string
+    {
+        $config = self::$config->get('model.rewrite.entity.' . $type);
+        if (!is_array($config)) {
+            return $key;
+        }
+
+        $rewrite = new Leafiny_Object($config);
+
+        $replace = 'target';
+        if (self::$config->get('model.rewrite.enabled') && $rewrite->getData('enabled')) {
+            $replace = 'source';
+        }
+
+        return str_replace('*', $key, $rewrite->getData($replace));
+    }
+
+    /**
      * Retrieve translated string
      *
      * @param string|null $key

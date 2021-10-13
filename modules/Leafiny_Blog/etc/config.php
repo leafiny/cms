@@ -6,7 +6,7 @@ $config = [
             'class' => Blog_Model_Post::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'blog_post' => [
                     'enabled' => 1,
                     'table'   => 'blog_post',

@@ -76,7 +76,7 @@ class Blog_Page_Post_Comment_Post extends Core_Page
 
             $model->addComment((int)$postId, $commentId);
 
-            $data->setData('link', $this->getUrl($post->getData('path_key') . '.html'));
+            $data->setData('link', $this->getUrlRewrite($post->getData('path_key'), 'blog_post'));
             $data->setData('status', $comment->getDefaultStatus());
 
             /** @var Core_Mail $mail */

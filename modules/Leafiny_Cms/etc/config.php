@@ -9,7 +9,7 @@ $config = [
             'class' => Cms_Model_Page::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'cms_page' => [
                     'enabled' => 1,
                     'table'   => 'cms_page',

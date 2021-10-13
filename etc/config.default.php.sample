@@ -33,6 +33,9 @@ $config = [
         'social_comment' => [
             'default_status' => 1,
         ],
+        'rewrite' => [
+            'enabled' => 1,
+        ],
     ],
 
     'page' => [

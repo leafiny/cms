@@ -6,7 +6,7 @@ $config = [
             'class' => Catalog_Model_Product::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'catalog_product' => [
                     'enabled' => 1,
                     'table'   => 'catalog_product',

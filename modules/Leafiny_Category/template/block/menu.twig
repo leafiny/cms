@@ -8,12 +8,12 @@
                     <ul class="pure-menu-list menu-list categories">
                         {% for category in tree %}
                             <li class="pure-menu-item">
-                                <a href="{{ page.getUrl }}{{ category.path_key }}.html" class="pure-menu-link{% if category.children %} has-children{% endif %}{% if block.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
+                                <a href="{{ page.getUrlRewrite(category.path_key, 'category') }}" class="pure-menu-link{% if category.children %} has-children{% endif %}{% if block.isActive(category.path_key) %} active{% endif %}">{{ category.name }}</a>
                                 {% if category.children %}
                                     <ul class="pure-menu-list child">
                                     {% for child in category.children %}
                                         <li class="pure-menu-item">
-                                            <a href="{{ page.getUrl }}{{ child.path_key }}.html" class="pure-menu-link">{{ child.name }}</a>
+                                            <a href="{{ page.getUrlRewrite(child.path_key, 'category') }}" class="pure-menu-link">{{ child.name }}</a>
                                         </li>
                                     {% endfor %}
                                     </ul>

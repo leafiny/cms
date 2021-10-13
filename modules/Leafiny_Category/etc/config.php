@@ -6,7 +6,7 @@ $config = [
             'class' => Category_Model_Category::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'category' => [
                     'enabled' => 1,
                     'table'   => 'category',
