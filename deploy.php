@@ -5,7 +5,7 @@ declare(strict_types=1);
 define('DS', DIRECTORY_SEPARATOR);
 
 $mediaDir   = __DIR__ . DS . 'media'  . DS;
-$pubDir     = __DIR__ . DS . 'pub'  . DS;
+$pubDir     = __DIR__ . DS . ($argv[1] ?? 'pub')  . DS;
 $modulesDir = __DIR__ . DS . 'modules'  . DS;
 $varDir     = __DIR__ . DS . 'var'  . DS;
 
