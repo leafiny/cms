@@ -204,6 +204,16 @@ final class App
     }
 
     /**
+     * Reset singleton
+     *
+     * @return void
+     */
+    public static function unsSingleton(): void
+    {
+        self::$singleton = [];
+    }
+
+    /**
      * Retrieve object
      *
      * @param string      $type
