@@ -206,11 +206,23 @@ final class App
     /**
      * Reset singleton
      *
+     * @param string|null $type
+     * @param string|null $identifier
+     *
      * @return void
      */
-    public static function unsSingleton(): void
+    public static function unsSingleton(?string $type = null, ?string $identifier = null): void
     {
-        self::$singleton = [];
+        if ($type === null && $identifier === null) {
+            self::$singleton = [];
+            return;
+        }
+
+        $key = $type . ($identifier ? '::' . $identifier : '');
+
+        if ($key && isset(self::$singleton[$key])) {
+            unset(self::$singleton[$key]);
+        }
     }
 
     /**
