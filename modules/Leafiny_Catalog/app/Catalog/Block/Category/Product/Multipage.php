@@ -66,7 +66,7 @@ class Catalog_Block_Category_Product_Multipage extends Core_Block
      */
     public function getPageUrl(Core_Page $page, int $number): string
     {
-        $url = $page->getUrl($page->getObjectIdentifier());
+        $url = App::getUrlRewrite($page->getObjectKey(), 'category');
 
         if ($number > 1) {
             $url .= '?' . Catalog_Helper_Data::URL_PARAM_PAGE . '=' . $number;

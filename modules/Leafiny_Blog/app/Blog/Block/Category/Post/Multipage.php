@@ -66,7 +66,7 @@ class Blog_Block_Category_Post_Multipage extends Core_Block
      */
     public function getPageUrl(Core_Page $page, int $number): string
     {
-        $url = $page->getUrl($page->getObjectIdentifier());
+        $url = App::getUrlRewrite($page->getObjectKey(), 'category');
 
         if ($number > 1) {
             $url .= '?' . Blog_Helper_Data::URL_PARAM_PAGE . '=' . $number;
