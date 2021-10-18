@@ -43,11 +43,14 @@ class Blog_Page_Post_View extends Core_Page
         }
 
         $this->setCustom('post', $post);
+        $this->setCustom('breadcrumb', $this->getBreadcrumb($post));
+
+        $this->getHelper()->dynamicMetadata($this->getCustom('blog_post_dynamic_metadata') ?? [], $post);
+
         $this->setCustom('canonical', $post->getData('canonical'));
         $this->setCustom('meta_title', $post->getData('meta_title'));
         $this->setCustom('meta_description', $post->getData('meta_description'));
         $this->setCustom('inline_css', $post->getData('inline_css'));
-        $this->setCustom('breadcrumb', $this->getBreadcrumb($post));
         if ($post->getData('robots')) {
             $this->setCustom('robots', $post->getData('robots'));
         }
@@ -82,26 +85,22 @@ class Blog_Page_Post_View extends Core_Page
      */
     public function getBreadcrumb(Leafiny_Object $post): array
     {
-        if ($this->getCustom('hide_breadcrumb')) {
-            return [];
-        }
-
         $links = [];
 
         if ($post->getData('breadcrumb')) {
-            try {
-                /** @var Category_Helper_Category $helper */
-                $helper = App::getObject('helper', 'category');
+            /** @var Category_Helper_Category $helper */
+            $helper = App::getObject('helper', 'category');
 
-                if ($helper instanceof Category_Helper_Category) {
-                    $links = $helper->getBreadcrumb($post->getData('breadcrumb'));
-                }
-            } catch (Throwable $throwable) {
-                return $links;
+            if ($helper instanceof Category_Helper_Category) {
+                $links = $helper->getBreadcrumb($post->getData('breadcrumb'));
             }
         }
 
         $links[$post->getData('title')] = null;
+
+        foreach ($links as $name => $url) {
+            $post->setData('_category_' . ($i = ($i ?? 0) + 1), $name);
+        }
 
         return $links;
     }

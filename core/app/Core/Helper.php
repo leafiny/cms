@@ -328,6 +328,51 @@ class Core_Helper extends Leafiny_Object
     }
 
     /**
+     * Replace all strings between double curly braces by the data object associated value
+     *
+     * @param string|null    $content
+     * @param Leafiny_Object $object
+     *
+     * @return string
+     */
+    public function replaceStrWithDataObject(?string $content, Leafiny_Object $object): string
+    {
+        if ($content === null) {
+            return '';
+        }
+
+        foreach ($object->getData() as $field => $value) {
+            if (is_array($value) || is_object($value)) {
+                continue;
+            }
+            $content = str_replace('{{' . $field . '}}', (string) $value, $content);
+        }
+
+        $content = preg_replace('/{{(.*)}}/', '', $content);
+        $content = preg_replace('/\s+/', ' ', $content);
+
+        return trim($content);
+    }
+
+    /**
+     * Process dynamic metadata from object
+     *
+     * @param mixed[]        $metadata
+     * @param Leafiny_Object $object
+     *
+     * @return void
+     */
+    public function dynamicMetadata(array $metadata, Leafiny_Object $object): void
+    {
+        foreach ($metadata as $field => $value) {
+            if ($object->getData($field)) {
+                continue;
+            }
+            $object->setData($field, $this->replaceStrWithDataObject((string) $value, $object));
+        }
+    }
+
+    /**
      * Retrieve date in locale
      *
      * @param string $date

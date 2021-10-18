@@ -97,6 +97,10 @@ $config = [
         '/post/*.html' => [
             'class'   => Blog_Page_Post_View::class,
             'content' => 'Leafiny_Blog::page/view.twig',
+            'blog_post_dynamic_metadata' => [
+                'meta_title'       => '{{title}}',
+                'meta_description' => '{{_category_1}} {{title}}',
+            ],
         ],
         '/post/comment/post/' => [
             'class'              => Blog_Page_Post_Comment_Post::class,

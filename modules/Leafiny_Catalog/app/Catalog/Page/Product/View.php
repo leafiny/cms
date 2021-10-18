@@ -43,10 +43,13 @@ class Catalog_Page_Product_View extends Core_Page
         }
 
         $this->setCustom('product', $product);
+        $this->setCustom('breadcrumb', $this->getBreadcrumb($product));
+
+        $this->getHelper()->dynamicMetadata($this->getCustom('product_dynamic_metadata') ?? [], $product);
+
         $this->setCustom('canonical', $product->getData('canonical'));
         $this->setCustom('meta_title', $product->getData('meta_title'));
         $this->setCustom('meta_description', $product->getData('meta_description'));
-        $this->setCustom('breadcrumb', $this->getBreadcrumb($product));
         if ($product->getData('robots')) {
             $this->setCustom('robots', $product->getData('robots'));
         }
@@ -81,24 +84,19 @@ class Catalog_Page_Product_View extends Core_Page
      */
     public function getBreadcrumb(Leafiny_Object $product): array
     {
-        if ($this->getCustom('hide_breadcrumb')) {
-            return [];
-        }
-
         $links = [];
 
         if ($product->getData('breadcrumb')) {
-            try {
-                /** @var Category_Helper_Category $helper */
-                $helper = App::getObject('helper', 'category');
+            /** @var Category_Helper_Category $helper */
+            $helper = App::getObject('helper', 'category');
 
-                if ($helper instanceof Category_Helper_Category) {
-                    $links = $helper->getBreadcrumb($product->getData('breadcrumb'));
-                }
-            } catch (Throwable $throwable) {
-                App::log($throwable, Core_Interface_Log::ERR);
-                return $links;
+            if ($helper instanceof Category_Helper_Category) {
+                $links = $helper->getBreadcrumb($product->getData('breadcrumb'));
             }
+        }
+
+        foreach ($links as $name => $url) {
+            $product->setData('_category_' . ($i = ($i ?? 0) + 1), $name);
         }
 
         $links[$product->getData('name')] = null;

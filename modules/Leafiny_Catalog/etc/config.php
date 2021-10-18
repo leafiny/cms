@@ -81,6 +81,10 @@ $config = [
             'javascript' => [
                 'Leafiny_Catalog::js/product.js' => 100
             ],
+            'product_dynamic_metadata' => [
+                'meta_title'       => '{{name}}',
+                'meta_description' => '{{_category_1}} {{name}} {{sku}}',
+            ],
         ],
 
         /* Admin Products */
