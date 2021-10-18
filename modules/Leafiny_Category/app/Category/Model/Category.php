@@ -172,7 +172,7 @@ class Category_Model_Category extends Core_Model
         if ($object->getData('path_key')) {
             /** @var Core_Helper $helper */
             $helper = App::getObject('helper');
-            $object->setData('path_key', $helper->formatKey($object->getData('path_key')));
+            $object->setData('path_key', $helper->formatKey($object->getData('path_key'), [], ['/']));
         }
 
         $result = parent::save($object);
