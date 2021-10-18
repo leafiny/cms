@@ -1,5 +1,43 @@
 formGoTo();
 formFieldDepends();
+countFieldChars();
+
+/**
+ * Count chars in field
+ *
+ * @returns {boolean}
+ */
+function countFieldChars () {
+    let fields = document.getElementsByClassName('count-chars');
+    if (!fields.length) {
+        return false;
+    }
+
+    for (let i = 0; i < fields.length; i++) {
+        let inputs = fields[i].querySelectorAll('input, textarea');
+        for (let j = 0; j < inputs.length; j++) {
+            update(fields[i], inputs[j].value.length);
+            inputs[j].addEventListener('keyup', function () {
+                update(fields[i], this.value.length);
+            });
+        }
+    }
+
+    function update (parent, length) {
+        let chars = parent.querySelector('.chars');
+        if (!chars) {
+            chars = document.createElement('span');
+            chars.className = 'chars';
+            parent.appendChild(chars);
+        }
+
+        chars.innerHTML = length;
+
+        if (!length) {
+            chars.remove();
+        }
+    }
+}
 
 /**
  * Form go to
