@@ -21,7 +21,7 @@ final class App
     /**
      * @var string VERSION
      */
-    public const VERSION = '1.9.0';
+    public const VERSION = '1.9.1';
     /**
      * @var string MODULES_DIRECTORY
      */
@@ -204,6 +204,28 @@ final class App
     }
 
     /**
+     * Reset singleton
+     *
+     * @param string|null $type
+     * @param string|null $identifier
+     *
+     * @return void
+     */
+    public static function unsSingleton(?string $type = null, ?string $identifier = null): void
+    {
+        if ($type === null && $identifier === null) {
+            self::$singleton = [];
+            return;
+        }
+
+        $key = $type . ($identifier ? '::' . $identifier : '');
+
+        if ($key && isset(self::$singleton[$key])) {
+            unset(self::$singleton[$key]);
+        }
+    }
+
+    /**
      * Retrieve object
      *
      * @param string      $type
@@ -343,6 +365,31 @@ final class App
         }
 
         return self::$config->get($path) ?: $default;
+    }
+
+    /**
+     * Retrieve object URL rewrite
+     *
+     * @param string $key
+     * @param string $type
+     *
+     * @return string
+     */
+    public static function getUrlRewrite(string $key, string $type): string
+    {
+        $config = self::$config->get('model.rewrite.entity.' . $type);
+        if (!is_array($config)) {
+            return $key;
+        }
+
+        $rewrite = new Leafiny_Object($config);
+
+        $replace = 'target';
+        if (self::$config->get('model.rewrite.enabled') && $rewrite->getData('enabled')) {
+            $replace = 'source';
+        }
+
+        return str_replace('*', $key, $rewrite->getData($replace));
     }
 
     /**

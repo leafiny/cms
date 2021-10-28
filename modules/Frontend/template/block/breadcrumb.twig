@@ -7,7 +7,7 @@
             {% for name,link in links %}
                 <li{% if (loop.index == links|length) %} class="last"{% endif %}>
                     {% if link %}
-                        <a href="{{ link }}">{{ name }}</a>
+                        <a href="{{ page.getUrl(link) }}">{{ name }}</a>
                     {% else %}
                         <span>{{ name }}</span>
                     {% endif %}

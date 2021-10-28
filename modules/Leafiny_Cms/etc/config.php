@@ -9,7 +9,7 @@ $config = [
             'class' => Cms_Model_Page::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'cms_page' => [
                     'enabled' => 1,
                     'table'   => 'cms_page',
@@ -93,6 +93,10 @@ $config = [
         '/page/*.html' => [
             'class'   => Cms_Page_Static_Content::class,
             'content' => 'Leafiny_Cms::page/content.twig',
+            'cms_page_dynamic_metadata' => [
+                'meta_title'       => '{{title}}',
+                'meta_description' => '{{_category_1}} {{title}}',
+            ],
         ],
 
         /* Admin Pages */

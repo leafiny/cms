@@ -43,11 +43,14 @@ class Category_Page_Category_View extends Core_Page
         }
 
         $this->setCustom('category', $category);
+        $this->setCustom('breadcrumb', $this->getBreadcrumb($category));
+
+        $this->getHelper()->dynamicMetadata($this->getCustom('category_dynamic_metadata') ?? [], $category);
+
         $this->setCustom('canonical', $category->getData('canonical'));
         $this->setCustom('meta_title', $category->getData('meta_title'));
         $this->setCustom('meta_description', $category->getData('meta_description'));
         $this->setCustom('inline_css', $category->getData('inline_css'));
-        $this->setCustom('breadcrumb', $this->getBreadcrumb($category));
         if ($category->getData('robots')) {
             $this->setCustom('robots', $category->getData('robots'));
         }
@@ -82,14 +85,16 @@ class Category_Page_Category_View extends Core_Page
      */
     public function getBreadcrumb(Leafiny_Object $category): array
     {
-        if ($this->getCustom('hide_breadcrumb')) {
-            return [];
-        }
-
         /** @var Category_Helper_Category $helper */
         $helper = App::getObject('helper', 'category');
 
-        return $helper->getBreadcrumb($category->getData('category_id'));
+        $links = $helper->getBreadcrumb($category->getData('category_id'));
+
+        foreach ($links as $name => $url) {
+            $category->setData('_category_' . ($i = ($i ?? 0) + 1), $name);
+        }
+
+        return $links;
     }
 
     /**

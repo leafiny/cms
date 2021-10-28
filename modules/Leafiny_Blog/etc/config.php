@@ -6,7 +6,7 @@ $config = [
             'class' => Blog_Model_Post::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'blog_post' => [
                     'enabled' => 1,
                     'table'   => 'blog_post',
@@ -97,6 +97,10 @@ $config = [
         '/post/*.html' => [
             'class'   => Blog_Page_Post_View::class,
             'content' => 'Leafiny_Blog::page/view.twig',
+            'blog_post_dynamic_metadata' => [
+                'meta_title'       => '{{title}}',
+                'meta_description' => '{{_category_1}} {{title}}',
+            ],
         ],
         '/post/comment/post/' => [
             'class'              => Blog_Page_Post_Comment_Post::class,

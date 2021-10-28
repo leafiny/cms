@@ -90,17 +90,22 @@ class Leafiny_Key
      * Process string
      *
      * @param string   $string
-     * @param string[] $toRemove
      * @param string   $replace
+     * @param string[] $toKeep
+     * @param string[] $toRemove
      *
      * @return string
      */
-    public function format(string $string, array $toRemove = [], string $replace = '-'): string
+    public function format(string $string, string $replace = '-', array $toKeep = [], array $toRemove = []): string
     {
         $string = trim($string, '/');
         $string = strtolower($string);
         $string = strtr($string, $this->getConvertTable());
-        $string = preg_replace('#[^a-z0-9]+#i', $replace, $string);
+        $keep = 'a-z0-9';
+        foreach ($toKeep as $value) {
+            $keep .= preg_quote($value, '#');
+        }
+        $string = preg_replace('#[^' . $keep . ']+#i', $replace, $string);
         foreach ($toRemove as $value) {
             $string = preg_replace('#' . $value . '#', '', $string);
         }

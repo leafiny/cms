@@ -603,6 +603,19 @@ abstract class Core_Template_Abstract extends Leafiny_Object
     }
 
     /**
+     * Retrieve object URL rewrite when enabled
+     *
+     * @param string $key
+     * @param string $type
+     *
+     * @return string
+     */
+    public function getUrlRewrite(string $key, string $type): string
+    {
+        return $this->getUrl(App::getUrlRewrite($key, $type));
+    }
+
+    /**
      * Retrieve identifier path
      *
      * @param string $path

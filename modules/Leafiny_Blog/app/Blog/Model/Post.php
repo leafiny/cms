@@ -96,7 +96,7 @@ class Blog_Model_Post extends Core_Model
         if ($object->getData('path_key')) {
             /** @var Core_Helper $helper */
             $helper = App::getObject('helper');
-            $object->setData('path_key', $helper->formatKey($object->getData('path_key')));
+            $object->setData('path_key', $helper->formatKey($object->getData('path_key'), [], ['/']));
         }
 
         /** @var Leafiny_Object|int[]|null $categories */

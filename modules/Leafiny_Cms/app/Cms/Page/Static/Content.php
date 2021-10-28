@@ -43,11 +43,14 @@ class Cms_Page_Static_Content extends Core_Page
         }
 
         $this->setCustom('page', $page);
+        $this->setCustom('breadcrumb', $this->getBreadcrumb($page));
+
+        $this->getHelper()->dynamicMetadata($this->getCustom('cms_page_dynamic_metadata') ?? [], $page);
+
         $this->setCustom('canonical', $page->getData('canonical'));
         $this->setCustom('meta_title', $page->getData('meta_title'));
         $this->setCustom('meta_description', $page->getData('meta_description'));
         $this->setCustom('inline_css', $page->getData('inline_css'));
-        $this->setCustom('breadcrumb', $this->getBreadcrumb($page));
         if ($page->getData('robots')) {
             $this->setCustom('robots', $page->getData('robots'));
         }
@@ -82,24 +85,19 @@ class Cms_Page_Static_Content extends Core_Page
      */
     public function getBreadcrumb(Leafiny_Object $page): array
     {
-        if ($this->getCustom('hide_breadcrumb')) {
-            return [];
-        }
-
         $links = [];
 
         if ($page->getData('breadcrumb')) {
-            try {
-                /** @var Category_Helper_Category $helper */
-                $helper = App::getObject('helper', 'category');
+            /** @var Category_Helper_Category $helper */
+            $helper = App::getObject('helper', 'category');
 
-                if ($helper instanceof Category_Helper_Category) {
-                    $links = $helper->getBreadcrumb($page->getData('breadcrumb'));
-                }
-            } catch (Throwable $throwable) {
-                App::log($throwable, Core_Interface_Log::ERR);
-                return $links;
+            if ($helper instanceof Category_Helper_Category) {
+                $links = $helper->getBreadcrumb($page->getData('breadcrumb'));
             }
+        }
+
+        foreach ($links as $name => $url) {
+            $page->setData('_category_' . ($i = ($i ?? 0) + 1), $name);
         }
 
         $links[$page->getData('title')] = null;

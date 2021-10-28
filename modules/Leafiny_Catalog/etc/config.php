@@ -6,7 +6,7 @@ $config = [
             'class' => Catalog_Model_Product::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'catalog_product' => [
                     'enabled' => 1,
                     'table'   => 'catalog_product',
@@ -80,6 +80,10 @@ $config = [
             'content' => 'Leafiny_Catalog::page/product/view.twig',
             'javascript' => [
                 'Leafiny_Catalog::js/product.js' => 100
+            ],
+            'product_dynamic_metadata' => [
+                'meta_title'       => '{{name}}',
+                'meta_description' => '{{_category_1}} {{name}} {{sku}}',
             ],
         ],
 

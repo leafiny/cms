@@ -6,7 +6,7 @@ $config = [
             'class' => Category_Model_Category::class,
         ],
         'rewrite' => [
-            'refresh' => [
+            'entity' => [
                 'category' => [
                     'enabled' => 1,
                     'table'   => 'category',
@@ -67,6 +67,10 @@ $config = [
             'class'        => Category_Page_Category_View::class,
             'content'      => 'Leafiny_Category::page/category/view.twig',
             'allow_params' => 1,
+            'category_dynamic_metadata' => [
+                'meta_title'       => '{{name}}',
+                'meta_description' => '{{_category_1}} {{_category_2}} {{_category_3}}',
+            ],
         ],
 
         /* Admin Categories */

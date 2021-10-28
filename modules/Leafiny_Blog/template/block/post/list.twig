@@ -9,7 +9,7 @@
                     <div class="post-list-image" style="background: url({{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 940, 940, post.getTitle ~ '-' ~ image.getImageId) }})"></div>
                 {% endif %}
                 <div class="post-list-content{% if image %} with-image{% endif %}">
-                    <a href="{{ page.getUrl }}{{ post.getPathKey }}.html">{{ post.getTitle }}</a>
+                    <a href="{{ page.getUrlRewrite(post.getPathKey, 'blog_post') }}">{{ post.getTitle }}</a>
                     <ul class="info">
                         {% if (post.getAuthor) %}
                             <li class="pure-u-1-2 author">{{ post.getAuthor }}</li>

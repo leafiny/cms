@@ -31,7 +31,7 @@ class Category_Helper_Category extends Core_Helper
         try {
             $category = $model->get($categoryId);
             if ($category->hasData()) {
-                $categories[$category->getData('name')] = App::getBaseUrl() . $category->getData('path_key') . '.html';
+                $categories[$category->getData('name')] = App::getUrlRewrite($category->getData('path_key'), 'category');
                 if ($category->getData('parent_id')) {
                     $this->getBreadcrumb($category->getData('parent_id'), $categories);
                 }

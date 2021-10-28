@@ -6,7 +6,7 @@
             <div class="product pure-u-1-2 pure-u-lg-1-3">
                 <div class="product-content">
                     {% set image = block.getMainImage(product.getProductId) %}
-                    <a href="{{ page.getUrl }}{{ product.getPathKey }}.html">
+                    <a href="{{ page.getUrlRewrite(product.getPathKey, 'catalog_product') }}">
                         {% if image %}
                             <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600, product.getName ~ '-' ~ image.getImageId) }}" class="pure-u-1" alt="{{ image.getLabel ?: product.getName }}" loading="lazy" />
                         {% else %}
@@ -14,7 +14,7 @@
                         {% endif %}
                     </a>
                     <div class="product-info">
-                        <a href="{{ page.getUrl }}{{ product.getPathKey }}.html">{{ product.getName }}</a>
+                        <a href="{{ page.getUrlRewrite(product.getPathKey, 'catalog_product') }}">{{ product.getName }}</a>
                         <div class="product-sku"><strong>{{ 'Sku:'|translate }}</strong> {{ product.getSku }}</div>
                         {{ child('catalog.product.price', {'product':product}) }}
                     </div>
