@@ -366,7 +366,7 @@ class Core_Helper extends Leafiny_Object
     {
         foreach ($metadata as $field => $value) {
             if ($object->getData($field)) {
-                continue;
+                $value = $object->getData($field);
             }
             $object->setData($field, $this->replaceStrWithDataObject((string) $value, $object));
         }
