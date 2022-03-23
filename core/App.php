@@ -801,7 +801,7 @@ final class App
         ];
 
         foreach ($files as $file) {
-            if (is_file($file)) {
+            if (file_exists($file)) {
                 require_once $file;
                 return;
             }
@@ -809,9 +809,9 @@ final class App
 
         foreach (self::getModules() as $module) {
             $include = self::getModulesDir($module) . 'app' . DS . $classFile;
-            if (is_file($include)) {
+            if (file_exists($include)) {
                 $loaded = self::getClassSymlinksDir() . $classFile;
-                if (is_file($loaded)) {
+                if (file_exists($loaded)) {
                     unlink($loaded);
                 }
                 if (!is_dir(dirname($loaded))) {
