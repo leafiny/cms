@@ -40,9 +40,10 @@ $config = [
 
     'page' => [
         'default' => [
-            'is_secure' => 1,
-            'locale'    => 'en_US.utf8',
-            'fpc'       => 1,
+            'is_secure'    => 1,
+            'locale'       => 'en_US.utf8',
+            'fpc'          => 1,
+            'allow_params' => 1,
         ],
     ],
 
