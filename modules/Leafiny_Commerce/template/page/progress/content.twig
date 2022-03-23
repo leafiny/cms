@@ -1,0 +1,27 @@
+<div class="order-progress">
+    <div class="order-progress-header-container">
+        <div class="order-progress-header">
+            <h1><a href="{{ page.getUrl }}"><img src="{{ page.getMediaUrl('Frontend::logo.png') }}" alt="" /></a></h1>
+            <h2>{{ 'Order Progress'|translate }}</h2>
+            <p><strong>{{ page.getSale.getSaleIncrementId }}</strong></p>
+        </div>
+    </div>
+    <div class="order-progress-events-container">
+        <div class="order-progress-events">
+            {% set history = page.getHistory %}
+            {% for event in history %}
+                <div class="event {{ cycle(['odd', 'even'], loop.index) }}{% if loop.index == 1 %} first{% endif %}{% if loop.index == history|length %} last{% endif %}">
+                    <div class="info">
+                        <span class="date">{{ page.formatDate(event.getCreatedAt) }}</span>
+                        {% if event.getStatusCode %}
+                            <span class="status">{{ page.getStatus(event.getStatusCode) }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="comment">
+                        {{ event.getComment|nl2br }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

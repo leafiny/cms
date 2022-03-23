@@ -1,0 +1,146 @@
+{% set form = page.getFormData %}
+{% set cartRuleHelper = page.getHelper('cart_rule') %}
+<div class="container-form">
+    <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}">
+        <div class="pure-u-1 toolbar">
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
+        </div>
+
+        <fieldset>
+            <legend>{{ 'General'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="title">{{ 'Title'|translate }} <span>*</span> :</label>
+                    <input id="title" type="text" class="pure-u-1 pure-u-xl-4-5" name="title" value="{{ form.getTitle }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="description">{{ 'Description'|translate }} :</label>
+                    <input id="description" type="text" class="pure-u-1 pure-u-xl-4-5" name="description" value="{{ form.getDescription }}" />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>{{ 'Settings'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="status">{{ 'Status'|translate }} <span>*</span> :</label>
+                    <select id="status" class="pure-u-1 pure-u-xl-4-5" name="status" required>
+                        <option value="0"{% if form.getStatus == '0' %} selected="selected"{% endif %}>{{ 'Disabled'|translate }}</option>
+                        <option value="1"{% if form.getStatus == '1' %} selected="selected"{% endif %}>{{ 'Enabled'|translate }}</option>
+                    </select>
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="expire">{{ 'Expiration date'|translate }} :</label>
+                    <input id="expire" type="datetime-local" class="pure-u-1 pure-u-xl-4-5" name="expire" value="{{ form.getExpire }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="priority">{{ 'Priority'|translate }} <span>*</span> :</label>
+                    <input id="priority" type="text" class="pure-u-1 pure-u-xl-4-5" name="priority" value="{{ form.getPriority }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="stop_rules_processing">{{ 'Stop Further Rules Processing'|translate }} <span>*</span> :</label>
+                    <select id="stop_rules_processing" class="pure-u-1 pure-u-xl-4-5" name="stop_rules_processing" required>
+                        <option value="0"{% if form.getStopRulesProcessing == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
+                        <option value="1"{% if form.getStopRulesProcessing == '1' %} selected="selected"{% endif %}>{{ 'Yes'|translate }}</option>
+                    </select>
+                    <p class="note">{{ 'Rules with higher priority will not be applied'|translate }}</p>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Action'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    {% set cartRuleTypes = cartRuleHelper.getCartRuleAllowedTypes %}
+                    <label for="type">{{ 'Type'|translate }} <span>*</span> :</label>
+                    <select id="type" class="pure-u-1 pure-u-xl-4-5" name="type" required>
+                        {% for code,label in cartRuleTypes %}
+                            <option value="{{ code }}"{% if form.getType == code %} selected="selected"{% endif %}>{{ label|translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="discount">{{ 'Discount'|translate }} <span>*</span> :</label>
+                    <input id="discount" type="text" class="pure-u-1 pure-u-xl-4-5" name="discount" value="{{ form.getDiscount }}" required />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Coupons'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="has_coupon">{{ 'Coupon required'|translate }} <span>*</span> :</label>
+                    <select id="has_coupon" class="pure-u-1 pure-u-xl-4-5" name="has_coupon" required>
+                        <option value="0"{% if form.getHasCoupon == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
+                        <option value="1"{% if form.getHasCoupon == '1' %} selected="selected"{% endif %}>{{ 'Yes'|translate }}</option>
+                    </select>
+                    <p class="note">
+                        {{ 'Without coupon the rule will be automatically applied.'|translate }}
+                        {{ 'Save the rule to enabled or disabled coupon generation.'|translate }}
+                    </p>
+                </div>
+                {% if form.getHasCoupon %}
+                    {% set number = form.getCouponNumber ?: 1 %}
+                    <div class="pure-u-1 field">
+                        <label for="coupon_number">{{ 'Coupon number'|translate }} <span>*</span> :</label>
+                        <input id="coupon_number" type="text" class="pure-u-1 pure-u-xl-4-5" name="coupon_number" value="{{ number }}" required />
+                    </div>
+                    <div class="pure-u-1 field">
+                        <div class="pure-u-1 pure-u-xl-4-5 cart-rule-coupons">
+                            {% set coupons = page.getCoupons(form.getRuleId) %}
+                            {% if coupons|length > number %}
+                                {% set number = coupons|length %}
+                            {% endif %}
+                            <label>{% if number == 1 %}{{ 'Coupon'|translate }}{% else %}{{ 'Coupons'|translate }}{% endif %} :</label>
+                            {% for i in 1..number %}
+                                {% set coupon = coupons[i-1] is defined ? coupons[i-1] : null %}
+                                <div class="cart-rule-coupon">
+                                    <div class="pure-u-1-3">
+                                        <div class="pure-u-23-24">
+                                            <input type="text" class="pure-u-1" name="coupons[{{ i }}][code]" value="{% if coupon %}{{ coupon.getCode }}{% endif %}" placeholder="{{ 'Code'|translate }}" />
+                                        </div>
+                                    </div>
+                                    <div class="pure-u-1-3">
+                                        <div class="pure-u-7-24">
+                                            <input type="text" class="pure-u-22-24" name="coupons[{{ i }}][used]" value="{% if coupon %}{{ coupon.getUsed }}{% endif %}" placeholder="{{ 'Used'|translate }}" readonly />
+                                        </div>
+                                        <div class="pure-u-12-24">
+                                            <input type="text" class="pure-u-1" name="coupons[{{ i }}][limit]" value="{% if coupon %}{{ coupon.getLimit }}{% endif %}" placeholder="{{ 'Limit'|translate }}" />
+                                        </div>
+                                    </div>
+                                    <div class="pure-u-1-3 right">
+                                        {% if coupon %}
+                                            <label class="checkbox" for="delete_coupon_{{ i }}">
+                                                <input type="checkbox" name="coupons[{{ i }}][delete]" id="delete_coupon_{{ i }}" value="1" /> {{ 'Delete'|translate }}
+                                            </label>
+                                        {% endif %}
+                                    </div>
+                                    <input type="hidden" name="coupons[{{ i }}][coupon_id]" value="{% if coupon %}{{ coupon.getCouponId }}{% endif %}" />
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </fieldset>
+
+        {% for child in page.getChildren %}
+            {{ child(child) }}
+        {% endfor %}
+
+        <div class="pure-u-1">
+            <p>
+                <span>* {{ 'Required fields'|translate }}</span>
+            </p>
+        </div>
+
+        <div class="pure-u-1 actions">
+            <input type="hidden" name="rule_id" value="{{ form.getRuleId }}" />
+            <button type="submit" class="pure-button green">{{ 'Save'|translate }} &check;</button>
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+            {{ child('admin.form.goto') }}
+        </div>
+    </form>
+</div>

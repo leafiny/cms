@@ -1,0 +1,14 @@
+{% set product = block.getCustom('product') %}
+{% if product.getQty %}
+    <form action="{{ block.getAddUrl(product) }}" method="post" class="pure-form product-add-to-cart">
+        <div class="product-qty">
+            <label for="qty">{{ 'Quantity'|translate }}</label>
+            <input type="text" id="qty" name="qty" value="1" />
+        </div>
+        <button type="submit" class="pure-button black add-to-cart">{{ block.getButtonLabel }}</button>
+    </form>
+{% else %}
+    <div class="product-add-to-cart">
+        <span class="not-available">{{ 'Out of stock'|translate }}</span>
+    </div>
+{% endif %}

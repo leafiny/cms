@@ -1,0 +1,23 @@
+{% if block.isCartEmpty %}
+    <h2>{{ 'Cart'|translate }}</h2>
+    <p>{{ 'Your cart is empty'|translate }}</p>
+{% else %}
+    {% set current = block.getCurrentStep %}
+    <div id="checkout-progress" data-step="{{ current.getCode }}">
+        {% for step in block.getSteps %}
+            <div class="step{% if (step.getCode == current.getCode) %} active{% endif %}" id="{{ step.getCode }}">
+                <h2 class="step-title">
+                    <a href="{{ block.getStepUrl(step.getCode) }}" class="view-step">
+                        <span>{{ loop.index }}</span> {{ step.getLabel|translate }}
+                    </a>
+                </h2>
+                <div class="step-content" id="step_content_{{ step.getCode }}">
+                    {% if (loop.index == block.getStepPosition + 1) %}
+                        {{ child('message') }}
+                        {{ child('commerce.checkout.' ~ step.getCode, {'step':current.getCode}) }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

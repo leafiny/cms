@@ -1,0 +1,14 @@
+{% set next = block.getNextStep %}
+<form method="post" class="pure-form pure-form-stacked save-step order addresses" action="{{ block.getStepUrl(next.getCode) }}">
+    <div class="pure-u-1">
+        <div class="pure-u-1 pure-u-md-1-2">
+            {{ child('commerce.checkout.addresses.shipping') }}
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+            {{ child('commerce.checkout.addresses.billing') }}
+        </div>
+    </div>
+    <div class="pure-u-1 continue">
+        <button type="submit" class="pure-button button black">{{ 'Continue'|translate }}</button>
+    </div>
+</form>

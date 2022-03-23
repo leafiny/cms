@@ -1,0 +1,48 @@
+{% set items = block.getItems %}
+{% set sale = block.getSale %}
+{% apply spaceless %}
+<div class="minicart" id="minicart">
+    <div class="modal-container">
+        <input type="checkbox" id="cart-link" value="1" class="modal-toggle" />
+        <label for="cart-link">
+            {{ 'My Cart'|translate }}{% if sale.getTotalQty %}<span>{{ sale.getTotalQty }}</span>{% endif %}
+        </label>
+        <div class="modal">
+            <div class="minicart-content">
+                {% if items is empty %}
+                    <p>{{ 'Your cart is empty'|translate }}</p>
+                {% else %}
+                    {% for item in items %}
+                        <ul>
+                            <li class="action">
+                                <a href="{{ block.getRemoveUrl(item) }}"><img src="{{ page.getMediaUrl('Leafiny_Commerce::trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
+                            </li>
+                            <li class="name"><a href="{{ page.getUrl }}{{ item.getProductPath }}.html">{{ item.getProductName }}</a></li>
+                            <li class="price">{{ item.getQty }} x <span>{{ item.getInclTaxUnit|currency }}</span></li>
+                        </ul>
+                    {% endfor %}
+                    {% if sale %}
+                        <div class="total">
+                            {% if sale.getInclTaxDiscount > 0 %}
+                                <span class="label">
+                                    {{ 'Discount'|translate }}
+                                </span>
+                                <span class="price">-{{ sale.getInclTaxDiscount|currency }}</span>
+                            {% endif %}
+                            <span class="label">
+                                <strong>{{ sale.getTotalQty }} {% if sale.getTotalQty <= 1 %}{{ 'item'|translate }}{% else %}{{ 'items'|translate }}{% endif %}</strong>
+                            </span>
+                            <span class="price"><strong>{{ (sale.getInclTaxSubtotal - sale.getInclTaxDiscount)|currency }}</strong></span>
+                        </div>
+
+                        <div class="checkout">
+                            <a href="{{ block.getCheckoutUrl }}" class="pure-button black">{{ 'Proceed to Checkout'|translate }}</a>
+                        </div>
+
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endapply %}

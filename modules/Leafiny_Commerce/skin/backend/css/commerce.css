@@ -1,0 +1,210 @@
+.grid .order-status {
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.grid .order-status.shipped,
+.grid .order-status.refunded {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.grid .order-status.processing {
+    background: #cce5ff;
+    border: 1px solid #b8daff;
+    color: #004085;
+}
+
+.grid .order-status.pending,
+.grid .order-status.pending_payment {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+.grid .order-status.canceled {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.order-view .toolbar {
+    margin-bottom: 20px;
+}
+
+.order-view .box-content {
+    border: 1px solid #cbcbcb;
+    margin: 0 20px 20px 0;
+    font-size: 1.1em;
+    min-height: 110px;
+}
+
+.order-view .box-content.last {
+    margin-right: 0;
+}
+
+.order-view .box .title {
+    background: #deeeeb;
+    padding: 10px;
+    font-size: 22px;
+}
+
+.order-view .box .line {
+    padding: 10px 10px;
+}
+
+.order-view .box .label {
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.order-view .box .value {
+    vertical-align: middle;
+}
+
+.order-view .payment .invoice {
+    float: right;
+}
+
+.order-view .products .line {
+    overflow-x: auto;
+}
+
+.order-view .shipping-method form {
+    float: right;
+    margin: 0;
+}
+
+.order-view .shipping-method form input {
+    margin-right: 10px;
+}
+
+.order-view .products table {
+    width: 100%;
+    margin-bottom: 0;
+    min-width: 1000px;
+}
+
+.order-view .products table th {
+    text-align: left;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.order-view .products table td {
+    vertical-align: middle;
+    text-align: left;
+    padding: 5px;
+}
+
+.order-view .products table td:first-child {
+    width: 110px;
+}
+
+.order-view .total .line {
+    border-bottom: 1px dotted #ccc;
+}
+
+.order-view .total .line.total-incl-tax {
+    border: 0;
+    background: #efefef;
+}
+
+.order-view .total .line.total-excl-tax {
+    background: #efefef;
+}
+
+.order-view .total .value {
+    text-align: right;
+}
+
+.order-view .history .event {
+    padding: 10px;
+}
+
+.order-view .history .event .mail img {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.order-view .history .header {
+    margin-bottom: 10px;
+}
+
+.order-view .history .status {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    padding: 2px 10px 5px 10px;
+    margin-left: 10px;
+}
+
+.order-view .history .comment {
+    margin-bottom: 15px;
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+}
+
+.order-view .history .footer {
+    margin-bottom: 30px;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #999;
+}
+
+.order-view .history .form-comment {
+    padding: 10px;
+}
+
+.order-view .history .form-comment legend {
+    font-weight: bold;
+}
+
+.order-view .history .form-comment label {
+    margin-top: 20px;
+}
+
+.order-view .history .form-comment button {
+    margin-top: 20px;
+}
+
+.cart-rule-coupon {
+    border-bottom: 1px solid #ddd;
+    line-height: 40px;
+}
+
+.cart-rule-coupon:last-child {
+    border: 0;
+}
+
+.cart-rule-coupon .checkbox {
+    cursor: pointer;
+}
+
+.cart-rule-coupon .checkbox input {
+    margin-right: 5px;
+}
+
+@media (max-width: 778px) {
+    .order-view .history .date {
+        display: block;
+        width: 100%;
+    }
+
+    .order-view .history .status {
+        margin: 10px 0 0 0;
+    }
+
+    .order-view .shipping-method form {
+        float: none;
+        display: block;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 1023px) {
+    .order-view .box-content {
+        margin-right: 0;
+    }
+}

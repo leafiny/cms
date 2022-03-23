@@ -1,0 +1,4 @@
+{% set sale = block.getSale %}
+<div class="checkout-complete">
+    {{ child(block.getPaymentBlock,{'sale':sale}) }}
+</div>

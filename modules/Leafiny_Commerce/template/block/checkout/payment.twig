@@ -1,0 +1,25 @@
+{% set next = block.getNextStep %}
+<form method="post" class="pure-form pure-form-stacked save-step order payment" action="{{ block.getStepUrl(next.getCode) }}">
+    {% set paymentMethods = block.getPaymentMethods %}
+    {% if paymentMethods is not empty %}
+        {% for payment in paymentMethods %}
+            <div class="pure-u-1 payment-method {{ payment.getMethod }}">
+                <div class="payment-method-content">
+                    <label for="{{ payment.getMethod }}">
+                        <input type="radio" name="payment_method" value="{{ payment.getMethod }}" class="payment-method-input" id="{{ payment.getMethod }}"{% if (block.getCurrentMethod == payment.getMethod) %} checked="checked"{% endif %} /> {{ payment.getTitle|translate }}
+                    </label>
+                    <div class="payment-method-info" id="method_info_{{ payment.getMethod }}"{% if block.getCurrentMethod != payment.getMethod %} style="display:none"{% endif %}>
+                        {{ child(payment.getMethod ~ '.payment.info') }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="pure-u-1 continue">
+            <button type="submit" class="pure-button button black">{{ 'Continue'|translate }}</button>
+        </div>
+    {% else %}
+        <p>
+            {{ 'Your order cannot be completed at this time as there is no payment methods available for it.'|translate }}
+        </p>
+    {% endif %}
+</form>

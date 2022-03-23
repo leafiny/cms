@@ -1,0 +1,31 @@
+{% set sale = block.getSale %}
+<div class="data-tab">
+    {% if sale.getInclTaxShipping != '0.00' %}
+        <div class="line shipping">
+            <span class="pure-u-3-5">
+                <strong>{{ 'Shipping fees'|translate }} :</strong>
+            </span>
+            <span class="pure-u-2-5 right">
+                <span class="amount">{{ sale.getInclTaxShipping|currency }}</span>
+            </span>
+        </div>
+    {% endif %}
+    {% if sale.getInclTaxDiscount != '0.00' %}
+        <div class="line discount">
+            <span class="pure-u-3-5">
+                <strong>{{ 'Discount'|translate }} :</strong>
+            </span>
+            <span class="pure-u-2-5 right">
+                <span class="amount">- {{ sale.getInclTaxDiscount|currency }}</span>
+            </span>
+        </div>
+    {% endif %}
+    <div class="line grand-total">
+        <span class="pure-u-3-5">
+            <strong>{{ 'Total'|translate }} :</strong>
+        </span>
+        <span class="pure-u-2-5 right">
+            <span class="amount">{{ sale.getInclTaxTotal|currency }}</span>
+        </span>
+    </div>
+</div>

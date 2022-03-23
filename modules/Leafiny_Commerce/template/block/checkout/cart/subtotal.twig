@@ -1,0 +1,18 @@
+<div class="totals pure-u-1">
+    {% set sale = block.getSale %}
+    {% if sale.getInclTaxDiscount > 0 %}
+        <div class="discount">
+            <span class="label">{{ 'Discount'|translate }} :</span>
+            <span class="amount">-{{ sale.getInclTaxDiscount|currency }}</span>
+        </div>
+        <div class="subtotal">
+            <span class="label">{{ 'Total'|translate }} :</span>
+            <span class="amount">{{ (sale.getInclTaxSubtotal - sale.getInclTaxDiscount)|currency }}</span>
+        </div>
+    {% else %}
+        <div class="subtotal">
+            <span class="label">{{ 'Total'|translate }} :</span>
+            <span class="amount">{{ sale.getInclTaxSubtotal|currency }}</span>
+        </div>
+    {% endif %}
+</div>

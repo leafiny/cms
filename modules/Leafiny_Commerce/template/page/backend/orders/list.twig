@@ -1,0 +1,60 @@
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {{ child('admin.list.toolbar') }}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('sale_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('sale_increment_id') }}">{{ 'Number'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('created_at') }}">{{ 'Created At'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('customer') }}">{{ 'Customer'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('email') }}">{{ 'E-mail'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('incl_tax_total') }}">{{ 'Amount'|translate }}</a></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('total_qty') }}">{{ 'Products'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('status') }}">{{ 'Status'|translate }}</a></th>
+                    <th class="width-5">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[sale_id]" value="{{ page.getFilter('sale_id') }}" /></th>
+                    <th><input type="text" name="filter[sale_increment_id]" value="{{ page.getFilter('sale_increment_id') }}" /></th>
+                    <th></th>
+                    <th><input type="text" name="filter[customer]" value="{{ page.getFilter('customer') }}" /></th>
+                    <th><input type="text" name="filter[email]" value="{{ page.getFilter('email') }}" /></th>
+                    <th></th>
+                    <th></th>
+                    <th><input type="text" name="filter[status]" value="{{ page.getFilter('status') }}" /></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="10">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getSaleId }}" name="id[]" class="select-id" value="{{ data.getSaleId }}" /></td>
+                            <td><label for="id_{{ data.getSaleId }}">{{ data.getSaleId }}</label></td>
+                            <td>{{ data.getSaleIncrementId }}</td>
+                            <td>{{ page.formatDate(data.getCreatedAt()) }}</td>
+                            <td>{{ data.getCustomer }}</td>
+                            <td>{{ data.getEmail }}</td>
+                            <td>{{ data.getInclTaxTotal|currency }}</td>
+                            <td>{{ data.getTotalQty }}</td>
+                            <td><span class="order-status {{ data.getStatus }}">{{ page.getStatus(data.getStatus) }}</span></td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getSaleId()) }}">{{ 'View'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

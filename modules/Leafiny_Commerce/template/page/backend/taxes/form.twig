@@ -1,0 +1,71 @@
+{% set form = page.getFormData %}
+<div class="container-form">
+    <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}">
+        <div class="pure-u-1 toolbar">
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
+        </div>
+
+        <fieldset>
+            <legend>{{ 'General'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="label">{{ 'Label'|translate }} <span>*</span> :</label>
+                    <input id="label" type="text" class="pure-u-1 pure-u-xl-4-5" name="label" value="{{ form.getLabel }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="tax_percent">{{ 'Tax (%)'|translate }} <span>*</span> :</label>
+                    <input id="tax_percent" type="text" class="pure-u-1 pure-u-xl-4-5" name="tax_percent" value="{{ form.getTaxPercent }}" required />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="rule_id">{{ 'Tax Rule'|translate }} :</label>
+                    <select class="pure-u-1 pure-u-xl-4-5" id="rule_id" name="rule_id">
+                        <option value=""></option>
+                        {% set taxHelper = page.getHelper('tax') %}
+                        {% for value,label in taxHelper.getTaxRules %}
+                            <option value="{{ value }}"{% if form.getRuleId == value %} selected="selected"{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Information'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field">
+                    <label for="country_code">{{ 'Country'|translate }} <span>*</span> :</label>
+                    <select id="country_code" class="pure-u-1 pure-u-xl-4-5 tax-form-countries" name="country_code">
+                        <option value="*">*</option>
+                        {% for code,name in page.getAllCountries %}
+                            <option value="{{ code }}"{% if code in form.getCountryCode %} selected="selected"{% endif %}>{{ name|translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="state_code">{{ 'State Code'|translate }} :</label>
+                    <input id="state_code" type="text" class="pure-u-1 pure-u-xl-4-5" name="state_code" value="{{ form.getStateCode ?: '*' }}" />
+                </div>
+                <div class="pure-u-1 field">
+                    <label for="postcode">{{ 'Postcode'|translate }} :</label>
+                    <input id="postcode" type="text" class="pure-u-1 pure-u-xl-4-5" name="postcode" value="{{ form.getPostcode ?: '*' }}" />
+                </div>
+            </div>
+        </fieldset>
+
+        {% for child in page.getChildren %}
+            {{ child(child) }}
+        {% endfor %}
+
+        <div class="pure-u-1">
+            <p>
+                <span>* {{ 'Required fields'|translate }}</span>
+            </p>
+        </div>
+
+        <div class="pure-u-1 actions">
+            <input type="hidden" name="tax_id" value="{{ form.getTaxId }}" />
+            <button type="submit" class="pure-button green">{{ 'Save'|translate }} &check;</button>
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+        </div>
+    </form>
+</div>

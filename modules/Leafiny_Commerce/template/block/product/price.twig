@@ -1,0 +1,12 @@
+{% set product = block.getCustom('product') %}
+{% set pricesExclTax = product.getPricesExclTax %}
+{% set pricesInclTax = product.getPricesInclTax %}
+{% if pricesInclTax.getFinalPrice %}
+    <div class="product-price">
+        {% if pricesInclTax.getOriginalPrice != pricesInclTax.getFinalPrice %}
+            <span class="original-price">{{ pricesInclTax.getOriginalPrice|currency }}</span>
+        {% endif %}
+        <span class="final-price">{{ pricesInclTax.getFinalPrice|currency }}</span>
+    </div>
+    {{ child('commerce.add.to.cart', {'product':product}) }}
+{% endif %}

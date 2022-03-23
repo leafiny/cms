@@ -1,0 +1,17 @@
+<div class="order review">
+    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+        {{ child('commerce.checkout.review.info') }}
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+        {{ child('commerce.checkout.review.totals') }}
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 right">
+        {{ child('commerce.checkout.review.coupon') }}
+    </div>
+    <form method="post" id="review_form" class="pure-form pure-form-stacked" action="{{ block.getPlaceOrderUrl }}">
+        {{ child('commerce.checkout.review.agreements') }}
+        <div class="pure-u-1 continue">
+            <button type="submit" class="pure-button button black">{{ 'Place Order'|translate }}</button>
+        </div>
+    </form>
+</div>

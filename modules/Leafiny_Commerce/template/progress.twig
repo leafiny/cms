@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ page.getLanguage }}" xml:lang="{{ page.getLanguage }}">
+<head>
+{{ child('head') }}
+</head>
+<body class="{{ page.getPageClass }}">
+{% apply spaceless %}
+<div class="progress-content">
+<!-- nocache::'content' -->{{ child('content') }}<!-- /nocache::'content' -->
+</div>
+{{ child('footer') }}
+{{ child('script') }}
+{% endapply %}
+</body>
+</html>

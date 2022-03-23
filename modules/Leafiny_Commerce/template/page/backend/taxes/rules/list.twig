@@ -1,0 +1,46 @@
+{% set taxHelper = page.getHelper('tax') %}
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {{ child('admin.list.toolbar') }}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('rule_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-70"><a href="{{ page.getSortOrderUrl('label') }}">{{ 'Label'|translate }}</a></th>
+                    <th class="width-10">{{ 'Products'|translate }}</th>
+                    <th class="width-10">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[rule_id]" value="{{ page.getFilter('rule_id') }}" /></th>
+                    <th><input type="text" name="filter[label]" value="{{ page.getFilter('label') }}" /></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="5">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getRuleId }}" name="id[]" class="select-id" value="{{ data.getRuleId }}" /></td>
+                            <td><label for="id_{{ data.getRuleId }}">{{ data.getRuleId }}</label></td>
+                            <td>{{ data.getLabel }}</td>
+                            <td>{{ taxHelper.getRuleProductCount(data.getRuleId) }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getRuleId()) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>
