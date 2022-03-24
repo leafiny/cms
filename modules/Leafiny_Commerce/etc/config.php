@@ -97,7 +97,6 @@ $config = [
             'class' => Commerce_Helper_Shipping::class,
             'allowed_countries' => [
                 'US',
-                'FR',
             ],
             'default_country_code' => 'US',
             'default_state_code'   => '',
