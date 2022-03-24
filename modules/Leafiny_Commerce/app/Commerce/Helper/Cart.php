@@ -297,7 +297,7 @@ class Commerce_Helper_Cart extends Core_Helper
 
         /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
         $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
-        $cartRuleHelper->applyNoCouponCartRules();
+        $cartRuleHelper->applyNoCouponCartRules($saleId);
 
         $sale = $this->getSale($saleId);
 
