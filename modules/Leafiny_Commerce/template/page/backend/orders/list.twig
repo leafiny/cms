@@ -45,7 +45,7 @@
                             <td>{{ page.formatDate(data.getCreatedAt()) }}</td>
                             <td>{{ data.getCustomer }}</td>
                             <td>{{ data.getEmail }}</td>
-                            <td>{{ data.getInclTaxTotal|currency }}</td>
+                            <td>{{ data.getInclTaxTotal|currency(data.getSaleCurrency) }}</td>
                             <td>{{ data.getTotalQty }}</td>
                             <td><span class="order-status {{ data.getStatus }}">{{ page.getStatus(data.getStatus) }}</span></td>
                             <td>

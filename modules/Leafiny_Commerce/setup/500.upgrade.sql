@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `commerce_sale` (
     `sale_id` INT(10) unsigned NOT NULL AUTO_INCREMENT,
     `sale_increment_id` VARCHAR(255) NULL,
-    `sale_currency` CHAR(1) NULL,
+    `sale_currency` CHAR(3) NULL,
     `sale_comment` TEXT,
     `incl_tax_subtotal` DECIMAL(10,2) NULL,
     `incl_tax_shipping` DECIMAL(10,2) NULL,

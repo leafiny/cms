@@ -1,4 +1,4 @@
 {% set product = block.getCustom('product') %}
 {% if product.getPrice %}
-    <div class="product-price">{{ product.getPrice|number_format(2, ',', '') }} &euro;</div>
+    <div class="product-price">&dollar;{{ product.getPrice|number_format(2, ',', '') }}</div>
 {% endif %}

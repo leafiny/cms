@@ -82,7 +82,7 @@ $config = [
         ],
         'cart' => [
             'class' => Commerce_Helper_Cart::class,
-            'currency' => '$',
+            'currency' => 'USD',
             'agreements_url' => 'agreements.html',
         ],
         'cart_rule' => [

@@ -414,24 +414,48 @@ class Commerce_Helper_Invoice extends Core_Helper
             $price = 0;
         }
 
-        $currency = utf8_encode(chr($this->currencyToAscii($this->invoice->getData('sale_currency'))));
+        /** @var Commerce_Helper_Cart $helper */
+        $helper = App::getSingleton('helper', 'cart');
 
-        return number_format((float)$price, 2, ',', '') . ' ' . $currency;
+        return $this->currencySymbol($helper->formatCurrency($price, $this->invoice->getData('sale_currency')));
     }
 
     /**
      * Retrieve currency symbol ASCII code
      *
-     * @param string $symbol
-     * @return int
+     * @param string $price
+     *
+     * @return string
      */
-    protected function currencyToAscii(string $symbol): int
+    protected function currencySymbol(string $price): string
     {
         $symbols = [
-            '€' => 128,
             '$' => 36,
+            '€' => 128,
+            '¢' => 162,
+            '£' => 163,
+            '¥' => 165,
+            'č' => 269,
+            'ł' => 322,
+            'ƒ' => 402,
+            '₡' => 8353,
+            '₦' => 8358,
+            '₩' => 8361,
+            '₪' => 8362,
+            '₫' => 8363,
+            '₭' => 8365,
+            '₮' => 8366,
+            '₱' => 8369,
+            '₴' => 8372,
+            '₼' => 8380,
+            '₽' => 8381,
+            '฿' => 3647,
         ];
 
-        return isset($symbols[$symbol]) ? $symbols[$symbol] : 0;
+        foreach ($symbols as $symbol => $asciiCode) {
+            $price = str_replace($symbol, utf8_encode(chr($asciiCode)), $price);
+        }
+
+        return $price;
     }
 }

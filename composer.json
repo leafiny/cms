@@ -3,6 +3,7 @@
     "ext-gd": "*",
     "ext-pdo_mysql": "*",
     "ext-json": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "ext-intl": "*"
   }
 }

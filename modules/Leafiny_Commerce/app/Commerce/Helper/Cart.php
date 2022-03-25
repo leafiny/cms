@@ -539,6 +539,23 @@ class Commerce_Helper_Cart extends Core_Helper
     }
 
     /**
+     * Format currency
+     *
+     * @param mixed       $value
+     * @param string|null $currency
+     *
+     * @return string
+     */
+    public function formatCurrency($value, ?string $currency = null): string
+    {
+        $value = (float)str_replace(',', '.', $value);
+
+        $formatter = new NumberFormatter(App::getLanguage(), NumberFormatter::CURRENCY);
+
+        return $formatter->formatCurrency($value, $currency ?: $this->getCurrency()) ?: '';
+    }
+
+    /**
      * Retrieve Sale Object
      *
      * @return Commerce_Model_Sale

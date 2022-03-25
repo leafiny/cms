@@ -20,25 +20,16 @@ class Commerce_Twig_Filters
     /**
      * Format currency
      *
-     * @param mixed $value
+     * @param mixed       $value
+     * @param string|null $currency
      *
      * @return string
      */
-    public function currency($value): string
-    {
-        return number_format((float)$value, 2, ',', '') . ' ' . $this->getCurrency();
-    }
-
-    /**
-     * Retrieve store currency
-     *
-     * @return string
-     */
-    public function getCurrency(): string
+    public function currency($value, ?string $currency = null): string
     {
         /** @var Commerce_Helper_Cart $helper */
         $helper = App::getSingleton('helper', 'cart');
 
-        return $helper->getCurrency() ?: '';
+        return $helper->formatCurrency($value, $currency);
     }
 }
