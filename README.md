@@ -13,6 +13,14 @@ Leafiny is a CMS who not bloated with features that you don't need.
 * PHP 7.2+
 * MySQL 5.6+
 
+## PHP extensions
+
+* gd
+* pdo_mysql
+* json
+* mbstring
+* intl
+
 # Documentation
 
 The documentation is available on [Leafiny documentation](https://docs.leafiny.com/) site.
