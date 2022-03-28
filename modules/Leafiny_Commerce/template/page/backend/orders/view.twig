@@ -138,30 +138,34 @@
                     {{ 'Shipping'|translate }}
                 </div>
                 <div class="line">
+                    <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-2-3">
+                        {{ shippingMethod.getLabel ?: 'Unknown'|translate }}
+                        {% set shipments = page.getShipments(sale.getSaleId) %}
+                        {% if shipments|length %}
+                            <ul class="sale-shipments">
+                                {% for shipment in page.getShipments(sale.getSaleId) %}
+                                    <li>
+                                        <span>{{ page.formatDate(shipment.getCreatedAt) }}</span>
+                                        {% if shipment.getTrackingUrl %}
+                                            - <a href="{{ shipment.getTrackingUrl }}" target="_blank" rel="noopener noreferrer">{{ shipment.getTrackingNumber }}</a>
+                                        {% elseif shipment.getTrackingNumber %}
+                                            - {{ shipment.getTrackingNumber }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
                     {% if page.canShip(sale) %}
-                        <form method="post" action="{{ page.getShipmentPostUrl }}" class="pure-form form-ship">
-                            <input type="text" name="tracking" placeholder="{{ 'Tracking number'|translate }}" value="" />
-                            <input type="hidden" name="sale_id" value="{{ sale.getSaleId }}" />
-                            <input type="hidden" name="language" value="{{ sale.getLanguage }}" />
-                            <input type="hidden" name="send_mail" value="1" />
-                            <button type="submit" class="pure-button green">{{ 'Ship'|translate }}</button>
-                        </form>
-                    {% endif %}
-                    {{ shippingMethod.getLabel ?: 'Unknown'|translate }}
-                    {% set shipments = page.getShipments(sale.getSaleId) %}
-                    {% if shipments|length %}
-                    <ul class="sale-shipments">
-                        {% for shipment in page.getShipments(sale.getSaleId) %}
-                            <li>
-                                <span>{{ page.formatDate(shipment.getCreatedAt) }}</span>
-                                {% if shipment.getTrackingUrl %}
-                                    - <a href="{{ shipment.getTrackingUrl }}" target="_blank" rel="noopener noreferrer">{{ shipment.getTrackingNumber }}</a>
-                                {% elseif shipment.getTrackingNumber %}
-                                    - {{ shipment.getTrackingNumber }}
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3">
+                            <form method="post" action="{{ page.getShipmentPostUrl }}" class="pure-form pure-form-stacked form-ship">
+                                <input type="text" class="pure-u-1" name="tracking" placeholder="{{ 'Tracking number'|translate }}" value="" />
+                                <input type="hidden" name="sale_id" value="{{ sale.getSaleId }}" />
+                                <input type="hidden" name="language" value="{{ sale.getLanguage }}" />
+                                <input type="hidden" name="send_mail" value="1" />
+                                <button type="submit" class="pure-button pure-u-1 green">{{ 'Ship'|translate }}</button>
+                            </form>
+                        </div>
                     {% endif %}
                 </div>
             </div>
