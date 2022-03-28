@@ -177,3 +177,6 @@
 "Code","Code"
 "Used","Usage"
 "Limit","Limite"
+"Tracking URL","URL de suivi"
+"Tracking URL:","URL de suivi :"
+"The {tracking_number} variable in the URL will be replaced with the tracking number (e.g.: %s).","La variable {tracking_number} dans l'URL sera remplacée par le numéro de suivi (ex : %s)."

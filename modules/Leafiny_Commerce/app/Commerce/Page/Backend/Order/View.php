@@ -186,6 +186,54 @@ class Commerce_Page_Backend_Order_View extends Backend_Page_Admin_Page_Abstract
     }
 
     /**
+     * Retrieve shipping method
+     *
+     * @param string|null $shippingCode
+     *
+     * @return Leafiny_Object
+     */
+    public function getShippingMethod(?string $shippingCode): Leafiny_Object
+    {
+        $method = new Leafiny_Object();
+
+        if (!$shippingCode) {
+            return $method;
+        }
+
+        try {
+            /** @var Commerce_Model_Shipping $shippingModel */
+            $shippingModel = App::getObject('model', 'shipping');
+            $method = $shippingModel->get($shippingCode, 'method');
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
+
+        return $method;
+    }
+
+    /**
+     * Retrieve order shipments
+     *
+     * @param int $saleId
+     *
+     * @return Leafiny_Object[]
+     * @throws Exception
+     */
+    public function getShipments(int $saleId): array
+    {
+        /** @var Commerce_Model_Sale_Shipment $shipmentModel */
+        $shipmentModel = App::getObject('model', 'sale_shipment');
+
+        try {
+            return $shipmentModel->getBySaleId($saleId);
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
+
+        return [];
+    }
+
+    /**
      * Retrieve post URL
      *
      * @return string
@@ -228,7 +276,18 @@ class Commerce_Page_Backend_Order_View extends Backend_Page_Admin_Page_Abstract
      */
     public function canShip(Leafiny_Object $sale): bool
     {
-        return $sale->getData('status') !== Commerce_Model_Sale_Status::SALE_STATUS_SHIPPED;
+        $default = [
+            Commerce_Model_Sale_Status::SALE_STATUS_PENDING_PAYMENT,
+            Commerce_Model_Sale_Status::SALE_STATUS_PENDING
+        ];
+
+        /** @var Commerce_Helper_Shipping $shippingHelper */
+        $shippingHelper = App::getSingleton('helper', 'shipping');
+
+        return !in_array(
+            $sale->getData('status'),
+            $shippingHelper->getCustom('exclude_status_for_shipment') ?: $default
+        );
     }
 
     /**

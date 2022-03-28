@@ -67,6 +67,13 @@
     float: right;
 }
 
+.order-view .payment .payment-info {
+    font-size: 0.9rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 .order-view .products .line {
     overflow-x: auto;
 }
@@ -78,6 +85,13 @@
 
 .order-view .shipping-method form input {
     margin-right: 10px;
+}
+
+.order-view .shipping-method .sale-shipments {
+    font-size: 0.9rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .order-view .products table {

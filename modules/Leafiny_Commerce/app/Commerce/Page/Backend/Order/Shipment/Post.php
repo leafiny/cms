@@ -47,48 +47,18 @@ class Commerce_Page_Backend_Order_Shipment_Post extends Backend_Page_Admin_Page_
                 throw new Exception(App::translate('This order does not exist'));
             }
 
-            /** @var Commerce_Model_Sale_Status $statusModel */
-            $statusModel = App::getSingleton('model', 'sale_status');
-            $status = $statusModel->get(Commerce_Model_Sale_Status::SALE_STATUS_SHIPPED, 'code');
+            $trackingNumber = !empty($post->getData('tracking')) ? $post->getData('tracking') : '';
 
-            if (!$status->getData('status_id')) {
-                throw new Exception(App::translate('This status does not exist'));
-            }
+            $shipment = $this->addSaleShipment($sale, $trackingNumber);
 
-            $sale->setData('status', $status->getData('code'));
-            $orderModel->save($sale);
-
-            $comment = (string)$status->getData('comment');
-
-            $tracking = !empty($post->getData('tracking')) ? $post->getData('tracking') : '';
-
-            if (!empty($tracking)) {
-                $comment .= $this->getTackingNumberComment($tracking);
-            }
-
-            $post->setData('status_code', $status->getData('code'));
-            $post->setData('comment', $comment);
-            $post->setData('operator', $this->getOperator());
-
-            /** @var Commerce_Model_Sale_History $historyModel */
-            $historyModel = App::getSingleton('model', 'sale_history');
-            $historyId = $historyModel->save($post);
-
-            App::dispatchEvent(
-                'backend_object_save_after',
-                [
-                    'data'       => $post,
-                    'identifier' => 'sale_history',
-                    'object_id'  => $historyId
-                ]
-            );
+            $this->updateSaleStatus($sale, $shipment);
 
             App::dispatchEvent(
                 'backend_add_tracking_number',
                 [
                     'comment'  => $post,
                     'sale'     => $sale,
-                    'tracking' => $tracking,
+                    'tracking' => $trackingNumber,
                 ]
             );
 
@@ -103,13 +73,114 @@ class Commerce_Page_Backend_Order_Shipment_Post extends Backend_Page_Admin_Page_
     /**
      * Retrieve tracking number comment
      *
-     * @param string $trackingNumber
+     * @param Leafiny_Object $shipment
      *
-     * @return string
+     * @return string|null
      */
-    public function getTackingNumberComment(string $trackingNumber): string
+    protected function getHistoryMessageComment(Leafiny_Object $shipment): ?string
     {
-        return "\n\n" . App::translate('Tracking number:') . ' ' . $trackingNumber;
+        if (!$shipment->getData('tracking_number')) {
+            return null;
+        }
+
+        $comment = "\n\n" . App::translate('Tracking number:') . ' ' . $shipment->getData('tracking_number');
+
+        if ($shipment->getData('tracking_url')) {
+            $comment .= "\n\n" . App::translate('Tracking URL:') . ' ' . $shipment->getData('tracking_url');
+        }
+
+        return $comment;
+    }
+
+    /**
+     * Update sale status and add message in history
+     *
+     * @param Leafiny_Object      $sale
+     * @param Leafiny_Object|null $shipment
+     *
+     * @return int|null
+     * @throws Throwable
+     */
+    protected function updateSaleStatus(Leafiny_Object $sale, ?Leafiny_Object $shipment): ?int
+    {
+        $post = $this->getPost();
+
+        /** @var Commerce_Model_Sale_Status $statusModel */
+        $statusModel = App::getSingleton('model', 'sale_status');
+        /** @var Commerce_Model_Sale $orderModel */
+        $orderModel = App::getSingleton('model', 'sale');
+
+        $status = $statusModel->get(Commerce_Model_Sale_Status::SALE_STATUS_SHIPPED, 'code');
+
+        if (!$status->getData('status_id')) {
+            throw new Exception(App::translate('This status does not exist'));
+        }
+
+        $sale->setData('status', $status->getData('code'));
+        $orderModel->save($sale);
+
+        $comment = (string)$status->getData('comment');
+        if ($shipment) {
+            $comment .= $this->getHistoryMessageComment($shipment);
+        }
+
+        $history = new Leafiny_Object(
+            [
+                'sale_id'     => $sale->getData('sale_id'),
+                'status_code' => $status->getData('code'),
+                'comment'     => $comment,
+                'operator'    => $this->getOperator(),
+                'language'    => $post->getData('language'),
+                'send_mail'   => $post->getData('send_mail') ?: 0,
+            ]
+        );
+
+        /** @var Commerce_Model_Sale_History $historyModel */
+        $historyModel = App::getSingleton('model', 'sale_history');
+        $historyId = $historyModel->save($history);
+
+        App::dispatchEvent(
+            'backend_object_save_after',
+            [
+                'data'       => $history,
+                'identifier' => $historyModel->getObjectIdentifier(),
+                'object_id'  => $historyId
+            ]
+        );
+
+        return $historyId;
+    }
+
+    /**
+     * Add sale shipment
+     *
+     * @param Leafiny_Object $sale
+     * @param string|null    $trackingNumber
+     *
+     * @return Leafiny_Object
+     * @throws Exception
+     */
+    protected function addSaleShipment(Leafiny_Object $sale, ?string $trackingNumber): Leafiny_Object
+    {
+        /** @var Commerce_Model_Sale_Shipment $shipmentModel */
+        $shipmentModel = App::getObject('model', 'sale_shipment');
+        /** @var Commerce_Model_Shipping $shippingModel */
+        $shippingModel = App::getObject('model', 'shipping');
+
+        $method = $shippingModel->get($sale->getData('shipping_method'), 'method');
+
+        $shipmentId = $shipmentModel->save(
+            new Leafiny_Object(
+                [
+                    'sale_id'         => $sale->getData('sale_id'),
+                    'tracking_number' => $trackingNumber,
+                    'tracking_url'    => $trackingNumber ? $method->getData('tracking_url') : null,
+                    'shipping_method' => $method->getData('method'),
+                ]
+            )
+        );
+
+        return $shipmentModel->get($shipmentId);
     }
 
     /**

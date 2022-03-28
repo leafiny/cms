@@ -23,6 +23,9 @@ $config = [
         'sale_status' => [
             'class' => Commerce_Model_Sale_Status::class
         ],
+        'sale_shipment' => [
+            'class' => Commerce_Model_Sale_Shipment::class,
+        ],
         'tax' => [
             'class' => Commerce_Model_Tax::class
         ],

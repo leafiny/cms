@@ -20,6 +20,11 @@
                     <label for="priority">{{ 'Priority'|translate }} <span>*</span> :</label>
                     <input id="priority" type="text" class="pure-u-1 pure-u-xl-4-5" name="priority" value="{{ form.getPriority ?: 0 }}" required />
                 </div>
+                <div class="pure-u-1 field">
+                    <label for="tracking_url">{{ 'Tracking URL'|translate }} :</label>
+                    <input id="tracking_url" type="text" class="pure-u-1 pure-u-xl-4-5" name="tracking_url" value="{{ form.getTrackingUrl }}" />
+                    <p class="note">{{ 'The {tracking_number} variable in the URL will be replaced with the tracking number (e.g.: %s).'|translate|format('https://example.com/tracking?number={tracking_number}') }}</p>
+                </div>
             </div>
         </fieldset>
 

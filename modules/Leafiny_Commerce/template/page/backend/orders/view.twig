@@ -90,51 +90,73 @@
         </div>
     </div>
 
-    <div class="box payment pure-u-1 pure-u-lg-1-2">
-        <div class="box-content">
-            <div class="title">
-                {{ 'Payment'|translate }}
-            </div>
-            <div class="line">
-                {% if sale.getInvoiceIncrementId %}
-                    <a href="{{ page.getDownloadInvoiceUrl(sale.getSaleId) }}" class="pure-button green invoice">
-                        {{ 'Print'|translate }}
-                    </a>
-                {% else %}
-                    <a href="{{ page.getCreateInvoiceUrl(sale.getSaleId) }}" class="pure-button green invoice">
-                        {{ 'Invoice'|translate }}
-                    </a>
-                {% endif %}
-                {{ sale.getPaymentTitle }}
-                {% if sale.getPaymentRef %}
-                    <br />{{ sale.getPaymentRef }}
-                {% endif %}
-                {% if sale.getPaymentState %}
-                    <br />{{ sale.getPaymentState }}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    <div class="box shipping-method pure-u-1 pure-u-lg-1-2">
-        <div class="box-content last">
-            <div class="title">
-                {{ 'Shipping Method'|translate }}
-            </div>
-            <div class="line">
-                {{ sale.getShippingMethod }}
-                {% if page.canShip(sale) %}
-                    <form method="post" action="{{ page.getShipmentPostUrl }}" class="pure-form form-ship">
-                        <input type="text" name="tracking" placeholder="{{ 'Tracking number'|translate }}" value="" />
-                        <input type="hidden" name="sale_id" value="{{ sale.getSaleId }}" />
-                        <input type="hidden" name="language" value="{{ sale.getLanguage }}" />
-                        <input type="hidden" name="send_mail" value="1" />
-                        <button type="submit" class="pure-button green">{{ 'Ship'|translate }}</button>
-                    </form>
-                {% endif %}
+    {% if sale.getPaymentMethod %}
+        <div class="box payment pure-u-1 pure-u-lg-1-2">
+            <div class="box-content">
+                <div class="title">
+                    {{ 'Payment'|translate }}
+                </div>
+                <div class="line">
+                    {% if sale.getInvoiceIncrementId %}
+                        <a href="{{ page.getDownloadInvoiceUrl(sale.getSaleId) }}" class="pure-button green invoice">
+                            {{ 'Print'|translate }}
+                        </a>
+                    {% else %}
+                        <a href="{{ page.getCreateInvoiceUrl(sale.getSaleId) }}" class="pure-button green invoice">
+                            {{ 'Invoice'|translate }}
+                        </a>
+                    {% endif %}
+                    {{ sale.getPaymentTitle }}
+                    <ul class="payment-info">
+                        {% if sale.getPaymentRef %}
+                            <li>{{ sale.getPaymentRef }}</li>
+                        {% endif %}
+                        {% if sale.getPaymentState %}
+                            <li>{{ sale.getPaymentState }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
+    
+    {% if sale.getShippingMethod %}
+        {% set shippingMethod = page.getShippingMethod(sale.getShippingMethod) %}
+        <div class="box shipping-method pure-u-1 pure-u-lg-1-2">
+            <div class="box-content last">
+                <div class="title">
+                    {{ 'Shipping'|translate }}
+                </div>
+                <div class="line">
+                    {% if page.canShip(sale) %}
+                        <form method="post" action="{{ page.getShipmentPostUrl }}" class="pure-form form-ship">
+                            <input type="text" name="tracking" placeholder="{{ 'Tracking number'|translate }}" value="" />
+                            <input type="hidden" name="sale_id" value="{{ sale.getSaleId }}" />
+                            <input type="hidden" name="language" value="{{ sale.getLanguage }}" />
+                            <input type="hidden" name="send_mail" value="1" />
+                            <button type="submit" class="pure-button green">{{ 'Ship'|translate }}</button>
+                        </form>
+                    {% endif %}
+                    {{ shippingMethod.getLabel ?: 'Unknown'|translate }}
+                    {% set shipments = page.getShipments(sale.getSaleId) %}
+                    {% if shipments|length %}
+                    <ul class="sale-shipments">
+                        {% for shipment in page.getShipments(sale.getSaleId) %}
+                            <li>
+                                <span>{{ page.formatDate(shipment.getCreatedAt) }}</span>
+                                {% if shipment.getTrackingUrl %}
+                                    - <a href="{{ shipment.getTrackingUrl }}" target="_blank" rel="noopener noreferrer">{{ shipment.getTrackingNumber }}</a>
+                                {% elseif shipment.getTrackingNumber %}
+                                    - {{ shipment.getTrackingNumber }}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
     <div class="box products pure-u-1">
         <div class="box-content last">
