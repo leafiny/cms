@@ -16,7 +16,7 @@ declare(strict_types=1);
 class Commerce_Observer_Sale_Payment extends Core_Observer implements Core_Interface_Observer
 {
     /**
-     * Execute
+     * Execute payment process after sale is placed
      *
      * @param Leafiny_Object $object
      *
@@ -27,6 +27,10 @@ class Commerce_Observer_Sale_Payment extends Core_Observer implements Core_Inter
     {
         /** @var Leafiny_Object $sale */
         $sale = $object->getData('sale');
+
+        if (!$sale->getData('payment_method')) {
+            return;
+        }
 
         $payment = App::getObject('model', $sale->getData('payment_method'));
         $payment->execute($sale);

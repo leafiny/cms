@@ -16,7 +16,7 @@ declare(strict_types=1);
 class Commerce_Observer_Sale_InitShipping extends Core_Observer implements Core_Interface_Observer
 {
     /**
-     * Execute
+     * Set default shipping method to the sale
      *
      * @param Leafiny_Object $object
      *

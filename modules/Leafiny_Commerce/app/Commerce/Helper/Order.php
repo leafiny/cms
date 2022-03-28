@@ -76,7 +76,7 @@ class Commerce_Helper_Order extends Core_Helper
         }
 
         /* Send mail to customer */
-        if (!$sale->getData('no_email')) {
+        if ($sale->getData('email') && !$sale->getData('no_email')) {
             /** @var Commerce_Mail_Order $mail */
             $mail = App::getSingleton('mail', 'order');
             $mail->setRecipientEmail($sale->getData('email'));

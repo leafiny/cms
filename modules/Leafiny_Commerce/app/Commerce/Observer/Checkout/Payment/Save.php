@@ -46,7 +46,7 @@ class Commerce_Observer_Checkout_Payment_Save extends Commerce_Observer_Checkout
                 'payment_data',
                 json_encode(
                     [
-                        'redirect' => $this->getCheckout()->getUrl('/checkout/order/complete/')
+                        'redirect' => $this->getOrderCompleteUrl()
                     ]
                 )
             );
@@ -62,5 +62,20 @@ class Commerce_Observer_Checkout_Payment_Save extends Commerce_Observer_Checkout
             App::log($throwable, Core_Interface_Log::ERR);
             $this->error('An error occurred with the cart. Please contact us.');
         }
+    }
+
+    /**
+     * Retrieve order complete URL
+     *
+     * @return string
+     */
+    public function getOrderCompleteUrl(): string
+    {
+        /** @var Commerce_Helper_Order $helperOrder */
+        $helperOrder = App::getSingleton('helper', 'order');
+
+        return $this->getCheckout()->getUrl(
+            $helperOrder->getCustom('order_complete_url') ?: '/checkout/order/complete/'
+        );
     }
 }

@@ -16,7 +16,7 @@ declare(strict_types=1);
 class Commerce_Observer_Sale_InitAddress extends Core_Observer implements Core_Interface_Observer
 {
     /**
-     * Execute
+     * Init shipping and billing addresses
      *
      * @param Leafiny_Object $object
      *
@@ -32,9 +32,8 @@ class Commerce_Observer_Sale_InitAddress extends Core_Observer implements Core_I
         try {
             $exists = $model->size([
                 [
-                    'column'   => 'sale_id',
-                    'value'    => $sale->getData('sale_id'),
-                    'operator' => '=',
+                    'column' => 'sale_id',
+                    'value'  => $sale->getData('sale_id'),
                 ]
             ]);
 

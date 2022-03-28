@@ -16,7 +16,7 @@ declare(strict_types=1);
 class Commerce_Observer_Sale_UpdateCoupon extends Core_Observer implements Core_Interface_Observer
 {
     /**
-     * Execute
+     * Update coupon usage after order is placed
      *
      * @param Leafiny_Object $object
      *

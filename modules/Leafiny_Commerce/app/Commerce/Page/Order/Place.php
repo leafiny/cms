@@ -66,10 +66,20 @@ class Commerce_Page_Order_Place extends Commerce_Page_Checkout
 
             $this->setTmpSessionData('last_sale_id', $saleId);
 
-            $paymentData = json_decode($sale->getData('payment_data'), true);
-            if (isset($paymentData['redirect'])) {
-                $this->redirect($paymentData['redirect']);
+            if ($sale->getData('payment_method')) {
+                if ($sale->getData('payment_data')) {
+                    $paymentData = json_decode($sale->getData('payment_data'), true);
+                    if (isset($paymentData['redirect'])) {
+                        $this->redirect($paymentData['redirect']);
+                    }
+                }
+            } else {
+                /** @var Commerce_Helper_Order $helperOrder */
+                $helperOrder = App::getSingleton('helper', 'order');
+                $helperOrder->complete($sale);
             }
+
+            $this->redirect($this->getOrderCompleteUrl());
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
             $this->setErrorMessage(
@@ -78,6 +88,19 @@ class Commerce_Page_Order_Place extends Commerce_Page_Checkout
         }
 
         $this->redirect($this->getRefererUrl());
+    }
+
+    /**
+     * Retrieve order complete URL
+     *
+     * @return string
+     */
+    public function getOrderCompleteUrl(): string
+    {
+        /** @var Commerce_Helper_Order $helperOrder */
+        $helperOrder = App::getSingleton('helper', 'order');
+
+        return $this->getUrl($helperOrder->getCustom('order_complete_url') ?: '/checkout/order/complete/');
     }
 
     /**
