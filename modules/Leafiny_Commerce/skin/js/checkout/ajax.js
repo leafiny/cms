@@ -19,6 +19,10 @@ function commerceCheckoutAjax() {
         for (let i = 0; i < saveStep.length; i++) {
             saveStep[i].addEventListener('submit', function (event) {
                 event.preventDefault();
+                if (typeof event.submitter !== 'undefined') {
+                    event.submitter.disabled = true;
+                    event.submitter.className = event.submitter.className + ' load';
+                }
                 updateStep(this.action, new FormData(this));
             });
         }

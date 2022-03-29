@@ -200,6 +200,10 @@
     display: inline-block;
 }
 
+.checkout .step .continue .button.load {
+    background-image: url(../images/loader.svg);
+}
+
 .checkout .step .step-title {
     font-size: 1.3em;
 }
