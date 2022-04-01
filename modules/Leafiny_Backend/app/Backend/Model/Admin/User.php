@@ -44,29 +44,29 @@ class Backend_Model_Admin_User extends Core_Model
     /**
      * Save user date
      *
-     * @param Leafiny_Object $user
+     * @param Leafiny_Object $object
      *
      * @return int|null
      * @throws Exception
      */
-    public function save(Leafiny_Object $user): ?int
+    public function save(Leafiny_Object $object): ?int
     {
-        $password = $user->getData('new_password');
+        $password = $object->getData('new_password');
 
         if (!empty($password)) {
             if (!$this->isAllowedPassword($password)) {
                 throw new Exception($this->getPasswordErrorMessage());
             }
-            $user->setData('password', $this->encrypt($password));
+            $object->setData('password', $this->encrypt($password));
         }
 
-        $email = $user->getData('email');
+        $email = $object->getData('email');
 
         if ($email !== null) {
-            $user->setData('email', strtolower($email));
+            $object->setData('email', strtolower($email));
         }
 
-        return parent::save($user);
+        return parent::save($object);
     }
 
     /**
