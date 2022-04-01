@@ -188,38 +188,38 @@ class Backend_Model_Admin_User extends Core_Model
     /**
      * User validation
      *
-     * @param Leafiny_Object $user
+     * @param Leafiny_Object $object
      *
      * @return string
      */
-    public function validate(Leafiny_Object $user): string
+    public function validate(Leafiny_Object $object): string
     {
         if ($this->getData('skip_validation')) {
             return '';
         }
 
-        if (!$user->getData('firstname')) {
+        if (!$object->getData('firstname')) {
             return 'The first name cannot be empty';
         }
-        if (!$user->getData('lastname')) {
+        if (!$object->getData('lastname')) {
             return 'The last name cannot be empty';
         }
-        if (!$user->getData('email')) {
+        if (!$object->getData('email')) {
             return 'The Email cannot be empty';
         }
-        if (!$user->getData('username')) {
+        if (!$object->getData('username')) {
             return 'The username cannot be empty';
         }
 
-        if (!$this->isAllowedEmail($user->getData('email'))) {
+        if (!$this->isAllowedEmail($object->getData('email'))) {
             return 'Email is not valid';
         }
-        if (!$this->isAllowedUsername($user->getData('username'))) {
+        if (!$this->isAllowedUsername($object->getData('username'))) {
             return 'This username is not allowed';
         }
 
-        if ($user->getData('new_password')) {
-            if (!$this->isAllowedPassword($user->getData('new_password'))) {
+        if ($object->getData('new_password')) {
+            if (!$this->isAllowedPassword($object->getData('new_password'))) {
                 return $this->getPasswordErrorMessage();
             }
         }

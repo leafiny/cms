@@ -191,24 +191,24 @@ class Category_Model_Category extends Core_Model
     /**
      * Object validation
      *
-     * @param Leafiny_Object $category
+     * @param Leafiny_Object $object
      *
      * @return string
      */
-    public function validate(Leafiny_Object $category): string
+    public function validate(Leafiny_Object $object): string
     {
         if ($this->getData('skip_validation')) {
             return '';
         }
 
-        if (!$category->getData('name')) {
+        if (!$object->getData('name')) {
             return 'The name cannot be empty';
         }
-        if (!$category->getData('path_key')) {
+        if (!$object->getData('path_key')) {
             return 'The key cannot be empty';
         }
-        if ($category->getData($this->getPrimaryKey())) {
-            if ($category->getData($this->getPrimaryKey()) === $category->getData('parent_id')) {
+        if ($object->getData($this->getPrimaryKey())) {
+            if ($object->getData($this->getPrimaryKey()) === $object->getData('parent_id')) {
                 return 'Category parent cannot be the same as the category';
             }
         }

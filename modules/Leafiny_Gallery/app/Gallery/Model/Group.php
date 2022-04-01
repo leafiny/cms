@@ -232,20 +232,20 @@ class Gallery_Model_Group extends Core_Model
     /**
      * Product validation
      *
-     * @param Leafiny_Object $product
+     * @param Leafiny_Object $object
      *
      * @return string
      */
-    public function validate(Leafiny_Object $product): string
+    public function validate(Leafiny_Object $object): string
     {
         if ($this->getData('skip_validation')) {
             return '';
         }
 
-        if (!$product->getData('name')) {
+        if (!$object->getData('name')) {
             return 'The name cannot be empty';
         }
-        if (!$product->getData('path_key')) {
+        if (!$object->getData('path_key')) {
             return 'The key cannot be empty';
         }
 
