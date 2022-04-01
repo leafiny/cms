@@ -65,20 +65,20 @@ class Redirect_Model_Redirect extends Core_Model
     /**
      * Object Validation
      *
-     * @param Leafiny_Object $form
+     * @param Leafiny_Object $object
      *
      * @return string
      */
-    public function validate(Leafiny_Object $form): string
+    public function validate(Leafiny_Object $object): string
     {
         if ($this->getData('skip_validation')) {
             return '';
         }
 
-        if (!$form->getData('source_identifier')) {
+        if (!$object->getData('source_identifier')) {
             return 'Source cannot be empty';
         }
-        if (!$form->getData('target_identifier')) {
+        if (!$object->getData('target_identifier')) {
             return 'Target cannot be empty';
         }
 

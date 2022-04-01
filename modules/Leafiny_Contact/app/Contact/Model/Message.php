@@ -31,26 +31,26 @@ class Contact_Model_Message extends Core_Model
     /**
      * Message validation
      *
-     * @param Leafiny_Object $form
+     * @param Leafiny_Object $object
      *
      * @return string
      */
-    public function validate(Leafiny_Object $form): string
+    public function validate(Leafiny_Object $object): string
     {
         if ($this->getData('skip_validation')) {
             return '';
         }
 
-        if (!$form->getData('name')) {
+        if (!$object->getData('name')) {
             return 'The name cannot be empty';
         }
-        if (!$form->getData('email')) {
+        if (!$object->getData('email')) {
             return 'The email cannot be empty';
         }
-        if (!$form->getData('message')) {
+        if (!$object->getData('message')) {
             return 'The message cannot be empty';
         }
-        if (!$this->isAllowedEmail($form->getData('email'))) {
+        if (!$this->isAllowedEmail($object->getData('email'))) {
             return 'Email is not valid';
         }
 
