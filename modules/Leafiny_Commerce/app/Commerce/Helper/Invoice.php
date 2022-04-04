@@ -42,7 +42,7 @@ class Commerce_Helper_Invoice extends Core_Helper
      *
      * @return string
      */
-    public function getPdf(Leafiny_Object $invoice, $dest = 'D'): string
+    public function getPdf(Leafiny_Object $invoice, string $dest = 'D'): string
     {
         $this->invoice = $invoice;
 
@@ -70,9 +70,9 @@ class Commerce_Helper_Invoice extends Core_Helper
         $this->pdf = new FPDF();
         $this->pdf->AddPage();
         $this->pdf->SetAutoPageBreak(false);
-        $this->pdf->SetFont($this->font,'',11);
-        $this->pdf->SetTextColor(0,0,0);
-        $this->pdf->SetDrawColor(102,102,102);
+        $this->pdf->SetFont($this->font, '', 11);
+        $this->pdf->SetTextColor(0, 0, 0);
+        $this->pdf->SetDrawColor(102, 102, 102);
     }
 
     /**
@@ -114,12 +114,17 @@ class Commerce_Helper_Invoice extends Core_Helper
             return;
         }
 
+        $locality = [$seller->getData('postcode') . ' ' . $seller->getData('city')];
+        if ($seller->getData('state')) {
+            $locality[] = $seller->getData('state');
+        }
+
         $this->pdf->SetXY(10, 22);
         $this->pdf->Cell(40, 10, $seller->getData('company'));
         $this->pdf->SetXY(10, 27);
         $this->pdf->Cell(40, 10, $seller->getData('street'));
         $this->pdf->SetXY(10, 32);
-        $this->pdf->Cell(40, 10, $seller->getData('postcode') . ' ' . $seller->getData('city'));
+        $this->pdf->Cell(40, 10, join(', ', $locality));
         $this->pdf->SetXY(10, 37);
         $this->pdf->Cell(40, 10, $seller->getData('email'));
     }
@@ -136,7 +141,7 @@ class Commerce_Helper_Invoice extends Core_Helper
             return;
         }
 
-        $this->pdf->SetFont($this->font,'',9);
+        $this->pdf->SetFont($this->font, '', 9);
         $this->pdf->SetXY(138, 37);
         $this->pdf->SetTextColor(0, 0, 0);
         $this->pdf->Cell(60, 25, '', 1);
@@ -152,7 +157,7 @@ class Commerce_Helper_Invoice extends Core_Helper
         $this->pdf->Cell(40, 10, $buyer->getData('street_2'));
         $this->pdf->SetXY(140, 52);
         $this->pdf->Cell(40, 10, $buyer->getData('postcode') . ' ' . $buyer->getData('city'));
-        $this->pdf->SetFont($this->font,'',11);
+        $this->pdf->SetFont($this->font, '', 11);
     }
 
     /**
@@ -161,13 +166,13 @@ class Commerce_Helper_Invoice extends Core_Helper
     protected function title(): void
     {
         $this->pdf->SetXY(9, 67);
-        $this->pdf->SetFont($this->font,'',25);
-        $this->pdf->Cell(40,10, App::translate('Invoice'));
-        $this->pdf->SetFont($this->font,'',17);
+        $this->pdf->SetFont($this->font, '', 25);
+        $this->pdf->Cell(40, 10, App::translate('Invoice'));
+        $this->pdf->SetFont($this->font, '', 17);
         $this->pdf->SetXY(43, 68);
-        $this->pdf->SetTextColor(102,102,102);
-        $this->pdf->Cell(158,10, $this->invoice->getData('invoice_increment_id'));
-        $this->pdf->SetTextColor(0,0,0);
+        $this->pdf->SetTextColor(102, 102, 102);
+        $this->pdf->Cell(158, 10, $this->invoice->getData('invoice_increment_id'));
+        $this->pdf->SetTextColor(0, 0, 0);
         $this->pdf->Line(10, 77, 198, 77);
     }
 
@@ -177,24 +182,24 @@ class Commerce_Helper_Invoice extends Core_Helper
     protected function products(): void
     {
         $this->pdf->SetXY(10, 80);
-        $this->pdf->SetFillColor(0,0,0);
-        $this->pdf->SetTextColor(255,255,255);
+        $this->pdf->SetFillColor(0, 0, 0);
+        $this->pdf->SetTextColor(255, 255, 255);
         $this->pdf->Cell(188, 6, '', 1, 0, 'C', 1);
         $this->pdf->SetXY(10, 78);
-        $this->pdf->SetFont($this->font,'',11);
+        $this->pdf->SetFont($this->font, '', 10);
 
-        $this->pdf->Cell(100,10, App::translate('Item'));
-        $this->pdf->Cell(25,10, App::translate('Price Excl. Tax'));
-        $this->pdf->Cell(15,10, App::translate('Qty'));
-        $this->pdf->Cell(48,10, App::translate('Total Excl. Tax'));
+        $this->pdf->Cell(98, 10, App::translate('Item'));
+        $this->pdf->Cell(27, 10, App::translate('Price Excl. Tax'));
+        $this->pdf->Cell(15, 10, App::translate('Qty'));
+        $this->pdf->Cell(48, 10, App::translate('Total Excl. Tax'));
 
         $this->pdf->SetXY(10, 86);
 
-        $this->pdf->SetFillColor(255,255,255);
-        $this->pdf->SetTextColor(0,0,0);
+        $this->pdf->SetFillColor(255, 255, 255);
+        $this->pdf->SetTextColor(0, 0, 0);
 
-        $this->pdf->Cell(100, 110, '', 1, 0, 'C', 1);
-        $this->pdf->Cell(25, 110, '', 1, 0, 'C', 1);
+        $this->pdf->Cell(98, 110, '', 1, 0, 'C', 1);
+        $this->pdf->Cell(27, 110, '', 1, 0, 'C', 1);
         $this->pdf->Cell(15, 110, '', 1, 0, 'C', 1);
         $this->pdf->Cell(48, 110, '', 1, 0, 'C', 1);
 
@@ -245,7 +250,7 @@ class Commerce_Helper_Invoice extends Core_Helper
     {
         $start = 197;
 
-        $this->pdf->SetFont($this->font,'',10);
+        $this->pdf->SetFont($this->font, '', 10);
         $this->pdf->SetXY(10, $start);
 
         $order = App::translate('Order:') . ' ' . $this->invoice->getData('sale_increment_id');
@@ -280,36 +285,40 @@ class Commerce_Helper_Invoice extends Core_Helper
     {
         $beginning = 196;
 
-        $lines = [
-            'Subtotal' => [
-                'column'   => 'excl_tax_subtotal',
-                'style'    => '',
-                'required' => true,
-            ],
-            'Shipping' => [
-                'column'   => 'excl_tax_shipping',
-                'style'    => '',
-                'required' => true,
-            ],
-            'Discount' => [
-                'column'   => 'excl_tax_discount',
-                'style'    => '',
-                'required' => false,
-            ],
-            'Total Excl. Tax' => [
-                'column'   => 'excl_tax_total',
-                'style'    => 'B',
-                'required' => true,
-            ],
-            'Tax' => [
-                'column'   => 'tax_total',
-                'style'    => '',
-                'required' => true,
-            ],
-        ];
+        $lines = $this->getCustom('order_total_lines');
+
+        if (!$lines) {
+            $lines = [
+                'Subtotal' => [
+                    'column' => 'excl_tax_subtotal',
+                    'style' => '',
+                    'required' => true,
+                ],
+                'Shipping' => [
+                    'column' => 'excl_tax_shipping',
+                    'style' => '',
+                    'required' => true,
+                ],
+                'Discount' => [
+                    'column' => 'excl_tax_discount',
+                    'style' => '',
+                    'required' => false,
+                ],
+                'Total Excl. Tax' => [
+                    'column' => 'excl_tax_total',
+                    'style' => 'B',
+                    'required' => true,
+                ],
+                'Tax' => [
+                    'column' => 'tax_total',
+                    'style' => '',
+                    'required' => true,
+                ],
+            ];
+        }
 
         $this->pdf->SetXY(135, $beginning);
-        $this->pdf->SetFillColor(255,255,204);
+        $this->pdf->SetFillColor(255, 255, 204);
         $this->pdf->Cell(63, count($lines) * 6, '', 1, 0, 'C', 1);
 
         $start = $beginning - 5;
@@ -330,15 +339,15 @@ class Commerce_Helper_Invoice extends Core_Helper
 
         $start = $beginning + count($lines) * 6;
 
-        $this->pdf->SetFillColor(248,248,248);
+        $this->pdf->SetFillColor(248, 248, 248);
         $this->pdf->SetXY(135, $start);
         $this->pdf->Cell(63, 10, '', 1, 0, 'C', 1);
 
-        $this->pdf->SetFont('courier', 'B',10);
+        $this->pdf->SetFont('courier', 'B', 10);
         $this->pdf->SetXY(135, $start);
-        $this->pdf->Cell(35,10, App::translate('Total Incl. Tax'));
+        $this->pdf->Cell(35, 10, App::translate('Total Incl. Tax'));
         $this->pdf->SetXY(170, $start);
-        $this->pdf->Cell(28,10, $this->formatCurrency((float)$this->invoice->getData('incl_tax_total')), 0, 0, 'R');
+        $this->pdf->Cell(28, 10, $this->formatCurrency((float)$this->invoice->getData('incl_tax_total')), 0, 0, 'R');
     }
 
     /**
@@ -348,15 +357,15 @@ class Commerce_Helper_Invoice extends Core_Helper
     {
         $this->pdf->SetXY(9, 244);
 
-        $this->pdf->SetTextColor(102,102,102);
-        $this->pdf->SetFont($this->font,'',17);
-        $this->pdf->Cell(188,10, App::translate('Payment'));
-        $this->pdf->SetTextColor(0,0,0);
+        $this->pdf->SetTextColor(102, 102, 102);
+        $this->pdf->SetFont($this->font, '', 17);
+        $this->pdf->Cell(188, 10, App::translate('Payment'));
+        $this->pdf->SetTextColor(0, 0, 0);
         $this->pdf->Line(10, 252, 198, 252);
 
         $this->pdf->SetXY(10, 254);
-        $this->pdf->SetFont($this->font,'B',9);
-        $this->pdf->Cell(30,10, $this->invoice->getData('payment_title'));
+        $this->pdf->SetFont($this->font, 'B', 9);
+        $this->pdf->Cell(30, 10, $this->invoice->getData('payment_title'));
     }
 
     /**
@@ -364,26 +373,29 @@ class Commerce_Helper_Invoice extends Core_Helper
      */
     protected function footer(): void
     {
-        $this->pdf->SetTextColor(89,89,89);
-        $this->pdf->SetFont($this->font,'',9);
+        $this->pdf->SetTextColor(89, 89, 89);
+        $this->pdf->SetFont($this->font, '', 9);
 
         /** @var Leafiny_Object|null $seller */
         $seller = $this->invoice->getData('seller');
 
         if ($seller) {
             $this->pdf->SetXY(10, 276);
-            $address = [
-                $seller->getData('company'),
-                $seller->getData('street'),
-                $seller->getData('postcode'),
-                $seller->getData('city'),
-            ];
+            $address = array_filter(
+                [
+                    $seller->getData('company'),
+                    $seller->getData('street'),
+                    $seller->getData('postcode'),
+                    $seller->getData('city'),
+                    $seller->getData('state'),
+                ]
+            );
             $this->pdf->Cell(188, 10, join(' - ', $address), 0, 0, 'C');
         }
 
         if ($this->invoice->getData('legal')) {
             $this->pdf->SetXY(10, 281);
-            $this->pdf->Cell(188,10, join(' - ', $this->invoice->getData('legal')), 0, 0, 'C');
+            $this->pdf->Cell(188, 10, join(' - ', $this->invoice->getData('legal')), 0, 0, 'C');
         }
     }
 
