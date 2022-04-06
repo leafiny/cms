@@ -90,11 +90,6 @@ $config = [
         ],
         'cart_rule' => [
             'class' => Commerce_Helper_Cart_Rule::class,
-            'cart_rule_allowed_types' => [
-                Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL   => 'Percent Subtotal',
-                Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING   => 'Percent Shipping',
-                Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT => 'Amount per product',
-            ],
         ],
         'shipping' => [
             'class' => Commerce_Helper_Shipping::class,
@@ -455,6 +450,9 @@ $config = [
             'meta_title'            => 'Edit',
             'meta_description'      => '',
             'allow_params'          => 1,
+            'javascript'            => [
+                'Leafiny_Commerce::backend/js/rules/cart/form.js' => 100
+            ]
         ],
         '/admin/*/cart-rules/edit/save/' => [
             'class'            => Backend_Page_Admin_Form_Save::class,
@@ -552,6 +550,11 @@ $config = [
         'commerce.complete' => [
             'template' => 'Leafiny_Commerce::block/complete.twig',
             'class'    => Commerce_Block_Complete::class
+        ],
+
+        'admin.rules.cart.condition' => [
+            'template' => 'Leafiny_Commerce::block/backend/rules/cart/condition.twig',
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
         ],
 
         'admin.head' => [

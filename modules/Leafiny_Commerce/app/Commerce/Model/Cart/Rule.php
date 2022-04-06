@@ -17,6 +17,7 @@ class Commerce_Model_Cart_Rule extends Core_Model
 {
     public const TYPE_PERCENT_SHIPPING = 'percent_shipping';
     public const TYPE_PERCENT_SUBTOTAL = 'percent_subtotal';
+    public const TYPE_FREE_GIFT = 'free_gift';
     public const TYPE_AMOUNT_PER_PRODUCT  = 'amount_per_product';
 
     /**
@@ -42,6 +43,14 @@ class Commerce_Model_Cart_Rule extends Core_Model
      */
     public function save(Leafiny_Object $object): ?int
     {
+        if (!$object->getData('conditions')) {
+            $object->setData('conditions', null);
+        }
+        if ($object->getData('conditions') instanceof Leafiny_Object) {
+            $conditions = array_values($object->getData('conditions')->getData());
+            $object->setData('conditions', json_encode($conditions));
+        }
+
         $ruleId = parent::save($object);
 
         /** @var Commerce_Model_Cart_Rule_Coupon $couponModel */

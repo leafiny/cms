@@ -72,7 +72,9 @@ class Commerce_Page_Checkout_Items_Update extends Core_Page
             $this->setErrorMessage(App::translate('Cannot update quantities right now'));
         }
 
-        $this->redirect($this->getRefererUrl());
+        /** @var Commerce_Helper_Checkout $helperCheckout */
+        $helperCheckout = App::getSingleton('helper', 'checkout');
+        $this->redirect($this->getUrl($helperCheckout->getStepUrl('cart')));
     }
 
     /**

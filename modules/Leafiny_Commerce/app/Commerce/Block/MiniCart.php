@@ -44,20 +44,10 @@ class Commerce_Block_MiniCart extends Core_Block
      */
     public function getItems(): array
     {
-        /** @var Commerce_Model_Sale_Item $model */
-        $model = App::getObject('model', 'sale_item');
         /** @var Commerce_Helper_Cart $helper */
         $helper = App::getSingleton('helper', 'cart');
 
-        try {
-            if ($helper->getCurrentId()) {
-                return $model->getItems($helper->getCurrentId());
-            }
-        } catch (Throwable $throwable) {
-            App::log($throwable, Core_Interface_Log::ERR);
-        }
-
-        return [];
+        return $helper->getItems();
     }
 
     /**

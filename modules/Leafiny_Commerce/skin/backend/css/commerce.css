@@ -182,6 +182,10 @@
     margin-top: 20px;
 }
 
+.cart-rule-conditions .pure-button {
+    margin: 6px 0 0 0;
+}
+
 .cart-rule-coupon {
     border-bottom: 1px solid #ddd;
     line-height: 40px;

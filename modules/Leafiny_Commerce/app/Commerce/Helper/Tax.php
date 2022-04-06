@@ -29,8 +29,8 @@ class Commerce_Helper_Tax extends Core_Helper
         $finalPrice = $object->getData('price') ?: 0;
         $specialPrice = $object->getData('special_price');
 
-        if ($specialPrice) {
-            $finalPrice = $specialPrice;
+        if ($specialPrice !== null) {
+            $finalPrice = (float)$specialPrice;
         }
 
         $default = new Leafiny_Object(

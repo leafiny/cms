@@ -1,5 +1,4 @@
 {% set form = page.getFormData %}
-{% set cartRuleHelper = page.getHelper('cart_rule') %}
 <div class="container-form">
     <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}">
         <div class="pure-u-1 toolbar">
@@ -49,20 +48,38 @@
         </fieldset>
 
         <fieldset>
+            <legend>{{ 'Conditions'|translate }}</legend>
+            {% set conditions = page.getConditions(form) %}
+            <div class="pure-g cart-rule-conditions">
+                <div class="pure-u-1" id="cart-rule-conditions">
+                    {% for condition in conditions %}
+                        {{ child('admin.rules.cart.condition', {'condition':condition, 'index':loop.index}) }}
+                    {% endfor %}
+                </div>
+                <div class="pure-u-1 field">
+                    <a href="#" id="cart-rule-condition-add" class="pure-button black">{{ 'AND'|translate }}</a>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
             <legend>{{ 'Action'|translate }}</legend>
             <div class="pure-g">
                 <div class="pure-u-1 field">
-                    {% set cartRuleTypes = cartRuleHelper.getCartRuleAllowedTypes %}
                     <label for="type">{{ 'Type'|translate }} <span>*</span> :</label>
                     <select id="type" class="pure-u-1 pure-u-xl-4-5" name="type" required>
-                        {% for code,label in cartRuleTypes %}
+                        {% for code,label in page.getCartRuleTypes %}
                             <option value="{{ code }}"{% if form.getType == code %} selected="selected"{% endif %}>{{ label|translate }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field depends" data-parent="type" data-values="{{ page.getCartRuleTypes('discount')|keys|join(',') }}">
                     <label for="discount">{{ 'Discount'|translate }} <span>*</span> :</label>
-                    <input id="discount" type="text" class="pure-u-1 pure-u-xl-4-5" name="discount" value="{{ form.getDiscount }}" required />
+                    <input id="discount" type="text" class="pure-u-1 pure-u-xl-4-5" name="discount" value="{{ form.getDiscount }}" />
+                </div>
+                <div class="pure-u-1 field depends" data-parent="type" data-values="{{ page.getCartRuleTypes('option')|keys|join(',') }}">
+                    <label for="option">{{ 'Option'|translate }} <span>*</span> :</label>
+                    <input id="option" type="text" class="pure-u-1 pure-u-xl-4-5" name="option" value="{{ form.getOption }}" />
                 </div>
             </div>
         </fieldset>
@@ -143,4 +160,5 @@
             {{ child('admin.form.goto') }}
         </div>
     </form>
+    {{ child('admin.rules.cart.condition', {'condition':null, 'conditionId':'cart-rule-condition-template', 'index':'{_index_}', 'hide':true}) }}
 </div>

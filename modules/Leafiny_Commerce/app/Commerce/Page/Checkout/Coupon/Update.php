@@ -41,7 +41,7 @@ class Commerce_Page_Checkout_Coupon_Update extends Core_Page
             }
 
             if (!$code) {
-                $cartRuleHelper->removeCartRule($sale->getData('coupon_rule_id'));
+                $cartRuleHelper->removeCartRule($sale->getData('coupon_rule_id'), $sale);
                 $cartHelper->calculation();
                 $this->redirect($this->getRefererUrl());
             }

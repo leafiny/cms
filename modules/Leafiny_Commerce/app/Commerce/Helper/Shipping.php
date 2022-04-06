@@ -203,13 +203,15 @@ class Commerce_Helper_Shipping extends Core_Helper
                 return $prices;
             }
 
+            $sale->setData('shipping_method', $method);
+
             $method = $shippingHelper->getMethod(
                 $method,
                 (float)$sale->getData('total_weight'),
                 $cartHelper->getAddress('shipping')
             );
 
-            $rate = $cartRuleHelper->getShippingDiscountRate($saleId);
+            $rate = $cartRuleHelper->getShippingDiscountRate($sale);
 
             $prices->setData('incl_tax_shipping', $method->getData('prices_incl_tax')->getData('final_price') * $rate);
             $prices->setData('excl_tax_shipping', $method->getData('prices_excl_tax')->getData('final_price') * $rate);

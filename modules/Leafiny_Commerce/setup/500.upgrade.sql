@@ -77,6 +77,8 @@ CREATE TABLE IF NOT EXISTS `commerce_sale_item` (
     `tax_percent` DECIMAL(5,2) NULL,
     `tax_amount_unit` DECIMAL(10,2) NULL,
     `tax_amount_row` DECIMAL(10,2) NULL,
+    `custom_incl_tax_unit` DECIMAL(10,2) NULL,
+    `custom_excl_tax_unit` DECIMAL(10,2) NULL,
     `options` TEXT NULL,
     PRIMARY KEY (`item_id`),
     FOREIGN KEY (`sale_id`) REFERENCES `commerce_sale` (`sale_id`) ON UPDATE CASCADE ON DELETE CASCADE

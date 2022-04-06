@@ -133,6 +133,13 @@ class Commerce_Helper_Cart extends Core_Helper
         $priceInclTax = $product->getData('prices_incl_tax')->getData('final_price');
         $priceExclTax = $product->getData('prices_excl_tax')->getData('final_price');
 
+        if ($item->getData('custom_incl_tax_unit') !== null) {
+            $priceInclTax = $item->getData('custom_incl_tax_unit');
+        }
+        if ($item->getData('custom_excl_tax_unit') !== null) {
+            $priceExclTax = $item->getData('custom_excl_tax_unit');
+        }
+
         $item->addData(
             [
                 'product_id'    => $product->getData('product_id'),
@@ -170,11 +177,6 @@ class Commerce_Helper_Cart extends Core_Helper
      */
     public function refreshItems(?int $saleId = null): void
     {
-        /** @var Commerce_Model_Sale_Item $itemModel */
-        $itemModel = App::getObject('model', 'sale_item');
-        /** @var Catalog_Model_Product $productModel */
-        $productModel = App::getObject('model', 'catalog_product');
-
         try {
             if ($saleId === null) {
                 $saleId = $this->getCurrentId(true);
@@ -183,10 +185,10 @@ class Commerce_Helper_Cart extends Core_Helper
                 return;
             }
 
-            $items = $itemModel->getItems($saleId);
+            $items = $this->getItems($saleId);
 
             foreach ($items as $item) {
-                $product = $productModel->get($item->getData('product_id'));
+                $product = $item->getData('product');
                 if ($product->getData('product_id')) {
                     $this->updateItem($item, $product);
                 }
@@ -245,7 +247,7 @@ class Commerce_Helper_Cart extends Core_Helper
     }
 
     /**
-     * Retrieve item for current cart
+     * Retrieve item for cart
      *
      * @param int      $itemId
      * @param int|null $saleId
@@ -279,7 +281,50 @@ class Commerce_Helper_Cart extends Core_Helper
     }
 
     /**
-     * Calculate sale
+     * Retrieve items for sale id
+     *
+     * @param int|null $saleId
+     * @param bool     $addProduct
+     *
+     * @return Leafiny_Object[]
+     */
+    public function getItems(?int $saleId = null, bool $addProduct = true): array
+    {
+        /** @var Commerce_Model_Sale_Item $model */
+        $model = App::getSingleton('model', 'sale_item');
+
+        try {
+            if ($saleId === null) {
+                $saleId = $this->getCurrentId(true);
+            }
+            if ($saleId === null) {
+                return [];
+            }
+
+            $items = $model->getItems($saleId);
+
+            if ($addProduct) {
+                /** @var Catalog_Model_Product $productModel */
+                $productModel = App::getSingleton('model', 'catalog_product');
+
+                foreach ($items as $item) {
+                    if (!$item->getData('product_id')) {
+                        continue;
+                    }
+                    $item->setData('product', $productModel->get((int)$item->getData('product_id')));
+                }
+            }
+
+            return $items;
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
+
+        return [];
+    }
+
+    /**
+     * Calculate sale totals
      *
      * @param int|null $saleId
      *
@@ -288,16 +333,36 @@ class Commerce_Helper_Cart extends Core_Helper
      */
     public function calculation(?int $saleId = null): bool
     {
+        if ($this->collectTotals($saleId)) {
+            /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
+            $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
+            $cartRuleHelper->applyNoCouponCartRules($saleId);
+            $cartRuleHelper->refreshFreeGift($saleId);
+            $cartRuleHelper->refreshItemsDiscount($saleId);
+
+            App::dispatchEvent('collect_totals_before', ['sale_id' => $saleId]);
+
+            return $this->collectTotals($saleId);
+        }
+
+        return false;
+    }
+
+    /**
+     * Collect Totals
+     *
+     * @param int|null $saleId
+     * @return bool
+     * @throws Exception
+     */
+    protected function collectTotals(?int $saleId): bool
+    {
         if ($saleId === null) {
             $saleId = $this->getCurrentId(true);
         }
         if ($saleId === null) {
             return false;
         }
-
-        /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
-        $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
-        $cartRuleHelper->applyNoCouponCartRules($saleId);
 
         $sale = $this->getSale($saleId);
 
@@ -307,16 +372,13 @@ class Commerce_Helper_Cart extends Core_Helper
 
         /* Refresh */
         $this->refreshItems($saleId);
-        $cartRuleHelper->refreshItemsDiscount($saleId);
 
         /* Init */
         $inclTaxTotal = 0;
         $exclTaxTotal = 0;
         $taxTotal = 0;
 
-        /** @var Commerce_Model_Sale_Item $itemModel */
-        $itemModel = App::getObject('model', 'sale_item');
-        $items = $itemModel->getItems($saleId);
+        $items = $this->getItems($saleId, false);
 
         /* Subtotal with discount */
         $inclTaxSubtotal = 0;
@@ -367,7 +429,9 @@ class Commerce_Helper_Cart extends Core_Helper
                 $this->getAddress('shipping', $saleId)
             );
 
-            $shippingDiscountRate = $cartRuleHelper->getShippingDiscountRate($saleId);
+            /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
+            $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
+            $shippingDiscountRate = $cartRuleHelper->getShippingDiscountRate($sale);
 
             $inclTaxShipping = $method->getData('prices_incl_tax')->getData('final_price') * $shippingDiscountRate;
             $exclTaxShipping = $method->getData('prices_excl_tax')->getData('final_price') * $shippingDiscountRate;
@@ -388,9 +452,7 @@ class Commerce_Helper_Cart extends Core_Helper
 
         $sale->setData('sale_currency', $this->getCurrency());
 
-        $this->getSaleObject()->save($sale);
-
-        return true;
+        return (bool)$this->getSaleObject()->save($sale);
     }
 
     /**

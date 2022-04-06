@@ -18,23 +18,20 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     /**
      * Retrieve active sale rules
      *
-     * @param int|null $saleId
+     * @param Leafiny_Object|null $sale
+     * @param array|null          $types
      *
      * @return Leafiny_Object[]
      */
-    public function getCartRules(?int $saleId = null): array
+    public function getCartRules(?Leafiny_Object $sale = null, ?array $types = null): array
     {
         $result = [];
 
         try {
-            if ($saleId === null) {
-                $saleId = $this->getSaleId();
-            }
-            if ($saleId === null) {
-                return $result;
+            if ($sale === null) {
+                $sale = $this->getSale($this->getSaleId());
             }
 
-            $sale = $this->getSale($saleId);
             $rulesIds = $sale->getData('rule_ids');
 
             if (!$rulesIds) {
@@ -51,6 +48,14 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                     'operator' => 'IN'
                 ]
             ];
+            if (!empty($types)) {
+                $filters[] = [
+                    'column'   => 'type',
+                    'value'    => $types,
+                    'operator' => 'IN'
+                ];
+            }
+
             $orders = [
                 [
                     'order' => 'priority',
@@ -60,13 +65,20 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
 
             $rules = $ruleModel->getList($filters, $orders);
 
-            foreach ($rules as $rule) {
-                App::dispatchEvent('cart_rule_candidate', ['rule' => $rule, 'sale' => $sale]);
+            if (empty($rules)) {
+                return $result;
+            }
 
-                if (!$rule->getData('discount')) {
-                    continue;
-                }
-                if (!$rule->getData('status') || $ruleModel->isExpired($rule->getData('expire'))) {
+            $items = $this->getItems((int)$sale->getData('sale_id'));
+
+            foreach ($rules as $rule) {
+                App::dispatchEvent('cart_rule_candidate', ['rule' => $rule, 'sale' => $sale, 'items' => $items]);
+
+                if (!$rule->getData('status') ||
+                    $ruleModel->isExpired($rule->getData('expire')) ||
+                    !$this->isValid($sale, $items, $rule))
+                {
+                    $this->removeCartRule((int)$rule->getData('rule_id'), $sale);
                     continue;
                 }
 
@@ -87,6 +99,93 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
         }
 
         return $result;
+    }
+
+    /**
+     * Check conditions
+     *
+     * @param Leafiny_Object   $sale
+     * @param Leafiny_Object[] $items
+     * @param Leafiny_Object   $rule
+     *
+     * @return bool
+     */
+    public function isValid(Leafiny_Object $sale, array $items, Leafiny_Object $rule): bool
+    {
+        if (!$rule->getData('conditions')) {
+            return true;
+        }
+
+        $conditions = json_decode($rule->getData('conditions'), true);
+        if (!$conditions) {
+            return true;
+        }
+
+        foreach ($conditions as $condition) {
+            $data = new Leafiny_Object($condition);
+            if (!$data->getData('field') && $data->getData('operator')) {
+                continue;
+            }
+
+            $field = explode(':', $data->getData('field'));
+            if (count($field) !== 2) {
+                continue;
+            }
+
+            $values = $data->getData('values') ?: [];
+            $operator = $data->getData('operator');
+
+            $toValidate = new Leafiny_Object(
+                [
+                    'rule'      => $rule,
+                    'sale'      => $sale,
+                    'items'     => $items,
+                    'condition' => $data,
+                    'operator'  => $operator,
+                    'values'    => $values,
+                    'type'      => $field[0],
+                    'key'       => $field[1],
+                    'is_valid'  => true,
+                ]
+            );
+
+            App::dispatchEvent('cart_rule_condition_custom_validator', ['to_validate' => $toValidate]);
+
+            if (!$toValidate->getData('is_valid')) {
+                return false;
+            }
+
+            if ($field[0] === 'sale') {
+                if (!$this->validateCondition($sale->getData($field[1]), $values, $operator)) {
+                    return false;
+                }
+            }
+            if (in_array($field[0], ['item', 'product'])) {
+                if ($operator === 'ne') {
+                    foreach ($items as $item) {
+                        $object = $field[0] === 'product' ? $item->getData('product') : $item;
+                        // If at least one item is found the condition is false, we return false
+                        if (!$this->validateCondition($object->getData($field[1]), $values, $operator)) {
+                            return false;
+                        }
+                    }
+                } else {
+                    $oneLeastIsValid = false;
+                    foreach ($items as $item) {
+                        $object = $field[0] === 'product' ? $item->getData('product') : $item;
+                        if ($this->validateCondition($object->getData($field[1]), $values, $operator)) {
+                            $oneLeastIsValid = true;
+                        }
+                    }
+                    // If no item was found, we return false
+                    if (!$oneLeastIsValid) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -118,6 +217,7 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
             if (!$rule->getData('status') || $ruleModel->isExpired($rule->getData('expire'))) {
                 return false;
             }
+
             if ($coupon) {
                 if ((int)$coupon->getData('rule_id') !== $ruleId) {
                     return false;
@@ -130,7 +230,13 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                 }
             }
 
-            $sale = $this->getSale($saleId);
+            $sale  = $this->getSale($saleId);
+            $items = $this->getItems($saleId);
+
+            if (!$this->isValid($sale, $items, $rule)) {
+                return false;
+            }
+
             $ruleIds = explode(',', (string) $sale->getData('rule_ids'));
             $ruleIds[] = $ruleId;
 
@@ -180,23 +286,19 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     /**
      * Remove cart rule
      *
-     * @param int|null $ruleId
-     * @param int|null $saleId
+     * @param int|null            $ruleId
+     * @param Leafiny_Object|null $sale
      *
      * @return bool
      */
-    public function removeCartRule(?int $ruleId = null, ?int $saleId = null): bool
+    public function removeCartRule(?int $ruleId = null, ?Leafiny_Object $sale = null): bool
     {
         try {
-            if ($saleId === null) {
-                $saleId = $this->getSaleId();
-            }
-            if ($saleId === null) {
-                return false;
+            if ($sale === null) {
+                $sale = $this->getSale($this->getSaleId());
             }
 
-            $sale = $this->getSale($saleId);
-            $ruleIds = explode(',', (string) $sale->getData('rule_ids'));
+            $ruleIds = explode(',', (string)$sale->getData('rule_ids'));
             if ($ruleId === null) {
                 $ruleIds = [];
             }
@@ -212,7 +314,7 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
             $ruleIds = array_filter(array_unique($ruleIds));
 
             $data = [
-                'sale_id'  => $saleId,
+                'sale_id'  => (int)$sale->getData('sale_id'),
                 'rule_ids' => join(',', $ruleIds),
             ];
 
@@ -293,31 +395,22 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     /**
      * Retrieve shipping discount rate
      *
-     * @param int|null $saleId
+     * @param Leafiny_Object|null $sale
      *
      * @return float
      */
-    public function getShippingDiscountRate(?int $saleId = null): float
+    public function getShippingDiscountRate(?Leafiny_Object $sale = null): float
     {
         $rate = 1;
 
         try {
-            if ($saleId === null) {
-                $saleId = $this->getSaleId();
-            }
-            if ($saleId === null) {
-                return $rate;
+            if ($sale === null) {
+                $sale = $this->getSale($this->getSaleId());
             }
 
-            $sale = $this->getSale($saleId);
-
-            $rules = $this->getCartRules((int)$sale->getData('sale_id'));
+            $rules = $this->getCartRules($sale, [Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING]);
 
             foreach ($rules as $rule) {
-                if ($rule->getData('type') !== Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING) {
-                    continue;
-                }
-
                 $rule->setData('discount_shipping_rate', 1 - (float)$rule->getData('discount') / 100);
 
                 App::dispatchEvent('cart_rule_discount_shipping_rate', ['sale' => $sale, 'rule' => $rule]);
@@ -329,6 +422,83 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
         }
 
         return $rate;
+    }
+
+    /**
+     * Refresh gift if needed
+     *
+     * @param int|null $saleId
+     */
+    public function refreshFreeGift(?int $saleId = null): void
+    {
+        try {
+            if ($saleId === null) {
+                $saleId = $this->getSaleId();
+            }
+            if ($saleId === null) {
+                return;
+            }
+
+            /** @var Commerce_Model_Sale_Item $saleItemModel */
+            $saleItemModel = App::getSingleton('model', 'sale_item');
+
+            $sale  = $this->getSale($saleId);
+            $rules = $this->getCartRules($sale, [Commerce_Model_Cart_Rule::TYPE_FREE_GIFT]);
+
+            $current = [];
+            foreach ($rules as $rule) {
+                $current[] = (int)$rule->getData('rule_id');
+            }
+
+            $items = $this->getItems($saleId);
+            foreach ($items as $item) {
+                $ruleId = $this->getFreeGiftRuleId($item);
+                if (!$ruleId) {
+                    continue;
+                }
+                if (in_array($ruleId, $current)) {
+                    continue;
+                }
+                $saleItemModel->delete((int)$item->getData('item_id'));
+            }
+
+            if (empty($rules)) {
+                return;
+            }
+
+            /** @var Catalog_Model_Product $catalogModel */
+            $catalogModel = App::getSingleton('model', 'catalog_product');
+            /** @var Commerce_Helper_Cart $cartHelper */
+            $cartHelper = App::getSingleton('helper', 'cart');
+
+            foreach ($rules as $rule) {
+                $sku = $rule->getData('option');
+                if (!$sku) {
+                    continue;
+                }
+                $product = $catalogModel->get($sku, 'sku');
+                if (!$product->getData('product_id')) {
+                    continue;
+                }
+
+                $item = $saleItemModel->getItem($saleId, $product->getData('product_id'), 'product_id');
+
+                $item->addData(
+                    [
+                        'sale_id'              => $saleId,
+                        'qty'                  => 1,
+                        'options'              => json_encode(['free_gift' => (int)$rule->getData('rule_id')]),
+                        'custom_incl_tax_unit' => 0,
+                        'custom_excl_tax_unit' => 0,
+                    ]
+                );
+
+                $cartHelper->updateItem($item, $product);
+            }
+
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
     }
 
     /**
@@ -365,15 +535,10 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                 $itemModel->save($item);
             }
 
-            $rules = $this->getCartRules((int)$sale->getData('sale_id'));
+            $rules = $this->getCartRules($sale, $this->getCartRuleTypeCartDiscount());
 
             foreach ($rules as $rule) {
                 App::dispatchEvent('cart_rule_discount_refresh_before', ['sale' => $sale, 'rule' => $rule]);
-
-                $allowedTypes = $this->getCartRuleAllowedTypes();
-                if (!isset($allowedTypes[$rule->getData('type')])) {
-                    return;
-                }
 
                 $discount = (float)$rule->getData('discount');
 
@@ -460,6 +625,27 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     }
 
     /**
+     * Item is a gift
+     *
+     * @param Leafiny_Object $item
+     *
+     * @return int
+     */
+    public function getFreeGiftRuleId(Leafiny_Object $item): ?int
+    {
+        $options = $item->getData('options');
+        if (!$options) {
+            return null;
+        }
+        $options = json_decode($options, true);
+        if (!isset($options['free_gift'])) {
+            return null;
+        }
+
+        return (int)$options['free_gift'];
+    }
+
+    /**
      * Set item discount amount. Avoid the amount exceed the referer.
      *
      * @param Leafiny_Object $item
@@ -483,16 +669,6 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
 
 
     /**
-     * Retrieve allowed cart rules
-     *
-     * @return array
-     */
-    public function getCartRuleAllowedTypes(): array
-    {
-        return $this->getCustom('cart_rule_allowed_types') ?: [];
-    }
-
-    /**
      * Retrieve sale from id
      *
      * @param int $saleId
@@ -506,6 +682,22 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
         $cartHelper = App::getSingleton('helper', 'cart');
 
         return $cartHelper->getSale($saleId);
+    }
+
+    /**
+     * Retrieve sale from id
+     *
+     * @param int $saleId
+     *
+     * @return Leafiny_Object[]
+     * @throws Exception
+     */
+    protected function getItems(int $saleId): array
+    {
+        /** @var Commerce_Helper_Cart $cartHelper */
+        $cartHelper = App::getSingleton('helper', 'cart');
+
+        return $cartHelper->getItems($saleId);
     }
 
     /**
@@ -530,5 +722,156 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     protected function getSaleObject(): Commerce_Model_Sale
     {
         return App::getSingleton('model', 'sale');
+    }
+
+    /**
+     * Retrieve allowed cart rules
+     *
+     * @return array
+     */
+    public function getCartRuleAllowedTypes(): array
+    {
+        if (is_array($this->getCustom('cart_rule_allowed_types'))) {
+            return $this->getCustom('cart_rule_allowed_types');
+        }
+
+        return [
+            'discount' => [
+                Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL   => 'Percent Subtotal',
+                Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING   => 'Percent Shipping',
+                Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT => 'Amount per product',
+            ],
+            'option' => [
+                Commerce_Model_Cart_Rule::TYPE_FREE_GIFT => 'Free Gift',
+            ],
+        ];
+    }
+
+    /**
+     * Retrieve cart rule type discount
+     *
+     * @return array
+     */
+    public function getCartRuleTypeCartDiscount(): array
+    {
+        if (is_array($this->getCustom('cart_rule_type_cart_discount'))) {
+            return $this->getCustom('cart_rule_type_cart_discount');
+        }
+
+        return [
+            Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL,
+            Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT,
+        ];
+    }
+
+    /**
+     * Retrieve conditions operators
+     *
+     * @return string[]
+     */
+    public function getConditionOperators(): array
+    {
+        if (is_array($this->getCustom('condition_operators'))) {
+            return $this->getCustom('condition_operators');
+        }
+
+        return [
+            'eq' => '=',
+            'ne' => '!=',
+            'lt' => '<',
+            'le' => '<=',
+            'gt' => '>',
+            'ge' => '>=',
+        ];
+    }
+
+    /**
+     * Retrieve conditions data
+     *
+     * @return string[]
+     */
+    public function getConditionFields(): array
+    {
+        if (is_array($this->getCustom('condition_fields'))) {
+            return $this->getCustom('condition_fields');
+        }
+
+        return [
+            'sale:incl_tax_subtotal' => 'Cart - Subtotal Incl. Tax',
+            'sale:excl_tax_subtotal' => 'Cart - Subtotal Excl. Tax',
+            'sale:shipping_method'   => 'Cart - Shipping Method',
+            'sale:total_weight'      => 'Cart - Total Weight',
+            'sale:language'          => 'Store - Language',
+            'item:product_sku'       => 'Product - SKU',
+            'product:category_ids'   => 'Product - Category ID'
+        ];
+    }
+
+    /**
+     * Check if the condition is valid
+     *
+     * @param mixed   $value
+     * @param mixed[] $toFind
+     * @param string  $operator
+     *
+     * @return bool
+     */
+    protected function validateCondition($value, array $toFind, string $operator): bool
+    {
+        if ($operator === 'ne') {
+            foreach ($toFind as $toCompare) {
+                if (!$this->compare($value, $toCompare, $operator)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        foreach ($toFind as $toCompare) {
+            if ($this->compare($value, $toCompare, $operator)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Compare 2 values
+     *
+     * @param mixed $value1
+     * @param mixed $value2
+     * @param string $operator
+     *
+     * @return bool
+     */
+    protected function compare($value1, $value2, string $operator): bool
+    {
+        $compare = function ($value1, $value2, string $operator): bool
+        {
+            switch ($operator) {
+                case 'eq':
+                    return $value1 == $value2;
+                case 'ne':
+                    return $value1 != $value2;
+                case 'lt':
+                    return $value1 < $value2;
+                case 'le':
+                    return $value1 <= $value2;
+                case 'gt':
+                    return $value1 > $value2;
+                case 'ge':
+                    return $value1 >= $value2;
+            }
+
+            return false;
+        };
+
+        if(is_array($value1)) {
+            return !empty(array_filter($value1, function($value) use($value2, $operator, $compare) {
+                return $compare($value, $value2, $operator);
+            }));
+        }
+
+        return $compare($value1, $value2, $operator);
     }
 }
