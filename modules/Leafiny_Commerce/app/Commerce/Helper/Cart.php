@@ -295,7 +295,7 @@ class Commerce_Helper_Cart extends Core_Helper
 
         try {
             if ($saleId === null) {
-                $saleId = $this->getCurrentId(true);
+                $saleId = $this->getCurrentId();
             }
             if ($saleId === null) {
                 return [];
