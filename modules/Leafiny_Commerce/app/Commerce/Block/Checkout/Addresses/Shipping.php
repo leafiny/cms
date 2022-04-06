@@ -33,7 +33,7 @@ class Commerce_Block_Checkout_Addresses_Shipping extends Commerce_Block_Checkout
             return $post->getData('shipping');
         }
 
-        $address = $helper->getCurrentId() ? $helper->getAddress('shipping') : null;
+        $address = $helper->getCurrentId() ? $helper->getAddress('shipping', $this->getSale()) : null;
 
         return $address ?: new Leafiny_Object();
     }

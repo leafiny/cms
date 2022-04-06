@@ -426,7 +426,7 @@ class Commerce_Helper_Cart extends Core_Helper
             $method = $shippingHelper->getMethod(
                 $sale->getData('shipping_method'),
                 $totalWeight,
-                $this->getAddress('shipping', $saleId)
+                $this->getAddress('shipping', $sale)
             );
 
             /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
@@ -494,25 +494,22 @@ class Commerce_Helper_Cart extends Core_Helper
     /**
      * Retrieve address
      *
-     * @param string   $type
-     * @param int|null $saleId
+     * @param string              $type
+     * @param Leafiny_Object|null $sale
      *
      * @return Leafiny_Object|null
      */
-    public function getAddress(string $type, ?int $saleId = null): ?Leafiny_Object
+    public function getAddress(string $type, ?Leafiny_Object $sale = null): ?Leafiny_Object
     {
         try {
             /** @var Commerce_Model_Sale_Address $model */
             $model = App::getSingleton('model', 'sale_address');
 
-            if ($saleId === null) {
-                $saleId = $this->getCurrentId();
-            }
-            if ($saleId === null) {
-                return null;
+            if ($sale === null) {
+                $sale = $this->getCurrentSale();
             }
 
-            return $model->getBySaleId($saleId, $type);
+            return $model->getBySaleId((int)$sale->getData('sale_id'), $type);
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }

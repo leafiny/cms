@@ -33,7 +33,7 @@ class Commerce_Block_Checkout_Addresses_Billing extends Commerce_Block_Checkout_
             return $post->getData('billing');
         }
 
-        $address = $helper->getCurrentId() ? $helper->getAddress('billing') : null;
+        $address = $helper->getCurrentId() ? $helper->getAddress('billing', $this->getSale()) : null;
 
         return $address ?: new Leafiny_Object();
     }

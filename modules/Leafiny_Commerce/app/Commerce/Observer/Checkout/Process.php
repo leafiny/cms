@@ -112,7 +112,7 @@ abstract class Commerce_Observer_Checkout_Process extends Core_Observer implemen
         /** @var Commerce_Helper_Shipping $shippingHelper */
         $shippingHelper = App::getSingleton('helper', 'shipping');
 
-        $shipping = $saleHelper->getAddress('shipping');
+        $shipping = $saleHelper->getAddress('shipping', $this->getCurrentSale());
         if (!$shipping) {
             $this->error('Shipping address is required');
             return;
@@ -128,7 +128,7 @@ abstract class Commerce_Observer_Checkout_Process extends Core_Observer implemen
             return;
         }
 
-        $billing = $saleHelper->getAddress('billing');
+        $billing = $saleHelper->getAddress('billing', $this->getCurrentSale());
         if (!$billing) {
             $this->error('Billing address is required');
             return;
@@ -159,7 +159,7 @@ abstract class Commerce_Observer_Checkout_Process extends Core_Observer implemen
 
         /** @var Commerce_Helper_Shipping $shippingHelper */
         $shippingHelper = App::getSingleton('helper', 'shipping');
-        $shippingAddress = $saleHelper->getAddress('shipping');
+        $shippingAddress = $saleHelper->getAddress('shipping', $this->getCurrentSale());
         if ($shippingAddress) {
             if (!$shippingHelper->isMethodValidForAddress($shippingMethod, $shippingAddress)) {
                 $this->error('The shipping method is not available');

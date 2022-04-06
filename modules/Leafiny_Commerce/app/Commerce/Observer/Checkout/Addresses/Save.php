@@ -80,11 +80,11 @@ class Commerce_Observer_Checkout_Addresses_Save extends Commerce_Observer_Checko
             /** @var Commerce_Model_Sale_Address $addressModel */
             $addressModel = App::getSingleton('model', 'sale_address');
 
-            $shipping = $cartHelper->getAddress('shipping');
+            $shipping = $cartHelper->getAddress('shipping', $sale);
             $shipping->addData($shippingAddress->getData());
             $addressModel->save($shipping);
 
-            $billing = $cartHelper->getAddress('billing');
+            $billing = $cartHelper->getAddress('billing', $sale);
             $billing->addData($billingAddress->getData());
             $addressModel->save($billing);
 

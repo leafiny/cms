@@ -38,9 +38,6 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                 return $result;
             }
 
-            /** @var Commerce_Model_Cart_Rule $ruleModel */
-            $ruleModel = App::getObject('model', 'cart_rule');
-
             $filters = [
                 [
                     'column'   => 'rule_id',
@@ -63,6 +60,8 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                 ]
             ];
 
+            /** @var Commerce_Model_Cart_Rule $ruleModel */
+            $ruleModel = App::getObject('model', 'cart_rule');
             $rules = $ruleModel->getList($filters, $orders);
 
             if (empty($rules)) {

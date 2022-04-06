@@ -203,12 +203,31 @@ class Commerce_Helper_Shipping extends Core_Helper
                 return $prices;
             }
 
+            /** @var Commerce_Model_Cart_Rule $ruleModel */
+            $ruleModel = App::getObject('model', 'cart_rule');
+            $filters = [
+                [
+                    'column' => 'type',
+                    'value'  => Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING,
+                ],
+                [
+                    'column' => 'has_coupon',
+                    'value'  => 0,
+                ]
+            ];
+            $rules = $ruleModel->getList($filters);
+            $shippingRuleIds = [];
+            foreach ($rules as $rule) {
+                $shippingRuleIds[] = (int)$rule->getData('rule_id');
+            }
+
+            $sale->setData('rule_ids', join(',', $shippingRuleIds));
             $sale->setData('shipping_method', $method);
 
             $method = $shippingHelper->getMethod(
                 $method,
                 (float)$sale->getData('total_weight'),
-                $cartHelper->getAddress('shipping')
+                $cartHelper->getAddress('shipping', $sale)
             );
 
             $rate = $cartRuleHelper->getShippingDiscountRate($sale);
