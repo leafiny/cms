@@ -437,7 +437,7 @@ $config = [
         ],
         '/admin/*/cart-rules/new/' => [
             'title'              => 'New',
-            'class'              => Backend_Page_Admin_Form_New::class,
+            'class'              => Commerce_Page_Backend_Rules_Cart_Form_New::class,
             'template'           => null,
         ],
         '/admin/*/cart-rules/edit/' => [
