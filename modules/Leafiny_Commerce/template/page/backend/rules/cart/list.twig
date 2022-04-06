@@ -6,19 +6,21 @@
                 <tr class="headings">
                     <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
                     <th class="width-5"><a href="{{ page.getSortOrderUrl('rule_id') }}">{{ 'ID'|translate }}</a></th>
-                    <th class="width-25"><a href="{{ page.getSortOrderUrl('title') }}">{{ 'Title'|translate }}</a></th>
-                    <th class="width-5"><a href="{{ page.getSortOrderUrl('discount') }}">{{ 'Discount'|translate }}</a></th>
-                    <th class="width-20"><a href="{{ page.getSortOrderUrl('expire') }}">{{ 'Expire'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('title') }}">{{ 'Title'|translate }}</a></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('type') }}">{{ 'Type'|translate }}</a></th>
+                    <th class="width-5"></th>
+                    <th class="width-15"><a href="{{ page.getSortOrderUrl('expire') }}">{{ 'Expire'|translate }}</a></th>
                     <th class="width-5"><a href="{{ page.getSortOrderUrl('has_coupon') }}">{{ 'Coupon'|translate }}</a></th>
                     <th class="width-5"><a href="{{ page.getSortOrderUrl('priority') }}">{{ 'Priority'|translate }}</a></th>
                     <th class="width-5"><a href="{{ page.getSortOrderUrl('stop_rules_processing') }}">{{ 'Stop'|translate }}</a></th>
-                    <th class="width-15"><a href="{{ page.getSortOrderUrl('status') }}">{{ 'Status'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('status') }}">{{ 'Status'|translate }}</a></th>
                     <th class="width-10">{{ 'Action'|translate }}</th>
                 </tr>
                 <tr class="pure-form filters">
                     <th></th>
                     <th><input type="text" name="filter[rule_id]" value="{{ page.getFilter('rule_id') }}" /></th>
                     <th><input type="text" name="filter[title]" value="{{ page.getFilter('title') }}" /></th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -48,7 +50,8 @@
                             <td class="center"><input type="checkbox" id="id_{{ data.getRuleId }}" name="id[]" class="select-id" value="{{ data.getRuleId }}" /></td>
                             <td><label for="id_{{ data.getRuleId }}">{{ data.getRuleId }}</label></td>
                             <td>{{ data.getTitle }}</td>
-                            <td>{{ data.getDiscount }}</td>
+                            <td>{{ page.getTypeLabel(data.getType)|translate }}</td>
+                            <td>{{ data.getOption ?: data.getDiscount }}</td>
                             <td>{{ data.getExpire ? page.formatDate(data.getExpire) : '&infin;' }}</td>
                             <td>
                                 {% if data.getHasCoupon == 0 %}
