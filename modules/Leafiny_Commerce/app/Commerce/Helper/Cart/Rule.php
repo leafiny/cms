@@ -744,9 +744,9 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
 
         return [
             'discount' => [
-                Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL   => 'Percent Subtotal',
-                Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING   => 'Percent Shipping',
-                Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT => 'Amount per product',
+                Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL   => 'Subtotal Discount (%)',
+                Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING   => 'Shipping Discount (%)',
+                Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT => 'Discount per product (amount)',
             ],
             'option' => [
                 Commerce_Model_Cart_Rule::TYPE_FREE_GIFT => 'Free Gift',
@@ -810,7 +810,9 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
             'sale:total_weight'      => 'Cart - Total Weight',
             'sale:language'          => 'Store - Language',
             'item:product_sku'       => 'Product - SKU',
-            'product:category_ids'   => 'Product - Category ID'
+            'product:category_ids'   => 'Product - Category ID',
+            'sale:incl_tax_subtotal_with_discount' => 'Cart - Subtotal Incl. Tax with discount (Only works with Shipping Discount rule)',
+            'sale:excl_tax_subtotal_with_discount' => 'Cart - Subtotal Excl. Tax with discount (Only works with Shipping Discount rule)',
         ];
     }
 

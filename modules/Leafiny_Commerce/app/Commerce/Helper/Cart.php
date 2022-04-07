@@ -405,6 +405,8 @@ class Commerce_Helper_Cart extends Core_Helper
         $sale->setData('excl_tax_subtotal', $exclTaxSubtotal);
         $sale->setData('incl_tax_discount', $inclTaxDiscount);
         $sale->setData('excl_tax_discount', $exclTaxDiscount);
+        $sale->setData('incl_tax_subtotal_with_discount', $inclTaxSubtotal - $inclTaxDiscount);
+        $sale->setData('excl_tax_subtotal_with_discount', $exclTaxSubtotal - $exclTaxDiscount);
         $sale->setData('tax_subtotal', $taxSubtotal);
         $sale->setData('tax_discount', $taxDiscount);
         $sale->setData('total_weight', $totalWeight);
