@@ -511,6 +511,9 @@ class Commerce_Helper_Cart extends Core_Helper
             if ($sale === null) {
                 $sale = $this->getCurrentSale();
             }
+            if ($sale === null) {
+                return null;
+            }
 
             return $model->getBySaleId((int)$sale->getData('sale_id'), $type);
         } catch (Throwable $throwable) {
