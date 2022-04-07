@@ -153,7 +153,8 @@ class Commerce_Helper_Cart extends Core_Helper
                 'weight_unit'   => $product->getData('weight'),
                 'tax_rule_id'   => $product->getData('tax_rule_id'),
                 'tax_percent'   => $product->getData('tax_percent'),
-                'max_qty'       => $product->getData('qty')
+                'max_qty'       => $product->getData('qty'),
+                'can_update'    => 1,
             ]
         );
 

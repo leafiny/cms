@@ -667,6 +667,9 @@ $config = [
         'checkout_action_save_review' => [
             'checkout_review_save' => 100,
         ],
+        'sale_update_item' => [
+            'refresh_gift' => 100,
+        ],
     ],
 
     'observer' => [
@@ -687,6 +690,9 @@ $config = [
         ],
         'update_cart_rule_coupon' => [
             'class' => Commerce_Observer_Sale_UpdateCoupon::class
+        ],
+        'refresh_gift' => [
+            'class' => Commerce_Observer_Sale_RefreshGift::class
         ],
 
         'checkout_addresses_view' => [

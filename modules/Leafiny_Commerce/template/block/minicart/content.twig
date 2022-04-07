@@ -15,9 +15,17 @@
                     {% for item in items %}
                         <ul>
                             <li class="action">
-                                <a href="{{ block.getRemoveUrl(item) }}"><img src="{{ page.getMediaUrl('Leafiny_Commerce::trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
+                                {% if item.getCanUpdate %}
+                                    <a href="{{ block.getRemoveUrl(item) }}"><img src="{{ page.getMediaUrl('Leafiny_Commerce::trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
+                                {% endif %}
                             </li>
-                            <li class="name"><a href="{{ page.getUrl }}{{ item.getProductPath }}.html">{{ item.getProductName }}</a></li>
+                            <li class="name">
+                                {% if item.getProductPath %}
+                                    <a href="{{ page.getUrlRewrite(item.getProductPath, 'catalog_product') }}">{{ item.getProductName }}</a>
+                                {% else %}
+                                    {{ item.getProductName }}
+                                {% endif %}
+                            </li>
                             <li class="price">{{ item.getQty }} x <span>{{ item.getInclTaxUnit|currency }}</span></li>
                         </ul>
                     {% endfor %}

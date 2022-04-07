@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `commerce_sale_item` (
     `discount_tax_unit` DECIMAL(10,2) NULL,
     `discount_tax_row` DECIMAL(10,2) NULL,
     `options` TEXT NULL,
+    `can_update` INT(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (`item_id`),
     FOREIGN KEY (`sale_id`) REFERENCES `commerce_sale` (`sale_id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

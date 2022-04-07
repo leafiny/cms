@@ -19,22 +19,28 @@
                     {% endif %}
                 </div>
                 <div class="pure-u-16-24 pure-u-lg-18-24">
-                    <a href="{{ block.getUrl }}{{ item.getProductPath }}.html">{{ item.getProductName }}</a>
+                    {% if item.getProductPath %}
+                        <a href="{{ page.getUrlRewrite(item.getProductPath, 'catalog_product') }}">{{ item.getProductName }}</a>
+                    {% else %}
+                        {{ item.getProductName }}
+                    {% endif %}
                     {{ block.renderOption(item.getOptions) }}
                 </div>
             </div>
             <div class="info pure-u-1 pure-u-md-1-2">
-                <div class="price pure-u-1-3">{{ item.getInclTaxUnit|currency }}</div>
+                <div class="price pure-u-1-3">{{ item.getInclTaxUnit > 0 ? item.getInclTaxUnit|currency : 'Free'|translate }}</div>
                 <div class="qty pure-u-2-3 pure-u-md-1-3">
-                    {% set maxQty = item.getMaxQty > 10 ? 10 : item.getMaxQty %}
-                    <select name="qty[{{ item.getItemId|crypt }}]" class="update_item">
-                        {% for i in 1..maxQty %}
-                            <option value="{{ i }}"{% if item.getQty == i %} selected="selected"{% endif %}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                    <a href="{{ block.getRemoveUrl(item) }}"><img src="{{ block.getMediaUrl('Leafiny_Commerce::trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
+                    {% if item.getCanUpdate %}
+                        {% set maxQty = item.getMaxQty > 10 ? 10 : item.getMaxQty %}
+                        <select name="qty[{{ item.getItemId|crypt }}]" class="update_item">
+                            {% for i in 1..maxQty %}
+                                <option value="{{ i }}"{% if item.getQty == i %} selected="selected"{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <a href="{{ block.getRemoveUrl(item) }}"><img src="{{ block.getMediaUrl('Leafiny_Commerce::trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
+                    {% endif %}
                 </div>
-                <div class="total pure-u-1-3">{{ item.getInclTaxRow|currency }}</div>
+                <div class="total pure-u-1-3">{{ item.getInclTaxRow > 0 ? item.getInclTaxRow|currency : 'Free'|translate }}</div>
             </div>
         </div>
     {% endfor %}
