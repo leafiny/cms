@@ -223,6 +223,7 @@ class Commerce_Helper_Shipping extends Core_Helper
 
             $sale->setData('rule_ids', join(',', $shippingRuleIds));
             $sale->setData('shipping_method', $method);
+            $sale->setData('_keep_rules', true);
 
             $method = $shippingHelper->getMethod(
                 $method,

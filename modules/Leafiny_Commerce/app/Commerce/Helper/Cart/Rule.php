@@ -68,16 +68,20 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                 return $result;
             }
 
-            $items = $this->getItems((int)$sale->getData('sale_id'));
+            $saleId = (int)$sale->getData('sale_id');
+
+            $items = $this->getItems($saleId);
 
             foreach ($rules as $rule) {
-                App::dispatchEvent('cart_rule_candidate', ['rule' => $rule, 'sale' => $sale, 'items' => $items]);
+                App::dispatchEvent('cart_rule_candidate', ['rule' => $rule, 'sale_id' => $saleId, 'items' => $items]);
 
                 if (!$rule->getData('status') ||
                     $ruleModel->isExpired($rule->getData('expire')) ||
                     !$this->isValid($sale, $items, $rule))
                 {
-                    $this->removeCartRule((int)$rule->getData('rule_id'), $sale);
+                    if (!$sale->getData('_keep_rules')) {
+                        $this->removeCartRule((int)$rule->getData('rule_id'), $saleId);
+                    }
                     continue;
                 }
 
@@ -92,7 +96,7 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                 }
             }
 
-            App::dispatchEvent('cart_rules_to_apply', ['rules' => $result, 'sale' => $sale]);
+            App::dispatchEvent('cart_rules_to_apply', ['rules' => $result, 'sale_id' => $saleId]);
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }
@@ -285,18 +289,22 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     /**
      * Remove cart rule
      *
-     * @param int|null            $ruleId
-     * @param Leafiny_Object|null $sale
+     * @param int|null $ruleId
+     * @param int|null $saleId
      *
      * @return bool
      */
-    public function removeCartRule(?int $ruleId = null, ?Leafiny_Object $sale = null): bool
+    public function removeCartRule(?int $ruleId = null, ?int $saleId = null): bool
     {
         try {
-            if ($sale === null) {
-                $sale = $this->getSale($this->getSaleId());
+            if ($saleId === null) {
+                $saleId = $this->getSaleId();
+            }
+            if ($saleId === null) {
+                return false;
             }
 
+            $sale = $this->getSale($saleId);
             $ruleIds = explode(',', (string)$sale->getData('rule_ids'));
             if ($ruleId === null) {
                 $ruleIds = [];
