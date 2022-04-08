@@ -11,9 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Commerce_Observer_Sale_UpdateCoupon
+ * Class Commerce_Observer_Cart_Rule_IncrementCoupon
  */
-class Commerce_Observer_Sale_UpdateCoupon extends Core_Observer implements Core_Interface_Observer
+class Commerce_Observer_Cart_Rule_IncrementCoupon extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Update coupon usage after order is placed

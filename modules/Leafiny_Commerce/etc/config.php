@@ -625,8 +625,18 @@ $config = [
         'commerce_order_place' => [
             'process_payment' => 100,
         ],
+
         'order_complete_after' => [
-            'update_cart_rule_coupon' => 100,
+            'cart_rule_increment_coupon' => 100,
+        ],
+        'collect_totals_before' => [
+            'cart_rules_apply' => 100,
+        ],
+        'sale_update_item' => [
+            'cart_rules_refresh_gift' => 100,
+        ],
+        'sale_shipping_method' => [
+            'cart_rules_refresh_shipping' => 100,
         ],
 
         'checkout_action_step_addresses' => [
@@ -667,9 +677,6 @@ $config = [
         'checkout_action_save_review' => [
             'checkout_review_save' => 100,
         ],
-        'sale_update_item' => [
-            'refresh_gift' => 100,
-        ],
     ],
 
     'observer' => [
@@ -688,11 +695,18 @@ $config = [
         'process_payment' => [
             'class' => Commerce_Observer_Sale_Payment::class
         ],
-        'update_cart_rule_coupon' => [
-            'class' => Commerce_Observer_Sale_UpdateCoupon::class
+
+        'cart_rule_increment_coupon' => [
+            'class' => Commerce_Observer_Cart_Rule_IncrementCoupon::class
         ],
-        'refresh_gift' => [
-            'class' => Commerce_Observer_Sale_RefreshGift::class
+        'cart_rules_apply' => [
+            'class' => Commerce_Observer_Cart_Rule_Apply::class
+        ],
+        'cart_rules_refresh_gift' => [
+            'class' => Commerce_Observer_Cart_Rule_RefreshGift::class
+        ],
+        'cart_rules_refresh_shipping' => [
+            'class' => Commerce_Observer_Cart_Rule_RefreshShipping::class
         ],
 
         'checkout_addresses_view' => [

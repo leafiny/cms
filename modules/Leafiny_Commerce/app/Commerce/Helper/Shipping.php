@@ -16,16 +16,23 @@ declare(strict_types=1);
 class Commerce_Helper_Shipping extends Core_Helper
 {
     /**
-     * Retrieve shipping prices
+     * Retrieve shipping method with prices
      *
-     * @param string $method
-     * @param float $weight
-     * @param ?Leafiny_Object $address
+     * @param string              $method
+     * @param float               $weight
+     * @param Leafiny_Object|null $address
+     * @param Leafiny_Object|null $sale
+     * @param bool|null           $estimate
      *
      * @return Leafiny_Object
      * @throws Exception
      */
-    public function getMethod(string $method, float $weight = 0, ?Leafiny_Object $address = null): Leafiny_Object
+    public function getMethod(
+        string $method,
+        float $weight = 0,
+        ?Leafiny_Object $address = null,
+        ?Leafiny_Object $sale = null,
+        ?bool $estimate = false): Leafiny_Object
     {
         /** @var Commerce_Model_Shipping $model */
         $model = App::getObject('model', 'shipping');
@@ -33,17 +40,25 @@ class Commerce_Helper_Shipping extends Core_Helper
 
         $weight = $weight + $this->getPackageWeight();
 
-        if ($method->getData('shipping_id')) {
-            foreach ($method->getData('prices') as $price) {
-                if ($weight >= $price['weight_from']) {
-                    $method->setData('price', $price['price']);
-                }
+        if (!$method->getData('shipping_id')) {
+            return $method;
+        }
+
+        foreach ($method->getData('prices') as $price) {
+            if ($weight >= $price['weight_from']) {
+                $method->setData('price', $price['price']);
             }
+        }
+
+        if ($estimate) {
+            $method->setData('_estimate', true);
         }
 
         /** @var Commerce_Helper_Tax $taxHelper */
         $taxHelper = App::getSingleton('helper', 'tax');
         $taxHelper->calculatePrices($method, $address);
+
+        App::dispatchEvent('sale_shipping_method', ['method' => $method, 'sale' => $sale, 'address' => $address]);
 
         return $method;
     }
@@ -187,13 +202,13 @@ class Commerce_Helper_Shipping extends Core_Helper
         $shippingHelper = App::getSingleton('helper', 'shipping');
         /** @var Commerce_Helper_Cart $cartHelper */
         $cartHelper = App::getSingleton('helper', 'cart');
-        /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
-        $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
 
         $prices = new Leafiny_Object(
             [
-                'incl_tax_shipping' => 0,
-                'excl_tax_shipping' => 0,
+                'incl_tax_shipping'          => 0,
+                'excl_tax_shipping'          => 0,
+                'original_incl_tax_shipping' => 0,
+                'original_excl_tax_shipping' => 0,
             ]
         );
 
@@ -203,38 +218,22 @@ class Commerce_Helper_Shipping extends Core_Helper
                 return $prices;
             }
 
-            /** @var Commerce_Model_Cart_Rule $ruleModel */
-            $ruleModel = App::getObject('model', 'cart_rule');
-            $filters = [
-                [
-                    'column' => 'type',
-                    'value'  => Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING,
-                ],
-                [
-                    'column' => 'has_coupon',
-                    'value'  => 0,
-                ]
-            ];
-            $rules = $ruleModel->getList($filters);
-            $shippingRuleIds = [];
-            foreach ($rules as $rule) {
-                $shippingRuleIds[] = (int)$rule->getData('rule_id');
-            }
-
-            $sale->setData('rule_ids', join(',', $shippingRuleIds));
-            $sale->setData('shipping_method', $method);
-            $sale->setData('_keep_rules', true);
-
             $method = $shippingHelper->getMethod(
                 $method,
                 (float)$sale->getData('total_weight'),
-                $cartHelper->getAddress('shipping', $sale)
+                $cartHelper->getAddress('shipping', $sale),
+                $sale,
+                true
             );
 
-            $rate = $cartRuleHelper->getShippingDiscountRate($sale);
-
-            $prices->setData('incl_tax_shipping', $method->getData('prices_incl_tax')->getData('final_price') * $rate);
-            $prices->setData('excl_tax_shipping', $method->getData('prices_excl_tax')->getData('final_price') * $rate);
+            $prices->setData(
+                [
+                    'incl_tax_shipping'          => $method->getData('prices_incl_tax')->getData('final_price'),
+                    'excl_tax_shipping'          => $method->getData('prices_excl_tax')->getData('final_price'),
+                    'original_incl_tax_shipping' => $method->getData('prices_incl_tax')->getData('original_price'),
+                    'original_excl_tax_shipping' => $method->getData('prices_excl_tax')->getData('original_price'),
+                ]
+            );
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }

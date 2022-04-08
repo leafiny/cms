@@ -334,15 +334,11 @@ class Commerce_Helper_Cart extends Core_Helper
      */
     public function calculation(?int $saleId = null): bool
     {
+        if ($saleId === null) {
+            $saleId = $this->getCurrentId(true);
+        }
         if ($this->collectTotals($saleId)) {
-            /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
-            $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
-            $cartRuleHelper->applyNoCouponCartRules($saleId);
-            $cartRuleHelper->refreshFreeGift($saleId);
-            $cartRuleHelper->refreshItemsDiscount($saleId);
-
             App::dispatchEvent('collect_totals_before', ['sale_id' => $saleId]);
-
             return $this->collectTotals($saleId);
         }
 
@@ -429,16 +425,13 @@ class Commerce_Helper_Cart extends Core_Helper
             $method = $shippingHelper->getMethod(
                 $sale->getData('shipping_method'),
                 $totalWeight,
-                $this->getAddress('shipping', $sale)
+                $this->getAddress('shipping', $sale),
+                $sale
             );
 
-            /** @var Commerce_Helper_Cart_Rule $cartRuleHelper */
-            $cartRuleHelper = App::getSingleton('helper', 'cart_rule');
-            $shippingDiscountRate = $cartRuleHelper->getShippingDiscountRate($sale);
-
-            $inclTaxShipping = $method->getData('prices_incl_tax')->getData('final_price') * $shippingDiscountRate;
-            $exclTaxShipping = $method->getData('prices_excl_tax')->getData('final_price') * $shippingDiscountRate;
-            $taxShipping = ($inclTaxShipping - $exclTaxShipping) * $shippingDiscountRate;
+            $inclTaxShipping = $method->getData('prices_incl_tax')->getData('final_price');
+            $exclTaxShipping = $method->getData('prices_excl_tax')->getData('final_price');
+            $taxShipping = $inclTaxShipping - $exclTaxShipping;
         }
 
         $sale->setData('incl_tax_shipping', $inclTaxShipping);

@@ -4,10 +4,15 @@
     {% if shippingMethods is not empty %}
         {% for shipping in shippingMethods %}
             <div class="shipping-method {{ shipping.getMethod }}">
-                <div class="shipping--method-content">
+                <div class="shipping-method-content">
                     <label for="{{ shipping.getMethod }}">
                         <input type="radio" name="shipping_method" value="{{ shipping.getMethod }}" id="{{ shipping.getMethod }}"{% if (block.getCurrentMethod == shipping.getMethod) %} checked="checked"{% endif %}/>
-                        {{ shipping.getLabel }} - <strong>{{ block.getMethodPrices(shipping.getMethod).getInclTaxShipping|currency }}</strong>
+                        {% set prices = block.getMethodPrices(shipping.getMethod) %}
+                        {{ shipping.getLabel }} -
+                        {% if prices.getInclTaxShipping < prices.getOriginalInclTaxShipping %}
+                            <span class="original-price">{{ prices.getOriginalInclTaxShipping|currency }}</span>
+                        {% endif %}
+                        <strong>{{ prices.getInclTaxShipping|currency }}</strong>
                     </label>
                 </div>
             </div>

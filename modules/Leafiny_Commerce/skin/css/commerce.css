@@ -380,6 +380,12 @@
     cursor: pointer;
 }
 
+.checkout .shipping-methods .shipping-method .original-price {
+    text-decoration: line-through;
+    margin-right: 5px;
+    color: #333;
+}
+
 /* Payment */
 .checkout .payment .payment-method-content {
     border: 1px solid #ccc;

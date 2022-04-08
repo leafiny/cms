@@ -432,11 +432,11 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
     }
 
     /**
-     * Refresh gift if needed
+     * Add gift if needed
      *
      * @param int|null $saleId
      */
-    public function refreshFreeGift(?int $saleId = null): void
+    public function addFreeGift(?int $saleId = null): void
     {
         try {
             if ($saleId === null) {

@@ -11,9 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Commerce_Observer_Sale_RefreshGift
+ * Class Commerce_Observer_Cart_Rule_RefreshGift
  */
-class Commerce_Observer_Sale_RefreshGift extends Core_Observer implements Core_Interface_Observer
+class Commerce_Observer_Cart_Rule_RefreshGift extends Core_Observer implements Core_Interface_Observer
 {
     /**
      * Gift specific data
