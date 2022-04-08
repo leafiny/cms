@@ -738,20 +738,19 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
      */
     public function getCartRuleAllowedTypes(): array
     {
-        if (is_array($this->getCustom('cart_rule_allowed_types'))) {
-            return $this->getCustom('cart_rule_allowed_types');
-        }
-
-        return [
-            'discount' => [
-                Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL   => 'Subtotal Discount (%)',
-                Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING   => 'Shipping Discount (%)',
-                Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT => 'Discount per product (amount)',
+        return array_merge_recursive(
+            [
+                'discount' => [
+                    Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL   => 'Subtotal Discount (%)',
+                    Commerce_Model_Cart_Rule::TYPE_PERCENT_SHIPPING   => 'Shipping Discount (%)',
+                    Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT => 'Discount per product (amount)',
+                ],
+                'option' => [
+                    Commerce_Model_Cart_Rule::TYPE_FREE_GIFT => 'Free Gift',
+                ],
             ],
-            'option' => [
-                Commerce_Model_Cart_Rule::TYPE_FREE_GIFT => 'Free Gift',
-            ],
-        ];
+            $this->getCustom('cart_rule_allowed_types') ?? []
+        );
     }
 
     /**
@@ -761,14 +760,13 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
      */
     public function getCartRuleTypeCartDiscount(): array
     {
-        if (is_array($this->getCustom('cart_rule_type_cart_discount'))) {
-            return $this->getCustom('cart_rule_type_cart_discount');
-        }
-
-        return [
-            Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL,
-            Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT,
-        ];
+        return array_merge(
+            [
+                Commerce_Model_Cart_Rule::TYPE_PERCENT_SUBTOTAL,
+                Commerce_Model_Cart_Rule::TYPE_AMOUNT_PER_PRODUCT,
+            ],
+            $this->getCustom('cart_rule_type_cart_discount') ?? []
+        );
     }
 
     /**
@@ -778,18 +776,17 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
      */
     public function getConditionOperators(): array
     {
-        if (is_array($this->getCustom('condition_operators'))) {
-            return $this->getCustom('condition_operators');
-        }
-
-        return [
-            'eq' => '=',
-            'ne' => '!=',
-            'lt' => '<',
-            'le' => '<=',
-            'gt' => '>',
-            'ge' => '>=',
-        ];
+        return array_merge(
+            [
+                'eq' => '=',
+                'ne' => '!=',
+                'lt' => '<',
+                'le' => '<=',
+                'gt' => '>',
+                'ge' => '>=',
+            ],
+            $this->getCustom('condition_operators') ?? []
+        );
     }
 
     /**
@@ -799,21 +796,22 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
      */
     public function getConditionFields(): array
     {
-        if (is_array($this->getCustom('condition_fields'))) {
-            return $this->getCustom('condition_fields');
-        }
-
-        return [
-            'sale:incl_tax_subtotal' => 'Cart - Subtotal Incl. Tax',
-            'sale:excl_tax_subtotal' => 'Cart - Subtotal Excl. Tax',
-            'sale:shipping_method'   => 'Cart - Shipping Method',
-            'sale:total_weight'      => 'Cart - Total Weight',
-            'sale:language'          => 'Store - Language',
-            'item:product_sku'       => 'Product - SKU',
-            'product:category_ids'   => 'Product - Category ID',
-            'sale:incl_tax_subtotal_with_discount' => 'Cart - Subtotal Incl. Tax with discount (Only works with Shipping Discount rule)',
-            'sale:excl_tax_subtotal_with_discount' => 'Cart - Subtotal Excl. Tax with discount (Only works with Shipping Discount rule)',
-        ];
+        return array_merge(
+            [
+                'sale:incl_tax_subtotal' => 'Cart - Subtotal Incl. Tax',
+                'sale:excl_tax_subtotal' => 'Cart - Subtotal Excl. Tax',
+                'sale:shipping_method'   => 'Cart - Shipping Method',
+                'sale:total_weight'      => 'Cart - Total Weight',
+                'sale:language'          => 'Store - Language',
+                'item:product_sku'       => 'Product - SKU',
+                'product:category_ids'   => 'Product - Category ID',
+                'sale:incl_tax_subtotal_with_discount' =>
+                    'Cart - Subtotal Incl. Tax with discount (Only works with Shipping Discount rule)',
+                'sale:excl_tax_subtotal_with_discount' =>
+                    'Cart - Subtotal Excl. Tax with discount (Only works with Shipping Discount rule)',
+            ],
+            $this->getCustom('condition_fields') ?? []
+        );
     }
 
     /**
@@ -872,7 +870,18 @@ class Commerce_Helper_Cart_Rule extends Core_Helper
                     return $value1 >= $value2;
             }
 
-            return false;
+            $data = new Leafiny_Object(
+                [
+                    'value1'   => $value1,
+                    'value2'   => $value2,
+                    'operator' => $operator,
+                    'result'   => false,
+                ]
+            );
+
+            App::dispatchEvent('cart_rule_compare', ['compare' => $data]);
+
+            return (bool)$data->getData('result');
         };
 
         if(is_array($value1)) {
