@@ -7,15 +7,14 @@ function commerceCart() {
     updateItem();
 
     function updateItem() {
-        let items = document.getElementsByClassName('update_item');
-
+        var items = document.getElementsByClassName('update_item');
         if (!items) {
             return false;
         }
 
-        for (let i = 0; i < items.length; i++) {
+        for (var i = 0; i < items.length; i++) {
             items[i].addEventListener('change', function () {
-                this.closest('form').submit();
+                this.form.submit();
             });
         }
 
@@ -30,8 +29,8 @@ function commerceAddresses() {
     sameAsShipping();
 
     function sameAsShipping() {
-        let sameAsShipping = document.getElementById('same_as_shipping');
-        let billingForm = document.getElementById('billing_form');
+        var sameAsShipping = document.getElementById('same_as_shipping');
+        var billingForm = document.getElementById('billing_form');
 
         if (!sameAsShipping || !billingForm) {
             return false;
@@ -56,13 +55,13 @@ function commerceAddresses() {
     }
 
     function toggleRequired(isRequired) {
-        let inputs = document.getElementsByClassName('field-required');
+        var inputs = document.getElementsByClassName('field-required');
 
         if (!inputs.length) {
             return false;
         }
 
-        for (let i = 0; i < inputs.length; i++) {
+        for (var i = 0; i < inputs.length; i++) {
             inputs[i].required = isRequired;
         }
     }
@@ -82,13 +81,13 @@ function commercePayment() {
     paymentInfo();
 
     function paymentInfo() {
-        let inputs = document.getElementsByClassName('payment-method-input');
+        var inputs = document.getElementsByClassName('payment-method-input');
 
         if (!inputs.length) {
             return false;
         }
 
-        for (let i = 0; i < inputs.length; i++) {
+        for (var i = 0; i < inputs.length; i++) {
             inputs[i].addEventListener('click', function () {
                 toggleInfo(this);
             });
@@ -101,16 +100,16 @@ function commercePayment() {
     }
 
     function toggleInfo(element) {
-        let infos  = document.getElementsByClassName('payment-method-info');
+        var infos  = document.getElementsByClassName('payment-method-info');
         if (!infos.length) {
             return false;
         }
 
-        for (let i = 0; i < infos.length; i++) {
+        for (var i = 0; i < infos.length; i++) {
             infos[i].style.display = 'none';
         }
 
-        let info = document.getElementById('method_info_' + element.id);
+        var info = document.getElementById('method_info_' + element.id);
         if (info) {
             info.style.display = 'block';
         }
@@ -127,8 +126,8 @@ function commerceReview() {
     agreements();
 
     function coupon() {
-        let link = document.getElementById('coupon_link');
-        let form = document.getElementById('coupon_form');
+        var link = document.getElementById('coupon_link');
+        var form = document.getElementById('coupon_form');
 
         if (!link || !form) {
             return false;
@@ -147,8 +146,8 @@ function commerceReview() {
     }
 
     function agreements() {
-        let form = document.getElementById('review_form');
-        let agreements = document.getElementById('agreements');
+        var form = document.getElementById('review_form');
+        var agreements = document.getElementById('agreements');
 
         if (!form || !agreements) {
             return false
@@ -169,9 +168,9 @@ function commerceReview() {
     }
 }
 
-function commerceProceedStep(step = '', functionPrefix = 'commerce') {
-    if (!step) {
-        let progress = document.getElementById('checkout-progress');
+function commerceProceedStep(step, functionPrefix) {
+    if (typeof step === 'undefined') {
+        var progress = document.getElementById('checkout-progress');
         if (progress) {
             step = progress.getAttribute('data-step');
         }
@@ -184,6 +183,8 @@ function commerceProceedStep(step = '', functionPrefix = 'commerce') {
     }
 
     function functionName(step) {
-        return functionPrefix + step.charAt(0).toUpperCase() + step.toLowerCase().slice(1);
+        var prefix = (typeof functionPrefix !== 'undefined') ? functionPrefix : 'commerce';
+
+        return prefix + step.charAt(0).toUpperCase() + step.toLowerCase().slice(1);
     }
 }

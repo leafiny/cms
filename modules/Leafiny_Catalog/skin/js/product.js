@@ -6,7 +6,7 @@ productGallery();
  * @returns {boolean}
  */
 function productGallery() {
-    let gallery = document.getElementById('product-gallery');
+    var gallery = document.getElementById('product-gallery');
     if (!gallery) {
         return false;
     }
