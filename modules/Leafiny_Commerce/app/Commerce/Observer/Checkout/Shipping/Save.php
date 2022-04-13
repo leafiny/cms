@@ -33,6 +33,10 @@ class Commerce_Observer_Checkout_Shipping_Save extends Commerce_Observer_Checkou
             return;
         }
 
+        if (!$this->getCurrentSale()->getData('sale_id')) {
+            return;
+        }
+
         if (!$post->getData('shipping_method')) {
             $this->error('The shipping method is required');
             return;

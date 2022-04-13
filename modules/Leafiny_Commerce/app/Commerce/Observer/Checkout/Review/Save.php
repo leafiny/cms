@@ -33,6 +33,10 @@ class Commerce_Observer_Checkout_Review_Save extends Commerce_Observer_Checkout_
             return;
         }
 
+        if (!$this->getCurrentSale()->getData('sale_id')) {
+            return;
+        }
+
         if (!$post->getData('agreements')) {
             $this->error('Please accept the general conditions of sale');
             return;

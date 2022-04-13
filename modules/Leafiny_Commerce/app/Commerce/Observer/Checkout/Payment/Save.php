@@ -33,6 +33,10 @@ class Commerce_Observer_Checkout_Payment_Save extends Commerce_Observer_Checkout
             return;
         }
 
+        if (!$this->getCurrentSale()->getData('sale_id')) {
+            return;
+        }
+
         if (!$post->getData('payment_method')) {
             $this->error('The payment method is required');
             return;

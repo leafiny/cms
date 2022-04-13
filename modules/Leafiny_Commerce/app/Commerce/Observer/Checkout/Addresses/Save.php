@@ -33,6 +33,10 @@ class Commerce_Observer_Checkout_Addresses_Save extends Commerce_Observer_Checko
             return;
         }
 
+        if (!$this->getCurrentSale()->getData('sale_id')) {
+            return;
+        }
+
         $this->getCheckout()->setTmpSessionData('checkout_addresses_post', $post);
 
         if (!$post->getData('email')) {
@@ -75,16 +79,32 @@ class Commerce_Observer_Checkout_Addresses_Save extends Commerce_Observer_Checko
         }
 
         try {
-            $sale = $cartHelper->getCurrentSale();
+            $sale = $this->getCurrentSale();
 
             /** @var Commerce_Model_Sale_Address $addressModel */
             $addressModel = App::getSingleton('model', 'sale_address');
 
             $shipping = $cartHelper->getAddress('shipping', $sale);
+            if (!$shipping) {
+                $shipping = new Leafiny_Object(
+                    [
+                        'sale_id' => $sale->getData('sale_id'),
+                        'type'    => 'shipping',
+                    ]
+                );
+            }
             $shipping->addData($shippingAddress->getData());
             $addressModel->save($shipping);
 
             $billing = $cartHelper->getAddress('billing', $sale);
+            if (!$billing) {
+                $billing = new Leafiny_Object(
+                    [
+                        'sale_id' => $sale->getData('sale_id'),
+                        'type'    => 'billing',
+                    ]
+                );
+            }
             $billing->addData($billingAddress->getData());
             $addressModel->save($billing);
 
