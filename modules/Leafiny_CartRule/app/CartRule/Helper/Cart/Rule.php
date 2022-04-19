@@ -70,7 +70,7 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
 
             $saleId = (int)$sale->getData('sale_id');
 
-            $items = $this->getItems($saleId);
+            $items = $sale->getData('items') ?: $this->getItems($saleId);
 
             foreach ($rules as $rule) {
                 App::dispatchEvent('cart_rule_candidate', ['rule' => $rule, 'sale_id' => $saleId, 'items' => $items]);
@@ -527,7 +527,9 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
 
             /** @var Commerce_Model_Sale_Item $itemModel */
             $itemModel = App::getObject('model', 'sale_item');
-            $items = $itemModel->getItems($saleId);
+
+            $items = $this->getItems($saleId);
+            $sale->setData('items', $items);
 
             foreach ($items as $item) {
                 $data = [
@@ -885,6 +887,9 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
         };
 
         if(is_array($value1)) {
+            if ($operator === 'ne') {
+                return !in_array($value2, $value1);
+            }
             return !empty(array_filter($value1, function($value) use($value2, $operator, $compare) {
                 return $compare($value, $value2, $operator);
             }));
