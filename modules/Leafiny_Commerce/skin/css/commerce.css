@@ -412,30 +412,6 @@
     margin: 10px 0;
 }
 
-/* Coupon */
-.checkout .review .coupon {
-    padding-top: 10px;
-}
-
-.checkout .review .coupon .line {
-    margin-top: 10px;
-}
-
-.checkout .review .coupon label {
-    display: none;
-}
-
-.checkout .review .coupon input {
-    width: 150px;
-    margin: 0 10px 0 0;
-    display: inline-block;
-}
-
-.checkout .review .coupon button {
-    display: inline-block;
-    line-height: 22px;
-}
-
 /* Totals */
 .checkout .review .data-tab {
     border: 1px solid #ddd;

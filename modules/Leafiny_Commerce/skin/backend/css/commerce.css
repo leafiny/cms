@@ -182,27 +182,6 @@
     margin-top: 20px;
 }
 
-.cart-rule-conditions .pure-button {
-    margin: 6px 0 0 0;
-}
-
-.cart-rule-coupon {
-    border-bottom: 1px solid #ddd;
-    line-height: 40px;
-}
-
-.cart-rule-coupon:last-child {
-    border: 0;
-}
-
-.cart-rule-coupon .checkbox {
-    cursor: pointer;
-}
-
-.cart-rule-coupon .checkbox input {
-    margin-right: 5px;
-}
-
 @media (max-width: 778px) {
     .order-view .history .date {
         display: block;

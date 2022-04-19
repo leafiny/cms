@@ -38,12 +38,6 @@ $config = [
         'shipping_price' => [
             'class' => Commerce_Model_Shipping_Price::class
         ],
-        'cart_rule' => [
-            'class' => Commerce_Model_Cart_Rule::class
-        ],
-        'cart_rule_coupon' => [
-            'class' => Commerce_Model_Cart_Rule_Coupon::class
-        ],
     ],
 
     'helper' => [
@@ -87,9 +81,6 @@ $config = [
             'class' => Commerce_Helper_Cart::class,
             'currency' => 'USD',
             'agreements_url' => 'agreements.html',
-        ],
-        'cart_rule' => [
-            'class' => Commerce_Helper_Cart_Rule::class,
         ],
         'shipping' => [
             'class' => Commerce_Helper_Shipping::class,
@@ -161,10 +152,6 @@ $config = [
         ],
         '/checkout/items/update/' => [
             'class'    => Commerce_Page_Checkout_Items_Update::class,
-            'template' => null,
-        ],
-        '/checkout/coupon/update/' => [
-            'class'    => Commerce_Page_Checkout_Coupon_Update::class,
             'template' => null,
         ],
 
@@ -282,7 +269,7 @@ $config = [
             'model_identifier' => 'tax_rule',
             'template'         => null,
         ],
-        /* /Admin Rules */
+        /* Admin Tax Rules */
 
         /* Admin Shipping */
         '/admin/*/shipping/list/' => [
@@ -360,7 +347,7 @@ $config = [
             'model_identifier' => 'sale_status',
             'template'         => null,
         ],
-        /* /Admin Shipping */
+        /* /Admin Status */
 
         /* Admin Orders */
         '/admin/*/orders/list/' => [
@@ -418,48 +405,7 @@ $config = [
             'template'     => null,
             'allow_params' => 1,
         ],
-
-        /* Cart Rules */
-        '/admin/*/cart-rules/list/' => [
-            'title'            => 'Cart Rules',
-            'template'         => 'Leafiny_Backend::page.twig',
-            'class'            => Commerce_Page_Backend_Rules_Cart_List::class,
-            'content'          => 'Leafiny_Commerce::page/backend/rules/cart/list.twig',
-            'model_identifier' => 'cart_rule',
-            'meta_title'       => 'Cart Rules',
-            'meta_description' => '',
-        ],
-        '/admin/*/cart-rules/list/action/' => [
-            'class'            => Backend_Page_Admin_List_Action::class,
-            'model_identifier' => 'cart_rule',
-            'template'         => null,
-            'allow_params'     => 1,
-        ],
-        '/admin/*/cart-rules/new/' => [
-            'title'              => 'New',
-            'class'              => Commerce_Page_Backend_Rules_Cart_Form_New::class,
-            'template'           => null,
-        ],
-        '/admin/*/cart-rules/edit/' => [
-            'title'                 => 'Edit',
-            'template'              => 'Leafiny_Backend::page.twig',
-            'class'                 => Commerce_Page_Backend_Rules_Cart_Form::class,
-            'content'               => 'Leafiny_Commerce::page/backend/rules/cart/form.twig',
-            'referer_identifier'    => '/admin/*/cart-rules/list/',
-            'model_identifier'      => 'cart_rule',
-            'meta_title'            => 'Edit',
-            'meta_description'      => '',
-            'allow_params'          => 1,
-            'javascript'            => [
-                'Leafiny_Commerce::backend/js/rules/cart/form.js' => 100
-            ]
-        ],
-        '/admin/*/cart-rules/edit/save/' => [
-            'class'            => Backend_Page_Admin_Form_Save::class,
-            'model_identifier' => 'cart_rule',
-            'template'         => null,
-        ],
-        /* /Admin Shipping */
+        /* /Admin Orders */
     ],
 
     'block' => [
@@ -530,10 +476,6 @@ $config = [
             'template' => 'Leafiny_Commerce::block/checkout/review.twig',
             'class'    => Commerce_Block_Checkout_Review::class
         ],
-        'commerce.checkout.review.coupon' => [
-            'template' => 'Leafiny_Commerce::block/checkout/review/coupon.twig',
-            'class'    => Commerce_Block_Checkout_Review_Coupon::class
-        ],
         'commerce.checkout.review.totals' => [
             'template' => 'Leafiny_Commerce::block/checkout/review/totals.twig',
             'class'    => Commerce_Block_Checkout_Review_Totals::class
@@ -550,11 +492,6 @@ $config = [
         'commerce.complete' => [
             'template' => 'Leafiny_Commerce::block/complete.twig',
             'class'    => Commerce_Block_Complete::class
-        ],
-
-        'admin.rules.cart.condition' => [
-            'template' => 'Leafiny_Commerce::block/backend/rules/cart/condition.twig',
-            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
         ],
 
         'admin.head' => [
@@ -576,18 +513,14 @@ $config = [
                             'path'  => '/admin/*/orders/list/'
                         ],
                         20 => [
-                            'title' => 'Cart Rules',
-                            'path'  => '/admin/*/cart-rules/list/'
-                        ],
-                        30 => [
                             'title' => 'Taxes',
                             'path'  => '/admin/*/taxes/list/'
                         ],
-                        40 => [
+                        30 => [
                             'title' => 'Shipping',
                             'path'  => '/admin/*/shipping/list/'
                         ],
-                        50 => [
+                        40 => [
                             'title' => 'Statuses',
                             'path'  => '/admin/*/status/list/'
                         ],
@@ -624,19 +557,6 @@ $config = [
         ],
         'commerce_order_place' => [
             'process_payment' => 100,
-        ],
-
-        'order_complete_after' => [
-            'cart_rule_increment_coupon' => 100,
-        ],
-        'collect_totals_before' => [
-            'cart_rules_apply' => 100,
-        ],
-        'sale_update_item' => [
-            'cart_rules_refresh_gift' => 100,
-        ],
-        'sale_shipping_method' => [
-            'cart_rules_refresh_shipping' => 100,
         ],
 
         'checkout_action_step_addresses' => [
@@ -694,19 +614,6 @@ $config = [
         ],
         'process_payment' => [
             'class' => Commerce_Observer_Sale_Payment::class
-        ],
-
-        'cart_rule_increment_coupon' => [
-            'class' => Commerce_Observer_Cart_Rule_IncrementCoupon::class
-        ],
-        'cart_rules_apply' => [
-            'class' => Commerce_Observer_Cart_Rule_Apply::class
-        ],
-        'cart_rules_refresh_gift' => [
-            'class' => Commerce_Observer_Cart_Rule_RefreshGift::class
-        ],
-        'cart_rules_refresh_shipping' => [
-            'class' => Commerce_Observer_Cart_Rule_RefreshShipping::class
         ],
 
         'checkout_addresses_view' => [

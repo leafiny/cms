@@ -1,3 +1,13 @@
+window.commerceSteps = {
+    "cart": ['commerceCart'],
+    "addresses": ['commerceAddresses'],
+    "shipping": [],
+    "payment": ['commercePayment'],
+    "review": ['commerceReview']
+}
+
+window.dispatchEvent(new Event('commerceSteps'));
+
 commerceProceedStep();
 
 /**
@@ -68,13 +78,6 @@ function commerceAddresses() {
 }
 
 /**
- * Step shipping
- */
-function commerceShipping() {
-
-}
-
-/**
  * Step Payment
  */
 function commercePayment() {
@@ -122,28 +125,7 @@ function commercePayment() {
  * Step Review
  */
 function commerceReview() {
-    coupon();
     agreements();
-
-    function coupon() {
-        var link = document.getElementById('coupon_link');
-        var form = document.getElementById('coupon_form');
-
-        if (!link || !form) {
-            return false;
-        }
-
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            if (form.style.display === 'block') {
-                form.style.display = 'none';
-            } else {
-                form.style.display = 'block';
-            }
-        });
-
-        return true;
-    }
 
     function agreements() {
         var form = document.getElementById('review_form');
@@ -168,7 +150,7 @@ function commerceReview() {
     }
 }
 
-function commerceProceedStep(step, functionPrefix) {
+function commerceProceedStep(step) {
     if (typeof step === 'undefined') {
         var progress = document.getElementById('checkout-progress');
         if (progress) {
@@ -176,15 +158,16 @@ function commerceProceedStep(step, functionPrefix) {
         }
     }
 
-    try {
-        window[functionName(step)]();
-    } catch (error) {
-        console.warn('Invalid function: ' + functionName(step));
-    }
-
-    function functionName(step) {
-        var prefix = (typeof functionPrefix !== 'undefined') ? functionPrefix : 'commerce';
-
-        return prefix + step.charAt(0).toUpperCase() + step.toLowerCase().slice(1);
+    if (step) {
+        var functions = window.commerceSteps[step];
+        if (typeof functions !== 'undefined') {
+            for (var i = 0; i < functions.length; i++) {
+                try {
+                    window[functions[i]]();
+                } catch (error) {
+                    console.warn('Invalid function: ' + step + '::' + functions[i]);
+                }
+            }
+        }
     }
 }
