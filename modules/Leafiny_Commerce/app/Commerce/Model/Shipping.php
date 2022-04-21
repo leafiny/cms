@@ -38,7 +38,7 @@ class Commerce_Model_Shipping extends Core_Model
      */
     public function save(Leafiny_Object $object): ?int
     {
-        $method = preg_replace('/[^a-z]/', '_', strtolower($object->getData('method')));
+        $method = preg_replace('/[^a-z]/', '_', strtolower((string)$object->getData('method')));
         $object->setData('method', $method);
 
         $countries = $object->getData('countries') ?: '*';

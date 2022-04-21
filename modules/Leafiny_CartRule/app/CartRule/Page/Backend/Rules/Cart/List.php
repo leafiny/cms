@@ -39,6 +39,11 @@ class CartRule_Page_Backend_Rules_Cart_List extends Backend_Page_Admin_List
         /** @var CartRule_Helper_Cart_Rule $helper */
         $helper = App::getSingleton('helper', 'cart_rule');
 
-        return call_user_func_array('array_merge', $helper->getCartRuleAllowedTypes());
+        $allowedTypes = [];
+        foreach ($helper->getCartRuleAllowedTypes() as $types) {
+            $allowedTypes = array_merge($allowedTypes, $types);
+        }
+
+        return $allowedTypes;
     }
 }

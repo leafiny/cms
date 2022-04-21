@@ -606,7 +606,7 @@ class Commerce_Helper_Cart extends Core_Helper
      */
     public function formatCurrency($value, ?string $currency = null): string
     {
-        $value = (float)str_replace(',', '.', $value);
+        $value = (float)str_replace(',', '.', (string)$value);
 
         $formatter = new NumberFormatter(App::getLanguage(), NumberFormatter::CURRENCY);
 

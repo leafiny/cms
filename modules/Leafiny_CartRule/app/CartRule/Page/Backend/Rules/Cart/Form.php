@@ -25,13 +25,18 @@ class CartRule_Page_Backend_Rules_Cart_Form extends Backend_Page_Admin_Form
         /** @var CartRule_Helper_Cart_Rule $helper */
         $helper = App::getSingleton('helper', 'cart_rule');
 
-        $types = $helper->getCartRuleAllowedTypes();
+        $allowedTypes = $helper->getCartRuleAllowedTypes();
 
-        if ($type && isset($types[$type])) {
-            return $types[$type];
+        if ($type && isset($allowedTypes[$type])) {
+            return $allowedTypes[$type];
         }
 
-        return call_user_func_array('array_merge', $types);
+        $allTypes = [];
+        foreach ($allowedTypes as $types) {
+            $allTypes = array_merge($allTypes, $types);
+        }
+
+        return $allTypes;
     }
 
     /**

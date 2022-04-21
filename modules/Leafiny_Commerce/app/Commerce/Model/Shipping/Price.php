@@ -88,7 +88,7 @@ class Commerce_Model_Shipping_Price extends Core_Model
             }
 
             foreach ($price as $key => $value) {
-                $price[$key] = str_replace(',', '.', $value);
+                $price[$key] = str_replace(',', '.', (string)$value);
             }
 
             $adapter->insert(
