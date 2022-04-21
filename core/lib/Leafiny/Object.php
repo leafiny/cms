@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * Class Leafiny_Object
  */
-class Leafiny_Object implements ArrayAccess
+class Leafiny_Object
 {
     /**
      * Object data
@@ -194,50 +194,5 @@ class Leafiny_Object implements ArrayAccess
             }
         }
         return $arrRes;
-    }
-
-    /**
-     * offset Set
-     *
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->data[$offset] = $value;
-    }
-
-    /**
-     * Offset Exists
-     *
-     * @param mixed $offset
-     *
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->data[$offset]);
-    }
-
-    /**
-     * Offset Unset
-     *
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->data[$offset]);
-    }
-
-    /**
-     * Offset Get
-     *
-     * @param mixed $offset
-     *
-     * @return mixed|null
-     */
-    public function offsetGet($offset)
-    {
-        return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
 }
