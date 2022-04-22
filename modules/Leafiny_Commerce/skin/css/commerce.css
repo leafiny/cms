@@ -514,6 +514,13 @@
 }
 
 @media (max-width: 778px) {
+    .products .product-add-to-cart button.add-to-cart {
+        background-image: none;
+        line-height: 20px;
+        padding: .5em .8em;
+        font-size: 0.9em;
+    }
+
     .minicart {
         z-index: 100;
         position: absolute;

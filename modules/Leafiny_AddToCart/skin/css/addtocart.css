@@ -121,3 +121,9 @@
         padding: 0;
     }
 }
+
+@media (max-width: 778px) {
+    .products .product-add-to-cart button.add-to-cart.load {
+        background-image: none;
+    }
+}
