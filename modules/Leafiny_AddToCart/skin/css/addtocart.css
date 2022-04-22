@@ -1,0 +1,123 @@
+.product-add-to-cart button.add-to-cart.load {
+    background-image: url(../images/loader.svg);
+}
+
+/* Popup */
+.cart-popup-container {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: 10000
+}
+
+.cart-popup-content {
+    width: 550px;
+    height: 380px;
+    margin-left: -275px;
+    margin-top: -190px;
+    position: fixed;
+    z-index: 20000;
+    top: 50%;
+    left: 50%;
+    border: 1px solid #4A545C;
+    text-align: left;
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.1s linear;
+    box-shadow: 0 0 9px 5px rgba(0,0,0,0.3);
+}
+
+.cart-popup-content.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Content */
+.cart-popup {
+    text-align: center;
+}
+
+.cart-popup .product {
+    padding: 30px 20px;
+}
+
+.cart-popup .product img {
+    max-width: 200px;
+}
+
+.cart-popup .product .warning {
+    color: #950f1d;
+}
+
+.cart-popup .product p {
+    margin: 1em 0;
+}
+
+.cart-popup .actions {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
+.cart-popup .actions a {
+    font-size: 1em;
+}
+
+.cart-popup .actions .action {
+    margin-bottom: 10px;
+}
+
+.cart-popup .actions .left .action {
+    padding-left: 20px;
+}
+
+.cart-popup .actions .right .action {
+    padding-right: 20px;
+}
+
+@media (max-width: 778px) {
+    .cart-popup-content {
+        height: 470px;
+        margin-top: -235px;
+        width: auto;
+        left: 10px;
+        right: 10px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .cart-popup .product p {
+        height: 64px;
+    }
+
+    .cart-popup .actions {
+        position: relative;
+    }
+
+    .cart-popup .actions a {
+        display: block;
+        margin: 0 20px;
+    }
+
+    .cart-popup .actions .left {
+        text-align: center;
+    }
+
+    .cart-popup .actions .right {
+        text-align: center;
+    }
+
+    .cart-popup .actions .left .action {
+        padding: 0;
+    }
+
+    .cart-popup .actions .right .action {
+        padding: 0;
+    }
+}

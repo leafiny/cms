@@ -55,7 +55,7 @@ class Commerce_Page_Product_Add extends Core_Page
 
                 if ($item->getData('qty') > $item->getData('original_qty')) {
                     $this->setSuccessMessage(
-                        $this->translate('Your product has been added to the cart')
+                        $this->translate('The product has been added to the cart')
                     );
                 }
                 App::dispatchEvent(

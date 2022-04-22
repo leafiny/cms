@@ -34,7 +34,10 @@ class Commerce_Block_MiniCart extends Core_Block
      */
     public function getCheckoutUrl(): string
     {
-        return $this->getUrl('checkout.html');
+        /** @var Commerce_Helper_Checkout $helperCheckout */
+        $helperCheckout = $this->getHelper('checkout');
+
+        return $helperCheckout->getStepUrl();
     }
 
     /**

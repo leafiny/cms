@@ -4,6 +4,7 @@
     "ext-pdo_mysql": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "ext-intl": "*"
+    "ext-intl": "*",
+    "ext-mysqli": "*"
   }
 }
