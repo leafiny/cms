@@ -1,19 +1,19 @@
 <form method="post" class="pure-form pure-form-stacked" action="{{ page.getUrl('/contact/post/') }}">
     <fieldset>
         <div class="pure-g">
-            <div class="pure-u-1">
+            <div class="pure-u-1 required">
                 <label for="name">{{ 'Name'|translate }} <span>*</span> :</label>
                 <input id="name" type="text" class="pure-u-1" name="name" value="{{ page.getForm.getName }}" required />
             </div>
-            <div class="pure-u-1">
+            <div class="pure-u-1 required">
                 <label for="email">{{ 'E-mail'|translate }} <span>*</span> :</label>
                 <input id="email" type="email" class="pure-u-1" name="email" value="{{ page.getForm.getEmail }}" required />
             </div>
-            <div class="pure-u-1">
+            <div class="pure-u-1 required">
                 <label for="message">{{ 'Message'|translate }} <span>*</span> :</label>
                 <textarea id="message" class="pure-u-1" name="message" required>{{ page.getForm.getMessage }}</textarea>
             </div>
-            <div class="pure-u-1">
+            <div class="pure-u-1 required">
                 <label for="form_code">{{ 'Please enter the letters you see'|translate }} <span>*</span> :</label>
                 <div class="pure-u-8-24 pure-u-md-4-24">
                     <div class="form-code">
@@ -24,7 +24,7 @@
                     <input id="form_code" type="text" class="pure-u-1" name="form_code" value="" required />
                 </div>
             </div>
-            <div class="pure-u-1">
+            <div class="pure-u-1 required">
                 <p>
                     <span>* {{ 'Required fields'|translate }}</span>
                 </p>

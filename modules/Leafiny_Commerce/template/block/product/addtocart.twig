@@ -5,7 +5,7 @@
             <label for="qty">{{ 'Quantity'|translate }}</label>
             <input type="text" id="qty" name="qty" value="1" />
         </div>
-        <button type="submit" class="pure-button black add-to-cart">{{ block.getButtonLabel }}</button>
+        <button type="submit" class="pure-button black add-to-cart"><span>{{ block.getButtonLabel }}</span></button>
     </form>
 {% else %}
     <div class="product-add-to-cart">

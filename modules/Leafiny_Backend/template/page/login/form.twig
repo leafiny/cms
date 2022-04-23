@@ -3,15 +3,15 @@
     {{ child('admin.message') }}
     <fieldset>
         <div class="pure-g">
-            <div class="pure-u-1 field">
+            <div class="pure-u-1 field required">
                 <label for="username">{{ 'Username'|translate }} <span>*</span> :</label>
                 <input id="username" type="text" class="pure-u-1" name="username" value="" required />
             </div>
-            <div class="pure-u-1 field">
+            <div class="pure-u-1 field required">
                 <label for="password">{{ 'Password'|translate }} <span>*</span> :</label>
                 <input id="password" type="password" class="pure-u-1" name="password" value="" required />
             </div>
-            <div class="pure-u-1">
+            <div class="pure-u-1 required">
                 <p>
                     <span>* {{ 'Required fields'|translate }}</span>
                 </p>

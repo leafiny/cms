@@ -13,32 +13,32 @@
     </div>
     <div class="pure-g" id="billing_form"{% if billingAddress.getSameAsShipping %} style="display:none"{% endif %}>
         <div class="pure-u-1 line">
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 required">
                 <label for="billing-firstname">{{ 'Firstname'|translate }} <span>*</span> :</label>
                 <input id="billing-firstname" type="text" class="pure-u-1 input-left field-required" name="billing[firstname]" value="{{ billingAddress.getFirstname }}" />
             </div>
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 required">
                 <label for="billing-lastname">{{ 'Lastname'|translate }} <span>*</span> :</label>
                 <input id="billing-lastname" type="text" class="pure-u-1 field-required" name="billing[lastname]" value="{{ billingAddress.getLastname }}" />
             </div>
         </div>
-        <div class="pure-u-1 line">
+        <div class="pure-u-1 line required">
             <label for="billing-street_1">{{ 'Address'|translate }} <span>*</span> :</label>
             <input id="billing-street_1" type="text" class="pure-u-1 field-required" name="billing[street_1]" value="{{ billingAddress.getData('street_1') }}" />
             <input id="billing-street_2" type="text" class="pure-u-1" name="billing[street_2]" value="{{ billingAddress.getData('street_2') }}" />
         </div>
         <div class="pure-u-1 line">
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 required">
                 <label for="billing-postcode">{{ 'Postcode'|translate }} <span>*</span> :</label>
                 <input id="billing-postcode" type="text" class="pure-u-1 input-left field-required" name="billing[postcode]" value="{{ billingAddress.getPostcode }}" />
             </div>
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 required">
                 <label for="billing-city">{{ 'City'|translate }} <span>*</span> :</label>
                 <input id="billing-city" type="text" class="pure-u-1 field-required" name="billing[city]" value="{{ billingAddress.getCity }}" />
             </div>
         </div>
         <div class="pure-u-1 line">
-            <div class="pure-u-1-2">
+            <div class="pure-u-1-2 required">
                 <label for="billing-country_code">{{ 'Country'|translate }} <span>*</span> :</label>
                 <select id="billing-country_code" name="billing[country_code]" class="pure-u-1 input-left field-required">
                     {% for code,name in block.getCountries %}

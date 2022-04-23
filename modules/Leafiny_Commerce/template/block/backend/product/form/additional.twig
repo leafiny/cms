@@ -15,7 +15,7 @@
             <label for="special_price">{{ 'Special price'|translate }} :</label>
             <input id="special_price" type="text" class="pure-u-1 pure-u-xl-4-5" name="special_price" value="{{ form.getSpecialPrice }}" />
         </div>
-        <div class="pure-u-1 field">
+        <div class="pure-u-1 field required">
             <label for="price_type">{{ 'Price type'|translate }} <span>*</span> :</label>
             <select class="pure-u-1 pure-u-xl-4-5" id="price_type" name="price_type" required>
                 {% for value,label in block.getPriceTypes %}

@@ -17,18 +17,18 @@
         <fieldset>
             <legend>{{ 'General'|translate }}</legend>
             <div class="pure-g">
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="path_key">{{ 'Key'|translate }} <span>*</span> :</label>
                     <input id="path_key" type="text" class="pure-u-1 pure-u-xl-4-5" name="path_key" value="{{ form.getPathKey }}" required />
                 </div>
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="status">{{ 'Status'|translate }} <span>*</span> :</label>
                     <select id="status" class="pure-u-1 pure-u-xl-4-5" name="status" required>
                         <option value="0"{% if form.getStatus == '0' %} selected="selected"{% endif %}>{{ 'Disabled'|translate }}</option>
                         <option value="1"{% if form.getStatus == '1' %} selected="selected"{% endif %}>{{ 'Enabled'|translate }}</option>
                     </select>
                 </div>
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="language">{{ 'Language'|translate }} <span>*</span> :</label>
                     <select id="language" class="pure-u-1 pure-u-xl-4-5" name="language" required>
                         {% for code,lang in page.getActiveLanguages %}
@@ -67,7 +67,7 @@
             {{ child(child) }}
         {% endfor %}
 
-        <div class="pure-u-1">
+        <div class="pure-u-1 required">
             <p>
                 <span>* {{ 'Required fields'|translate }}</span>
             </p>

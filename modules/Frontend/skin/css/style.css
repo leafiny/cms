@@ -297,6 +297,10 @@ button, input, optgroup, select, textarea {
     line-height: 1.3em;
 }
 
+.required span {
+    color: #900;
+}
+
 .pure-form select {
     height: 2.5em;
 }
@@ -304,9 +308,6 @@ button, input, optgroup, select, textarea {
 .pure-form textarea {
     height: 200px;
     max-width: 100%;
-}
-.pure-form span {
-    color: #900;
 }
 .pure-form p {
     margin-top: 1em;

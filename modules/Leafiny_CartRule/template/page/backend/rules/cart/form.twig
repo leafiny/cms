@@ -8,7 +8,7 @@
         <fieldset>
             <legend>{{ 'General'|translate }}</legend>
             <div class="pure-g">
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="title">{{ 'Title'|translate }} <span>*</span> :</label>
                     <input id="title" type="text" class="pure-u-1 pure-u-xl-4-5" name="title" value="{{ form.getTitle }}" required />
                 </div>
@@ -21,7 +21,7 @@
         <fieldset>
             <legend>{{ 'Settings'|translate }}</legend>
             <div class="pure-g">
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="status">{{ 'Status'|translate }} <span>*</span> :</label>
                     <select id="status" class="pure-u-1 pure-u-xl-4-5" name="status" required>
                         <option value="0"{% if form.getStatus == '0' %} selected="selected"{% endif %}>{{ 'Disabled'|translate }}</option>
@@ -32,11 +32,11 @@
                     <label for="expire">{{ 'Expiration date'|translate }} :</label>
                     <input id="expire" type="datetime-local" class="pure-u-1 pure-u-xl-4-5" name="expire" value="{{ form.getExpire }}" />
                 </div>
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="priority">{{ 'Priority'|translate }} <span>*</span> :</label>
                     <input id="priority" type="text" class="pure-u-1 pure-u-xl-4-5" name="priority" value="{{ form.getPriority }}" required />
                 </div>
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="stop_rules_processing">{{ 'Stop Further Rules Processing'|translate }} <span>*</span> :</label>
                     <select id="stop_rules_processing" class="pure-u-1 pure-u-xl-4-5" name="stop_rules_processing" required>
                         <option value="0"{% if form.getStopRulesProcessing == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
@@ -65,7 +65,7 @@
         <fieldset>
             <legend>{{ 'Action'|translate }}</legend>
             <div class="pure-g">
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="type">{{ 'Type'|translate }} <span>*</span> :</label>
                     <select id="type" class="pure-u-1 pure-u-xl-4-5" name="type" required>
                         {% for code,label in page.getCartRuleTypes %}
@@ -73,11 +73,11 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="pure-u-1 field depends" data-parent="type" data-values="{{ page.getCartRuleTypes('discount')|keys|join(',') }}">
+                <div class="pure-u-1 field depends required" data-parent="type" data-values="{{ page.getCartRuleTypes('discount')|keys|join(',') }}">
                     <label for="discount">{{ 'Discount'|translate }} <span>*</span> :</label>
                     <input id="discount" type="text" class="pure-u-1 pure-u-xl-4-5" name="discount" value="{{ form.getDiscount }}" />
                 </div>
-                <div class="pure-u-1 field depends" data-parent="type" data-values="{{ page.getCartRuleTypes('option')|keys|join(',') }}">
+                <div class="pure-u-1 field depends required" data-parent="type" data-values="{{ page.getCartRuleTypes('option')|keys|join(',') }}">
                     <label for="option">{{ 'Option'|translate }} <span>*</span> :</label>
                     <input id="option" type="text" class="pure-u-1 pure-u-xl-4-5" name="option" value="{{ form.getOption }}" />
                 </div>
@@ -87,7 +87,7 @@
         <fieldset>
             <legend>{{ 'Coupons'|translate }}</legend>
             <div class="pure-g">
-                <div class="pure-u-1 field">
+                <div class="pure-u-1 field required">
                     <label for="has_coupon">{{ 'Coupon required'|translate }} <span>*</span> :</label>
                     <select id="has_coupon" class="pure-u-1 pure-u-xl-4-5" name="has_coupon" required>
                         <option value="0"{% if form.getHasCoupon == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
@@ -100,7 +100,7 @@
                 </div>
                 {% if form.getHasCoupon %}
                     {% set number = form.getCouponNumber ?: 1 %}
-                    <div class="pure-u-1 field">
+                    <div class="pure-u-1 field required">
                         <label for="coupon_number">{{ 'Coupon number'|translate }} <span>*</span> :</label>
                         <input id="coupon_number" type="text" class="pure-u-1 pure-u-xl-4-5" name="coupon_number" value="{{ number }}" required />
                     </div>
@@ -147,7 +147,7 @@
             {{ child(child) }}
         {% endfor %}
 
-        <div class="pure-u-1">
+        <div class="pure-u-1 required">
             <p>
                 <span>* {{ 'Required fields'|translate }}</span>
             </p>

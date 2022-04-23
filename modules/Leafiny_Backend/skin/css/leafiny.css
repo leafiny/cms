@@ -285,7 +285,7 @@ button, input, optgroup, select, textarea {
     color: #006554;
 }
 
-.container-form span {
+.container-form .required span {
     color: #721c24;
 }
 
