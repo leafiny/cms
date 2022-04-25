@@ -25,6 +25,17 @@ $config = [
     ],
 
     'block' => [
+        'head' => [
+            'stylesheet' => [
+                'Leafiny_Category::css/menu.css' => 400
+            ],
+        ],
+        'script' => [
+            'javascript' => [
+                'Leafiny_Category::js/menu.js' => 200
+            ],
+        ],
+
         'catalog.menu' => [
             'template' => 'Leafiny_Category::block/menu.twig',
             'class'    => Category_Block_Menu::class
