@@ -11,16 +11,16 @@
 declare(strict_types=1);
 
 /**
- * Class Catalog_Block_Category_Product
+ * Class Catalog_Block_Category_Products
  */
-class Catalog_Block_Category_Product extends Core_Block
+class Catalog_Block_Category_Products extends Core_Block
 {
     /**
      * Retrieve products
      *
      * @param int $categoryId
      *
-     * @return array
+     * @return Leafiny_Object[]
      * @throws Exception
      */
     public function getProducts(int $categoryId): array
@@ -29,27 +29,6 @@ class Catalog_Block_Category_Product extends Core_Block
         $helper = App::getSingleton('helper', 'catalog_product');
 
         return $helper->getCategoryProducts($categoryId, $this->getPageNumber());
-    }
-
-    /**
-     * Retrieve product main image
-     *
-     * @param int $productId
-     *
-     * @return Leafiny_Object|null
-     */
-    public function getMainImage(int $productId): ?Leafiny_Object
-    {
-        /** @var Gallery_Model_Image $image */
-        $image = App::getObject('model', 'gallery_image');
-
-        try {
-            return $image->getMainImage($productId, 'catalog_product');
-        } catch (Throwable $throwable) {
-            App::log($throwable, Core_Interface_Log::ERR);
-        }
-
-        return null;
     }
 
     /**

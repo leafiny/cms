@@ -16,20 +16,41 @@ $config = [
                 ],
             ]
         ],
+        'search_fulltext' => [
+            'entity' => [
+                'catalog_product' => [
+                    'enabled'  => 1,
+                    'columns'  => ['sku', 'name', 'description'],
+                    'language' => 'language',
+                    'block'    => 'search.products',
+                ]
+            ]
+        ]
     ],
 
     'block' => [
-        'category.product.list' => [
-            'template' => 'Leafiny_Catalog::block/product/list.twig',
-            'class'    => Catalog_Block_Category_Product::class
+        'category.products' => [
+            'template' => 'Leafiny_Catalog::block/category/products.twig',
+            'class'    => Catalog_Block_Category_Products::class
         ],
-        'category.product.list.multipage' => [
-            'template' => 'Leafiny_Catalog::block/product/list/multipage.twig',
-            'class'    => Catalog_Block_Category_Product_Multipage::class
+        'category.products.multipage' => [
+            'template' => 'Leafiny_Catalog::block/category/products/multipage.twig',
+            'class'    => Catalog_Block_Category_Products_Multipage::class
+        ],
+
+        'search.products' => [
+            'template' => 'Leafiny_Catalog::block/search/products.twig',
+            'class'    => Catalog_Block_Search_Products::class
+        ],
+
+        'catalog.product.default' => [
+            'template' => 'Leafiny_Catalog::block/product/default.twig',
+            'class'    => Catalog_Block_Product_Default::class,
         ],
         'catalog.product.price' => [
             'template' => 'Leafiny_Catalog::block/product/price.twig',
         ],
+
         'admin.catalog.product.form.categories' => [
             'disabled' => !class_exists('Category_Block_Backend_Form_Categories'),
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
@@ -72,7 +93,7 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                'category.product.list' => 100,
+                'category.products' => 100,
             ]
         ],
         '/product/*.html' => [

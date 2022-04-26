@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="checkout">
-                            <a href="{{ block.getCheckoutUrl }}" class="pure-button black">{{ 'Proceed to Checkout'|translate }}</a>
+                            <a href="{{ page.getUrl(block.getCheckoutPath) }}" class="pure-button black">{{ 'Proceed to Checkout'|translate }}</a>
                         </div>
 
                     {% endif %}

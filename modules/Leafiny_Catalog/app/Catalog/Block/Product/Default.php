@@ -11,28 +11,18 @@
 declare(strict_types=1);
 
 /**
- * Class AddToCart_Block_Popup
+ * Class Catalog_Block_Product_Default
  */
-class AddToCart_Block_Popup extends Core_Block
+class Catalog_Block_Product_Default extends Core_Block
 {
     /**
-     * Retrieve added product
+     * Retrieve product
      *
-     * @return Leafiny_Object|null
+     * @return Leafiny_Object
      */
-    public function getProduct(): ?Leafiny_Object
+    public function getProduct(): Leafiny_Object
     {
         return $this->getCustom('product');
-    }
-
-    /**
-     * Retrieve added item
-     *
-     * @return Leafiny_Object|null
-     */
-    public function getCartItem(): ?Leafiny_Object
-    {
-        return $this->getCustom('item');
     }
 
     /**
@@ -54,18 +44,5 @@ class AddToCart_Block_Popup extends Core_Block
         }
 
         return null;
-    }
-
-    /**
-     * Retrieve checkout URL
-     *
-     * @return string
-     */
-    public function getCheckoutPath(): string
-    {
-        /** @var Commerce_Helper_Checkout $helperCheckout */
-        $helperCheckout = $this->getHelper('checkout');
-
-        return $helperCheckout->getStepUrl();
     }
 }

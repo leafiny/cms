@@ -32,7 +32,7 @@ class Commerce_Block_MiniCart extends Core_Block
      *
      * @return string
      */
-    public function getCheckoutUrl(): string
+    public function getCheckoutPath(): string
     {
         /** @var Commerce_Helper_Checkout $helperCheckout */
         $helperCheckout = $this->getHelper('checkout');

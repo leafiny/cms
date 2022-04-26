@@ -418,13 +418,13 @@ $config = [
         'catalog.product.price' => [
             'template' => 'Leafiny_Commerce::block/product/price.twig',
         ],
+        'mini.cart' => [
+            'template' => 'Leafiny_Commerce::block/minicart.twig',
+        ],
+
         'commerce.add.to.cart' => [
             'template' => 'Leafiny_Commerce::block/product/addtocart.twig',
             'class'    => Commerce_Block_AddToCart::class
-        ],
-
-        'commerce.mini.cart' => [
-            'template' => 'Leafiny_Commerce::block/minicart.twig',
         ],
         'commerce.mini.cart.content' => [
             'template' => 'Leafiny_Commerce::block/minicart/content.twig',

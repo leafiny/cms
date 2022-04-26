@@ -1,0 +1,8 @@
+{% set products = block.getProducts() %}
+{% if products is not empty %}
+    <div class="products pure-g" id="catalog">
+        {% for product in products %}
+            {{ child('catalog.product.default', {'product':product}) }}
+        {% endfor %}
+    </div>
+{% endif %}

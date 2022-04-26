@@ -143,15 +143,44 @@ header img {
     vertical-align: top;
 }
 
-header .quote {
-    font-size: 0.9em;
-    text-align: right;
-    color: #848484;
-    margin-top: 5px;
+/* Search */
+header form {
+    margin: 0;
 }
 
-header .quote p {
-    margin: 5px 0 0 0;
+header .search-form {
+    line-height: 45px;
+}
+
+header .search-form input::placeholder {
+    color: #888;
+}
+
+header .pure-form .search-form input {
+    display: inline-block;
+    border-right: 0;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+    line-height: 21px;
+    margin: 0;
+}
+
+header .search-form button.pure-button {
+    display: inline-block;
+    padding: .5em .6em;
+    border: 1px solid #333;
+    border-left: 0;
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
+    line-height: 21px;
+    background-image: url(../images/search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+}
+
+header .search-form button.pure-button span {
+    visibility: hidden;
 }
 
 /* Banner */
@@ -338,18 +367,19 @@ button, input, optgroup, select, textarea {
 }
 
 /* Category */
-.catalog-category .category-image {
+.category-image {
     margin-bottom: 2em;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
     border: 1px solid #006554;
     padding: 3px;
 }
 
-.catalog-category .products {
+/* Products */
+.products {
     margin:0 -10px 0 -10px
 }
 
-.catalog-category .product-content {
+.products .product-content {
     text-align: center;
     border: 1px solid #ccc;
     border-top: 3px solid #006554;
@@ -357,7 +387,7 @@ button, input, optgroup, select, textarea {
     margin: 20px 10px;
 }
 
-.catalog-category .product-content a {
+.products .product-content a {
     text-decoration: none;
     color: #006554;
     font-weight: bold;
@@ -365,15 +395,15 @@ button, input, optgroup, select, textarea {
     min-height: 40px;
 }
 
-.catalog-category .product-info {
+.products .product-info {
     padding: 20px 10px;
 }
 
-.catalog-category .product-sku {
+.products .product-sku {
     margin: 1em 0;
 }
 
-.catalog-category .product-price {
+.products .product-price {
     font-size: 1.3em;
     font-weight: bold;
 }
@@ -571,6 +601,10 @@ button, input, optgroup, select, textarea {
         text-align: center;
     }
 
+    header .search-form {
+        margin-top: 20px;
+    }
+
     /* Banner */
     .banner-content {
         min-height: 120px;
@@ -597,7 +631,7 @@ button, input, optgroup, select, textarea {
 }
 
 @media (max-width: 778px) {
-    .catalog-category .product-content {
+    .product-content {
         margin: 20px 6px;
     }
 }

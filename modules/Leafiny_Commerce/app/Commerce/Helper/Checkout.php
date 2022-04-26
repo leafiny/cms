@@ -75,7 +75,7 @@ class Commerce_Helper_Checkout extends Core_Helper
      */
     public function getStepUrl(?string $stepCode = null): string
     {
-        $checkoutUrl = 'checkout.html';
+        $checkoutUrl = '/checkout.html';
 
         if (!$stepCode) {
             return $checkoutUrl;

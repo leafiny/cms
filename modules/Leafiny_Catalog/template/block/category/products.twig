@@ -1,0 +1,10 @@
+{% set category = page.getCustom('category') %}
+{% set products = block.getProducts(category.getCategoryId) %}
+{% if products is not empty %}
+    <div class="products pure-g" id="catalog">
+        {% for product in products %}
+            {{ child('catalog.product.default', {'product':product}) }}
+        {% endfor %}
+    </div>
+    {{ child('category.products.multipage', {'category_id':category.getCategoryId}) }}
+{% endif %}

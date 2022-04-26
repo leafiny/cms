@@ -67,7 +67,7 @@ class AddToCart_Page_Product_Ajax_Add extends Core_Page
         header('Content-Type: application/json');
         $data = [];
         try {
-            $data['minicart'] = $this->formatContent($this->renderBlock('commerce.mini.cart'));
+            $data['minicart'] = $this->formatContent($this->renderBlock('mini.cart'));
             $data['popup'] = $this->formatContent(
                 $this->renderBlock(
                     'ajax.cart.popup',

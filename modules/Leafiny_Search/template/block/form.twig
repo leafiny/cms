@@ -1,0 +1,8 @@
+<form method="get" class="pure-form" action="{{ page.getUrl('/search/') }}">
+    <div class="search-form">
+        <input type="text" class="pure-u-21-24" name="q" value="{{ block.getSearchQuery }}" placeholder="{{ 'What are you looking for?'|translate }}" />
+        <button type="submit" class="pure-button pure-u-3-24 black">
+            <span>{{ 'Search'|translate }}</span>
+        </button>
+    </div>
+</form>
