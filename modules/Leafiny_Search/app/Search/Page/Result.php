@@ -46,13 +46,15 @@ class Search_Page_Result extends Core_Page
                 continue;
             }
 
-            $results[] = new Leafiny_Object(
+            $results[$options['position'] ?? 0] = new Leafiny_Object(
                 [
                     'block'    => $options['block'] ?? '',
                     'response' => $search,
                 ]
             );
         }
+
+        ksort($results);
 
         return $results;
     }

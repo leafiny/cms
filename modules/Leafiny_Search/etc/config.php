@@ -3,7 +3,7 @@
 $config = [
     'model' => [
         'search_fulltext' => [
-            'class'  => Search_Model_Search_Fulltext::class,
+            'class' => Search_Model_Search_Fulltext::class,
         ],
         'admin_cache' => [
             'cache' => [

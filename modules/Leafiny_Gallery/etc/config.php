@@ -14,6 +14,7 @@ $config = [
                     'enabled'  => 0,
                     'columns'  => ['image', 'label', 'text'],
                     'block'    => 'search.images',
+                    'position' => 500,
                 ]
             ]
         ],

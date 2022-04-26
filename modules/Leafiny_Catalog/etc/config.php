@@ -23,6 +23,7 @@ $config = [
                     'columns'  => ['sku', 'name', 'description'],
                     'language' => 'language',
                     'block'    => 'search.products',
+                    'position' => 100,
                 ]
             ]
         ],

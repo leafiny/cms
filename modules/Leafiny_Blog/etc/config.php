@@ -23,6 +23,7 @@ $config = [
                     'columns'  => ['title', 'intro', 'author'],
                     'language' => 'language',
                     'block'    => 'search.posts',
+                    'position' => 200,
                 ]
             ]
         ],
