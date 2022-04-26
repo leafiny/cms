@@ -11,22 +11,22 @@
 declare(strict_types=1);
 
 /**
- * Class Cms_Block_Category_Page
+ * Class Cms_Block_Category_Blocks
  */
-class Cms_Block_Category_Page extends Core_Block
+class Cms_Block_Category_Blocks extends Core_Block
 {
     /**
-     * Retrieve pages
+     * Retrieve blocks
      *
      * @param int $categoryId
      *
      * @return array
      * @throws Exception
      */
-    public function getPages(int $categoryId): array
+    public function getBlocks(int $categoryId): array
     {
-        /** @var Cms_Model_Page $model */
-        $model = App::getObject('model', 'cms_page');
+        /** @var Cms_Model_Block $model */
+        $model = App::getObject('model', 'cms_block');
 
         $filters = [
             [
@@ -43,6 +43,15 @@ class Cms_Block_Category_Page extends Core_Block
             ]
         ];
 
-        return $model->addCategoryFilter($categoryId)->getList($filters, $orders);
+        $blocks = $model->addCategoryFilter($categoryId)->getList($filters, $orders);
+
+        /** @var Cms_Helper_Cms $helper */
+        $helper = App::getObject('helper', 'cms');
+
+        foreach ($blocks as $block) {
+            $helper->secureChildBlocks($block);
+        }
+
+        return $blocks;
     }
 }

@@ -11,19 +11,19 @@
 declare(strict_types=1);
 
 /**
- * Class Gallery_Block_Search_Images
+ * Class Cms_Block_Search_Blocks
  */
-class Gallery_Block_Search_Images extends Core_Block
+class Cms_Block_Search_Blocks extends Core_Block
 {
     /**
-     * Retrieve images
+     * Retrieve blocks
      *
      * @return Leafiny_Object[]
      * @throws Exception
      */
-    public function getImages(): array
+    public function getBlocks(): array
     {
-        if (!$this->getImageIds()) {
+        if (!$this->getBlockIds()) {
             return [];
         }
 
@@ -33,22 +33,26 @@ class Gallery_Block_Search_Images extends Core_Block
                 'value'  => 1,
             ],
             [
-                'column'   => 'image_id',
-                'value'    => $this->getImageIds(),
+                'column' => 'language',
+                'value'  => App::getLanguage(),
+            ],
+            [
+                'column'   => 'block_id',
+                'value'    => $this->getBlockIds(),
                 'operator' => 'IN',
             ],
         ];
 
         $orders = [
             [
-                'order'  => 'image_id',
+                'order'  => 'block_id',
                 'dir'    => 'ASC',
-                'custom' => $this->getImageIds(),
+                'custom' => $this->getBlockIds(),
             ]
         ];
 
-        /** @var Gallery_Model_Image $model */
-        $model = App::getObject('model', 'gallery_image');
+        /** @var Cms_Model_Block $model */
+        $model = App::getObject('model', 'cms_block');
 
         return $model->getList($filters, $orders, $this->getLimit());
     }
@@ -68,7 +72,7 @@ class Gallery_Block_Search_Images extends Core_Block
      *
      * @return array
      */
-    public function getImageIds(): array
+    public function getBlockIds(): array
     {
         return $this->getCustom('response') ?? [];
     }

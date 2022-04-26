@@ -19,6 +19,22 @@ $config = [
                 ]
             ]
         ],
+        'search_fulltext' => [
+            'entity' => [
+                'cms_page' => [
+                    'enabled'  => 0,
+                    'columns'  => ['title'],
+                    'language' => 'language',
+                    'block'    => 'search.cms.pages',
+                ],
+                'cms_block' => [
+                    'enabled'  => 0,
+                    'columns'  => ['content'],
+                    'language' => 'language',
+                    'block'    => 'search.cms.blocks',
+                ],
+            ],
+        ],
     ],
 
     'helper' => [
@@ -28,17 +44,36 @@ $config = [
     ],
 
     'block' => [
-        'category.cms.page.list' => [
-            'template' => 'Leafiny_Cms::block/static/page/list.twig',
-            'class'    => Cms_Block_Category_Page::class
-        ],
-        'category.cms.block.list' => [
-            'template' => 'Leafiny_Cms::block/static/block/list.twig',
-            'class'    => Cms_Block_Category_Block::class
-        ],
         'block.static::*' => [
-            'template' => 'Leafiny_Cms::block/content.twig',
+            'template' => 'Leafiny_Cms::block/static/content.twig',
             'class'    => Cms_Block_Static_Content::class
+        ],
+
+        'category.cms.pages' => [
+            'template' => 'Leafiny_Cms::block/category/pages.twig',
+            'class'    => Cms_Block_Category_Pages::class
+        ],
+        'category.cms.blocks' => [
+            'template' => 'Leafiny_Cms::block/category/blocks.twig',
+            'class'    => Cms_Block_Category_Blocks::class
+        ],
+
+        'search.cms.pages' => [
+            'template' => 'Leafiny_Cms::block/search/pages.twig',
+            'class'    => Cms_Block_Search_Pages::class
+        ],
+        'search.cms.blocks' => [
+            'template' => 'Leafiny_Cms::block/search/blocks.twig',
+            'class'    => Cms_Block_Search_Blocks::class
+        ],
+
+        'cms.block.default' => [
+            'template' => 'Leafiny_Cms::block/block/default.twig',
+            'class'    => Cms_Block_Block_Default::class
+        ],
+        'cms.page.default' => [
+            'template' => 'Leafiny_Cms::block/page/default.twig',
+            'class'    => Cms_Block_Page_Default::class
         ],
 
         'admin.cms.form.categories' => [
@@ -86,8 +121,8 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                'category.cms.block.list' => 200,
-                'category.cms.page.list' => 300,
+                'category.cms.blocks' => 200,
+                'category.cms.pages' => 300,
             ]
         ],
         '/page/*.html' => [

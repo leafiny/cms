@@ -1,0 +1,9 @@
+{% set category = page.getCustom('category') %}
+{% set pages = block.getPages(category.getCategoryId) %}
+{% if pages is not empty %}
+    <div class="pages pure-g">
+        {% for cms_page in pages %}
+            {{ child('cms.page.default', {'cms_page':cms_page}) }}
+        {% endfor %}
+    </div>
+{% endif %}
