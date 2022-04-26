@@ -68,8 +68,8 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
             '`object_type` = "' . $adapter->escape($queryData->getData('object_type')) . '"',
             $search
         ];
-        if ($language) {
-            $where[] = '`language` = "' . $adapter->escape($queryData->getData('language')) . '"';
+        if ($queryData->getData('language')) {
+            $where[] = '(`language` = "' . $queryData->getData('language') . '" OR `language` IS NULL)';
         }
 
         $rows = $adapter->rawQuery('

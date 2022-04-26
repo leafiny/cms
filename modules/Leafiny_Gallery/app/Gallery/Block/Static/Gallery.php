@@ -11,9 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Gallery_Block_Gallery
+ * Class Gallery_Block_Static_Gallery
  */
-class Gallery_Block_Gallery extends Core_Block
+class Gallery_Block_Static_Gallery extends Core_Block
 {
     /**
      * Current group

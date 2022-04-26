@@ -11,9 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Gallery_Block_Category_Gallery
+ * Class Gallery_Block_Category_Galleries
  */
-class Gallery_Block_Category_Gallery extends Core_Block
+class Gallery_Block_Category_Galleries extends Core_Block
 {
     /**
      * Retrieve groups
