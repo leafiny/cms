@@ -1,0 +1,23 @@
+{% set post = block.getPost %}
+<div class="post-list pure-u-1">
+    {% set image = block.getMainImage(post.getPostId) %}
+    {% if image %}
+        <div class="post-list-image" style="background: url({{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 940, 940, post.getTitle ~ '-' ~ image.getImageId) }})"></div>
+    {% endif %}
+    <div class="post-list-content{% if image %} with-image{% endif %}">
+        <a href="{{ page.getUrlRewrite(post.getPathKey, 'blog_post') }}">{{ post.getTitle }}</a>
+        <ul class="info">
+            {% if (post.getAuthor) %}
+                <li class="pure-u-1-2 author">{{ post.getAuthor }}</li>
+            {% endif %}
+            {% if (post.getPublishDate) %}
+                <li class="pure-u-1-2 date">{{ page.getHelper.getDate(post.getPublishDate, '%d %B %Y') }}</li>
+            {% endif %}
+        </ul>
+        {% if (post.getIntro) %}
+            <div class="intro">
+                {{ post.getIntro }}
+            </div>
+        {% endif %}
+    </div>
+</div>

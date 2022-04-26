@@ -11,9 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Blog_Block_Category_Post_Multipage
+ * Class Blog_Block_Category_Posts_Multipage
  */
-class Blog_Block_Category_Post_Multipage extends Core_Block
+class Blog_Block_Category_Posts_Multipage extends Core_Block
 {
     /**
      * @var int|null $totalPages

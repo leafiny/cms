@@ -25,7 +25,7 @@ $config = [
                     'block'    => 'search.products',
                 ]
             ]
-        ]
+        ],
     ],
 
     'block' => [
