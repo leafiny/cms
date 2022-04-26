@@ -11,7 +11,7 @@ $config = [
         'search_fulltext' => [
             'entity' => [
                 'gallery_image' => [
-                    'enabled'  => 1,
+                    'enabled'  => 0,
                     'columns'  => ['image', 'label', 'text'],
                     'block'    => 'search.images',
                 ]
