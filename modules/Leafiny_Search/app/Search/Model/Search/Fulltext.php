@@ -232,6 +232,7 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
                         'word'     => $word,
                         'language' => ($type['language'] ?? false) ? $object->getData($type['language']) : null,
                     ];
+                    $adapter->setQueryOption(['IGNORE']);
                     $adapter->insert($this->wordsTable, $candidate);
                 }
             }
