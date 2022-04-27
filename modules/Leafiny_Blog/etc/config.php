@@ -33,6 +33,7 @@ $config = [
                 'blog_post' => [
                     'enabled'  => 0,
                     'columns'  => ['title', 'intro', 'author'],
+                    'words'    => ['title'],
                     'language' => 'language',
                     'block'    => 'search.posts',
                     'position' => 200,

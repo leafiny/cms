@@ -157,6 +157,7 @@ $config = [
                 'catalog_product' => [
                     'enabled'  => 1,
                     'columns'  => ['sku', 'name', 'description'],
+                    'words'    => ['name'],
                     'language' => 'language',
                     'block'    => 'search.products',
                     'position' => 100,

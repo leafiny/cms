@@ -21,6 +21,14 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
      * @var string $mainTable
      */
     protected $mainTable = 'search_fulltext';
+
+    /**
+     * Words Table
+     *
+     * @var string $wordsTable
+     */
+    protected $wordsTable = 'search_words';
+
     /**
      * Primary key
      *
@@ -62,8 +70,9 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
         App::dispatchEvent('search_fulltext_search_before', ['query' => $queryData]);
 
         $words = $this->getWords($queryData->getData('query'));
+        $words = $this->getNearestWords($words, $language);
 
-        $search = 'MATCH(`content`) AGAINST("' . $adapter->escape(join(' ', $words)) . '" IN BOOLEAN MODE)';
+        $search = 'MATCH(`content`) AGAINST("' . $adapter->escape(join('* ', $words)) . '*" IN BOOLEAN MODE)';
         $where = [
             '`object_type` = "' . $adapter->escape($queryData->getData('object_type')) . '"',
             $search
@@ -152,6 +161,8 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
 
         $result = (bool)$adapter->insert($this->getMainTable(), []);
 
+        $this->refreshWords($objectType, $objectId);
+
         App::dispatchEvent(
             'search_fulltext_refresh_after',
             [
@@ -161,6 +172,72 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
         );
 
         return $result;
+    }
+
+    /**
+     * Refresh the words. They are stored for suggestions or Levenshtein's algorithm.
+     *
+     * @param string   $objectType
+     * @param int|null $objectId
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function refreshWords(string $objectType, ?int $objectId = null): bool
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return false;
+        }
+        if (!$this->isEnabled($objectType)) {
+            return false;
+        }
+
+        $type = $this->getObjectTypes()[$objectType] ?? false;
+
+        $columns = $type['words'] ?? [];
+        if (empty($columns)) {
+            return false;
+        }
+
+        if ($type['language'] ?? false) {
+            $columns[] = $type['language'];
+        }
+
+        /** @var Core_Model $model */
+        $model = App::getObject('model', $objectType);
+
+        $filters = [];
+        if ($objectId) {
+            $filters[] = [
+                'column' => $model->getPrimaryKey(),
+                'value'  => $objectId,
+            ];
+        }
+
+        $objects = $model->getList($filters, [], null, [], $columns);
+
+        foreach ($objects as $object) {
+            foreach ($columns as $column) {
+                if (($type['language'] ?? false) === $column) {
+                    continue;
+                }
+                $value = $object->getData($column);
+                $words = explode(' ', preg_replace('/[^a-z ]+/i', '', strtolower(strip_tags($value))));
+                foreach ($words as $word) {
+                    if (strlen($word) <= 3) {
+                        continue;
+                    }
+                    $candidate = [
+                        'word'     => $word,
+                        'language' => ($type['language'] ?? false) ? $object->getData($type['language']) : null,
+                    ];
+                    $adapter->insert($this->wordsTable, $candidate);
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -211,6 +288,8 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
     {
         $adapter = $this->getAdapter();
         if ($adapter) {
+            $adapter->truncate($this->getMainTable());
+            $adapter->truncate($this->wordsTable);
             foreach ($this->getObjectTypes() as $type => $options) {
                 $this->refresh($type);
             }
@@ -252,7 +331,8 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
     /**
      * Extract words to search
      *
-     * @param string $query
+     * @param string      $query
+     * @param string|null $language
      *
      * @return array
      */
@@ -275,9 +355,54 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
                 continue;
             }
 
-            $words[$key] = $word . '*';
+            $words[$key] = $word;
         }
 
         return $words;
+    }
+
+    /**
+     * Retrieve the nearest words
+     *
+     * @param array       $words
+     * @param string|null $language
+     *
+     * @return array
+     * @throws Exception
+     */
+    protected function getNearestWords(array $words, ?string $language): array
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return $words;
+        }
+
+        /** @var Search_Helper_Search $helper */
+        $helper = App::getSingleton('helper', 'search');
+        if (!$helper->canUseNearestWords()) {
+            return $words;
+        }
+
+        if ($language) {
+            $adapter->where('language', $language);
+            $adapter->orWhere('language', NULL, 'IS');
+        }
+        $candidates = $adapter->get($this->wordsTable);
+
+        foreach ($words as $word) {
+            $max = strlen($word) - 2;
+            $nearest = $word;
+            foreach ($candidates as $candidate) {
+                $distance = levenshtein($word, $candidate['word']);
+                if ($distance > $max) {
+                    continue;
+                }
+                $nearest = $candidate['word'];
+                $max = $distance;
+            }
+            $words[] = $nearest;
+        }
+
+        return array_unique($words);
     }
 }

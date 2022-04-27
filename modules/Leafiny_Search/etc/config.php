@@ -19,8 +19,9 @@ $config = [
 
     'helper' => [
         'search' => [
-            'class'  => Search_Helper_Search::class,
-            'engine' => 'search_fulltext',
+            'class'         => Search_Helper_Search::class,
+            'engine'        => 'search_fulltext',
+            'nearest_words' => true,
         ]
     ],
 

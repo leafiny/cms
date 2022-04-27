@@ -8,3 +8,9 @@ CREATE TABLE IF NOT EXISTS `search_fulltext` (
  UNIQUE (`object_type`, `object_id`),
  FULLTEXT (`content`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `search_words` (
+ `word` varchar(255) NOT NULL,
+ `language` VARCHAR(5) NULL,
+ UNIQUE (`word`, `language`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

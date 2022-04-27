@@ -30,6 +30,7 @@ $config = [
                 'cms_page' => [
                     'enabled'  => 0,
                     'columns'  => ['title'],
+                    'words'    => ['title'],
                     'language' => 'language',
                     'block'    => 'search.cms.pages',
                     'position' => 300,

@@ -33,6 +33,16 @@ class Search_Helper_Search extends Core_Helper
     }
 
     /**
+     * Use the nearest words
+     *
+     * @return bool
+     */
+    public function canUseNearestWords(): bool
+    {
+        return (bool)$this->getCustom('nearest_words');
+    }
+
+    /**
      * Retrieve all object types with options
      *
      * @return mixed[]

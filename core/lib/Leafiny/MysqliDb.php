@@ -242,6 +242,17 @@ class Leafiny_MysqliDb extends MysqliDb
     }
 
     /**
+     * Truncate a table
+     *
+     * @param string $table
+     * @throws Exception
+     */
+    public function truncate(string $table): void
+    {
+        $this->query('TRUNCATE `' . $this->escape($table) . '`');
+    }
+
+    /**
      * CHeck if column exists in table
      *
      * @param string $table
