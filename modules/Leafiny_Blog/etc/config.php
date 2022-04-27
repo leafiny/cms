@@ -16,17 +16,6 @@ $config = [
                 ]
             ]
         ],
-        'search_fulltext' => [
-            'entity' => [
-                'blog_post' => [
-                    'enabled'  => 0,
-                    'columns'  => ['title', 'intro', 'author'],
-                    'language' => 'language',
-                    'block'    => 'search.posts',
-                    'position' => 200,
-                ]
-            ]
-        ],
     ],
 
     'helper' => [
@@ -38,7 +27,18 @@ $config = [
             'allowed_params' => [
                 'blog' => Blog_Helper_Data::URL_PARAM_PAGE
             ],
-        ]
+        ],
+        'search' => [
+            'entity' => [
+                'blog_post' => [
+                    'enabled'  => 0,
+                    'columns'  => ['title', 'intro', 'author'],
+                    'language' => 'language',
+                    'block'    => 'search.posts',
+                    'position' => 200,
+                ]
+            ]
+        ],
     ],
 
     'block' => [

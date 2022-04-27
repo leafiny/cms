@@ -3,7 +3,7 @@
     {% set searchResult = page.getSearchResult %}
     {% if searchResult|length %}
         {% for result in searchResult %}
-            {{ child(result.getBlock, {'response':result.getResponse}) }}
+            {{ child(result.getBlock, {'result':result}) }}
         {% endfor %}
     {% else %}
         <p>{{ 'Your search returned no results.'|translate }}</p>

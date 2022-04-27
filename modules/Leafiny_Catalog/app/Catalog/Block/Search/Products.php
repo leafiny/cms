@@ -74,6 +74,20 @@ class Catalog_Block_Search_Products extends Core_Block
      */
     public function getProductIds(): array
     {
-        return $this->getCustom('response') ?? [];
+        if (!$this->getResult()) {
+            return [];
+        }
+
+        return $this->getResult()->getData('response') ?? [];
+    }
+
+    /**
+     * Retrieve search result
+     *
+     * @return Leafiny_Object|null
+     */
+    public function getResult(): ?Leafiny_Object
+    {
+        return $this->getCustom('result');
     }
 }

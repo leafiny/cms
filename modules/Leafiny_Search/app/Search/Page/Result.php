@@ -40,7 +40,7 @@ class Search_Page_Result extends Core_Page
 
         $results = [];
 
-        foreach ($engine->getObjectTypes() as $type => $options) {
+        foreach ($searchHelper->getObjectTypes() as $type => $options) {
             $search = $engine->search($searchHelper->getSearchQuery(), $type, App::getLanguage());
             if (empty($search)) {
                 continue;
@@ -48,6 +48,8 @@ class Search_Page_Result extends Core_Page
 
             $results[$options['position'] ?? 0] = new Leafiny_Object(
                 [
+                    'type'     => $type,
+                    'options'  => $options,
                     'block'    => $options['block'] ?? '',
                     'response' => $search,
                 ]

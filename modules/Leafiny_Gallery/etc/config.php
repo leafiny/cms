@@ -8,16 +8,6 @@ $config = [
         'gallery_group' => [
             'class' => Gallery_Model_Group::class,
         ],
-        'search_fulltext' => [
-            'entity' => [
-                'gallery_image' => [
-                    'enabled'  => 0,
-                    'columns'  => ['image', 'label', 'text'],
-                    'block'    => 'search.images',
-                    'position' => 500,
-                ]
-            ]
-        ],
     ],
 
     'block' => [
@@ -79,6 +69,19 @@ $config = [
                             'path'  => '/admin/*/gallery/list/'
                         ],
                     ]
+                ]
+            ]
+        ],
+    ],
+
+    'helper' => [
+        'search' => [
+            'entity' => [
+                'gallery_image' => [
+                    'enabled'  => 0,
+                    'columns'  => ['image', 'label', 'text'],
+                    'block'    => 'search.images',
+                    'position' => 500,
                 ]
             ]
         ],

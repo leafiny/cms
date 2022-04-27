@@ -19,7 +19,13 @@ $config = [
                 ]
             ]
         ],
-        'search_fulltext' => [
+    ],
+
+    'helper' => [
+        'cms' => [
+            'class' => Cms_Helper_Cms::class,
+        ],
+        'search' => [
             'entity' => [
                 'cms_page' => [
                     'enabled'  => 0,
@@ -36,12 +42,6 @@ $config = [
                     'position' => 400,
                 ],
             ],
-        ],
-    ],
-
-    'helper' => [
-        'cms' => [
-            'class' => Cms_Helper_Cms::class,
         ],
     ],
 

@@ -16,17 +16,6 @@ $config = [
                 ],
             ]
         ],
-        'search_fulltext' => [
-            'entity' => [
-                'catalog_product' => [
-                    'enabled'  => 1,
-                    'columns'  => ['sku', 'name', 'description'],
-                    'language' => 'language',
-                    'block'    => 'search.products',
-                    'position' => 100,
-                ]
-            ]
-        ],
     ],
 
     'block' => [
@@ -162,7 +151,18 @@ $config = [
             'allowed_params' => [
                 'catalog' => Catalog_Helper_Data::URL_PARAM_PAGE
             ],
-        ]
+        ],
+        'search' => [
+            'entity' => [
+                'catalog_product' => [
+                    'enabled'  => 1,
+                    'columns'  => ['sku', 'name', 'description'],
+                    'language' => 'language',
+                    'block'    => 'search.products',
+                    'position' => 100,
+                ]
+            ]
+        ],
     ],
 
     'events' => [

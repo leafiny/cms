@@ -224,7 +224,10 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
      */
     public function getObjectTypes(): array
     {
-        return $this->getCustom('entity') ?: [];
+        /** @var Search_Helper_Search $helper */
+        $helper = App::getSingleton('helper', 'search');
+
+        return $helper->getObjectTypes();
     }
 
     /**
