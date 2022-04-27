@@ -1,0 +1,12 @@
+{% set categories = block.getCategories() %}
+{% if categories is not empty %}
+    <div class="categories pure-g">
+        {% for category in categories %}
+            <div class="category-list pure-u-1-2 pure-u-md-1-4">
+                <div class="category-list-content">
+                    <a href="{{ page.getUrlRewrite(category.getPathKey, 'category') }}">{{ category.getName }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

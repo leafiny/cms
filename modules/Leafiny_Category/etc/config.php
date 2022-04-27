@@ -21,7 +21,18 @@ $config = [
     'helper' => [
         'category' => [
             'class' => Category_Helper_Category::class,
-        ]
+        ],
+        'search' => [
+            'entity' => [
+                'category' => [
+                    'enabled'  => 0,
+                    'columns'  => ['name', 'content'],
+                    'language' => 'language',
+                    'block'    => 'search.categories',
+                    'position' => 50,
+                ],
+            ],
+        ],
     ],
 
     'block' => [
@@ -36,10 +47,16 @@ $config = [
             ],
         ],
 
-        'catalog.menu' => [
+        'search.categories' => [
+            'template' => 'Leafiny_Category::block/search/categories.twig',
+            'class'    => Category_Block_Search_Categories::class
+        ],
+
+        'menu' => [
             'template' => 'Leafiny_Category::block/menu.twig',
             'class'    => Category_Block_Menu::class
         ],
+
         'admin.category.form.categories' => [
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
             'class'    => Category_Block_Backend_Form_Categories::class,

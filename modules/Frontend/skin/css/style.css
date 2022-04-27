@@ -571,10 +571,19 @@ button, input, optgroup, select, textarea {
 
 .page-list-content {
     margin: 10px 10px 10px 0;
-    padding: 10px 10px 10px 0;
 }
 
 .page-list-content a {
+    padding-left: 18px;
+    background: url(../images/list.png) no-repeat center left;
+}
+
+/* Categories */
+.category-list-content {
+    margin: 10px 10px 10px 0;
+}
+
+.category-list-content a {
     padding-left: 18px;
     background: url(../images/list.png) no-repeat center left;
 }
