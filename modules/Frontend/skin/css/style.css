@@ -593,6 +593,10 @@ button, input, optgroup, select, textarea {
 
 @media (max-width: 778px) {
     /* Header */
+    header {
+        padding-bottom: 16px;
+    }
+
     header .quote {
         display: none;
     }
@@ -602,7 +606,7 @@ button, input, optgroup, select, textarea {
     }
 
     header .search-form {
-        margin-top: 20px;
+        margin-top: 30px;
     }
 
     /* Banner */
