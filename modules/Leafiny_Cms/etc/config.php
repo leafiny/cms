@@ -28,16 +28,22 @@ $config = [
         'search' => [
             'entity' => [
                 'cms_page' => [
-                    'enabled'  => 0,
-                    'columns'  => ['title'],
-                    'words'    => ['title'],
+                    'enabled' => 0,
+                    'columns' => [
+                        'title' => 'title',
+                    ],
+                    'words' => [
+                        'title' => 'title',
+                    ],
                     'language' => 'language',
                     'block'    => 'search.cms.pages',
                     'position' => 300,
                 ],
                 'cms_block' => [
                     'enabled'  => 0,
-                    'columns'  => ['content'],
+                    'columns'  => [
+                        'content' => 'content',
+                    ],
                     'language' => 'language',
                     'block'    => 'search.cms.blocks',
                     'position' => 400,

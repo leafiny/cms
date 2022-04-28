@@ -126,6 +126,7 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
         $type = $this->getObjectTypes()[$objectType] ?? false;
 
         $columns = $type['columns'] ?? [];
+        $columns = array_filter($columns);
         if (empty($columns)) {
             return false;
         }
@@ -196,6 +197,7 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
         $type = $this->getObjectTypes()[$objectType] ?? false;
 
         $columns = $type['words'] ?? [];
+        $columns = array_filter($columns);
         if (empty($columns)) {
             return false;
         }

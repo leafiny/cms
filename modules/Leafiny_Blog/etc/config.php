@@ -31,9 +31,15 @@ $config = [
         'search' => [
             'entity' => [
                 'blog_post' => [
-                    'enabled'  => 0,
-                    'columns'  => ['title', 'intro', 'author'],
-                    'words'    => ['title'],
+                    'enabled' => 0,
+                    'columns' => [
+                        'title'  => 'title',
+                        'intro'  => 'intro',
+                        'author' => 'author'
+                    ],
+                    'words' => [
+                        'title' => 'title'
+                    ],
                     'language' => 'language',
                     'block'    => 'search.posts',
                     'position' => 200,

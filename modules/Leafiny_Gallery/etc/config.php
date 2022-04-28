@@ -78,8 +78,12 @@ $config = [
         'search' => [
             'entity' => [
                 'gallery_image' => [
-                    'enabled'  => 0,
-                    'columns'  => ['image', 'label', 'text'],
+                    'enabled' => 0,
+                    'columns' => [
+                        'image' => 'image',
+                        'label' => 'label',
+                        'text'  => 'text',
+                    ],
                     'block'    => 'search.images',
                     'position' => 500,
                 ]

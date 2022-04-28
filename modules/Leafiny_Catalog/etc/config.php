@@ -155,9 +155,15 @@ $config = [
         'search' => [
             'entity' => [
                 'catalog_product' => [
-                    'enabled'  => 1,
-                    'columns'  => ['sku', 'name', 'description'],
-                    'words'    => ['name'],
+                    'enabled' => 1,
+                    'columns' => [
+                        'sku'         => 'sku',
+                        'name'        => 'name',
+                        'description' => 'description'
+                    ],
+                    'words' => [
+                        'name' => 'name',
+                    ],
                     'language' => 'language',
                     'block'    => 'search.products',
                     'position' => 100,

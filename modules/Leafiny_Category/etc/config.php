@@ -25,8 +25,14 @@ $config = [
         'search' => [
             'entity' => [
                 'category' => [
-                    'enabled'  => 0,
-                    'columns'  => ['name', 'content'],
+                    'enabled' => 0,
+                    'columns' => [
+                        'name'    => 'name',
+                        'content' => 'content',
+                    ],
+                    'words' => [
+                        'name' => 'name',
+                    ],
                     'language' => 'language',
                     'block'    => 'search.categories',
                     'position' => 50,
