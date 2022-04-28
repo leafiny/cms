@@ -41,17 +41,13 @@ class Commerce_Model_Sale extends Core_Model
      */
     public function save(Leafiny_Object $object): ?int
     {
-        $isOrder = $object->getData('state') === self::SALE_STATE_ORDER;
+        $isNew = !$object->getData('sale_id');
 
-        if ($isOrder && !$object->getData('sale_increment_id')) {
-            $object->setData('sale_increment_id', $this->getNextIncrementId('sale_increment_id'));
-        }
-
-        if (!$object->getData('language')) {
+        if ($isNew && !$object->getData('language')) {
             $object->setData('language', App::getLanguage());
         }
 
-        if (!$object->getData('key')) {
+        if ($isNew && !$object->getData('key')) {
             $object->setData('key', $this->generateKey());
         }
 

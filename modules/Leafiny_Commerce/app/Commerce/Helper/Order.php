@@ -30,6 +30,10 @@ class Commerce_Helper_Order extends Core_Helper
      */
     public function complete(Leafiny_Object $sale): void
     {
+        if ($sale->getData('state') === Commerce_Model_Sale::SALE_STATE_ORDER) {
+            return;
+        }
+
         /** @var Commerce_Model_Sale_Item $itemModel */
         $itemModel = App::getSingleton('model', 'sale_item');
         $items = $itemModel->getItems($sale->getData('sale_id'));
@@ -41,6 +45,7 @@ class Commerce_Helper_Order extends Core_Helper
 
         /* Update state */
         $sale->setData('state', Commerce_Model_Sale::SALE_STATE_ORDER);
+        $sale->setData('sale_increment_id', $saleModel->getNextIncrementId('sale_increment_id'));
         $saleModel->save($sale);
 
         /* Invoice */
