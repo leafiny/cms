@@ -204,7 +204,7 @@ class Commerce_Helper_Invoice extends Core_Helper
         $this->pdf->Cell(48, 110, '', 1, 0, 'C', 1);
 
         $lineStart = 86;
-        $lineSize  = 8;
+        $lineSize  = 6;
 
         $this->pdf->SetXY(10, $lineStart);
 
@@ -212,7 +212,7 @@ class Commerce_Helper_Invoice extends Core_Helper
             return;
         }
 
-        $this->pdf->SetFont('courier','',10);
+        $this->pdf->SetFont('courier', '', 9);
 
         /** @var Leafiny_Object $item */
         foreach ($this->invoice->getData('items') as $item) {
