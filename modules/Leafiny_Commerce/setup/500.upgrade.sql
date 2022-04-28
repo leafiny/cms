@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `commerce_sale` (
     `tax_total` DECIMAL(10,2) NULL,
     `email` VARCHAR(255) NULL,
     `customer` VARCHAR(255) NULL,
+    `customer_id` INT(10) unsigned NULL,
     `state` VARCHAR(255) DEFAULT 'cart',
     `status` VARCHAR(255) NULL,
     `shipping_method` VARCHAR(255) NULL,
