@@ -217,6 +217,7 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
 
         $objects = $model->getList($filters, [], null, [], $columns);
 
+        $candidates = [];
         foreach ($objects as $object) {
             foreach ($columns as $column) {
                 if (($type['language'] ?? false) === $column) {
@@ -228,17 +229,17 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
                     if (strlen($word) <= 3) {
                         continue;
                     }
-                    $candidate = [
+                    $candidates[$word] = [
                         'word'     => $word,
                         'language' => ($type['language'] ?? false) ? $object->getData($type['language']) : null,
                     ];
-                    $adapter->setQueryOption(['IGNORE']);
-                    $adapter->insert($this->wordsTable, $candidate);
                 }
             }
         }
 
-        return true;
+        $adapter->setQueryOption(['IGNORE']);
+
+        return (bool)$adapter->insertMulti($this->wordsTable, $candidates);
     }
 
     /**
