@@ -29,7 +29,7 @@ class Search_Helper_Search extends Core_Helper
             $query = '';
         }
 
-        return strtolower($query);
+        return $query;
     }
 
     /**

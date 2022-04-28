@@ -339,6 +339,7 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
      */
     protected function getWords(string $query): array
     {
+        $query = strtolower($query);
         $query = str_replace(['+', '*'], ' ', $query);
         $words = explode(' ', $query);
 
