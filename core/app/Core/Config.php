@@ -52,10 +52,7 @@ class Core_Config extends Leafiny_Config
             }
         }
 
-        $files = [
-            $this->getHelper()->getEnvironmentConfigFile()
-        ];
-
+        $files = [];
         $modules = $this->getHelper()->getModules();
         foreach ($modules as $module) {
             $file = $this->getHelper()->getModelConfigFile($module);
@@ -63,6 +60,8 @@ class Core_Config extends Leafiny_Config
                 $files[] = $file;
             }
         }
+
+        $files[] = $this->getHelper()->getEnvironmentConfigFile();
 
         $this->setFiles($files);
         $this->load($flat);

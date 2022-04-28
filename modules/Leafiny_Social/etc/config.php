@@ -3,7 +3,8 @@
 $config = [
     'model' => [
         'social_comment' => [
-            'class' => Social_Model_Comment::class,
+            'class'          => Social_Model_Comment::class,
+            'default_status' => 0,
         ],
     ],
 

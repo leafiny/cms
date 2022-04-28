@@ -30,12 +30,6 @@ $config = [
             'db_no_writing' => 0,
             'lc_time_names' => 'en_US',
         ],
-        'social_comment' => [
-            'default_status' => 1,
-        ],
-        'rewrite' => [
-            'enabled' => 1,
-        ],
     ],
 
     'page' => [
