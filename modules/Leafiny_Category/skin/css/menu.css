@@ -11,9 +11,8 @@
     display: none;
     line-height: 42px;
     background: url(../images/menu.png) no-repeat center left;
-    padding-left: 35px;
+    padding-left: 33px;
     cursor: pointer;
-    color: #777;
 }
 
 .pure-menu-item {
