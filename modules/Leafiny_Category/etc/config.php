@@ -75,7 +75,6 @@ $config = [
             'class'    => Editor_Block_Backend_Form_Editor::class,
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'name'     => 'content',
-            'actions'  => ['Markdown', 'HTML', 'Preview']
         ],
         'admin.head' => [
             'javascript' => [

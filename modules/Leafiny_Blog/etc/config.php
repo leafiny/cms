@@ -100,7 +100,6 @@ $config = [
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'name'     => 'content',
             'label'    => 'Post',
-            'actions'  => ['Markdown', 'HTML', 'Preview']
         ],
         'admin.menu' => [
             'tree' => [

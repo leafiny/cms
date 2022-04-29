@@ -64,7 +64,6 @@ $config = [
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'name'     => 'description',
             'label'    => 'Description',
-            'actions'  => ['Markdown', 'HTML', 'Preview']
         ],
         'admin.menu' => [
             'tree' => [
