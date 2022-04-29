@@ -103,6 +103,10 @@ ol ol {
     margin-bottom: 0;
 }
 
+p {
+    line-height: 28px;
+}
+
 blockquote {
     padding: 1.5em;
     background: #F6F8FA;
@@ -474,6 +478,7 @@ button, input, optgroup, select, textarea {
     border-top: 3px solid #006554;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
     z-index: 10;
+    line-height: 28px;
 }
 
 .post-list-content.with-image {
@@ -525,6 +530,7 @@ button, input, optgroup, select, textarea {
     border-top: 3px solid #006554;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
     margin-bottom: 2em;
+    line-height: 28px;
 }
 
 /* Comments */

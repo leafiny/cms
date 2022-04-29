@@ -89,8 +89,12 @@
 .order-view .shipping-method .sale-shipments {
     font-size: 0.9rem;
     list-style-type: none;
-    margin: 0;
+    margin: 0 0 1rem 0;
     padding: 0;
+}
+
+.order-view .shipping-method .sale-shipments li {
+    margin-bottom: .4rem;
 }
 
 .order-view .products table {
