@@ -1,5 +1,9 @@
 {% set categories = block.getCategories() %}
 {% if categories is not empty %}
+    <div class="search-results">
+        {% set results = categories|length %}
+        {{ results }} {% if results == 1 %}{{ 'category found'|translate }}{% else %}{{ 'categories found'|translate }}{% endif %}
+    </div>
     <div class="categories pure-g">
         {% for category in categories %}
             <div class="category-list pure-u-1-2 pure-u-md-1-4">

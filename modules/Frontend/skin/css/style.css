@@ -336,6 +336,12 @@ button, input, optgroup, select, textarea {
     color: #856404;
 }
 
+/* Search */
+
+.search-results {
+    margin: 1.5em 0 0.5em 0;
+}
+
 /* Product */
 .catalog-product .product-sku,
 .catalog-product .product-price,

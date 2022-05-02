@@ -1,6 +1,10 @@
 {% set posts = block.getPosts() %}
 {% if posts is not empty %}
-    <div class="posts pure-g" id="posts">
+    <div class="search-results">
+        {% set results = posts|length %}
+        {{ results }} {% if results == 1 %}{{ 'post found'|translate }}{% else %}{{ 'posts found'|translate }}{% endif %}
+    </div>
+    <div class="posts search pure-g" id="posts">
         {% for post in posts %}
             {{ child('blog.post.default', {'post':post}) }}
         {% endfor %}

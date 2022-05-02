@@ -1,6 +1,10 @@
 {% set products = block.getProducts() %}
 {% if products is not empty %}
-    <div class="products pure-g" id="catalog">
+    <div class="search-results">
+        {% set results = products|length %}
+        {{ results }} {% if results == 1 %}{{ 'product found'|translate }}{% else %}{{ 'products found'|translate }}{% endif %}
+    </div>
+    <div class="products search pure-g" id="catalog">
         {% for product in products %}
             {{ child('catalog.product.default', {'product':product}) }}
         {% endfor %}
