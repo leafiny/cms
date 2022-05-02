@@ -74,3 +74,4 @@
 "Class symlinks have been flushed.","Class symlinks have been flushed."
 "Backend key is set to ""leafiny"". Please modify for more security.","Backend key is set to ""leafiny"". Please modify for more security."
 "Section:","Section:"
+"You are going to delete <strong>${number} entrie(s)</strong>, are you sure?","You are going to delete <strong>${number} entrie(s)</strong>, are you sure?"

@@ -74,3 +74,4 @@
 "Class symlinks have been flushed.","Les liens symboliques de classe ont été supprimés."
 "Backend key is set to ""leafiny"". Please modify for more security.","La clé d'accès au backoffice est ""leafiny"". Merci de modifier pour la sécurité."
 "Section:","Section :"
+"You are going to delete <strong>${number} entrie(s)</strong>, are you sure?","Vous allez supprimer <strong>${number} ligne(s)</strong>, confirmer ?"

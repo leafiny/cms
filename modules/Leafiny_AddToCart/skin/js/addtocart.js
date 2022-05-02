@@ -126,5 +126,9 @@ function addToCartAjax () {
                 contents[i].remove();
             }
         }
+
+        return {
+            'close': close
+        }
     }
 }

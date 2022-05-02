@@ -211,6 +211,11 @@ $config = [
             'template' => 'Leafiny_Backend::block/footer.twig',
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
         ],
+        'admin.modals' => [
+            'template' => 'Leafiny_Backend::block/modals.twig',
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'class'    => Backend_Block_Modals::class
+        ],
         'admin.script' => [
             'template' => 'Leafiny_Backend::block/script.twig',
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
