@@ -130,27 +130,29 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
         if (empty($columns)) {
             return false;
         }
-        foreach ($columns as $key => $column) {
-            $columns[$key] = $adapter->escape($column);
-        }
 
         /** @var Core_Model $model */
         $model = App::getObject('model', $objectType);
 
         $columns = [
-            'CONCAT(IFNULL(`' . join('`, ""), " ", IFNULL(`', $columns) . '`, "")) as content',
+            'CONCAT(IFNULL(' . join(', ""), " ", IFNULL(', $columns) . ', "")) as content',
             '"' . $adapter->escape($objectType) . '" as object_type',
-            '`' . $adapter->escape($model->getPrimaryKey()) . '` as object_id',
+            '`main_table`.`' . $adapter->escape($model->getPrimaryKey()) . '` as object_id',
         ];
         if ($type['language'] ?? false) {
-            $columns[] = '`' . $type['language'] . '` as language';
+            $columns[] = '`main_table`.`' . $type['language'] . '` as language';
         }
 
         $select = $adapter->subQuery();
         if ($objectId) {
-            $select->where($model->getPrimaryKey(), $objectId);
+            $select->where('`main_table`.' . $model->getPrimaryKey(), $objectId);
         }
-        $select->get($model->getMainTable(), null, $columns);
+        $joins = array_filter($type['joins'] ?? []);
+        foreach ($joins as $join) {
+            $select->join($join['table'], $join['condition'], $join['type'] ?? 'LEFT');
+        }
+        $select->groupBy('`main_table`.`' . $adapter->escape($model->getPrimaryKey()) . '`');
+        $select->get($model->getMainTable() . ' main_table', null, $columns);
 
         $update = ['content' => ''];
         if ($type['language'] ?? false) {

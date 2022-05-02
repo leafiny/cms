@@ -35,6 +35,11 @@ class Search_Observer_Refresh extends Core_Observer implements Core_Interface_Ob
 
         /** @var Search_Helper_Search $searchHelper */
         $searchHelper = App::getSingleton('helper', 'search');
-        $searchHelper->getEngine()->refresh($identifier, (int)$objectId);
+
+        try {
+            $searchHelper->getEngine()->refresh($identifier, (int)$objectId);
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
     }
 }

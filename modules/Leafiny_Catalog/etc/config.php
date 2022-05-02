@@ -156,9 +156,22 @@ $config = [
                 'catalog_product' => [
                     'enabled' => 1,
                     'columns' => [
-                        'sku'         => 'sku',
-                        'name'        => 'name',
-                        'description' => 'description'
+                        'sku'         => 'main_table.sku',
+                        'category'    => 'GROUP_CONCAT(c.name SEPARATOR \' \')',
+                        'name'        => 'main_table.name',
+                        'description' => 'main_table.description'
+                    ],
+                    'joins' => [
+                        'catalog_product_category' => [
+                            'table'     => 'catalog_product_category cpc',
+                            'condition' => 'cpc.product_id = main_table.product_id',
+                            'type'      => 'LEFT',
+                        ],
+                        'category' => [
+                            'table'     => 'category c',
+                            'condition' => 'c.category_id = cpc.category_id',
+                            'type'      => 'LEFT',
+                        ],
                     ],
                     'words' => [
                         'name' => 'name',

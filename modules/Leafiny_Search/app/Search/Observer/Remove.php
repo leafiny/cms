@@ -35,6 +35,10 @@ class Search_Observer_Remove extends Core_Observer implements Core_Interface_Obs
 
         /** @var Search_Helper_Search $searchHelper */
         $searchHelper = App::getSingleton('helper', 'search');
-        $searchHelper->getEngine()->remove($identifier, (int)$objectId);
+        try {
+            $searchHelper->getEngine()->remove($identifier, (int)$objectId);
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
     }
 }
