@@ -49,7 +49,7 @@ $config = [
         ],
         'script' => [
             'javascript' => [
-                'Leafiny_Category::js/menu.js' => 200
+                'Leafiny_Category::js/menu.js' => 250
             ],
         ],
 
