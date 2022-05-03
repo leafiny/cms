@@ -557,7 +557,12 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             return $this->getHelper()->getMediaUrl();
         }
 
-        return $this->getHelper()->getModuleUrl($this->getModuleFile($path, Core_Helper::MEDIA_DIRECTORY, true));
+        $file = $this->getModuleFile($path, Core_Helper::MEDIA_DIRECTORY, true);
+        if ($file === $path) {
+            return $this->getHelper()->getMediaUrl() . ltrim($path);
+        }
+
+        return $this->getHelper()->getModuleUrl($file);
     }
 
     /**
