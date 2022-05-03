@@ -618,10 +618,6 @@ button, input, optgroup, select, textarea {
         padding-bottom: 16px;
     }
 
-    header .quote {
-        display: none;
-    }
-
     header h1 {
         text-align: center;
     }
@@ -653,9 +649,8 @@ button, input, optgroup, select, textarea {
     .multipage .number {
         display: none;
     }
-}
 
-@media (max-width: 778px) {
+    /* Product */
     .product-content {
         margin: 20px 6px;
     }
