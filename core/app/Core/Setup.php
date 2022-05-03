@@ -261,7 +261,10 @@ class Core_Setup extends Leafiny_Object
                 $adapter->query($query);
                 if ($adapter->getLastErrno()) {
                     $adapter->rollback();
-                    throw new Exception($adapter->getLastError());
+                    $setupFile = ltrim(str_replace(dirname($file, 3), '', $file), '/');
+                    throw new Exception(
+                        '[' . $setupFile . '] ' . $adapter->getLastError() . ' - ' . $adapter->getLastQuery()
+                    );
                 }
                 $query = '';
             }
