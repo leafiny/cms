@@ -118,11 +118,14 @@
                     {% endif %}
                     {{ sale.getPaymentTitle }}
                     <ul class="payment-info">
+                        {% if sale.getInvoiceIncrementId %}
+                            <li><strong>{{ 'Invoice:'|translate }}</strong> {{ sale.getInvoiceIncrementId }}</li>
+                        {% endif %}
                         {% if sale.getPaymentRef %}
-                            <li>{{ sale.getPaymentRef }}</li>
+                            <li><strong>{{ 'Payment:'|translate }}</strong> {{ sale.getPaymentRef }}</li>
                         {% endif %}
                         {% if sale.getPaymentState %}
-                            <li>{{ sale.getPaymentState }}</li>
+                            <li><strong>{{ 'Status:'|translate }}</strong> {{ sale.getPaymentState }}</li>
                         {% endif %}
                     </ul>
                 </div>

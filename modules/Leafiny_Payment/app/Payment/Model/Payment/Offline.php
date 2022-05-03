@@ -29,8 +29,8 @@ abstract class Payment_Model_Payment_Offline extends Payment_Model_Payment
         $saleModel = App::getSingleton('model', 'sale');
 
         $sale->setData('payment_title', App::translate($this->getTitle()));
-        $sale->setData('payment_state', 'pending');
-        $sale->setData('payment_ref', uniqid());
+        $sale->setData('payment_state', null);
+        $sale->setData('payment_ref', null);
         $sale->setData('no_history', true);
         $sale->setData('no_invoice', true);
 
