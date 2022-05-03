@@ -38,8 +38,8 @@ class Cms_Block_Category_Blocks extends Core_Block
 
         $orders = [
             [
-                'order' => 'created_at',
-                'dir'   => 'DESC',
+                'order' => 'position',
+                'dir'   => 'ASC',
             ]
         ];
 

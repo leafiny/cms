@@ -1,0 +1,1 @@
+ALTER TABLE `cms_block` ADD COLUMN `position` INT(10) NULL DEFAULT 0;
