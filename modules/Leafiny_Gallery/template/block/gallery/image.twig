@@ -2,7 +2,7 @@
 <div class="gallery-list pure-u-1-2 pure-u-md-1-4">
     <div class="gallery-list-content">
         {% if image.getLink %}<a href="{{ image.getLink }}">{% endif %}
-        <img src="{{ page.getMediaUrl }}{{ image.getImage }}" alt="{{ image.getLabel }}" class="pure-u-1" />
+        <img src="{{ page.getMediaUrl(image.getImage) }}" alt="{{ image.getLabel }}" class="pure-u-1" />
         {% if image.getLink %}</a>{% endif %}
     </div>
 </div>

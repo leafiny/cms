@@ -55,9 +55,9 @@
                             <td>
                                 {% set image = page.getMainImage(data.getProductId) %}
                                 {% if (image) %}
-                                    <img src="{{ page.getMediaUrl }}{{ image.getImage }}" alt="" class="pure-u-1"/>
+                                    <img src="{{ page.getMediaUrl(image.getImage) }}" alt="" class="pure-u-1"/>
                                 {% else %}
-                                    <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" alt="" class="pure-u-1"/>
+                                    <img src="{{ page.getMediaUrl('catalog/placeholder.png') }}" alt="" class="pure-u-1"/>
                                 {% endif %}
                             </td>
                             <td class="lang_{{ data.getLanguage }}"><span>{{ page.getLanguageByCode(data.getLanguage)|translate }}</span></td>

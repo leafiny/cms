@@ -203,7 +203,7 @@
                             {% if image %}
                                 <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 200, 200, item.getProductName ~ '-' ~ image.getImageId) }}" width="100" height="100" alt="" />
                             {% else %}
-                                <img src="{{ page.getMediaUrl('Leafiny_Commerce::placeholder.png') }}" width="100" height="100" alt="" />
+                                <img src="{{ page.getMediaUrl('catalog/placeholder.png') }}" width="100" height="100" alt="" />
                             {% endif %}
                             </td>
                             <td>{{ item.getProductName }}</td>

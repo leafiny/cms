@@ -8,7 +8,7 @@
             {% if mainImage %}
                 <img src="{{ block.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 200, 200, product.getName ~ '-' ~ mainImage.getImageId) }}" alt="{{ product.getName }}" />
             {% else %}
-                <img src="{{ block.getMediaUrl('Frontend::placeholder.png') }}" alt="{{ product.getName }}" />
+                <img src="{{ block.getMediaUrl('catalog/placeholder.png') }}" alt="{{ product.getName }}" />
             {% endif %}
             {% if cartItem.getQty > cartItem.getOriginalQty %}
                 <p>{{ 'The product has been added to the cart'|translate }}</p>

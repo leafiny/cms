@@ -6,7 +6,7 @@
             {% if image %}
                 <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 600, 600, product.getName ~ '-' ~ image.getImageId) }}" class="pure-u-1" alt="{{ image.getLabel ?: product.getName }}" loading="lazy" />
             {% else %}
-                <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
+                <img src="{{ page.getMediaUrl('catalog/placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
             {% endif %}
         </a>
         <div class="product-info">
