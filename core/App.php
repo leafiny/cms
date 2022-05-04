@@ -259,7 +259,7 @@ final class App
      */
     public static function getLanguages(): array
     {
-        return self::getConfig('app.languages');
+        return self::getConfig('app.languages') ?? ['en_US'];
     }
 
     /**
@@ -419,7 +419,7 @@ final class App
     public static function getEnvironment(): string
     {
         if (self::$environment === null) {
-            self::$environment = isset($_SERVER['ENVIRONMENT']) ? $_SERVER['ENVIRONMENT'] : 'default';
+            self::$environment = $_SERVER['ENVIRONMENT'] ?? 'default';
         }
 
         return self::$environment;
@@ -445,7 +445,7 @@ final class App
     public static function getLanguage(): string
     {
         if (self::$language === null) {
-            self::$language = isset($_SERVER['LANGUAGE']) ? $_SERVER['LANGUAGE'] : 'en_US';
+            self::$language = $_SERVER['LANGUAGE'] ?? 'en_US';
         }
 
         return self::$language;
@@ -646,7 +646,7 @@ final class App
      */
     public static function getLogInstance(): ?object
     {
-        $logClassName = isset($_SERVER['log_class_name']) ? $_SERVER['log_class_name'] : 'Log';
+        $logClassName = $_SERVER['log_class_name'] ?? 'Log';
 
         if (class_exists($logClassName)) {
             return new $logClassName;
