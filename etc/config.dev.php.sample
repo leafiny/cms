@@ -36,6 +36,7 @@ $config = [
         'default' => [
             'is_secure'    => 0,
             'locale'       => 'en_US.utf8',
+            'timezone'     => 'America/Chicago',
             'fpc'          => 0,
             'allow_params' => 1,
         ],
