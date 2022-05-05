@@ -13,6 +13,7 @@
     background: url(../images/menu.png) no-repeat center left;
     padding-left: 33px;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .pure-menu-item {
