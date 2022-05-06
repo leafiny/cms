@@ -1,0 +1,8 @@
+{% set images = block.getImages %}
+{% if block.isEnabled and images|length %}
+    <div class="gallery pure-g">
+        {% for image in images %}
+            {{ child('gallery.image.default', {'image':image}) }}
+        {% endfor %}
+    </div>
+{% endif %}

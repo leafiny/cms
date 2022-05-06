@@ -11,7 +11,7 @@
                 {% if mainImage %}
                     <img src="{{ page.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 600, 600, product.getName ~ '-' ~ mainImage.getImageId) }}" class="pure-u-1" alt="{{ mainImage.getLabel ?: product.getName }}" />
                 {% else %}
-                    <img src="{{ page.getMediaUrl('Leafiny_Catalog::placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
+                    <img src="{{ page.getMediaUrl('catalog/placeholder.png') }}" class="pure-u-1" alt="{{ product.getName }}" />
                 {% endif %}
             </div>
             {% set images = page.getImages(product.getProductId) %}

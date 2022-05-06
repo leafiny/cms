@@ -1,0 +1,77 @@
+{% set taxHelper = page.getHelper('tax') %}
+{% set taxRules = taxHelper.getTaxRules %}
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {{ child('admin.list.toolbar') }}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-5"><a href="{{ page.getSortOrderUrl('tax_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-30"><a href="{{ page.getSortOrderUrl('label') }}">{{ 'Label'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('rule_id') }}">{{ 'Rule'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('tax_percent') }}">{{ 'Tax (%)'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('country_code') }}">{{ 'Country'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('state_code') }}">{{ 'State'|translate }}</a></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('postcode') }}">{{ 'Postcode'|translate }}</a></th>
+                    <th class="width-10">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[tax_id]" value="{{ page.getFilter('tax_id') }}" /></th>
+                    <th><input type="text" name="filter[label]" value="{{ page.getFilter('label') }}" /></th>
+                    <th>
+                        <select name="filter[rule_id]">
+                            <option value=""></option>
+                            {% for value,label in taxRules %}
+                                <option value="{{ value }}"{% if page.getFilter('rule_id') == value %} selected="selected"{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th><input type="text" name="filter[tax_percent]" value="{{ page.getFilter('tax_percent') }}" /></th>
+                    <th>
+                        <select name="filter[country_code]">
+                            <option value=""></option>
+                            {% for code,label in page.getAllCountries %}
+                                <option value="{{ code }}"{% if page.getFilter('country_code') == code %} selected="selected"{% endif %}>{{ label|translate }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th><input type="text" name="filter[state_code]" value="{{ page.getFilter('state_code') }}" /></th>
+                    <th><input type="text" name="filter[postcode]" value="{{ page.getFilter('postcode') }}" /></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="9">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getTaxId }}" name="id[]" class="select-id" value="{{ data.getTaxId }}" /></td>
+                            <td><label for="id_{{ data.getTaxId }}">{{ data.getTaxId }}</label></td>
+                            <td>{{ data.getLabel }}</td>
+                            <td>
+                                {% if taxRules[data.getRuleId] is defined %}
+                                    {{ taxRules[data.getRuleId] }}
+                                {% endif %}
+                            </td>
+                            <td>{{ data.getTaxPercent }}</td>
+                            <td>{{ data.getCountryCode }}</td>
+                            <td>{{ data.getStateCode }}</td>
+                            <td>{{ data.getPostcode }}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getTaxId()) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

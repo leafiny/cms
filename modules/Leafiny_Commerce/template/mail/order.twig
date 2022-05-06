@@ -1,0 +1,86 @@
+{% set helper = mail.getHelper('order') %}<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ mail.getLanguage }}" xml:lang="{{ mail.getLanguage }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={{ mail.getCharset }}">
+        <title>{{ mail.getSubject|translate }}</title>
+        <style type="text/css">
+            body, p, h1 {font-family:'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:18px}
+            a {color: #0c4047}
+            h1 {font-size:30px}
+            div {border-top:1px solid #ccc}
+        </style>
+    </head>
+    <body>
+        <h1>{{ 'Thank you for your order!'|translate }}</h1>
+        <p>{{ mail.getSale.getCustomer }},</p>
+        <p>
+            {{ 'You can check the status of your order with the link below:'|translate }}
+        </p>
+        <p>
+            <a href="{{ helper.getOrderLink(mail.getSale.getKey) }}">{{ 'Follow the order progress'|translate }}</a>
+        </p>
+        <p>
+            {{ 'If you have questions about your order, you can contact us:'|translate }}
+        </p>
+        <p>
+            <a href="{{ mail.getUrl('/contact.html') }}">{{ 'Contact form'|translate }}</a>
+        </p>
+        <p>
+            {{ 'Your order number is:'|translate }} <strong>{{ mail.getSale.getSaleIncrementId }}</strong>
+        </p>
+        <div>
+            <p>
+                <strong>{{ 'Your order:'|translate }}</strong>
+            </p>
+            {% for item in mail.getItems %}
+                <p><strong>{{ item.getInclTaxUnit|currency }}</strong> x{{ item.getQty }} {{ item.getProductName }}</p>
+                {{ mail.getItemOptions(item.getOptions) }}
+            {% endfor %}
+        </div>
+        {% set payment = mail.getPaymentMethod %}
+        {% if payment %}
+        <div>
+            <p>
+                <strong>{{ 'Payment:'|translate }}</strong>
+            </p>
+            <p>
+                {{ payment.getTitle }} - <strong>{{ mail.getSale.getInclTaxTotal|currency }}</strong>
+            </p>
+            {{ child(payment.getMethod ~ '.payment.info') }}
+        </div>
+        {% endif %}
+        {% set shipping = mail.getShippingMethod %}
+        {% if shipping %}
+            <div>
+                <p>
+                    <strong>{{ 'Shipping:'|translate }}</strong>
+                </p>
+                <p>
+                    {{ shipping.getLabel }}
+                </p>
+            </div>
+        {% endif %}
+        {% set shippingAddress = mail.getAddress('shipping') %}
+        {% if shippingAddress %}
+            <div>
+                <p>
+                    <strong>{{ 'Shipping address:'|translate }}</strong>
+                </p>
+                <p>
+                    {% if shippingAddress.getCompany %}
+                        {{ shippingAddress.getCompany }}<br />
+                    {% endif %}
+                    {{ shippingAddress.getFirstname }} {{ shippingAddress.getLastname }}<br />
+                    {{ shippingAddress.getData('street_1') }}<br />
+                    {% if shippingAddress.getData('street_2') %}
+                        {{ shippingAddress.getData('street_2') }}<br />
+                    {% endif %}
+                    {{ shippingAddress.getData('postcode') }} {{ shippingAddress.getData('city') }}<br />
+                </p>
+            </div>
+        {% endif %}
+        <div style="color:#666">
+            {{ child('block.static::email-footer') }}
+        </div>
+    </body>
+</html>

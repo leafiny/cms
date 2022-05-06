@@ -124,7 +124,7 @@ class Core_Model extends Leafiny_Object
                 continue;
             }
 
-            $adapter->orderBy('main_table.' . $order['order'], $order['dir']);
+            $adapter->orderBy('main_table.' . $order['order'], $order['dir'], $order['custom'] ?? null);
         }
 
         foreach ($joins as $join) {

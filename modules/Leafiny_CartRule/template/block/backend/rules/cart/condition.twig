@@ -1,0 +1,34 @@
+{% set cartRuleHelper = block.getHelper('cart_rule') %}
+{% set condition = block.getCustom('condition') %}
+{% set index = block.getCustom('index') %}
+<div {% if block.getCustom('conditionId') %}id="{{ block.getCustom('conditionId') }}"{% endif %} class="pure-u-1 field cart-rule-condition"{% if block.getCustom('hide') %} style="display: none"{% endif %}>
+    <div class="pure-u-8-24 pure-u-xl-6-24">
+        <select class="pure-u-23-24" name="conditions[{{ index }}][field]">
+            {% for value,label in cartRuleHelper.getConditionFields %}
+                <option value="{{ value }}"{% if condition and condition.getField == value %} selected="selected"{% endif %}>{{ label|translate }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="pure-u-3-24 pure-u-xl-3-24">
+        <select class="pure-u-22-24" name="conditions[{{ index }}][operator]">
+            {% for value,label in cartRuleHelper.getConditionOperators %}
+                <option value="{{ value }}"{% if condition and condition.getOperator == value %} selected="selected"{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="pure-u-8-24 pure-u-xl-8-24">
+        {% if condition and condition.getValues %}
+            {% for value in condition.getValues %}
+                <input class="pure-u-23-24" type="text" name="conditions[{{ index }}][values][]" value="{{ value }}" />
+            {% endfor %}
+        {% else %}
+            <input class="pure-u-23-24" type="text" name="conditions[{{ index }}][values][]" value="" />
+        {% endif %}
+    </div>
+    <div class="pure-u-3-24 pure-u-xl-1-24">
+        <a href="#" class="pure-button black cart-rule-condition-or">{{ 'OR'|translate }}</a>
+    </div>
+    <div class="pure-u-1-24 pure-u-xl-1-24">
+        <a href="#" class="pure-button red cart-rule-condition-rm">{{ 'x'|translate }}</a>
+    </div>
+</div>

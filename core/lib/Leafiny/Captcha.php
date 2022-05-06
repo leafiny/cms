@@ -90,10 +90,10 @@ class Leafiny_Captcha
         $image = imagecreate($this->getWidth(), $this->getHeight());
 
         $color = $this->hexToRgb($this->getBackground());
-        $bgColor = imagecolorallocate($image, $color['r'], $color['g'], $color['b']);
+        $bgColor = imagecolorallocate($image, (int)$color['r'], (int)$color['g'], (int)$color['b']);
 
         $color = $this->hexToRgb($this->getColor());
-        $ftColor = imagecolorallocate($image, $color['r'], $color['g'], $color['b']);
+        $ftColor = imagecolorallocate($image, (int)$color['r'], (int)$color['g'], (int)$color['b']);
 
         $text = $this->getText();
         $font = $this->getFont();

@@ -19,17 +19,28 @@ $config = [
     ],
 
     'block' => [
-        'category.product.list' => [
-            'template' => 'Leafiny_Catalog::block/product/list.twig',
-            'class'    => Catalog_Block_Category_Product::class
+        'category.products' => [
+            'template' => 'Leafiny_Catalog::block/category/products.twig',
+            'class'    => Catalog_Block_Category_Products::class
         ],
-        'category.product.list.multipage' => [
-            'template' => 'Leafiny_Catalog::block/product/list/multipage.twig',
-            'class'    => Catalog_Block_Category_Product_Multipage::class
+        'category.products.multipage' => [
+            'template' => 'Leafiny_Catalog::block/category/products/multipage.twig',
+            'class'    => Catalog_Block_Category_Products_Multipage::class
+        ],
+
+        'search.products' => [
+            'template' => 'Leafiny_Catalog::block/search/products.twig',
+            'class'    => Catalog_Block_Search_Products::class
+        ],
+
+        'catalog.product.default' => [
+            'template' => 'Leafiny_Catalog::block/product/default.twig',
+            'class'    => Catalog_Block_Product_Default::class,
         ],
         'catalog.product.price' => [
             'template' => 'Leafiny_Catalog::block/product/price.twig',
         ],
+
         'admin.catalog.product.form.categories' => [
             'disabled' => !class_exists('Category_Block_Backend_Form_Categories'),
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
@@ -53,7 +64,6 @@ $config = [
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'name'     => 'description',
             'label'    => 'Description',
-            'actions'  => ['Markdown', 'HTML', 'Preview']
         ],
         'admin.menu' => [
             'tree' => [
@@ -72,7 +82,7 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                'category.product.list' => 100,
+                'category.products' => 100,
             ]
         ],
         '/product/*.html' => [
@@ -140,7 +150,38 @@ $config = [
             'allowed_params' => [
                 'catalog' => Catalog_Helper_Data::URL_PARAM_PAGE
             ],
-        ]
+        ],
+        'search' => [
+            'entity' => [
+                'catalog_product' => [
+                    'enabled' => 1,
+                    'columns' => [
+                        'sku'         => 'main_table.sku',
+                        'category'    => 'GROUP_CONCAT(c.name SEPARATOR \' \')',
+                        'name'        => 'main_table.name',
+                        'description' => 'main_table.description'
+                    ],
+                    'joins' => [
+                        'catalog_product_category' => [
+                            'table'     => 'catalog_product_category cpc',
+                            'condition' => 'cpc.product_id = main_table.product_id',
+                            'type'      => 'LEFT',
+                        ],
+                        'category' => [
+                            'table'     => 'category c',
+                            'condition' => 'c.category_id = cpc.category_id',
+                            'type'      => 'LEFT',
+                        ],
+                    ],
+                    'words' => [
+                        'name' => 'name',
+                    ],
+                    'language' => 'language',
+                    'block'    => 'search.products',
+                    'position' => 100,
+                ]
+            ]
+        ],
     ],
 
     'events' => [

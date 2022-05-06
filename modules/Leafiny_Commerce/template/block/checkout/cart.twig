@@ -1,0 +1,12 @@
+{% set next = block.getNextStep %}
+<div class="cart">
+    <div class="pure-u-1">
+        {{ child('commerce.checkout.cart.items') }}
+        {{ child('commerce.checkout.cart.subtotal') }}
+    </div>
+    <form method="post" class="pure-form pure-form-stacked save-step" action="{{ block.getStepUrl(next.getCode) }}">
+        <div class="pure-u-1 continue">
+            <button type="submit" class="pure-button button black">{{ 'Continue'|translate }}</button>
+        </div>
+    </form>
+</div>

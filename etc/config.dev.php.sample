@@ -13,7 +13,7 @@ $config = [
 
     'session' => [
         'default' => [
-            'lifetime' => 3600,
+            'lifetime' => 86400,
             'samesite' => 'strict',
         ],
         'backend' => [
@@ -30,19 +30,15 @@ $config = [
             'db_no_writing' => 0,
             'lc_time_names' => 'en_US',
         ],
-        'social_comment' => [
-            'default_status' => 1,
-        ],
-        'rewrite' => [
-            'enabled' => 1,
-        ],
     ],
 
     'page' => [
         'default' => [
-            'is_secure' => 0,
-            'locale'    => 'en_US.utf8',
-            'fpc'       => 0,
+            'is_secure'    => 0,
+            'locale'       => 'en_US.utf8',
+            'timezone'     => 'America/Chicago',
+            'fpc'          => 0,
+            'allow_params' => 1,
         ],
     ],
 

@@ -12,12 +12,22 @@ $config = [
 
     'block' => [
         'gallery::*' => [
-            'template' => 'Leafiny_Gallery::block/gallery.twig',
-            'class'    => Gallery_Block_Gallery::class
+            'template' => 'Leafiny_Gallery::block/static/gallery.twig',
+            'class'    => Gallery_Block_Static_Gallery::class
         ],
-        'category.gallery.list' => [
-            'template' => 'Leafiny_Gallery::block/category/gallery.twig',
-            'class'    => Gallery_Block_Category_Gallery::class
+        'category.galleries' => [
+            'template' => 'Leafiny_Gallery::block/category/galleries.twig',
+            'class'    => Gallery_Block_Category_Galleries::class
+        ],
+
+        'search.images' => [
+            'template' => 'Leafiny_Gallery::block/search/images.twig',
+            'class'    => Gallery_Block_Search_Images::class
+        ],
+
+        'gallery.image.default' => [
+            'template' => 'Leafiny_Gallery::block/gallery/image.twig',
+            'class'    => Gallery_Block_Gallery_Image::class
         ],
 
         'admin.head' => [
@@ -64,10 +74,27 @@ $config = [
         ],
     ],
 
+    'helper' => [
+        'search' => [
+            'entity' => [
+                'gallery_image' => [
+                    'enabled' => 0,
+                    'columns' => [
+                        'image' => 'image',
+                        'label' => 'label',
+                        'text'  => 'text',
+                    ],
+                    'block'    => 'search.images',
+                    'position' => 500,
+                ]
+            ]
+        ],
+    ],
+
     'page' => [
         '/category/*.html' => [
             'children' => [
-                'category.gallery.list' => 50,
+                'category.galleries' => 50,
             ]
         ],
 
@@ -86,7 +113,7 @@ $config = [
         '/admin/*/gallery/list/' => [
             'title'            => 'Images',
             'template'         => 'Leafiny_Backend::page.twig',
-            'class'            => Catalog_Page_Backend_Product_List::class,
+            'class'            => Backend_Page_Admin_List::class,
             'content'          => 'Leafiny_Gallery::page/backend/gallery/list.twig',
             'model_identifier' => 'gallery_group',
             'meta_title'       => 'Images',

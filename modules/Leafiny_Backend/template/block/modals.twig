@@ -1,0 +1,18 @@
+<div class="modals" style="display: none">
+    <div id="modal-remove-message">
+        <div class="modal-message">
+            <p class="warning">{{ 'You are going to delete <strong>${number} entrie(s)</strong>, are you sure?'|translate|raw }}</p>
+            <div class="pure-g">
+                <div class="pure-u-1-2 center">
+                    <a href="#" id="modal-button-1" class="pure-button red">{{ 'No'|translate }}</a>
+                </div>
+                <div class="pure-u-1-2 center">
+                    <a href="#" id="modal-button-2" class="pure-button green">{{ 'Yes'|translate }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for child in block.getChildren %}
+        {{ child(child) }}
+    {% endfor %}
+</div>

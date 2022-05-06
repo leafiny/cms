@@ -4,11 +4,11 @@
             <div class="pure-u-1-1 pure-u-md-2-5">
                 <h1><a href="{{ page.getUrl }}"><img src="{{ page.getMediaUrl('Frontend::logo.png') }}" alt="Leafiny" /></a></h1>
             </div>
-            <div class="pure-u-3-5">
-                <div class="quote">
-                    <cite>You affect the world by what you browse</cite>
-                    <p>Tim Berners-Lee</p>
-                </div>
+            <div class="pure-u-1-1 pure-u-md-2-5">
+                <!-- nocache::'search' -->{{ child('search') }}<!-- /nocache::'search' -->
+            </div>
+            <div class="pure-u-1-1 pure-u-md-1-5 right">
+                <!-- nocache::'mini.cart' -->{{ child('mini.cart') }}<!-- /nocache::'mini.cart' -->
             </div>
         </div>
     </div>

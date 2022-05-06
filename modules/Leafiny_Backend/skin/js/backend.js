@@ -64,3 +64,63 @@ function removeAccents (str) {
 
     return str;
 }
+
+/**
+ * Open new popup
+ *
+ * @param {string} html
+ * @param {string} modalClass
+ */
+function modal (html, modalClass)
+{
+    close();
+    if (typeof modalClass === 'undefined') {
+        modalClass = '';
+    }
+
+    let container = document.createElement('div');
+    container.className = 'modal-container';
+    container.addEventListener('click', function () {
+        close();
+    });
+
+    let content = document.createElement('div');
+    content.className = 'modal-content ' + modalClass;
+    content.innerHTML = html;
+
+    let closeAction = content.getElementsByClassName('close');
+    for (let i = 0; i < closeAction.length; i++) {
+        closeAction[i].addEventListener('click', function (event) {
+            event.preventDefault();
+            close();
+        });
+    }
+
+    document.body.prepend(container);
+    document.body.prepend(content);
+
+    let modal = document.getElementsByClassName('modal-content');
+    setTimeout(function() {
+        modal[0].className += ' show';
+    }, 50);
+
+    /**
+     * Close popup
+     */
+    function close ()
+    {
+        let containers = document.getElementsByClassName('modal-container');
+        for (let i = 0; i < containers.length; i++) {
+            containers[i].remove();
+        }
+
+        let contents = document.getElementsByClassName('modal-content');
+        for (let i = 0; i < contents.length; i++) {
+            contents[i].remove();
+        }
+    }
+
+    return {
+        'close': close
+    }
+}

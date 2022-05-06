@@ -1,0 +1,30 @@
+{% set helper = mail.getHelper('order') %}<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ mail.getLanguage }}" xml:lang="{{ mail.getLanguage }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={{ mail.getCharset }}">
+        <title>{{ mail.getSubject|translate }}</title>
+        <style type="text/css">
+            body, p, h1 {font-family:'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:18px}
+            a {color: #0c4047}
+            h1 {font-size:30px}
+            div {border-top:1px solid #ccc}
+        </style>
+    </head>
+    <body>
+        <h1>{{ mail.getSubject|translate }}</h1>
+        <p>{{ mail.getSale.getCustomer }},</p>
+        <p>{{ 'New information about your order.'|translate }}</p>
+        <p><strong>{{ 'Status:'|translate }}</strong> {{ mail.getHistory.getTitle }}</p>
+        <p><strong>{{ 'Message:'|translate }}</strong></p>
+        <p>
+            {{ mail.getHistory.getComment|nl2br }}
+        </p>
+        <p>
+            <a href="{{ helper.getOrderLink(mail.getSale.getKey) }}">{{ 'Follow the order progress'|translate }}</a>
+        </p>
+        <br />
+        <div style="color:#666">
+            {{ child('block.static::email-footer') }}
+        </div>
+    </body>
+</html>

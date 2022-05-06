@@ -1,0 +1,318 @@
+{% set sale = page.getSale %}
+<div class="order-view">
+    <div class="pure-u-1 toolbar">
+        <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
+    </div>
+
+    <div class="box general pure-u-1 pure-u-lg-1-2">
+        <div class="box-content">
+            <div class="title">
+                {{ 'Info'|translate }}
+            </div>
+            <div class="line">
+                <div class="pure-u-1-3 label">{{ 'Number'|translate }}</div>
+                <div class="pure-u-2-3 value">{{ sale.getSaleIncrementId }}</div>
+            </div>
+            <div class="line">
+                <div class="pure-u-1-3 label">{{ 'Created At'|translate }}</div>
+                <div class="pure-u-2-3 value">{{ page.formatDate(sale.getCreatedAt()) }}</div>
+            </div>
+            <div class="line">
+                <div class="pure-u-1-3 label">{{ 'Status'|translate }}</div>
+                <div class="pure-u-2-3 value">{{ page.getStatus(sale.getStatus) }}</div>
+            </div>
+            <div class="line pure-form">
+                <div class="pure-u-1-3 label"><label for="tracking">{{ 'Tracking'|translate }}</label></div>
+                <div class="pure-u-2-3 value">
+                    <input id="tracking" type="text" class="pure-u-1" value="{{ page.getOrderLink }}" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box customer pure-u-1 pure-u-lg-1-2">
+        <div class="box-content last">
+            <div class="title">
+                {{ 'Customer'|translate }}
+            </div>
+            <div class="line">
+                <div class="pure-u-1-3 label">{{ 'Name'|translate }}</div>
+                <div class="pure-u-2-3 value">{{ sale.getCustomer ?: '-' }}</div>
+            </div>
+            <div class="line">
+                <div class="pure-u-1-3 label">{{ 'E-mail'|translate }}</div>
+                <div class="pure-u-2-3 value">
+                    {% if sale.getEmail %}
+                        <a href="mailto:{{ sale.getEmail }}">{{ sale.getEmail }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% set billing = page.getAddress('billing') %}
+    {% if billing %}
+        <div class="box billing-address pure-u-1 pure-u-lg-1-2">
+            <div class="box-content">
+                <div class="title">
+                    {{ 'Billing Address'|translate }}
+                </div>
+                <div class="line">
+                    {% if billing.getCompany %}
+                        {{ billing.getCompany }}<br />
+                    {% endif %}
+                    <strong>{{ billing.getFirstname }} {{ billing.getLastname }}</strong><br />
+                    {{ billing.getData('street_1') }}<br />
+                    {% if billing.getData('street_2') %}
+                        {{ billing.getData('street_2') }}<br />
+                    {% endif %}
+                    {{ billing.getPostcode }} {{ billing.getCity }}<br />
+                    {{ page.getCountry(billing.getCountryCode) }}<br />
+                    {{ billing.getTelephone }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% set shipping = page.getAddress('shipping') %}
+    {% if shipping %}
+        <div class="box shipping-address pure-u-1 pure-u-lg-1-2">
+            <div class="box-content{% if billing %} last{% endif %}">
+                <div class="title">
+                    {{ 'Shipping Address'|translate }}
+                </div>
+                <div class="line">
+                    {% if shipping.getCompany %}
+                        {{ shipping.getCompany }}<br />
+                    {% endif %}
+                    <strong>{{ shipping.getFirstname }} {{ shipping.getLastname }}</strong><br />
+                    {{ shipping.getData('street_1') }}<br />
+                    {% if shipping.getData('street_2') %}
+                        {{ shipping.getData('street_2') }}<br />
+                    {% endif %}
+                    {{ shipping.getPostcode }} {{ shipping.getCity }}<br />
+                    {{ page.getCountry(shipping.getCountryCode) }}<br />
+                    {{ shipping.getTelephone }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if sale.getPaymentMethod %}
+        <div class="box payment pure-u-1 pure-u-lg-1-2">
+            <div class="box-content">
+                <div class="title">
+                    {{ 'Payment'|translate }}
+                </div>
+                <div class="line">
+                    {% if sale.getInvoiceIncrementId %}
+                        <a href="{{ page.getDownloadInvoiceUrl(sale.getSaleId) }}" class="pure-button green invoice">
+                            {{ 'Print'|translate }}
+                        </a>
+                    {% else %}
+                        <a href="{{ page.getCreateInvoiceUrl(sale.getSaleId) }}" class="pure-button green invoice">
+                            {{ 'Invoice'|translate }}
+                        </a>
+                    {% endif %}
+                    {{ sale.getPaymentTitle }}
+                    <ul class="payment-info">
+                        {% if sale.getInvoiceIncrementId %}
+                            <li><strong>{{ 'Invoice:'|translate }}</strong> {{ sale.getInvoiceIncrementId }}</li>
+                        {% endif %}
+                        {% if sale.getPaymentRef %}
+                            <li><strong>{{ 'Payment:'|translate }}</strong> {{ sale.getPaymentRef }}</li>
+                        {% endif %}
+                        {% if sale.getPaymentState %}
+                            <li><strong>{{ 'Status:'|translate }}</strong> {{ sale.getPaymentState }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if sale.getShippingMethod %}
+        {% set shippingMethod = page.getShippingMethod(sale.getShippingMethod) %}
+        <div class="box shipping-method pure-u-1 pure-u-lg-1-2">
+            <div class="box-content{% if sale.getPaymentMethod %} last{% endif %}">
+                <div class="title">
+                    {{ 'Shipping'|translate }}
+                </div>
+                <div class="line">
+                    <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-2-3">
+                        {{ shippingMethod.getLabel ?: 'Unknown'|translate }}
+                        {% set shipments = page.getShipments(sale.getSaleId) %}
+                        {% if shipments|length %}
+                            <ul class="sale-shipments">
+                                {% for shipment in page.getShipments(sale.getSaleId) %}
+                                    <li>
+                                        <span>{{ page.formatDate(shipment.getCreatedAt) }}</span>
+                                        {% if shipment.getTrackingUrl %}
+                                            - <a href="{{ shipment.getTrackingUrl }}" target="_blank" rel="noopener noreferrer">{{ shipment.getTrackingNumber }}</a>
+                                        {% elseif shipment.getTrackingNumber %}
+                                            - {{ shipment.getTrackingNumber }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    {% if page.canShip(sale) %}
+                        <div class="pure-u-1 pure-u-sm-1-2 pure-u-md-1-3">
+                            <form method="post" action="{{ page.getShipmentPostUrl }}" class="pure-form pure-form-stacked form-ship">
+                                <input type="text" class="pure-u-1" name="tracking" placeholder="{{ 'Tracking number'|translate }}" value="" />
+                                <input type="hidden" name="sale_id" value="{{ sale.getSaleId }}" />
+                                <input type="hidden" name="language" value="{{ sale.getLanguage }}" />
+                                <input type="hidden" name="send_mail" value="1" />
+                                <button type="submit" class="pure-button pure-u-1 green">{{ 'Ship'|translate }}</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="box products pure-u-1">
+        <div class="box-content last">
+            {% set items = page.getItems %}
+            <div class="title">
+                {{ 'Products'|translate }}
+            </div>
+            <div class="line">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>{{ 'Name'|translate }}</th>
+                            <th>{{ 'Sku'|translate }}</th>
+                            <th>{{ 'Options'|translate }}</th>
+                            <th>{{ 'Price Excl. Tax'|translate }}</th>
+                            <th>{{ 'Qty'|translate }}</th>
+                            <th>{{ 'Weight'|translate }}</th>
+                            <th>{{ 'Total Excl. Tax'|translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>
+                            {% set image = page.getProductImage(item.getProductId) %}
+                            {% if image %}
+                                <img src="{{ page.getMediaUrl }}{{ page.imageResize(image.getImage, 200, 200, item.getProductName ~ '-' ~ image.getImageId) }}" width="100" height="100" alt="" />
+                            {% else %}
+                                <img src="{{ page.getMediaUrl('catalog/placeholder.png') }}" width="100" height="100" alt="" />
+                            {% endif %}
+                            </td>
+                            <td>{{ item.getProductName }}</td>
+                            <td>{{ item.getProductSku }}</td>
+                            <td>{{ page.renderItemOption(item.getOptions) }}</td>
+                            <td>{{ item.getExclTaxUnit|currency(sale.getSaleCurrency) }}</td>
+                            <td>{{ item.getQty }}</td>
+                            <td>{{ item.getWeightRow }}</td>
+                            <td>{{ item.getExclTaxRow|currency(sale.getSaleCurrency) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% set children = page.getChildren %}
+    {% if children|length %}
+        <div class="pure-u-1">
+            {% for child in children %}
+                <div class="box pure-u-1 pure-u-lg-1-2">
+                    {{ child(child) }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="box total pure-u-1 pure-u-lg-1-2">
+        <div class="box-content">
+            <div class="title">
+                {{ 'Total'|translate }}
+            </div>
+            <div class="line subtotal">
+                <div class="pure-u-2-3 label">{{ 'Subtotal Excl. Tax'|translate }}</div>
+                <div class="pure-u-1-3 value">{{ sale.getExclTaxSubtotal|currency(sale.getSaleCurrency) }}</div>
+            </div>
+            <div class="line shipping">
+                <div class="pure-u-2-3 label">{{ 'Shipping Excl. Tax'|translate }}</div>
+                <div class="pure-u-1-3 value">{{ sale.getExclTaxShipping|currency(sale.getSaleCurrency) }}</div>
+            </div>
+            <div class="line shipping">
+                <div class="pure-u-2-3 label">{{ 'Discount Excl. Tax'|translate }}</div>
+                <div class="pure-u-1-3 value">{{ (sale.getExclTaxDiscount * -1)|currency(sale.getSaleCurrency) }}</div>
+            </div>
+            <div class="line total-excl-tax">
+                <div class="pure-u-2-3 label">{{ 'Total Excl. Tax'|translate }}</div>
+                <div class="pure-u-1-3 value">{{ sale.getExclTaxTotal|currency(sale.getSaleCurrency) }}</div>
+            </div>
+            <div class="line tax">
+                <div class="pure-u-2-3 label">{{ 'Tax'|translate }}</div>
+                <div class="pure-u-1-3 value">{{ sale.getTaxTotal|currency(sale.getSaleCurrency) }}</div>
+            </div>
+            <div class="line total-incl-tax">
+                <div class="pure-u-2-3 label">{{ 'Total Incl. Tax'|translate }}</div>
+                <div class="pure-u-1-3 value">{{ sale.getInclTaxTotal|currency(sale.getSaleCurrency) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box history pure-u-1 pure-u-lg-1-2">
+        <div class="box-content last">
+            <div class="title">
+                {{ 'History'|translate }}
+            </div>
+            {% set history = page.getHistory %}
+            {% for event in history %}
+                <div class="event">
+                    <div class="header">
+                        <span class="date">{{ page.formatDate(event.getCreatedAt) }}</span>
+                        {% if event.getStatusCode %}
+                            <span class="status">{{ page.getStatus(event.getStatusCode) }}</span>
+                        {% endif %}
+                        {% if event.getMailSent %}
+                            <span class="mail"><img src="{{ page.getMediaUrl('Leafiny_Commerce::mail.png') }}" alt="Sent by mail" /></span>
+                        {% endif %}
+                    </div>
+                    <div class="comment">
+                        {{ event.getComment|nl2br }}
+                    </div>
+                    <div class="footer">
+                        {{ event.getOperator|translate }}
+                    </div>
+                </div>
+            {% endfor %}
+            <form method="post" action="{{ page.getHistoryPostUrl }}" class="pure-form form-comment pure-form-stacked">
+                <fieldset>
+                    <legend>{{ 'Add a comment'|translate }}</legend>
+
+                    <label for="status_code">{{ 'Status'|translate }}</label>
+                    <select id="status_code" name="status_code">
+                        {% for code, label in page.getStatuses %}
+                            <option value="{{ code }}"{% if sale.getStatus == code %} selected="selected"{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="comment">{{ 'Comment'|translate }}</label>
+                    <textarea id="comment" name="comment" class="pure-u-1"></textarea>
+
+                    <label for="send_mail">
+                        <input type="checkbox" id="send_mail" name="send_mail" value="1" />
+                        {{ 'Send to customer by email'|translate }}
+                    </label>
+
+                    <input type="hidden" name="sale_id" value="{{ sale.getSaleId }}" />
+                    <input type="hidden" name="language" value="{{ sale.getLanguage }}" />
+                    <button type="submit" class="pure-button green">{{ 'Send'|translate }}</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

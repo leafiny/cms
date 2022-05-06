@@ -27,17 +27,45 @@ $config = [
             'allowed_params' => [
                 'blog' => Blog_Helper_Data::URL_PARAM_PAGE
             ],
-        ]
+        ],
+        'search' => [
+            'entity' => [
+                'blog_post' => [
+                    'enabled' => 0,
+                    'columns' => [
+                        'title'  => 'title',
+                        'intro'  => 'intro',
+                        'author' => 'author'
+                    ],
+                    'words' => [
+                        'title' => 'title'
+                    ],
+                    'language' => 'language',
+                    'block'    => 'search.posts',
+                    'position' => 200,
+                ]
+            ]
+        ],
     ],
 
     'block' => [
-        'category.post.list' => [
-            'template' => 'Leafiny_Blog::block/post/list.twig',
-            'class'    => Blog_Block_Category_Post::class
+        'category.posts' => [
+            'template' => 'Leafiny_Blog::block/category/posts.twig',
+            'class'    => Blog_Block_Category_Posts::class
         ],
-        'category.post.list.multipage' => [
-            'template' => 'Leafiny_Blog::block/post/list/multipage.twig',
-            'class'    => Blog_Block_Category_Post_Multipage::class
+        'category.posts.multipage' => [
+            'template' => 'Leafiny_Blog::block/category/posts/multipage.twig',
+            'class'    => Blog_Block_Category_Posts_Multipage::class
+        ],
+
+        'search.posts' => [
+            'template' => 'Leafiny_Blog::block/search/posts.twig',
+            'class'    => Blog_Block_Search_Posts::class
+        ],
+
+        'blog.post.default' => [
+            'template' => 'Leafiny_Blog::block/post/default.twig',
+            'class'    => Blog_Block_Post_Default::class
         ],
         'blog.post.comments' => [
             'template' => 'Leafiny_Blog::block/post/comments.twig',
@@ -72,7 +100,6 @@ $config = [
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'name'     => 'content',
             'label'    => 'Post',
-            'actions'  => ['Markdown', 'HTML', 'Preview']
         ],
         'admin.menu' => [
             'tree' => [
@@ -91,7 +118,7 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                'category.post.list' => 250,
+                'category.posts' => 250,
             ]
         ],
         '/post/*.html' => [

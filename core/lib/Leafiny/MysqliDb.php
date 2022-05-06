@@ -169,6 +169,39 @@ class Leafiny_MysqliDb extends MysqliDb
     }
 
     /**
+     * Helper function to add variables into the query statement
+     *
+     * @param array $tableData Variable with values
+     *
+     * @throws Exception
+     */
+    protected function _buildOnDuplicate($tableData)
+    {
+        if (is_array($this->_updateColumns) && !empty($this->_updateColumns)) {
+            $this->_query .= " ON DUPLICATE KEY UPDATE ";
+            if ($this->_lastInsertId) {
+                $this->_query .= $this->_lastInsertId . "=LAST_INSERT_ID (" . $this->_lastInsertId . "), ";
+            }
+
+            foreach ($this->_updateColumns as $key => $val) {
+                if (is_numeric($key)) {
+                    $this->_updateColumns[$val] = '';
+                    unset($this->_updateColumns[$key]);
+                } else {
+                    if ($val) {
+                        $tableData[$key] = $val;
+                    } else {
+                        // Added: Update column with the new value
+                        $this->_query .= $key . "=VALUES(". $key ."), ";
+                        unset($this->_updateColumns[$key]);
+                    }
+                }
+            }
+            $this->_buildDataPairs($tableData, array_keys($this->_updateColumns), false);
+        }
+    }
+
+    /**
      * Prevent writing to database
      *
      * @param bool $noWriting
@@ -206,6 +239,17 @@ class Leafiny_MysqliDb extends MysqliDb
     public function isNoWriting(): bool
     {
         return $this->noWriting;
+    }
+
+    /**
+     * Truncate a table
+     *
+     * @param string $table
+     * @throws Exception
+     */
+    public function truncate(string $table): void
+    {
+        $this->query('TRUNCATE `' . $this->escape($table) . '`');
     }
 
     /**

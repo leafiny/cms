@@ -1,0 +1,5 @@
+{% for url in page.getCustom('urls') %}
+<url>
+    <loc>{{ page.getUrl(url) }}</loc>
+</url>
+{% endfor %}

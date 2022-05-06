@@ -1,0 +1,49 @@
+{% set shippingAddress = block.getShippingAddress(page) %}
+<h4>{{ 'Shipping Address'|translate }}</h4>
+<fieldset class="address-form shipping">
+    <div class="pure-g">
+        <div class="pure-u-1 line required">
+            <label for="email">{{ 'E-mail'|translate }} <span>*</span> :</label>
+            <input id="email" type="email" class="pure-u-1" name="email" value="{{ block.getEmail(page) }}" required />
+        </div>
+        <div class="pure-u-1 line">
+            <div class="pure-u-1-2 required">
+                <label for="shipping-firstname">{{ 'Firstname'|translate }} <span>*</span> :</label>
+                <input id="shipping-firstname" type="text" class="pure-u-1 input-left" name="shipping[firstname]" value="{{ shippingAddress.getFirstname }}" required />
+            </div>
+            <div class="pure-u-1-2 required">
+                <label for="shipping-lastname">{{ 'Lastname'|translate }} <span>*</span> :</label>
+                <input id="shipping-lastname" type="text" class="pure-u-1" name="shipping[lastname]" value="{{ shippingAddress.getLastname }}" required />
+            </div>
+        </div>
+        <div class="pure-u-1 line required">
+            <label for="shipping-street_1">{{ 'Address'|translate }} <span>*</span> :</label>
+            <input id="shipping-street_1" type="text" class="pure-u-1" name="shipping[street_1]" value="{{ shippingAddress.getData('street_1') }}" required />
+            <input id="shipping-street_2" type="text" class="pure-u-1" name="shipping[street_2]" value="{{ shippingAddress.getData('street_2') }}" />
+        </div>
+        <div class="pure-u-1 line">
+            <div class="pure-u-1-2 required">
+                <label for="shipping-postcode">{{ 'Postcode'|translate }} <span>*</span> :</label>
+                <input id="shipping-postcode" type="text" class="pure-u-1 input-left" name="shipping[postcode]" value="{{ shippingAddress.getPostcode }}" required />
+            </div>
+            <div class="pure-u-1-2 required">
+                <label for="shipping-city">{{ 'City'|translate }} <span>*</span> :</label>
+                <input id="shipping-city" type="text" class="pure-u-1" name="shipping[city]" value="{{ shippingAddress.getCity }}" required />
+            </div>
+        </div>
+        <div class="pure-u-1 line">
+            <div class="pure-u-1-2 required">
+                <label for="shipping-country_code">{{ 'Country'|translate }} <span>*</span> :</label>
+                <select id="shipping-country_code" name="shipping[country_code]" class="pure-u-1 input-left">
+                    {% for code,name in block.getCountries %}
+                        <option value="{{ code }}"{% if code == shippingAddress.getCountryCode %} selected="selected"{% endif %}>{{ name|translate }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="pure-u-1-2 required">
+                <label for="shipping-telephone">{{ 'Phone'|translate }} <span>*</span> :</label>
+                <input id="shipping-telephone" type="text" class="pure-u-1" name="shipping[telephone]" value="{{ shippingAddress.getTelephone }}" required />
+            </div>
+        </div>
+    </div>
+</fieldset>

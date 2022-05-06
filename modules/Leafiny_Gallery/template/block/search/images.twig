@@ -1,0 +1,12 @@
+{% set images = block.getImages %}
+{% if images is not empty %}
+    <div class="search-results">
+        {% set results = images|length %}
+        {{ results }} {% if results == 1 %}{{ 'image found'|translate }}{% else %}{{ 'images found'|translate }}{% endif %}
+    </div>
+    <div class="gallery pure-g">
+        {% for image in images %}
+            {{ child('gallery.image.default', {'image':image}) }}
+        {% endfor %}
+    </div>
+{% endif %}

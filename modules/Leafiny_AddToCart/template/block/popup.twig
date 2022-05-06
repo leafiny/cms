@@ -1,0 +1,35 @@
+{% apply spaceless %}
+<div class="cart-popup">
+    {% set product = block.getProduct %}
+    {% set cartItem = block.getCartItem %}
+    {% if product and cartItem %}
+        <div class="product">
+            {% set mainImage = block.getMainImage(product.getProductId) %}
+            {% if mainImage %}
+                <img src="{{ block.getMediaUrl }}{{ page.imageResize(mainImage.getImage, 200, 200, product.getName ~ '-' ~ mainImage.getImageId) }}" alt="{{ product.getName }}" />
+            {% else %}
+                <img src="{{ block.getMediaUrl('catalog/placeholder.png') }}" alt="{{ product.getName }}" />
+            {% endif %}
+            {% if cartItem.getQty > cartItem.getOriginalQty %}
+                <p>{{ 'The product has been added to the cart'|translate }}</p>
+            {% else %}
+                {% if cartItem.getRequestedQty > cartItem.getQty %}
+                    <p class="warning">{{ 'You have reached the maximum quantity for this product'|translate }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="actions">
+            <div class="pure-u-1 pure-u-md-1-2 left">
+                <div class="action">
+                    <a href="#" class="pure-button gold close">{{ 'Continue my shopping'|translate }}</a>
+                </div>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2 right">
+                <div class="action">
+                    <a href="{{ page.getUrl(block.getCheckoutPath) }}" class="pure-button black">{{ 'View my cart'|translate }}</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endapply %}

@@ -1,0 +1,16 @@
+{% set category = page.getCustom('category') %}
+{% set groups = block.getGroups(category.getCategoryId) %}
+{% if groups|length %}
+    <div class="galleries" id="galleries">
+        {% for group in groups %}
+            {% set images = block.getImages(group.getGroupId) %}
+            {% if images|length %}
+                <div class="gallery pure-g">
+                    {% for image in images %}
+                        {{ child('gallery.image.default', {'image':image}) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

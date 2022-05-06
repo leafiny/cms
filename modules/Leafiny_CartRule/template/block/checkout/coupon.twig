@@ -1,0 +1,9 @@
+{% set sale = block.getSale %}
+<form method="post" class="pure-form coupon" action="{{ block.getCouponUrl }}">
+    <a href="#" id="coupon_link">{{ 'Do you have a coupon?'|translate }}</a>
+    <div class="pure-form line" id="coupon_form" style="display:{% if not sale.getCouponCode %}none{% else %}block{%  endif %}">
+        <label for="coupon">{{ 'Coupon:'|translate }}</label>
+        <input type="text" name="coupon" id="coupon" value="{{ sale.getCouponCode }}" />
+        <button type="submit" class="pure-button black">{{ 'Ok'|translate }}</button>
+    </div>
+</form>

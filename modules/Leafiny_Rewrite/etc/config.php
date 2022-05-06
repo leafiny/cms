@@ -3,7 +3,8 @@
 $config = [
     'model' => [
         'rewrite' => [
-            'class' => Rewrite_Model_Rewrite::class
+            'class'   => Rewrite_Model_Rewrite::class,
+            'enabled' => 1,
         ],
     ],
 

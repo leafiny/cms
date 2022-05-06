@@ -1,0 +1,25 @@
+{% set sale = block.getSale %}
+<div class="data-tab">
+    {% set shippingMethod = block.getShippingMethod %}
+    {% if shippingMethod %}
+        <div class="line">
+            <span class="pure-u-2-5">
+                <strong>{{ 'Shipping'|translate }} :</strong>
+            </span>
+            <span class="pure-u-3-5 right">
+                {{ shippingMethod.getLabel }}
+            </span>
+        </div>
+    {% endif %}
+    {% set paymentMethod = block.getPaymentMethod %}
+    {% if paymentMethod %}
+        <div class="line">
+            <span class="pure-u-2-5">
+                <strong>{{ 'Payment'|translate }} :</strong>
+            </span>
+            <span class="pure-u-3-5 right">
+                {{ paymentMethod.getTitle }}
+            </span>
+        </div>
+    {% endif %}
+</div>

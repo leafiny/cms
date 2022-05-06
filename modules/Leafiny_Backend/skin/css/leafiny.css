@@ -285,7 +285,7 @@ button, input, optgroup, select, textarea {
     color: #006554;
 }
 
-.container-form span {
+.container-form .required span {
     color: #721c24;
 }
 
@@ -678,6 +678,54 @@ button, input, optgroup, select, textarea {
 .dashboard li a.red {background: #851f2f}
 .dashboard li a.purple {background: #6B5976}
 
+/* Modal */
+.modals {
+    display: none;
+}
+
+.modal-container {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: 10000
+}
+
+.modal-content {
+    width: 550px;
+    margin-left: -275px;
+    margin-top: -190px;
+    position: fixed;
+    z-index: 20000;
+    top: 50%;
+    left: 50%;
+    border: 1px solid #4A545C;
+    text-align: left;
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.1s linear;
+    box-shadow: 0 0 9px 5px rgba(0,0,0,0.3);
+}
+
+.modal-content.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-message {
+    padding: 20px;
+    text-align: center;
+}
+
+.modal-message .warning {
+    color: #851f2f;
+}
+
 @media (max-width: 778px) {
     .menu-toggle.pure-button {
         display: block;
@@ -761,5 +809,13 @@ button, input, optgroup, select, textarea {
 
     .container-grid .toolbar .actions .box {
         margin: 0;
+    }
+
+    .modal-content {
+        width: auto;
+        left: 10px;
+        right: 10px;
+        margin-left: 0;
+        margin-right: 0;
     }
 }

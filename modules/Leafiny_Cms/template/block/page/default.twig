@@ -1,0 +1,6 @@
+{% set cms_page = block.getCmsPage %}
+<div class="page-list pure-u-1-2 pure-u-md-1-4">
+    <div class="page-list-content">
+        <a href="{{ page.getUrlRewrite(cms_page.getPathKey, 'cms_page') }}">{{ cms_page.getTitle }}</a>
+    </div>
+</div>

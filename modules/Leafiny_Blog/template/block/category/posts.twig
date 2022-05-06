@@ -1,0 +1,10 @@
+{% set category = page.getCustom('category') %}
+{% set posts = block.getPosts(category.getCategoryId) %}
+{% if posts is not empty %}
+    <div class="posts pure-g" id="posts">
+        {% for post in posts %}
+            {{ child('blog.post.default', {'post':post}) }}
+        {% endfor %}
+    </div>
+    {{ child('category.posts.multipage', {'category_id':category.getCategoryId}) }}
+{% endif %}

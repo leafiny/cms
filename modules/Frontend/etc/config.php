@@ -60,7 +60,7 @@ $config = [
             ],
             'javascript' => [
                 // Load the necessary head scripts, Example:
-                // 'Frontend::js/jquery-3.5.1.min.js' => 100
+                // 'Frontend::js/jquery-3.6.0.min.js' => 100
             ],
             'class' => Frontend_Block_Head::class
         ],

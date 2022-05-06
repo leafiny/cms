@@ -1,0 +1,11 @@
+<div class="search-results">
+    <h2>{{ 'Search Results'|translate }}</h2>
+    {% set searchResult = page.getSearchResult %}
+    {% if searchResult|length %}
+        {% for result in searchResult %}
+            {{ child(result.getBlock, {'result':result}) }}
+        {% endfor %}
+    {% else %}
+        <p>{{ 'Your search returned no results.'|translate }}</p>
+    {% endif %}
+</div>

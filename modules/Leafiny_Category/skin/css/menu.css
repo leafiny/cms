@@ -1,0 +1,128 @@
+/* Menu / Navigation */
+.navigation-content {
+    position: relative;
+}
+
+#menu-sm-link {
+    display: none;
+}
+
+.menu-toggle {
+    display: none;
+    line-height: 42px;
+    background: url(../images/menu.png) no-repeat center left;
+    padding-left: 33px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pure-menu-item {
+    line-height: 40px;
+}
+
+.pure-menu-link {
+    padding: 0 1em;
+    border-bottom: 3px solid #FFFFFF;
+}
+
+.pure-menu-link:focus,
+.pure-menu-link:hover {
+    background: none;
+}
+
+.pure-menu-link:hover {
+    color: #000;
+}
+
+.pure-menu-link.active {
+    border-bottom: 3px solid #9DE187;
+}
+
+/* Child Menu */
+.pure-menu-list.child {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 0 15px 10px -15px #666;
+    padding-bottom: 5px;
+}
+
+.pure-menu-list.child .pure-menu-link {
+    border-bottom: 0;
+    padding: 5px 50px 0 1em;
+    background: url(../images/list.png) no-repeat top 20px right 20px;
+    min-width: 150px;
+}
+
+.pure-menu-item:hover .pure-menu-list.child {
+    display: block;
+}
+
+@media (max-width: 778px) {
+    /* Menu */
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu-list.categories {
+        display: none;
+        position: absolute;
+        background: #ffffff;
+        border-bottom: 1px solid #E5E7EB;
+        border-top: 1px solid #E5E7EB;
+        padding: 10px 0;
+        z-index: 1000;
+        text-align: left;
+        left: 0;
+        right: 0;
+        box-shadow: 0 15px 10px -15px #666;
+    }
+
+    #menu-sm-link:checked + label {
+        background-image: url(../images/close.png);
+    }
+
+    #menu-sm-link:checked ~ ul {
+        display: block;
+    }
+
+    .pure-menu-link {
+        padding-left: 0;
+        border: 0;
+    }
+
+    .menu-list.categories a,.menu-list.categories a:hover {
+        border: 0;
+    }
+
+    .menu-list.categories li {
+        display: block;
+        padding: 0 50px 0 27px;
+        background: url(../images/list.png) no-repeat top 15px right 20px;
+    }
+
+    .menu-list.categories .pure-menu-list li {
+        background: none;
+        padding-right: 0;
+    }
+
+    .menu-list .pure-menu-list {
+        position: relative;
+        box-shadow: none;
+    }
+
+    /* Child Menu */
+    .pure-menu-list.child li {
+        padding-left: 0;
+    }
+
+    .pure-menu-list.child .pure-menu-link {
+        padding-right: 0;
+        background: none;
+    }
+
+    .pure-menu-item:hover .pure-menu-list.child {
+        display: none;
+    }
+}

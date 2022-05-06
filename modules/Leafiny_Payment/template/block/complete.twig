@@ -1,0 +1,9 @@
+{% set sale = block.getCustom('sale') %}
+
+<h3>{{ 'Thank you for your purchase!'|translate }}</h3>
+
+<p>{{ 'Your order number is:'|translate }} <strong>{{ sale.getSaleIncrementId }}</strong>.</p>
+
+<p>{{ 'We\'ll email you an order confirmation with details.'|translate }}</p>
+
+{{ child(sale.getPaymentMethod ~ '.payment.info') }}

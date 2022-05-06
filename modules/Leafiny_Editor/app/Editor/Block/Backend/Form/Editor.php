@@ -48,8 +48,6 @@ class Editor_Block_Backend_Form_Editor extends Core_Block
             return ['Markdown', 'HTML', 'Preview'];
         }
 
-        $actions = array_filter($actions);
-
-        return $actions;
+        return array_filter($actions);
     }
 }

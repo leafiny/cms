@@ -21,14 +21,48 @@ $config = [
     'helper' => [
         'category' => [
             'class' => Category_Helper_Category::class,
-        ]
+        ],
+        'search' => [
+            'entity' => [
+                'category' => [
+                    'enabled' => 0,
+                    'columns' => [
+                        'name'    => 'name',
+                        'content' => 'content',
+                    ],
+                    'words' => [
+                        'name' => 'name',
+                    ],
+                    'language' => 'language',
+                    'block'    => 'search.categories',
+                    'position' => 50,
+                ],
+            ],
+        ],
     ],
 
     'block' => [
-        'catalog.menu' => [
+        'head' => [
+            'stylesheet' => [
+                'Leafiny_Category::css/menu.css' => 400
+            ],
+        ],
+        'script' => [
+            'javascript' => [
+                'Leafiny_Category::js/menu.js' => 250
+            ],
+        ],
+
+        'search.categories' => [
+            'template' => 'Leafiny_Category::block/search/categories.twig',
+            'class'    => Category_Block_Search_Categories::class
+        ],
+
+        'menu' => [
             'template' => 'Leafiny_Category::block/menu.twig',
             'class'    => Category_Block_Menu::class
         ],
+
         'admin.category.form.categories' => [
             'template' => 'Leafiny_Category::block/backend/form/categories.twig',
             'class'    => Category_Block_Backend_Form_Categories::class,
@@ -41,7 +75,6 @@ $config = [
             'class'    => Editor_Block_Backend_Form_Editor::class,
             'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
             'name'     => 'content',
-            'actions'  => ['Markdown', 'HTML', 'Preview']
         ],
         'admin.head' => [
             'javascript' => [

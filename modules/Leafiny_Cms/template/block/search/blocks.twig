@@ -1,0 +1,8 @@
+{% set blocks = block.getBlocks() %}
+{% if blocks is not empty %}
+    <div class="blocks pure-g">
+        {% for cms_block in blocks %}
+            {{ child('cms.block.default', {'cms_block':cms_block}) }}
+        {% endfor %}
+    </div>
+{% endif %}

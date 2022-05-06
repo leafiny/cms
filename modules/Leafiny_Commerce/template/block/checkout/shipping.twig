@@ -1,0 +1,28 @@
+{% set next = block.getNextStep %}
+<form method="post" class="pure-form pure-form-stacked save-step order shipping-methods" action="{{ block.getStepUrl(next.getCode) }}">
+    {% set shippingMethods = block.getShippingMethods %}
+    {% if shippingMethods is not empty %}
+        {% for shipping in shippingMethods %}
+            <div class="shipping-method {{ shipping.getMethod }}">
+                <div class="shipping-method-content">
+                    <label for="{{ shipping.getMethod }}">
+                        <input type="radio" name="shipping_method" value="{{ shipping.getMethod }}" id="{{ shipping.getMethod }}"{% if (block.getCurrentMethod == shipping.getMethod) %} checked="checked"{% endif %}/>
+                        {% set prices = block.getMethodPrices(shipping.getMethod) %}
+                        {{ shipping.getLabel }} -
+                        {% if prices.getInclTaxShipping < prices.getOriginalInclTaxShipping %}
+                            <span class="original-price">{{ prices.getOriginalInclTaxShipping|currency }}</span>
+                        {% endif %}
+                        <strong>{{ prices.getInclTaxShipping|currency }}</strong>
+                    </label>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="pure-u-1 continue">
+            <button type="submit" class="pure-button button black">{{ 'Continue'|translate }}</button>
+        </div>
+    {% else %}
+        <p>
+            {{ 'Your order cannot be completed at this time as there is no shipping methods available for it.'|translate }}
+        </p>
+    {% endif %}
+</form>
