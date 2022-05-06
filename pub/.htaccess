@@ -34,7 +34,7 @@ RewriteRule .* index.php [L]
 <IfModule mod_expires.c>
     ExpiresActive On
 
-    <FilesMatch "\.(jpg|jpeg|png|gif|js|css|ico|webp)$">
+    <FilesMatch "\.(jpg|jpeg|png|gif|js|css|ico|webp|svg|woff|woff2|eot|ttf)$">
         ExpiresDefault "access plus 5 years"
         Header set Cache-Control "public"
         FileETag MTime Size
