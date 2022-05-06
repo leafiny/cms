@@ -44,12 +44,12 @@ $config = [
     'block' => [
         'head' => [
             'stylesheet' => [
-                'Leafiny_Category::css/menu.css' => 400
+                'Leafiny_Category::css/menu.css' => 250
             ],
         ],
         'script' => [
             'javascript' => [
-                'Leafiny_Category::js/menu.js' => 250
+                'Leafiny_Category::js/menu.js' => 200
             ],
         ],
 
