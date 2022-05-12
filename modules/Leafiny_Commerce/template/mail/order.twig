@@ -46,7 +46,7 @@
             <p>
                 {{ payment.getTitle }} - <strong>{{ mail.getSale.getInclTaxTotal|currency }}</strong>
             </p>
-            {{ child(payment.getMethod ~ '.payment.info') }}
+            {{ child(payment.getMethod ~ '.payment.info', {'is_mail': true}) }}
         </div>
         {% endif %}
         {% set shipping = mail.getShippingMethod %}
