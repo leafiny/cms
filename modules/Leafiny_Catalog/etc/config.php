@@ -151,6 +151,13 @@ $config = [
                 'catalog' => Catalog_Helper_Data::URL_PARAM_PAGE
             ],
         ],
+        'attribute' => [
+            'entity' => [
+                'catalog_product' => [
+                    'enabled' => 1,
+                ],
+            ]
+        ],
         'search' => [
             'entity' => [
                 'catalog_product' => [
