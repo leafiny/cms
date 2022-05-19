@@ -1,0 +1,11 @@
+.attribute-options {
+    overflow-x: auto;
+}
+
+.attribute-options .option-custom input {
+    width: 150px;
+}
+
+.attribute-options .option-position input {
+    width: 50px;
+}
