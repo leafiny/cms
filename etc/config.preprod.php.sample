@@ -6,6 +6,7 @@ $config = [
         'secured_protocol'   => 'https://',
         'unsecured_protocol' => 'http://',
         'twig_cache'         => 1,
+        'twig_debug'         => 1,
         'config_cache'       => 1,
         'backend_key'        => 'leafiny',
         'languages'          => ['fr_FR', 'en_US'],
