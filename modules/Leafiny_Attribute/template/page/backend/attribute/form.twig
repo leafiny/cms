@@ -1,0 +1,119 @@
+{% set form = page.getFormData %}
+{% set helper = page.getHelper('attribute') %}
+<div class="container-form">
+    <form method="post" class="pure-form pure-form-stacked" action="{{ page.getSaveUrl }}" enctype="multipart/form-data">
+        <div class="pure-u-1 toolbar">
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Back'|translate }}</a>
+        </div>
+
+        <fieldset>
+            <legend>{{ 'General'|translate }}</legend>
+            <div class="pure-g">
+                <div class="pure-u-1 field required">
+                    <label for="code">{{ 'Code'|translate }} <span>*</span> :</label>
+                    <input id="code" type="text" class="pure-u-1 pure-u-xl-4-5" name="code" value="{{ form.getCode }}" required />
+                </div>
+                <div class="pure-u-1 field required">
+                    <label for="entity_type">{{ 'Entity'|translate }} <span>*</span> :</label>
+                    <select id="entity_type" class="pure-u-1 pure-u-xl-4-5" name="entity_type" required{% if form.getAttributeId %} disabled{% endif %}>
+                        {% for entity,options in helper.getEntities %}
+                            <option value="{{ entity }}"{% if form.getEntityType == entity %} selected="selected"{% endif %}>{{ entity }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="pure-u-1 field required">
+                    <label for="input_type">{{ 'Input'|translate }} <span>*</span> :</label>
+                    <select id="input_type" class="pure-u-1 pure-u-xl-4-5" name="input_type" required>
+                        {% for code,label in helper.getInputTypes %}
+                            <option value="{{ code }}"{% if form.getInputType == code %} selected="selected"{% endif %}>{{ label|translate }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Label'|translate }}</legend>
+            <div class="pure-g">
+                {% set labels = form.getLabel %}
+                {% for language in page.getLanguages %}
+                    <div class="pure-u-1 field required">
+                        <label for="label_{{ language }}">{{ 'Label'|translate }}{% if page.getLanguages|length > 1 %} - {{ language }}{% endif %} <span>*</span> :</label>
+                        <input id="label_{{ language }}" type="text" class="pure-u-1 pure-u-xl-4-5" name="label[{{ language }}]" value="{% if labels[language] is defined %}{{ labels[language] }}{% endif %}" required />
+                    </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+
+        <fieldset class="depends" data-parent="input_type" data-values="select,multiselect,radio,checkbox">
+            <legend>{{ 'Options'|translate }}</legend>
+            <div class="pure-g">
+                {% set options = form.getOptions %}
+                {% set optionQty = max(form.getOptionQty, options|length, 1) %}
+                <div class="pure-u-1 field required">
+                    <label for="option_qty">{{ 'Number of options'|translate }} :</label>
+                    <input id="option_qty" type="text" class="pure-u-1 pure-u-xl-4-5" name="option_qty" value="{{ optionQty }}"/>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="attribute-options depends" data-parent="input_type" data-values="select,multiselect,radio,checkbox">
+            <table class="pure-table pure-table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>{{ 'Position'|translate }}</th>
+                        <th>{{ 'Custom value'|translate }}</th>
+                        {% for language in page.getLanguages %}
+                            <th class="required">{{ 'Label'|translate }}{% if page.getLanguages|length > 1 %} - {{ language }}{% endif %} <span>*</span></th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 1..optionQty %}
+                        <tr>
+                            <td>
+                                {% if options[i-1] is defined %}
+                                    {% if options[i-1].getOptionId %}
+                                        <input type="hidden" name="options[{{ i }}][option_id]" value="{{ options[i-1].getOptionId }}" />
+                                        <a href="{{ page.getUrl('/admin/*/attribute/option/delete/') }}?option_id={{ options[i-1].getOptionId }}"><img src="{{ page.getSkinUrl('Leafiny_Attribute::backend/images/trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
+                                    {% endif %}
+                                {% else %}
+                                    <img src="{{ page.getSkinUrl('Leafiny_Attribute::backend/images/wait.png') }}" alt="" />
+                                {% endif %}
+                            </td>
+                            <td class="option-position">
+                                <input type="text" name="options[{{ i }}][position]" value="{% if options[i-1] is defined %}{{ options[i-1].getPosition }}{% endif %}" />
+                            </td>
+                            <td class="option-custom">
+                                <input type="text" name="options[{{ i }}][custom]" value="{% if options[i-1] is defined %}{{ options[i-1].getCustom }}{% endif %}" />
+                            </td>
+                            {% for language in page.getLanguages %}
+                            <td class="option-language">
+                                <input type="text" name="options[{{ i }}][label][{{ language }}]" value="{% if options[i-1].getLabel[language] is defined %}{{ options[i-1].getLabel[language] }}{% endif %}" />
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% for child in page.getChildren %}
+            {{ child(child) }}
+        {% endfor %}
+
+        <div class="pure-u-1 required">
+            <p>
+                <span>* {{ 'Required fields'|translate }}</span>
+            </p>
+        </div>
+
+        <div class="pure-u-1 actions">
+            <input type="hidden" name="attribute_id" value="{{ form.getAttributeId }}" />
+            <button type="submit" class="pure-button green">{{ 'Save'|translate }} &check;</button>
+            <a href="{{ page.getRefererUrl }}" class="pure-button gray">{{ 'Cancel'|translate }} &times;</a>
+            {{ child('admin.form.goto') }}
+        </div>
+    </form>
+</div>
