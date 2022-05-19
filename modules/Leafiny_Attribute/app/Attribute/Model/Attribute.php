@@ -482,7 +482,7 @@ class Attribute_Model_Attribute extends Core_Model
         return true;
     }
 
-    /*
+    /**
      * Validation
      *
      * @param Leafiny_Object $object
