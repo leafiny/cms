@@ -49,10 +49,16 @@ class Attribute_Model_Attribute extends Core_Model
             $object->setData('label', (string)$labels[App::getLanguage()]);
         }
 
-        /** @var Attribute_Helper_Attribute $helper */
-        $helper = App::getSingleton('helper', 'attribute');
+        if ($object->getData('code')) {
+            /** @var Core_Helper $coreHelper */
+            $coreHelper = App::getObject('helper');
+            $object->setData('code', $coreHelper->formatKey($object->getData('code'), [], [], '_'));
+        }
 
-        if (!in_array($object->getData('input_type'), $helper->getInputTypesWithOptions())) {
+        /** @var Attribute_Helper_Attribute $attributeHelper */
+        $attributeHelper = App::getSingleton('helper', 'attribute');
+
+        if (!in_array($object->getData('input_type'), $attributeHelper->getInputTypesWithOptions())) {
             $object->setData('option_qty', 0);
         }
 
@@ -62,7 +68,7 @@ class Attribute_Model_Attribute extends Core_Model
             $this->saveAttributeLabels($attributeId, $labels);
         }
 
-        if (!in_array($object->getData('input_type'), $helper->getInputTypesWithOptions())) {
+        if (!in_array($object->getData('input_type'), $attributeHelper->getInputTypesWithOptions())) {
             $object->setData('options', null);
             $this->removeOptions($attributeId);
         }
@@ -436,6 +442,7 @@ class Attribute_Model_Attribute extends Core_Model
 
             $adapter->where('attribute_id', $attribute->getData('attribute_id'));
             $adapter->where('language', $language);
+            $adapter->where('entity_id', $entityId);
             $adapter->delete('attribute_entity_value');
 
             foreach ($values as $value) {
