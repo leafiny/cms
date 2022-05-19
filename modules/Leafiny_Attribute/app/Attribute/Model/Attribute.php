@@ -382,7 +382,7 @@ class Attribute_Model_Attribute extends Core_Model
      * @param string $entityType
      * @param string $language
      *
-     * @return mixed[]
+     * @return Leafiny_Object[][]
      * @throws Exception
      */
     public function getEntityAttributeValues(int $entityId, string $entityType, string $language): array
@@ -420,6 +420,11 @@ class Attribute_Model_Attribute extends Core_Model
      * @param int    $entityId
      * @param string $language
      * @param array  $attributes
+     * $attributes = [
+     *     'attribute_select'      => [1],
+     *     'attribute_multiselect' => [1, 2, 3],
+     *     'attribute_text'        => ['Hello'],
+     * ]
      *
      * @return bool
      * @throws Exception
