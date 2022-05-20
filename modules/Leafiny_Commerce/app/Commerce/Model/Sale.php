@@ -134,7 +134,7 @@ class Commerce_Model_Sale extends Core_Model
         }
 
         $adapter->where('state', self::SALE_STATE_ORDER);
-        $adapter->where($column, NULL, 'IS NOT');
+        $adapter->where($column, null, 'IS NOT');
         $adapter->orderBy($this->getPrimaryKey());
         $result = $adapter->getOne($this->getMainTable(), [$column]);
 

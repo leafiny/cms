@@ -15,5 +15,4 @@ declare(strict_types=1);
  */
 class Commerce_Block_Checkout_Cart extends Commerce_Block_Checkout
 {
-
 }

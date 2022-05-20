@@ -17,9 +17,9 @@ class Core_Helper_Country extends Core_Helper
 {
     /**
      * Retrieve country by code
-     * 
+     *
      * @param string $code
-     * 
+     *
      * @return string
      */
     public function getName(string $code): string
@@ -35,7 +35,7 @@ class Core_Helper_Country extends Core_Helper
 
     /**
      * Retrieve country list
-     * 
+     *
      * @return string[]
      */
     public function getList(): array
