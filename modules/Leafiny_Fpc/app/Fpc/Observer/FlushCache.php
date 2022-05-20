@@ -48,7 +48,8 @@ class Fpc_Observer_FlushCache extends Core_Observer implements Core_Interface_Ob
                     try {
                         $category = $model->get($categoryId);
                         $helper->flushCache($category->getData('path_key'));
-                    } catch (Throwable $throwable) {}
+                    } catch (Throwable $throwable) {
+                    }
                 }
             }
         }

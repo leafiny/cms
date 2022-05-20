@@ -15,5 +15,4 @@ declare(strict_types=1);
  */
 class Commerce_Block_Checkout_Review_Totals extends Commerce_Block_Checkout
 {
-
 }

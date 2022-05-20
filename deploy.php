@@ -5,7 +5,8 @@ declare(strict_types=1);
 /**
  * Deploy all the resources in the public directory
  */
-class Deployment {
+class Deployment
+{
     /**
      * The crypt key file
      *

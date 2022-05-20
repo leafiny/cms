@@ -17,19 +17,19 @@ class Commerce_Helper_Invoice extends Core_Helper
 {
     /**
      * PDF Object
-     * 
+     *
      * @var FPDF $pdf
      */
     protected $pdf;
     /**
      * Invoice
-     * 
+     *
      * @var Leafiny_Object $invoice
      */
     protected $invoice;
     /**
      * Font name
-     * 
+     *
      * @var string $font
      */
     protected $font = 'helvetica';
@@ -330,7 +330,7 @@ class Commerce_Helper_Invoice extends Core_Helper
                 continue;
             }
 
-            $this->pdf->SetFont('courier', $data['style'],10);
+            $this->pdf->SetFont('courier', $data['style'], 10);
             $this->pdf->SetXY(135, $start);
             $this->pdf->Cell(35, 10, App::translate($label));
             $this->pdf->SetXY(170, $start);

@@ -17,9 +17,9 @@ class Core_Helper_Language extends Core_Helper
 {
     /**
      * Retrieve language name by code
-     * 
+     *
      * @param string $code
-     * 
+     *
      * @return string
      */
     public function getName(string $code): string
@@ -35,7 +35,7 @@ class Core_Helper_Language extends Core_Helper
 
     /**
      * Retrieve language list
-     * 
+     *
      * @return string[]
      */
     public function getList(): array
