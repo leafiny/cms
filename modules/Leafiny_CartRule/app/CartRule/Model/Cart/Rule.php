@@ -63,8 +63,8 @@ class CartRule_Model_Cart_Rule extends Core_Model
         if ($ruleId && $object->getData('coupons')) {
             $coupons = $object->getData('coupons')->getData();
 
-            foreach($coupons as $coupon) {
-                $coupon = New Leafiny_Object($coupon);
+            foreach ($coupons as $coupon) {
+                $coupon = new Leafiny_Object($coupon);
                 if ($coupon->getData('delete') && $coupon->getData('coupon_id')) {
                     $couponModel->delete((int)$coupon->getData('coupon_id'));
                 }

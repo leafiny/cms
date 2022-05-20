@@ -392,7 +392,7 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
 
         if ($language) {
             $adapter->where('language', $language);
-            $adapter->orWhere('language', NULL, 'IS');
+            $adapter->orWhere('language', null, 'IS');
         }
         $candidates = $adapter->get($this->wordsTable);
 

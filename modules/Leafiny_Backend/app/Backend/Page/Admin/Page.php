@@ -15,5 +15,4 @@ declare(strict_types=1);
  */
 class Backend_Page_Admin_Page extends Backend_Page_Admin_Page_Abstract
 {
-
 }

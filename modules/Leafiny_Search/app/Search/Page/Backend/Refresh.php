@@ -34,7 +34,6 @@ class Search_Page_Backend_Refresh extends Backend_Page_Admin_Page_Abstract
                 'flush_cache_success',
                 ['type' => 'search']
             );
-
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
             App::dispatchEvent(

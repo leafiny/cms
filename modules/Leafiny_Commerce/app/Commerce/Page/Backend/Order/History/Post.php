@@ -83,7 +83,6 @@ class Commerce_Page_Backend_Order_History_Post extends Backend_Page_Admin_Page_A
             );
 
             $this->setSuccessMessage(App::translate('Comment has been added'));
-
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
         }
