@@ -146,13 +146,13 @@ class Leafiny_Object implements ArrayAccess
     public function __call(string $method, $args)
     {
         switch (substr($method, 0, 3)) {
-            case 'get' :
+            case 'get':
                 $key = $this->underscore(substr($method, 3));
                 return $this->getData($key);
-            case 'set' :
+            case 'set':
                 $key = $this->underscore(substr($method, 3));
                 return $this->setData($key, isset($args[0]) ? $args[0] : null);
-            case 'uns' :
+            case 'uns':
                 $key = $this->underscore(substr($method, 3));
                 return $this->unsetData($key);
         }
