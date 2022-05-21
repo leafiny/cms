@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 class Commerce_Block_Checkout_Payment extends Commerce_Block_Checkout
 {
-
     /**
      * Retrieve payment methods
      *

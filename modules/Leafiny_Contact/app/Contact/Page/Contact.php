@@ -36,7 +36,7 @@ class Contact_Page_Contact extends Core_Page
      */
     public function getCaptchaImage(): string
     {
-        $captcha = new Leafiny_Captcha;
+        $captcha = new Leafiny_Captcha();
 
         $this->setTmpSessionData('form_code', $captcha->getText());
 

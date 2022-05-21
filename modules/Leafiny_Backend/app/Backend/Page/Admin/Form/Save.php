@@ -75,13 +75,13 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
      */
     public function getPost(): Leafiny_Object
     {
-        $object = new Leafiny_Object;
+        $object = new Leafiny_Object();
         $post   = $_POST;
 
         if (!empty($post)) {
             foreach ($post as $field => $value) {
                 if (is_array($value)) {
-                    $data = new Leafiny_Object;
+                    $data = new Leafiny_Object();
                     $object->setData($field, $data->setData($value));
                 } else {
                     $object->setData($field, $value);

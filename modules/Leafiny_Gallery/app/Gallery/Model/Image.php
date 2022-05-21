@@ -20,7 +20,7 @@ class Gallery_Model_Image extends Core_Model
      *
      * @var string GALLERY_IMAGE_MEDIA_DIR
      */
-    const GALLERY_IMAGE_MEDIA_DIR = 'gallery';
+    public const GALLERY_IMAGE_MEDIA_DIR = 'gallery';
 
     /**
      * Main Table
