@@ -99,7 +99,7 @@ class Blog_Block_Post_Comments extends Core_Block
      */
     public function getCaptchaImage(Core_Page $page): string
     {
-        $captcha = new Leafiny_Captcha;
+        $captcha = new Leafiny_Captcha();
 
         $page->setTmpSessionData('form_code', $captcha->getText());
 

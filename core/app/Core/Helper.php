@@ -273,7 +273,7 @@ class Core_Helper extends Leafiny_Object
      */
     public function getEnvironmentConfigFile(): string
     {
-        return App::getRootDir() . self::CONFIG_DIRECTORY . DS . 'config.'  . App::getEnvironment() . '.php';
+        return App::getRootDir() . self::CONFIG_DIRECTORY . DS . 'config.' . App::getEnvironment() . '.php';
     }
 
     /**

@@ -33,8 +33,7 @@ class Commerce_Helper_Shipping extends Core_Helper
         ?Leafiny_Object $address = null,
         ?Leafiny_Object $sale = null,
         ?bool $estimate = false
-    ): Leafiny_Object
-    {
+    ): Leafiny_Object {
         /** @var Commerce_Model_Shipping $model */
         $model = App::getObject('model', 'shipping');
         $method = $model->get($method, 'method');

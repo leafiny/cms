@@ -18,15 +18,15 @@ class Core_Helper_Crypt extends Core_Helper
     /**
      * @var string KEY_FILE
      */
-    const KEY_FILE = 'crypt.key';
+    public const KEY_FILE = 'crypt.key';
     /**
      * @var string CIPHER_ALGO
      */
-    const CIPHER_ALGO = 'aes-128-ctr';
+    public const CIPHER_ALGO = 'aes-128-ctr';
     /**
      * @var string VECTOR_SIZE
      */
-    const VECTOR_SIZE = 16;
+    public const VECTOR_SIZE = 16;
 
     /**
      * @var string $key

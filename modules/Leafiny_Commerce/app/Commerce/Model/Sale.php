@@ -15,8 +15,8 @@ declare(strict_types=1);
  */
 class Commerce_Model_Sale extends Core_Model
 {
-    const SALE_STATE_CART  = 'cart';
-    const SALE_STATE_ORDER = 'order';
+    public const SALE_STATE_CART  = 'cart';
+    public const SALE_STATE_ORDER = 'order';
 
     /**
      * Main Table
