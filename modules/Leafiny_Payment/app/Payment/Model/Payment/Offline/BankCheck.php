@@ -18,7 +18,7 @@ class Payment_Model_Payment_Offline_BankCheck extends Payment_Model_Payment_Offl
     /**
      * @var string PAYMENT_METHOD
      */
-    const PAYMENT_METHOD = 'bank_check';
+    public const PAYMENT_METHOD = 'bank_check';
 
     /**
      * Retrieve method name

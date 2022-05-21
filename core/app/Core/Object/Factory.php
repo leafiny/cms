@@ -20,7 +20,7 @@ class Core_Object_Factory
      *
      * @var string CUSTOM_KEY
      */
-    const CUSTOM_KEY = 'custom';
+    public const CUSTOM_KEY = 'custom';
 
     /**
      * Retrieve Object
