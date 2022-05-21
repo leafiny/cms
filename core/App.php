@@ -649,7 +649,7 @@ final class App
         $logClassName = $_SERVER['log_class_name'] ?? 'Log';
 
         if (class_exists($logClassName)) {
-            return new $logClassName;
+            return new $logClassName();
         }
 
         return null;

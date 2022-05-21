@@ -15,12 +15,12 @@ declare(strict_types=1);
  */
 class Commerce_Model_Sale_Status extends Core_Model
 {
-    const SALE_STATUS_PENDING_PAYMENT = 'pending_payment';
-    const SALE_STATUS_PENDING         = 'pending';
-    const SALE_STATUS_PROCESSING      = 'processing';
-    const SALE_STATUS_SHIPPED         = 'shipped';
-    const SALE_STATUS_CANCELED        = 'canceled';
-    const SALE_STATUS_REFUNDED        = 'refunded';
+    public const SALE_STATUS_PENDING_PAYMENT = 'pending_payment';
+    public const SALE_STATUS_PENDING         = 'pending';
+    public const SALE_STATUS_PROCESSING      = 'processing';
+    public const SALE_STATUS_SHIPPED         = 'shipped';
+    public const SALE_STATUS_CANCELED        = 'canceled';
+    public const SALE_STATUS_REFUNDED        = 'refunded';
 
     /**
      * Main Table

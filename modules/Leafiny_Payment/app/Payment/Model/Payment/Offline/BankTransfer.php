@@ -18,7 +18,7 @@ class Payment_Model_Payment_Offline_BankTransfer extends Payment_Model_Payment_O
     /**
      * @var string PAYMENT_METHOD
      */
-    const PAYMENT_METHOD = 'bank_transfer';
+    public const PAYMENT_METHOD = 'bank_transfer';
 
     /**
      * Retrieve method name
