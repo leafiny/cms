@@ -20,6 +20,7 @@ Leafiny is a CMS who not bloated with features that you don't need.
 * json
 * mbstring
 * intl
+* mysqli
 
 # Documentation
 
