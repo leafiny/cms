@@ -61,30 +61,30 @@ function gridRemoveWarning () {
     let grids = document.getElementsByClassName('container-grid');
     for (let i = 0; i < grids.length; i++) {
         grids[i].addEventListener('submit', function (event) {
-           if (document.getElementById('toolbar-select-action').value === 'remove') {
-               event.preventDefault();
-               let inputs = this.getElementsByClassName('select-id');
-               let number = 0;
-               for (let j = 0; j < inputs.length; j++) {
-                   if (inputs[j].checked) {
-                       number++;
-                   }
-               }
-               if (number) {
-                   let confirm = modal(
-                       document.getElementById('modal-remove-message').innerHTML.replace('${number}', String(number)),
-                       'grid-remove'
-                   );
-                   document.getElementById('modal-button-1').addEventListener('click', function (event) {
-                       event.preventDefault();
-                       confirm.close();
-                   });
-                   document.getElementById('modal-button-2').addEventListener('click', function (event) {
-                       event.preventDefault();
-                       grids[i].submit();
-                   });
-               }
-           }
+            if (document.getElementById('toolbar-select-action').value === 'remove') {
+                event.preventDefault();
+                let inputs = this.getElementsByClassName('select-id');
+                let number = 0;
+                for (let j = 0; j < inputs.length; j++) {
+                    if (inputs[j].checked) {
+                        number++;
+                    }
+                }
+                if (number) {
+                    let confirm = modal(
+                        document.getElementById('modal-remove-message').innerHTML.replace('${number}', String(number)),
+                        'grid-remove'
+                    );
+                    document.getElementById('modal-button-1').addEventListener('click', function (event) {
+                        event.preventDefault();
+                        confirm.close();
+                    });
+                    document.getElementById('modal-button-2').addEventListener('click', function (event) {
+                        event.preventDefault();
+                        grids[i].submit();
+                    });
+                }
+            }
         });
     }
 }
