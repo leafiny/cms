@@ -11,9 +11,9 @@
 declare(strict_types=1);
 
 /**
- * Class Blog_Helper_Data
+ * Class Blog_Helper_Blog_Post
  */
-class Blog_Helper_Data extends Core_Helper
+class Blog_Helper_Blog_Post extends Core_Helper
 {
     /**
      * @var string URL_PARAM_PAGE
@@ -33,11 +33,6 @@ class Blog_Helper_Data extends Core_Helper
     public const COMMENT_FORM_SUCCESS_KEY = 'comment_form_success_message';
 
     /**
-     * @var null|Leafiny_Object[]
-     */
-    protected $categoryPosts = null;
-
-    /**
      * Retrieve Category Post
      *
      * @param int $categoryId
@@ -48,19 +43,13 @@ class Blog_Helper_Data extends Core_Helper
      */
     public function getCategoryPosts(int $categoryId, int $page = 1): array
     {
-        if ($this->categoryPosts !== null) {
-            return $this->categoryPosts;
-        }
-
         /** @var Blog_Model_Post $model */
         $model = App::getObject('model', 'blog_post');
 
         $limit = [$this->getOffset($page), $this->getLimit()];
 
-        $this->categoryPosts = $model->addCategoryFilter($categoryId)
-            ->getList($this->getFilters(), $this->getOrders(), $limit, $this->getJoins());
-
-        return $this->categoryPosts;
+        return $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), $this->getOrders(), $limit, $this->getJoins(), $this->getColumns());
     }
 
     /**
@@ -76,7 +65,8 @@ class Blog_Helper_Data extends Core_Helper
         /** @var Blog_Model_Post $model */
         $model = App::getObject('model', 'blog_post');
 
-        $list = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), [], null, $this->getJoins());
+        $list = $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), [], null, $this->getJoins(), ['main_table.post_id']);
 
         return count($list);
     }
@@ -141,6 +131,16 @@ class Blog_Helper_Data extends Core_Helper
     public function getJoins(): array
     {
         return $this->getCustom('post_joins') ?: [];
+    }
+
+    /**
+     * Retrieve columns
+     *
+     * @return array
+     */
+    public function getColumns(): array
+    {
+        return $this->getCustom('post_columns') ?: [];
     }
 
     /**

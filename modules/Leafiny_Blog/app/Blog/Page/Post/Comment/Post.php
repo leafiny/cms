@@ -44,7 +44,7 @@ class Blog_Page_Post_Comment_Post extends Core_Page
             $this->redirect($this->getRefererUrl());
         }
 
-        $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_DATA_KEY, $form);
+        $this->setTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_DATA_KEY, $form);
 
         /** @var Social_Model_Comment $comment */
         $comment = App::getObject('model', 'social_comment');
@@ -58,7 +58,7 @@ class Blog_Page_Post_Comment_Post extends Core_Page
         }
 
         if (!empty($error)) {
-            $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_ERROR_KEY, $this->translate($error));
+            $this->setTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_ERROR_KEY, $this->translate($error));
             $this->redirect($this->getRefererUrl() . '#comment-form');
         }
 
@@ -93,12 +93,12 @@ class Blog_Page_Post_Comment_Post extends Core_Page
                 ];
             }
 
-            $this->setTmpSessionData(Blog_Helper_Data::COMMENT_FORM_SUCCESS_KEY, join(' ', $success));
-            $this->unsTmpSessionData(Blog_Helper_Data::COMMENT_FORM_DATA_KEY);
+            $this->setTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_SUCCESS_KEY, join(' ', $success));
+            $this->unsTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_DATA_KEY);
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
             $this->setTmpSessionData(
-                Blog_Helper_Data::COMMENT_FORM_ERROR_KEY,
+                Blog_Helper_Blog_Post::COMMENT_FORM_ERROR_KEY,
                 $this->translate('An error occurred when adding comment')
             );
             $this->redirect($this->getRefererUrl() . '#comment-form');
