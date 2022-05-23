@@ -25,20 +25,14 @@ class Gallery_Block_Category_Galleries extends Core_Block
      */
     public function getGroups(int $categoryId): array
     {
-        /** @var Gallery_Model_Group $groupModel */
-        $groupModel = App::getSingleton('model', 'gallery_group');
-
-        try {
-            return $groupModel
-                ->addCategoryFilter($categoryId)
-                ->getList(
-                    $this->getFilters(),
-                    $this->getOrders()
-                );
-        } catch (Throwable $throwable) {
-            App::log($throwable, Core_Interface_Log::ERR);
-            return [];
+        if ($this->getCustom('groups')) {
+            return $this->getCustom('groups');
         }
+
+        /** @var Gallery_Helper_Gallery_Group $helper */
+        $helper = App::getSingleton('helper', 'gallery_group');
+
+        return $helper->getCategoryGroups($categoryId);
     }
 
     /**
@@ -55,36 +49,5 @@ class Gallery_Block_Category_Galleries extends Core_Block
         $gallery = App::getObject('model', 'gallery_image');
 
         return $gallery->getActivatedImages($groupId, 'gallery_group');
-    }
-
-    /**
-     * Retrieve gallery group filters
-     *
-     * @return array[]
-     */
-    public function getFilters(): array
-    {
-        $filters = [
-            'status' => [
-                'column' => 'status',
-                'value'  => 1,
-            ],
-            'language' => [
-                'column' => 'language',
-                'value'  => App::getLanguage(),
-            ]
-        ];
-
-        return array_merge($filters, $this->getCustom('filters') ?: []);
-    }
-
-    /**
-     * Retrieve sort orders
-     *
-     * @return array
-     */
-    public function getOrders(): array
-    {
-        return $this->getCustom('sort_order') ?: [];
     }
 }
