@@ -27,6 +27,37 @@ class Gallery_Block_Search_Images extends Core_Block
             return [];
         }
 
+        $orders = [
+            [
+                'order'  => 'image_id',
+                'dir'    => 'ASC',
+                'custom' => $this->getImageIds(),
+            ]
+        ];
+
+        /** @var Gallery_Model_Image $model */
+        $model = App::getObject('model', 'gallery_image');
+
+        return $model->getList($this->getFilters(), $orders, $this->getLimit());
+    }
+
+    /**
+     * Retrieve limit
+     *
+     * @return int[]
+     */
+    public function getLimit(): array
+    {
+        return $this->getCustom('limit') ?: [0, 100];
+    }
+
+    /**
+     * Retrieve gallery group filters
+     *
+     * @return array[]
+     */
+    public function getFilters(): array
+    {
         $filters = [
             [
                 'column' => 'status',
@@ -39,28 +70,7 @@ class Gallery_Block_Search_Images extends Core_Block
             ],
         ];
 
-        $orders = [
-            [
-                'order'  => 'image_id',
-                'dir'    => 'ASC',
-                'custom' => $this->getImageIds(),
-            ]
-        ];
-
-        /** @var Gallery_Model_Image $model */
-        $model = App::getObject('model', 'gallery_image');
-
-        return $model->getList($filters, $orders, $this->getLimit());
-    }
-
-    /**
-     * Retrieve limit
-     *
-     * @return int[]
-     */
-    public function getLimit(): array
-    {
-        return $this->getCustom('limit') ?? [0, 100];
+        return array_merge($filters, $this->getCustom('image_filters') ?: []);
     }
 
     /**
