@@ -27,7 +27,7 @@ class Catalog_Block_Category_Products_Multipage extends Core_Block
      */
     public function getPageNumber(): int
     {
-        return (int)$this->getParentObjectParams()->getData(Catalog_Helper_Data::URL_PARAM_PAGE) ?: 1;
+        return (int)$this->getParentObjectParams()->getData(Catalog_Helper_Catalog_Product::URL_PARAM_PAGE) ?: 1;
     }
 
     /**
@@ -48,7 +48,7 @@ class Catalog_Block_Category_Products_Multipage extends Core_Block
             return 0;
         }
 
-        /** @var Catalog_Helper_Data $helper */
+        /** @var Catalog_Helper_Catalog_Product $helper */
         $helper = App::getSingleton('helper', 'catalog_product');
 
         $this->totalPages = (int)ceil($helper->getTotalCategoryProducts($categoryId) / $helper->getLimit()) ?: 1;
@@ -69,7 +69,7 @@ class Catalog_Block_Category_Products_Multipage extends Core_Block
         $url = App::getUrlRewrite($page->getObjectKey(), 'category');
 
         if ($number > 1) {
-            $url .= '?' . Catalog_Helper_Data::URL_PARAM_PAGE . '=' . $number;
+            $url .= '?' . Catalog_Helper_Catalog_Product::URL_PARAM_PAGE . '=' . $number;
         }
 
         return $url;

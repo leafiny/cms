@@ -27,10 +27,10 @@ class Catalog_Block_Search_Products extends Core_Block
             return [];
         }
 
-        /** @var Catalog_Helper_Data $helper */
+        /** @var Catalog_Helper_Catalog_Product $helper */
         $helper = App::getSingleton('helper', 'catalog_product');
         $helper->setCustom(
-            'filters',
+            'product_filters',
             [
                 'product_id' => [
                     'column'   => 'product_id',
@@ -61,7 +61,7 @@ class Catalog_Block_Search_Products extends Core_Block
      */
     public function getLimit(): array
     {
-        return $this->getCustom('limit') ?? [0, 100];
+        return $this->getCustom('limit') ?: [0, 100];
     }
 
     /**
