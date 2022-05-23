@@ -143,12 +143,12 @@ $config = [
 
     'helper' => [
         'catalog_product' => [
-            'class'            => Catalog_Helper_Data::class,
+            'class'            => Catalog_Helper_Catalog_Product::class,
             'product_per_page' => 12,
         ],
         'fpc_cache' => [
             'allowed_params' => [
-                'catalog' => Catalog_Helper_Data::URL_PARAM_PAGE
+                'catalog' => Catalog_Helper_Catalog_Product::URL_PARAM_PAGE
             ],
         ],
         'attribute' => [

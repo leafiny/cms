@@ -11,19 +11,14 @@
 declare(strict_types=1);
 
 /**
- * Class Catalog_Helper_Data
+ * Class Catalog_Helper_Catalog_Product
  */
-class Catalog_Helper_Data extends Core_Helper
+class Catalog_Helper_Catalog_Product extends Core_Helper
 {
     /**
      * @var string URL_PARAM_PAGE
      */
     public const URL_PARAM_PAGE = 'cp';
-
-    /**
-     * @var null|Leafiny_Object[]
-     */
-    protected $categoryProducts = null;
 
     /**
      * Retrieve Category Products
@@ -36,19 +31,13 @@ class Catalog_Helper_Data extends Core_Helper
      */
     public function getCategoryProducts(int $categoryId, int $page = 1): array
     {
-        if ($this->categoryProducts !== null) {
-            return $this->categoryProducts;
-        }
-
         /** @var Catalog_Model_Product $model */
         $model = App::getObject('model', 'catalog_product');
 
         $limit = [$this->getOffset($page), $this->getLimit()];
 
-        $this->categoryProducts = $model->addCategoryFilter($categoryId)
-            ->getList($this->getFilters(), $this->getOrders(), $limit, $this->getJoins());
-
-        return $this->categoryProducts;
+        return $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), $this->getOrders(), $limit, $this->getJoins(), $this->getColumns());
     }
 
     /**
@@ -64,7 +53,8 @@ class Catalog_Helper_Data extends Core_Helper
         /** @var Catalog_Model_Product $model */
         $model = App::getObject('model', 'catalog_product');
 
-        $list = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), [], null, $this->getJoins());
+        $list = $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), [], null, $this->getJoins(), ['main_table.product_id']);
 
         return count($list);
     }
@@ -125,6 +115,16 @@ class Catalog_Helper_Data extends Core_Helper
     public function getJoins(): array
     {
         return $this->getCustom('product_joins') ?: [];
+    }
+
+    /**
+     * Retrieve columns
+     *
+     * @return array
+     */
+    public function getColumns(): array
+    {
+        return $this->getCustom('post_columns') ?: [];
     }
 
     /**
