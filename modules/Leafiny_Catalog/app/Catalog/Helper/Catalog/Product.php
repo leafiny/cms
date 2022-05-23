@@ -124,7 +124,7 @@ class Catalog_Helper_Catalog_Product extends Core_Helper
      */
     public function getColumns(): array
     {
-        return $this->getCustom('post_columns') ?: [];
+        return $this->getCustom('product_columns') ?: [];
     }
 
     /**
