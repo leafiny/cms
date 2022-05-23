@@ -135,7 +135,7 @@ class Core_Model extends Leafiny_Object
         }
 
         if (empty($columns)) {
-            $columns = '*';
+            $columns = 'main_table.*';
         }
 
         $result = $adapter->get($this->getMainTable() . ' as main_table', $limit, $columns);
