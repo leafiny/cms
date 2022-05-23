@@ -58,7 +58,7 @@ class Blog_Helper_Data extends Core_Helper
         $limit = [$this->getOffset($page), $this->getLimit()];
 
         $this->categoryPosts = $model->addCategoryFilter($categoryId)
-            ->getList($this->getFilters(), $this->getOrders(), $limit);
+            ->getList($this->getFilters(), $this->getOrders(), $limit, $this->getJoins());
 
         return $this->categoryPosts;
     }
@@ -76,7 +76,9 @@ class Blog_Helper_Data extends Core_Helper
         /** @var Blog_Model_Post $model */
         $model = App::getObject('model', 'blog_post');
 
-        return count($model->addCategoryFilter($categoryId)->getList($this->getFilters()));
+        $list = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), [], null, $this->getJoins());
+
+        return count($list);
     }
 
     /**
@@ -97,7 +99,7 @@ class Blog_Helper_Data extends Core_Helper
             ]
         ];
 
-        return $this->getCustom('sort_order') ?: $sortOrder;
+        return $this->getCustom('post_sort_order') ?: $sortOrder;
     }
 
     /**
@@ -118,7 +120,7 @@ class Blog_Helper_Data extends Core_Helper
             ],
         ];
 
-        return array_merge($filters, $this->getCustom('filters') ?: []);
+        return array_merge($filters, $this->getCustom('post_filters') ?: []);
     }
 
     /**
@@ -129,6 +131,16 @@ class Blog_Helper_Data extends Core_Helper
     public function getLimit(): int
     {
         return $this->getCustom('post_per_page') ?: 10;
+    }
+
+    /**
+     * Retrieve join list
+     *
+     * @return array
+     */
+    public function getJoins(): array
+    {
+        return $this->getCustom('post_joins') ?: [];
     }
 
     /**

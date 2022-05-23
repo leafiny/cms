@@ -46,7 +46,7 @@ class Catalog_Helper_Data extends Core_Helper
         $limit = [$this->getOffset($page), $this->getLimit()];
 
         $this->categoryProducts = $model->addCategoryFilter($categoryId)
-            ->getList($this->getFilters(), $this->getOrders(), $limit);
+            ->getList($this->getFilters(), $this->getOrders(), $limit, $this->getJoins());
 
         return $this->categoryProducts;
     }
@@ -64,7 +64,9 @@ class Catalog_Helper_Data extends Core_Helper
         /** @var Catalog_Model_Product $model */
         $model = App::getObject('model', 'catalog_product');
 
-        return count($model->addCategoryFilter($categoryId)->getList($this->getFilters()));
+        $list = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), [], null, $this->getJoins());
+
+        return count($list);
     }
 
     /**
@@ -81,7 +83,7 @@ class Catalog_Helper_Data extends Core_Helper
             ],
         ];
 
-        return $this->getCustom('sort_order') ?: $sortOrder;
+        return $this->getCustom('product_sort_order') ?: $sortOrder;
     }
 
     /**
@@ -102,7 +104,7 @@ class Catalog_Helper_Data extends Core_Helper
             ],
         ];
 
-        return array_merge($filters, $this->getCustom('filters') ?: []);
+        return array_merge($filters, $this->getCustom('product_filters') ?: []);
     }
 
     /**
@@ -113,6 +115,16 @@ class Catalog_Helper_Data extends Core_Helper
     public function getLimit(): int
     {
         return $this->getCustom('product_per_page') ?: 10;
+    }
+
+    /**
+     * Retrieve join list
+     *
+     * @return array
+     */
+    public function getJoins(): array
+    {
+        return $this->getCustom('product_joins') ?: [];
     }
 
     /**
