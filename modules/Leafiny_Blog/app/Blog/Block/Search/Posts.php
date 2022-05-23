@@ -61,7 +61,7 @@ class Blog_Block_Search_Posts extends Core_Block
      */
     public function getLimit(): array
     {
-        return $this->getCustom('limit') ?? [0, 100];
+        return $this->getCustom('limit') ?: [0, 100];
     }
 
     /**
