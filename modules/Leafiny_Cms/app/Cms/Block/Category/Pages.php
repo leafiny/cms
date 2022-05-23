@@ -25,6 +25,10 @@ class Cms_Block_Category_Pages extends Core_Block
      */
     public function getPages(int $categoryId): array
     {
+        if ($this->getCustom('pages')) {
+            return $this->getCustom('pages');
+        }
+
         /** @var Cms_Helper_Cms_Page $helper */
         $helper = App::getSingleton('helper', 'cms_page');
 

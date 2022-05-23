@@ -25,6 +25,10 @@ class Cms_Block_Category_Blocks extends Core_Block
      */
     public function getBlocks(int $categoryId): array
     {
+        if ($this->getCustom('blocks')) {
+            return $this->getCustom('blocks');
+        }
+
         /** @var Cms_Helper_Cms_Block $helper */
         $helper = App::getSingleton('helper', 'cms_block');
 

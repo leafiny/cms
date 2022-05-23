@@ -30,7 +30,7 @@ class Cms_Block_Search_Blocks extends Core_Block
         /** @var Cms_Helper_Cms_Block $helper */
         $helper = App::getSingleton('helper', 'cms_block');
         $helper->setCustom(
-            'filters',
+            'block_filters',
             [
                 'block_id' => [
                     'column'   => 'block_id',
