@@ -22,8 +22,11 @@ $config = [
     ],
 
     'helper' => [
-        'cms' => [
-            'class' => Cms_Helper_Cms::class,
+        'cms_block' => [
+            'class' => Cms_Helper_Cms_Block::class,
+        ],
+        'cms_page' => [
+            'class' => Cms_Helper_Cms_Page::class,
         ],
         'search' => [
             'entity' => [

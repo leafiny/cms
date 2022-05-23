@@ -68,34 +68,41 @@ class Catalog_Helper_Data extends Core_Helper
     }
 
     /**
-     * Retrieve product orders
+     * Retrieve sort order
      *
      * @return string[][]
      */
     public function getOrders(): array
     {
-        return [
+        $sortOrder = [
             [
                 'order' => 'created_at',
                 'dir'   => 'DESC',
-            ]
+            ],
         ];
+
+        return $this->getCustom('sort_order') ?: $sortOrder;
     }
 
     /**
-     * Retrieve product filters
+     * Retrieve filters
      *
      * @return array[]
      */
     public function getFilters(): array
     {
-        return [
-            [
-                'column'   => 'status',
-                'value'    => 1,
-                'operator' => '=',
+        $filters = [
+            'status' => [
+                'column' => 'status',
+                'value'  => 1,
+            ],
+            'language' => [
+                'column' => 'language',
+                'value'  => App::getLanguage(),
             ],
         ];
+
+        return array_merge($filters, $this->getCustom('filters') ?: []);
     }
 
     /**

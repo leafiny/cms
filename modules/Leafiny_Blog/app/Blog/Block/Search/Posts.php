@@ -27,21 +27,18 @@ class Blog_Block_Search_Posts extends Core_Block
             return [];
         }
 
-        $filters = [
+        /** @var Blog_Helper_Data $helper */
+        $helper = App::getSingleton('helper', 'blog_post');
+        $helper->setCustom(
+            'filters',
             [
-                'column' => 'status',
-                'value'  => 1,
-            ],
-            [
-                'column' => 'language',
-                'value'  => App::getLanguage(),
-            ],
-            [
-                'column'   => 'post_id',
-                'value'    => $this->getPostIds(),
-                'operator' => 'IN',
-            ],
-        ];
+                'post_id' => [
+                    'column'   => 'post_id',
+                    'value'    => $this->getPostIds(),
+                    'operator' => 'IN',
+                ],
+            ]
+        );
 
         $orders = [
             [
@@ -54,7 +51,7 @@ class Blog_Block_Search_Posts extends Core_Block
         /** @var Blog_Model_Post $model */
         $model = App::getObject('model', 'blog_post');
 
-        return $model->getList($filters, $orders, $this->getLimit());
+        return $model->getList($helper->getFilters(), $orders, $this->getLimit());
     }
 
     /**
