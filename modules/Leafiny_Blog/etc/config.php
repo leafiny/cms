@@ -20,12 +20,12 @@ $config = [
 
     'helper' => [
         'blog_post' => [
-            'class'         => Blog_Helper_Data::class,
+            'class'         => Blog_Helper_Blog_Post::class,
             'post_per_page' => 10,
         ],
         'fpc_cache' => [
             'allowed_params' => [
-                'blog' => Blog_Helper_Data::URL_PARAM_PAGE
+                'blog' => Blog_Helper_Blog_Post::URL_PARAM_PAGE
             ],
         ],
         'search' => [

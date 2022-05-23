@@ -27,7 +27,7 @@ class Blog_Block_Category_Posts_Multipage extends Core_Block
      */
     public function getPageNumber(): int
     {
-        return (int)$this->getParentObjectParams()->getData(Blog_Helper_Data::URL_PARAM_PAGE) ?: 1;
+        return (int)$this->getParentObjectParams()->getData(Blog_Helper_Blog_Post::URL_PARAM_PAGE) ?: 1;
     }
 
     /**
@@ -48,7 +48,7 @@ class Blog_Block_Category_Posts_Multipage extends Core_Block
             return 0;
         }
 
-        /** @var Blog_Helper_Data $helper */
+        /** @var Blog_Helper_Blog_Post $helper */
         $helper = App::getSingleton('helper', 'blog_post');
 
         $this->totalPages = (int)ceil($helper->getTotalCategoryPosts($categoryId) / $helper->getLimit()) ?: 1;
@@ -69,7 +69,7 @@ class Blog_Block_Category_Posts_Multipage extends Core_Block
         $url = App::getUrlRewrite($page->getObjectKey(), 'category');
 
         if ($number > 1) {
-            $url .= '?' . Blog_Helper_Data::URL_PARAM_PAGE . '=' . $number;
+            $url .= '?' . Blog_Helper_Blog_Post::URL_PARAM_PAGE . '=' . $number;
         }
 
         return $url;

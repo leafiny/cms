@@ -27,10 +27,10 @@ class Blog_Block_Search_Posts extends Core_Block
             return [];
         }
 
-        /** @var Blog_Helper_Data $helper */
+        /** @var Blog_Helper_Blog_Post $helper */
         $helper = App::getSingleton('helper', 'blog_post');
         $helper->setCustom(
-            'filters',
+            'post_filters',
             [
                 'post_id' => [
                     'column'   => 'post_id',

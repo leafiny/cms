@@ -40,17 +40,13 @@ class Blog_Observer_Page extends Core_Observer implements Core_Interface_Observe
         }
 
         /** @var string $pageNumber */
-        $pageNumber = $page->getObjectParams()->getData(Blog_Helper_Data::URL_PARAM_PAGE);
+        $pageNumber = $page->getObjectParams()->getData(Blog_Helper_Blog_Post::URL_PARAM_PAGE);
 
         if (!$pageNumber) {
             return;
         }
 
-        if ((int)$pageNumber === 1) {
-            $page->error(true);
-        }
-
-        /** @var Blog_Helper_Data $helper */
+        /** @var Blog_Helper_Blog_Post $helper */
         $helper = App::getSingleton('helper', 'blog_post');
 
         $posts = $helper->getCategoryPosts($category->getData('category_id'), (int)$pageNumber);
@@ -63,12 +59,16 @@ class Blog_Observer_Page extends Core_Observer implements Core_Interface_Observe
         if ($page->getCustom('canonical')) {
             $page->setCustom(
                 'canonical',
-                $page->getCustom('canonical') . '?' . Blog_Helper_Data::URL_PARAM_PAGE . '=' . $pageNumber
+                $page->getCustom('canonical') . '?' . Blog_Helper_Blog_Post::URL_PARAM_PAGE . '=' . $pageNumber
             );
         }
         $page->setCustom(
             'meta_title',
             $page->getCustom('meta_title') . ' - ' . App::translate('Page') . ' ' . $pageNumber
         );
+
+        /** @var Blog_Block_Category_Posts $block */
+        $block = App::getSingleton('block', 'category.posts');
+        $block->setCustom('posts', $posts);
     }
 }

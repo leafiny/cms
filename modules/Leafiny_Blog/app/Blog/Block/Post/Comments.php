@@ -115,7 +115,7 @@ class Blog_Block_Post_Comments extends Core_Block
      */
     public function getFormData(Core_Page $page): Leafiny_Object
     {
-        $key = Blog_Helper_Data::COMMENT_FORM_DATA_KEY;
+        $key = Blog_Helper_Blog_Post::COMMENT_FORM_DATA_KEY;
 
         if (!$this->getData($key)) {
             $this->setData($key, $page->getTmpSessionData($key) ?: new Leafiny_Object());
@@ -133,7 +133,7 @@ class Blog_Block_Post_Comments extends Core_Block
      */
     public function getErrorMessage(Core_Page $page): ?string
     {
-        return $page->getTmpSessionData(Blog_Helper_Data::COMMENT_FORM_ERROR_KEY);
+        return $page->getTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_ERROR_KEY);
     }
 
     /**
@@ -145,6 +145,6 @@ class Blog_Block_Post_Comments extends Core_Block
      */
     public function getSuccessMessage(Core_Page $page): ?string
     {
-        return $page->getTmpSessionData(Blog_Helper_Data::COMMENT_FORM_SUCCESS_KEY);
+        return $page->getTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_SUCCESS_KEY);
     }
 }
