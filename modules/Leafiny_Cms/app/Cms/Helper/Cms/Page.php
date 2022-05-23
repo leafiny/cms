@@ -28,7 +28,8 @@ class Cms_Helper_Cms_Page extends Core_Helper
         /** @var Cms_Model_Page $model */
         $model = App::getObject('model', 'cms_page');
 
-        return $model->addCategoryFilter($categoryId)->getList($this->getFilters(), $this->getSortOrder());
+        return $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), $this->getSortOrder(), null, $this->getJoins());
     }
 
     /**
@@ -49,7 +50,7 @@ class Cms_Helper_Cms_Page extends Core_Helper
             ]
         ];
 
-        return array_merge($filters, $this->getCustom('filters') ?: []);
+        return array_merge($filters, $this->getCustom('page_filters') ?: []);
     }
 
     /**
@@ -66,6 +67,16 @@ class Cms_Helper_Cms_Page extends Core_Helper
             ],
         ];
 
-        return $this->getCustom('sort_order') ?: $sortOrder;
+        return $this->getCustom('page_sort_order') ?: $sortOrder;
+    }
+
+    /**
+     * Retrieve join list
+     *
+     * @return array
+     */
+    public function getJoins(): array
+    {
+        return $this->getCustom('page_joins') ?: [];
     }
 }

@@ -53,7 +53,8 @@ class Cms_Helper_Cms_Block extends Core_Helper
         /** @var Cms_Model_Block $model */
         $model = App::getObject('model', 'cms_block');
 
-        $blocks = $model->addCategoryFilter($categoryId)->getList($this->getFilters(), $this->getSortOrder());
+        $blocks = $model->addCategoryFilter($categoryId)
+            ->getList($this->getFilters(), $this->getSortOrder(), null, $this->getJoins());
 
         foreach ($blocks as $block) {
             $this->secureChildBlocks($block);
@@ -80,7 +81,7 @@ class Cms_Helper_Cms_Block extends Core_Helper
             ]
         ];
 
-        return array_merge($filters, $this->getCustom('filters') ?: []);
+        return array_merge($filters, $this->getCustom('block_filters') ?: []);
     }
 
     /**
@@ -97,6 +98,16 @@ class Cms_Helper_Cms_Block extends Core_Helper
             ],
         ];
 
-        return $this->getCustom('sort_order') ?: $sortOrder;
+        return $this->getCustom('block_sort_order') ?: $sortOrder;
+    }
+
+    /**
+     * Retrieve join list
+     *
+     * @return array
+     */
+    public function getJoins(): array
+    {
+        return $this->getCustom('block_joins') ?: [];
     }
 }
