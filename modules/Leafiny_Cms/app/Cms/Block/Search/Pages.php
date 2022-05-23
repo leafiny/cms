@@ -30,7 +30,7 @@ class Cms_Block_Search_Pages extends Core_Block
         /** @var Cms_Helper_Cms_Page $helper */
         $helper = App::getSingleton('helper', 'cms_page');
         $helper->setCustom(
-            'filters',
+            'page_filters',
             [
                 'page_id' => [
                     'column'   => 'page_id',

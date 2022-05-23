@@ -54,7 +54,7 @@ class Cms_Helper_Cms_Block extends Core_Helper
         $model = App::getObject('model', 'cms_block');
 
         $blocks = $model->addCategoryFilter($categoryId)
-            ->getList($this->getFilters(), $this->getSortOrder(), null, $this->getJoins());
+            ->getList($this->getFilters(), $this->getSortOrder(), null, $this->getJoins(), $this->getColumns());
 
         foreach ($blocks as $block) {
             $this->secureChildBlocks($block);
@@ -109,5 +109,15 @@ class Cms_Helper_Cms_Block extends Core_Helper
     public function getJoins(): array
     {
         return $this->getCustom('block_joins') ?: [];
+    }
+
+    /**
+     * Retrieve columns
+     *
+     * @return array
+     */
+    public function getColumns(): array
+    {
+        return $this->getCustom('block_columns') ?: [];
     }
 }

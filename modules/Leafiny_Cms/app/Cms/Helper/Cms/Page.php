@@ -29,7 +29,7 @@ class Cms_Helper_Cms_Page extends Core_Helper
         $model = App::getObject('model', 'cms_page');
 
         return $model->addCategoryFilter($categoryId)
-            ->getList($this->getFilters(), $this->getSortOrder(), null, $this->getJoins());
+            ->getList($this->getFilters(), $this->getSortOrder(), null, $this->getJoins(), $this->getColumns());
     }
 
     /**
@@ -78,5 +78,15 @@ class Cms_Helper_Cms_Page extends Core_Helper
     public function getJoins(): array
     {
         return $this->getCustom('page_joins') ?: [];
+    }
+
+    /**
+     * Retrieve columns
+     *
+     * @return array
+     */
+    public function getColumns(): array
+    {
+        return $this->getCustom('block_columns') ?: [];
     }
 }
