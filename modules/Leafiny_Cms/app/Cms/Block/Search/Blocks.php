@@ -27,21 +27,18 @@ class Cms_Block_Search_Blocks extends Core_Block
             return [];
         }
 
-        $filters = [
+        /** @var Cms_Helper_Cms_Block $helper */
+        $helper = App::getSingleton('helper', 'cms_block');
+        $helper->setCustom(
+            'filters',
             [
-                'column' => 'status',
-                'value'  => 1,
-            ],
-            [
-                'column' => 'language',
-                'value'  => App::getLanguage(),
-            ],
-            [
-                'column'   => 'block_id',
-                'value'    => $this->getBlockIds(),
-                'operator' => 'IN',
-            ],
-        ];
+                'block_id' => [
+                    'column'   => 'block_id',
+                    'value'    => $this->getBlockIds(),
+                    'operator' => 'IN',
+                ],
+            ]
+        );
 
         $orders = [
             [
@@ -54,7 +51,7 @@ class Cms_Block_Search_Blocks extends Core_Block
         /** @var Cms_Model_Block $model */
         $model = App::getObject('model', 'cms_block');
 
-        return $model->getList($filters, $orders, $this->getLimit());
+        return $model->getList($helper->getFilters(), $orders, $this->getLimit());
     }
 
     /**

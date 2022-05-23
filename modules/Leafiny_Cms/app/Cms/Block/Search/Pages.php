@@ -27,21 +27,18 @@ class Cms_Block_Search_Pages extends Core_Block
             return [];
         }
 
-        $filters = [
+        /** @var Cms_Helper_Cms_Page $helper */
+        $helper = App::getSingleton('helper', 'cms_page');
+        $helper->setCustom(
+            'filters',
             [
-                'column' => 'status',
-                'value'  => 1,
-            ],
-            [
-                'column' => 'language',
-                'value'  => App::getLanguage(),
-            ],
-            [
-                'column'   => 'page_id',
-                'value'    => $this->getPageIds(),
-                'operator' => 'IN',
-            ],
-        ];
+                'page_id' => [
+                    'column'   => 'page_id',
+                    'value'    => $this->getPageIds(),
+                    'operator' => 'IN',
+                ],
+            ]
+        );
 
         $orders = [
             [
@@ -54,7 +51,7 @@ class Cms_Block_Search_Pages extends Core_Block
         /** @var Cms_Model_Page $model */
         $model = App::getObject('model', 'cms_page');
 
-        return $model->getList($filters, $orders, $this->getLimit());
+        return $model->getList($helper->getFilters(), $orders, $this->getLimit());
     }
 
     /**

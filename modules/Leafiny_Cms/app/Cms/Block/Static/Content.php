@@ -31,8 +31,8 @@ class Cms_Block_Static_Content extends Core_Block
             return null;
         }
 
-        /** @var Cms_Helper_Cms $helper */
-        $helper = App::getObject('helper', 'cms');
+        /** @var Cms_Helper_Cms_Block $helper */
+        $helper = App::getObject('helper', 'cms_block');
         $helper->secureChildBlocks($block);
 
         return $block->getData('content');

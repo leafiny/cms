@@ -64,16 +64,18 @@ class Gallery_Block_Category_Galleries extends Core_Block
      */
     public function getFilters(): array
     {
-        return [
-            [
-                'column'   => 'status',
-                'value'    => 1,
+        $filters = [
+            'status' => [
+                'column' => 'status',
+                'value'  => 1,
             ],
-            [
+            'language' => [
                 'column' => 'language',
                 'value'  => App::getLanguage(),
             ]
         ];
+
+        return array_merge($filters, $this->getCustom('filters') ?: []);
     }
 
     /**
@@ -83,6 +85,6 @@ class Gallery_Block_Category_Galleries extends Core_Block
      */
     public function getOrders(): array
     {
-        return [];
+        return $this->getCustom('sort_order') ?: [];
     }
 }

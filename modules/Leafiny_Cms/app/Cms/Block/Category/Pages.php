@@ -25,24 +25,9 @@ class Cms_Block_Category_Pages extends Core_Block
      */
     public function getPages(int $categoryId): array
     {
-        /** @var Cms_Model_Page $model */
-        $model = App::getObject('model', 'cms_page');
+        /** @var Cms_Helper_Cms_Page $helper */
+        $helper = App::getSingleton('helper', 'cms_page');
 
-        $filters = [
-            [
-                'column'   => 'status',
-                'value'    => 1,
-                'operator' => '=',
-            ],
-        ];
-
-        $orders = [
-            [
-                'order' => 'created_at',
-                'dir'   => 'DESC',
-            ]
-        ];
-
-        return $model->addCategoryFilter($categoryId)->getList($filters, $orders);
+        return $helper->getCategoryPages($categoryId);
     }
 }

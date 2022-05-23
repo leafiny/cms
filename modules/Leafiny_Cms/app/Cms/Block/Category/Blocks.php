@@ -25,33 +25,9 @@ class Cms_Block_Category_Blocks extends Core_Block
      */
     public function getBlocks(int $categoryId): array
     {
-        /** @var Cms_Model_Block $model */
-        $model = App::getObject('model', 'cms_block');
+        /** @var Cms_Helper_Cms_Block $helper */
+        $helper = App::getSingleton('helper', 'cms_block');
 
-        $filters = [
-            [
-                'column'   => 'status',
-                'value'    => 1,
-                'operator' => '=',
-            ],
-        ];
-
-        $orders = [
-            [
-                'order' => 'position',
-                'dir'   => 'ASC',
-            ]
-        ];
-
-        $blocks = $model->addCategoryFilter($categoryId)->getList($filters, $orders);
-
-        /** @var Cms_Helper_Cms $helper */
-        $helper = App::getObject('helper', 'cms');
-
-        foreach ($blocks as $block) {
-            $helper->secureChildBlocks($block);
-        }
-
-        return $blocks;
+        return $helper->getCategoryBlocks($categoryId);
     }
 }
