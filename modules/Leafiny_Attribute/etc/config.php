@@ -15,6 +15,12 @@ $config = [
     ],
 
     'block' => [
+        'category.products.filters' => [
+            'class'    => Attribute_Block_Products_Filters::class,
+            'template' => 'Leafiny_Attribute::block/products/filters.twig',
+            'disabled' => !class_exists('Catalog_Helper_Catalog_Product'),
+        ],
+
         'admin.head' => [
             'stylesheet' => [
                 'Leafiny_Attribute::backend/css/attribute.css' => 450,
@@ -47,6 +53,12 @@ $config = [
     ],
 
     'page' => [
+        '/category/*.html' => [
+            'children' => [
+                'category.products.filters' => 99,
+            ]
+        ],
+
         /* Forms */
         '/admin/*/products/edit/' => [
             'children' => [
