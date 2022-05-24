@@ -32,7 +32,7 @@ class Catalog_Helper_Catalog_Product extends Core_Helper
     public function getCategoryProducts(int $categoryId, int $page = 1): array
     {
         /** @var Catalog_Model_Product $model */
-        $model = App::getObject('model', 'catalog_product');
+        $model = App::getSingleton('model', 'catalog_product');
 
         $limit = [$this->getOffset($page), $this->getLimit()];
 
@@ -51,7 +51,7 @@ class Catalog_Helper_Catalog_Product extends Core_Helper
     public function getTotalCategoryProducts(int $categoryId): int
     {
         /** @var Catalog_Model_Product $model */
-        $model = App::getObject('model', 'catalog_product');
+        $model = App::getSingleton('model', 'catalog_product');
 
         $list = $model->addCategoryFilter($categoryId)
             ->getList($this->getFilters(), [], null, $this->getJoins(), ['main_table.product_id']);
