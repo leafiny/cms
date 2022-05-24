@@ -28,6 +28,13 @@ $config = [
                 'blog' => Blog_Helper_Blog_Post::URL_PARAM_PAGE
             ],
         ],
+        'attribute' => [
+            'entity' => [
+                'blog_post' => [
+                    'enabled' => 1,
+                ],
+            ]
+        ],
         'search' => [
             'entity' => [
                 'blog_post' => [

@@ -50,6 +50,12 @@ $config = [
             'class'    => Attribute_Block_Backend_Form_Attributes::class,
             'entity'   => 'category',
         ],
+        'admin.attribute.post.form.attributes' => [
+            'template' => 'Leafiny_Attribute::block/backend/form/attributes.twig',
+            'context'  => Backend_Page_Admin_Page_Abstract::CONTEXT_BACKEND,
+            'class'    => Attribute_Block_Backend_Form_Attributes::class,
+            'entity'   => 'blog_post',
+        ],
     ],
 
     'page' => [
@@ -68,6 +74,11 @@ $config = [
         '/admin/*/categories/edit/' => [
             'children' => [
                 'admin.attribute.category.form.attributes' => 20,
+            ],
+        ],
+        '/admin/*/posts/edit/' => [
+            'children' => [
+                'admin.attribute.post.form.attributes' => 20,
             ],
         ],
 
@@ -131,6 +142,12 @@ $config = [
         'category_save_after' => [
             'category_save_attributes' => 50,
         ],
+        'blog_post_get_after' => [
+            'blog_post_get_attributes' => 50,
+        ],
+        'blog_post_save_after' => [
+            'blog_post_save_attributes' => 50,
+        ],
     ],
 
     'observer' => [
@@ -149,6 +166,14 @@ $config = [
         'category_save_attributes' => [
             'class'  => Attribute_Observer_Attributes_Save::class,
             'entity' => 'category',
+        ],
+        'blog_post_get_attributes' => [
+            'class'  => Attribute_Observer_Attributes_Get::class,
+            'entity' => 'blog_post',
+        ],
+        'blog_post_save_attributes' => [
+            'class'  => Attribute_Observer_Attributes_Save::class,
+            'entity' => 'blog_post',
         ],
     ],
 ];
