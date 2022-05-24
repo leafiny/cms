@@ -376,6 +376,45 @@ class Attribute_Model_Attribute extends Core_Model
     }
 
     /**
+     * Retrieve filterable attributes
+     *
+     * @param int[] $entityIds
+     * @param string $entityType
+     * @param string $language
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function getFilterableEntityAttributes(array $entityIds, string $entityType, string $language): array
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return [];
+        }
+
+        $adapter->where('aev.language', $language);
+        $adapter->where('aev.entity_type', $entityType);
+        $adapter->where('aev.entity_id', $entityIds, 'IN');
+        $adapter->join(
+            'attribute as a',
+            'aev.attribute_id = a.attribute_id AND a.is_filterable = 1',
+            'INNER'
+        );
+
+        $result = $adapter->get('attribute_entity_value as aev', null, 'aev.*');
+
+        $filters = [];
+        foreach ($result as $line) {
+            if (!isset($filters[$line['attribute_code']])) {
+                $filters[$line['attribute_code']] = [];
+            }
+            $filters[$line['attribute_code']][$line['option_id']] = $line['value'];
+        }
+
+        return $filters;
+    }
+
+    /**
      * Retrieve entity attribute values
      *
      * @param int    $entityId

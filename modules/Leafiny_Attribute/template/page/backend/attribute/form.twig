@@ -54,6 +54,13 @@
                     <label for="option_qty">{{ 'Number of options'|translate }} :</label>
                     <input id="option_qty" type="text" class="pure-u-1 pure-u-xl-4-5" name="option_qty" value="{{ optionQty }}"/>
                 </div>
+                <div class="pure-u-1 field depends" data-parent="entity_type" data-values="catalog_product">
+                    <label for="is_filterable">{{ 'Is filterable'|translate }} :</label>
+                    <select id="is_filterable" class="pure-u-1 pure-u-xl-4-5" name="is_filterable">
+                        <option value="0"{% if form.getIsFilterable == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
+                        <option value="1"{% if form.getIsFilterable == '1' %} selected="selected"{% endif %}>{{ 'Yes'|translate }}</option>
+                    </select>
+                </div>
             </div>
         </fieldset>
 
