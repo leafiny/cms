@@ -18,7 +18,7 @@ class Catalog_Observer_Page extends Core_Observer implements Core_Interface_Obse
     /**
      * Execute
      *
-     * @param Core_Page|Leafiny_Object $object
+     * @param Leafiny_Object $object
      *
      * @return void
      * @throws Exception
@@ -47,12 +47,12 @@ class Catalog_Observer_Page extends Core_Observer implements Core_Interface_Obse
 
         $products = $helper->getCategoryProducts((int)$category->getData('category_id'), (int)$pageNumber);
 
-        if ($pageNumber > 1 && empty($products)) {
-            $page->error(true);
-            return;
-        }
-
         if ($pageNumber > 1) {
+            if (empty($products)) {
+                $page->error(true);
+                return;
+            }
+
             if ($page->getCustom('canonical')) {
                 $page->setCustom(
                     'canonical',
