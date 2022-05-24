@@ -36,5 +36,6 @@ class Commerce_Observer_Product_FinalPrice extends Core_Observer implements Core
         }
 
         $taxHelper->calculatePrices($product, $saleHelper->getAddress('shipping'));
+        $taxHelper->calculatePrices($product, new Leafiny_Object(), 'default');
     }
 }

@@ -31,12 +31,15 @@ class Commerce_Observer_Product_List_FinalPrice extends Core_Observer implements
         /** @var Commerce_Helper_Cart $saleHelper */
         $saleHelper = App::getSingleton('helper', 'cart');
 
+        $shippingAddress = $saleHelper->getAddress('shipping');
+
         foreach ($products as $product) {
             if ($product->getData('price') === null) {
                 $product->setData('price', 0);
             }
 
-            $taxHelper->calculatePrices($product, $saleHelper->getAddress('shipping'));
+            $taxHelper->calculatePrices($product, $shippingAddress);
+            $taxHelper->calculatePrices($product, new Leafiny_Object(), 'default');
         }
     }
 }

@@ -23,8 +23,9 @@ class Commerce_Helper_Tax extends Core_Helper
      *
      * @return void
      */
-    public function calculatePrices(Leafiny_Object $object, ?Leafiny_Object $address = null): void
+    public function calculatePrices(Leafiny_Object $object, ?Leafiny_Object $address = null, string $prefix = ''): void
     {
+        $prefix = $prefix ? trim($prefix, '_') . '_' : '';
         $originalPrice = $object->getData('price') ?: 0;
         $finalPrice = $object->getData('price') ?: 0;
         $specialPrice = $object->getData('special_price');
@@ -40,9 +41,9 @@ class Commerce_Helper_Tax extends Core_Helper
             ]
         );
 
-        $object->setData('prices_excl_tax', $default);
-        $object->setData('prices_incl_tax', $default);
-        $object->setData('tax_percent', 0);
+        $object->setData($prefix . 'prices_excl_tax', $default);
+        $object->setData($prefix . 'prices_incl_tax', $default);
+        $object->setData($prefix . 'tax_percent', 0);
 
         $taxRuleId = $object->getData('tax_rule_id');
 
@@ -76,7 +77,7 @@ class Commerce_Helper_Tax extends Core_Helper
                         'final_price' => $finalPrice,
                     ]
                 );
-                $object->setData('prices_incl_tax', $inclTax);
+                $object->setData($prefix . 'prices_incl_tax', $inclTax);
             }
 
             if ($priceType === 'incl_tax') {
@@ -89,7 +90,7 @@ class Commerce_Helper_Tax extends Core_Helper
                         'final_price' => $finalPrice,
                     ]
                 );
-                $object->setData('prices_excl_tax', $inclTax);
+                $object->setData($prefix . 'prices_excl_tax', $inclTax);
             }
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
@@ -108,6 +109,20 @@ class Commerce_Helper_Tax extends Core_Helper
     public function getTaxByAddress(int $ruleId, Leafiny_Object $address): Leafiny_Object
     {
         $address = $this->getTaxAddress($address);
+
+        $taxKey = join(
+            '_',
+            [
+                '_tax_address',
+                $address->getData('country_code') ?: '',
+                $address->getData('state_code') ?: '',
+                $address->getData('postcode') ?: '',
+            ]
+        );
+
+        if ($this->getData($taxKey)) {
+            return $this->getData($taxKey);
+        }
 
         $filters = [
             [
@@ -162,11 +177,9 @@ class Commerce_Helper_Tax extends Core_Helper
 
         $taxes = $model->getList($filters, $orders, [0, 1]);
 
-        if (empty($taxes)) {
-            return new Leafiny_Object();
-        }
+        $this->setData($taxKey, (empty($taxes) ? new Leafiny_Object() : reset($taxes)));
 
-        return reset($taxes);
+        return $this->getData($taxKey);
     }
 
     /**

@@ -1,6 +1,6 @@
 {% set product = block.getCustom('product') %}
-{% set pricesExclTax = product.getPricesExclTax %}
-{% set pricesInclTax = product.getPricesInclTax %}
+{% set pricesExclTax = product.getDefaultPricesExclTax %}
+{% set pricesInclTax = product.getDefaultPricesInclTax %}
 {% if pricesInclTax.getFinalPrice %}
     <div class="product-price">
         {% if pricesInclTax.getOriginalPrice != pricesInclTax.getFinalPrice %}
