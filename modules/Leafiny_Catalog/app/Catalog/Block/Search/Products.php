@@ -49,7 +49,7 @@ class Catalog_Block_Search_Products extends Core_Block
         ];
 
         /** @var Catalog_Model_Product $model */
-        $model = App::getObject('model', 'catalog_product');
+        $model = App::getSingleton('model', 'catalog_product');
 
         return $model->getList($helper->getFilters(), $orders, $this->getLimit());
     }
