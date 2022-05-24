@@ -213,21 +213,19 @@ class Fpc_Helper_Cache extends Core_Helper
         if (preg_match_all('@<!-- nocache::(?P<blocks>.*) -->@U', $render, $matches)) {
             foreach ($matches['blocks'] as $block) {
                 $child = explode(',', $block);
-                if (!isset($child[1])) {
-                    $child[1] = '{}';
-                }
+                $identifier = $child[0];
+                unset($child[0]);
 
+                $params = empty($child) ? '{}' : join(',', $child);
                 $render = preg_replace(
-                    '@<!-- nocache::' . $block . ' -->(.*)<!-- /nocache::' . $child[0] . ' -->@s',
-                    '{% apply spaceless %}{{ child(' . $child[0] . ', ' . $child[1] . ') }}{% endapply %}',
+                    '@<!-- nocache::' . preg_quote($block) . ' -->(.*)<!-- /nocache::' . $identifier . ' -->@Us',
+                    '{% apply spaceless %}{{ child(' . $identifier . ', ' . $params . ') }}{% endapply %}',
                     $render
                 );
             }
         }
 
-        $render = preg_replace('/<!--(.|\s)*?-->/', '', $render);
-
-        return $render;
+        return preg_replace('/<!--(.|\s)*?-->/', '', $render);
     }
 
     /**
