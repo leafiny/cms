@@ -382,7 +382,7 @@ class Attribute_Model_Attribute extends Core_Model
      * @param string $entityType
      * @param string $language
      *
-     * @return array
+     * @return Leafiny_Object[]
      * @throws Exception
      */
     public function getFilterableEntityAttributes(array $entityIds, string $entityType, string $language): array
@@ -395,6 +395,8 @@ class Attribute_Model_Attribute extends Core_Model
         $adapter->where('aev.language', $language);
         $adapter->where('aev.entity_type', $entityType);
         $adapter->where('aev.entity_id', $entityIds, 'IN');
+        $adapter->orderBy('aev.attribute_position', 'ASC');
+        $adapter->orderBy('aev.option_position', 'ASC');
         $adapter->join(
             'attribute as a',
             'aev.attribute_id = a.attribute_id AND a.is_filterable = 1',
@@ -408,7 +410,26 @@ class Attribute_Model_Attribute extends Core_Model
             if (!isset($filters[$line['attribute_code']])) {
                 $filters[$line['attribute_code']] = [];
             }
-            $filters[$line['attribute_code']][$line['option_id']] = $line['value'];
+            $total = ($filters[$line['attribute_code']]['options'][$line['option_id']]['total'] ?? 0) + 1;
+            $filters[$line['attribute_code']] = new Leafiny_Object(
+                [
+                    'attribute_code'  => $line['attribute_code'],
+                    'attribute_label' => $line['attribute_label'],
+                    'options'         => array_replace(
+                        $filters[$line['attribute_code']]['options'] ?? [],
+                        [
+                            $line['option_id'] => new Leafiny_Object(
+                                [
+                                    'option_id' => $line['option_id'],
+                                    'label'     => $line['option_label'],
+                                    'custom'    => $line['option_custom'],
+                                    'total'     => $total,
+                                ]
+                            )
+                        ]
+                    ),
+                ]
+            );
         }
 
         return $filters;
@@ -444,7 +465,7 @@ class Attribute_Model_Attribute extends Core_Model
             }
             $values[$row['attribute_code']][$row['option_id'] ?: 0] = new Leafiny_Object(
                 [
-                    'value'  => $row['value'],
+                    'value'  => $row['option_label'],
                     'custom' => $row['option_custom'] ?: null,
                 ]
             );
@@ -491,6 +512,7 @@ class Attribute_Model_Attribute extends Core_Model
 
             foreach ($values as $value) {
                 $optionId = 0;
+                $optionPosition = 0;
                 $optionCustom = null;
 
                 if (in_array($attribute->getData('input_type'), $helper->getInputTypesWithOptions())) {
@@ -498,23 +520,29 @@ class Attribute_Model_Attribute extends Core_Model
                     if (!$option->getData('option_id')) {
                         continue;
                     }
-                    $optionId     = $option->getData('option_id');
-                    $optionCustom = $option->getData('custom');
-                    $value        = $option->getData('label')[$language];
+                    $optionId       = $option->getData('option_id');
+                    $optionPosition = $option->getData('position');
+                    $optionCustom   = $option->getData('custom');
+                    $value          = $option->getData('label')[$language] ?? '';
                 }
 
                 $data = [
                     'attribute_id' => $attribute->getData('attribute_id'),
                     'attribute_code' => $attribute->getData('code'),
+                    'attribute_label' => $attribute->getData('label')[$language] ?? '',
+                    'attribute_position' => $attribute->getData('position'),
                     'option_id' => $optionId,
                     'option_custom' => $optionCustom,
+                    'option_label' => $value,
+                    'option_position' => $optionPosition,
                     'language' => $language,
                     'entity_type' => $attribute->getData('entity_type'),
                     'entity_id' => $entityId,
-                    'value' => $value,
                 ];
 
-                $adapter->onDuplicate(['option_custom', 'value']);
+                $adapter->onDuplicate(
+                    ['option_custom', 'option_label', 'option_position', 'attribute_label', 'attribute_position']
+                );
                 $adapter->insert('attribute_entity_value', $data);
 
                 if ($adapter->getLastErrno()) {
