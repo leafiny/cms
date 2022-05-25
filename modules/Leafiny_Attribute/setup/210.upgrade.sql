@@ -38,12 +38,15 @@ CREATE TABLE IF NOT EXISTS `attribute_option_translate` (
 CREATE TABLE IF NOT EXISTS `attribute_entity_value` (
     `attribute_id` INT(11) unsigned NOT NULL,
     `attribute_code` VARCHAR(255) NOT NULL,
+    `attribute_label` VARCHAR(255) NOT NULL,
+    `attribute_position` int(10) NOT NULL DEFAULT 0,
     `option_id` INT(11) NOT NULL default 0,
     `option_custom` VARCHAR(255) NULL,
+    `option_label` VARCHAR(255),
+    `option_position` INT(11) NOT NULL default 0,
     `entity_type` VARCHAR(255) NOT NULL,
     `entity_id` INT(11) unsigned NOT NULL,
     `language` VARCHAR(5) NOT NULL DEFAULT 'en_US',
-    `value` VARCHAR(255),
     FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`attribute_id`) ON UPDATE CASCADE ON DELETE CASCADE,
     UNIQUE KEY (`attribute_id`, `option_id`, `entity_type`, `entity_id`, `language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
