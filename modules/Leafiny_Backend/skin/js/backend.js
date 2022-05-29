@@ -3,7 +3,7 @@
  *
  * @param {Object} element
  */
-function copyInClipboard (element) {
+function copyInClipboard(element) {
     element.select();
     document.execCommand('copy');
 }
@@ -17,7 +17,7 @@ function copyInClipboard (element) {
  *
  * @returns {boolean}
  */
-function copyValue (fromElementId, toElementId, normalize) {
+function copyValue(fromElementId, toElementId, normalize) {
     let toElement = document.getElementById(toElementId);
     let fromElement = document.getElementById(fromElementId);
 
@@ -32,7 +32,9 @@ function copyValue (fromElementId, toElementId, normalize) {
     fromElement.addEventListener('change', function () {
         let value = this.value;
         if (normalize) {
-            value = removeAccents(value).toLowerCase().replace(/[\W_]+/g, '-');
+            value = removeAccents(value)
+                .toLowerCase()
+                .replace(/[\W_]+/g, '-');
         }
         toElement.value = value;
     });
@@ -47,15 +49,15 @@ function copyValue (fromElementId, toElementId, normalize) {
  *
  * @returns {string}
  */
-function removeAccents (str) {
+function removeAccents(str) {
     let map = {
-        'a':'á|à|ã|â|À|Á|Ã|Â',
-        'e':'é|è|ê|É|È|Ê',
-        'i':'í|ì|î|Í|Ì|Î',
-        'o':'ó|ò|ô|õ|Ó|Ò|Ô|Õ',
-        'u':'ú|ù|û|ü|Ú|Ù|Û|Ü',
-        'c':'ç|Ç',
-        'n':'ñ|Ñ'
+        a: 'á|à|ã|â|À|Á|Ã|Â',
+        e: 'é|è|ê|É|È|Ê',
+        i: 'í|ì|î|Í|Ì|Î',
+        o: 'ó|ò|ô|õ|Ó|Ò|Ô|Õ',
+        u: 'ú|ù|û|ü|Ú|Ù|Û|Ü',
+        c: 'ç|Ç',
+        n: 'ñ|Ñ',
     };
 
     for (let pattern in map) {
@@ -71,8 +73,7 @@ function removeAccents (str) {
  * @param {string} html
  * @param {string} modalClass
  */
-function modal (html, modalClass)
-{
+function modal(html, modalClass) {
     close();
     if (typeof modalClass === 'undefined') {
         modalClass = '';
@@ -100,15 +101,14 @@ function modal (html, modalClass)
     document.body.prepend(content);
 
     let modal = document.getElementsByClassName('modal-content');
-    setTimeout(function() {
+    setTimeout(function () {
         modal[0].className += ' show';
     }, 50);
 
     /**
      * Close popup
      */
-    function close ()
-    {
+    function close() {
         let containers = document.getElementsByClassName('modal-container');
         for (let i = 0; i < containers.length; i++) {
             containers[i].remove();
@@ -121,6 +121,6 @@ function modal (html, modalClass)
     }
 
     return {
-        'close': close
-    }
+        close: close,
+    };
 }

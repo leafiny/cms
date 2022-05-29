@@ -1,6 +1,6 @@
 categoryMenu();
 
-function categoryMenu () {
+function categoryMenu() {
     var hasChildren = document.getElementsByClassName('has-children');
     for (var i = 0; i < hasChildren.length; i++) {
         const childMenu = hasChildren[i].nextSibling;

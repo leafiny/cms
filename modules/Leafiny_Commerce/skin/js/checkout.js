@@ -1,10 +1,10 @@
 window.commerceSteps = {
-    "cart": ['commerceCart'],
-    "addresses": ['commerceAddresses'],
-    "shipping": [],
-    "payment": ['commercePayment'],
-    "review": ['commerceReview']
-}
+    cart: ['commerceCart'],
+    addresses: ['commerceAddresses'],
+    shipping: [],
+    payment: ['commercePayment'],
+    review: ['commerceReview'],
+};
 
 window.dispatchEvent(new Event('commerceSteps'));
 
@@ -103,7 +103,7 @@ function commercePayment() {
     }
 
     function toggleInfo(element) {
-        var infos  = document.getElementsByClassName('payment-method-info');
+        var infos = document.getElementsByClassName('payment-method-info');
         if (!infos.length) {
             return false;
         }
@@ -132,7 +132,7 @@ function commerceReview() {
         var agreements = document.getElementById('agreements');
 
         if (!form || !agreements) {
-            return false
+            return false;
         }
 
         agreements.addEventListener('click', function () {

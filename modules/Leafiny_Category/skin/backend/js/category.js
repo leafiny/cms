@@ -1,12 +1,12 @@
-function categorySelector (languageId) {
-    let languageSelector   = document.getElementById(languageId);
+function categorySelector(languageId) {
+    let languageSelector = document.getElementById(languageId);
     let categoryContainers = document.querySelectorAll('.form-category-selector');
 
     if (!languageSelector || !categoryContainers.length) {
         return false;
     }
 
-    let showLanguage = function(language) {
+    let showLanguage = function (language) {
         for (let i = 0; i < categoryContainers.length; i++) {
             categoryContainers[i].style.display = 'none';
             let select = categoryContainers[i].querySelector('select');

@@ -7,7 +7,7 @@ countFieldChars();
  *
  * @returns {boolean}
  */
-function countFieldChars () {
+function countFieldChars() {
     let fields = document.getElementsByClassName('count-chars');
     if (!fields.length) {
         return false;
@@ -23,7 +23,7 @@ function countFieldChars () {
         }
     }
 
-    function update (parent, length) {
+    function update(parent, length) {
         let chars = parent.querySelector('.chars');
         if (!chars) {
             chars = document.createElement('span');
@@ -44,7 +44,7 @@ function countFieldChars () {
  *
  * @returns {boolean}
  */
-function formGoTo () {
+function formGoTo() {
     let goTo = document.getElementById('form-go-to');
     if (!goTo) {
         return false;
@@ -66,7 +66,11 @@ function formGoTo () {
     select.appendChild(option);
 
     for (let i = 0; i < legends.length; i++) {
-        let legendId = 'section-' + removeAccents(legends[i].innerHTML).toLowerCase().replace(/[\W_]+/g, '-');
+        let legendId =
+            'section-' +
+            removeAccents(legends[i].innerHTML)
+                .toLowerCase()
+                .replace(/[\W_]+/g, '-');
 
         legends[i].id = legendId;
 
@@ -85,7 +89,7 @@ function formGoTo () {
  *
  * <div class="pure-u-1 field depends" data-parent="parent_id" data-values="john,peter,alex">...</div>
  */
-function formFieldDepends () {
+function formFieldDepends() {
     let depends = document.getElementsByClassName('depends');
 
     if (depends.length) {
@@ -112,7 +116,7 @@ function formFieldDepends () {
      * @param {Object} parent
      * @param {string} values
      */
-    function toggle (element, parent, values) {
+    function toggle(element, parent, values) {
         element.style.display = 'none';
         if (values.split(',').indexOf(parent.value) >= 0) {
             element.style.display = 'block';

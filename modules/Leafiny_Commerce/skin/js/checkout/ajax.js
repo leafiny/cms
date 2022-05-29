@@ -70,7 +70,7 @@ function commerceCheckoutAjax() {
                 window.scroll({
                     behavior: 'smooth',
                     left: 0,
-                    top: to.offsetTop + 200
+                    top: to.offsetTop + 200,
                 });
             }
         }

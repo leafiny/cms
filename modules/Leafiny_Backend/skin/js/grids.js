@@ -7,7 +7,7 @@ gridRemoveWarning();
  *
  * @returns {boolean}
  */
-function gridSelectAll () {
+function gridSelectAll() {
     let select = document.querySelector('.select-all');
 
     if (!select) {
@@ -33,7 +33,7 @@ function gridSelectAll () {
  *
  * @returns {boolean}
  */
-function gridFilter () {
+function gridFilter() {
     let filters = document.querySelector('.filters');
     let action = document.getElementById('toolbar-select-action');
 
@@ -57,7 +57,7 @@ function gridFilter () {
 /**
  * Display a confirmation message before remove entries
  */
-function gridRemoveWarning () {
+function gridRemoveWarning() {
     let grids = document.getElementsByClassName('container-grid');
     for (let i = 0; i < grids.length; i++) {
         grids[i].addEventListener('submit', function (event) {
