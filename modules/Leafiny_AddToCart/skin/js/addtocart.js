@@ -3,7 +3,7 @@ addToCartAjax();
 /**
  * Add product to cart with Ajax
  */
-function addToCartAjax () {
+function addToCartAjax() {
     let addToCart = document.getElementsByClassName('product-add-to-cart');
 
     for (let i = 0; i < addToCart.length; i++) {
@@ -32,7 +32,7 @@ function addToCartAjax () {
                         alert(result.error);
                     }
                 }
-            }
+            };
             xhr.open('POST', url);
             xhr.send(new FormData(event.target));
         });
@@ -45,7 +45,7 @@ function addToCartAjax () {
      * @param {boolean} active
      * @returns {boolean}
      */
-    function loader (form, active) {
+    function loader(form, active) {
         let button = form.getElementsByTagName('button');
         if (!button.length) {
             return false;
@@ -68,8 +68,7 @@ function addToCartAjax () {
      * @param {Node} source
      * @param {string} target
      */
-    function replaceWith (source, target)
-    {
+    function replaceWith(source, target) {
         let element = document.createElement('div');
         element.innerHTML = target;
 
@@ -81,8 +80,7 @@ function addToCartAjax () {
      *
      * @param {string} html
      */
-    function popup (html)
-    {
+    function popup(html) {
         close();
 
         let container = document.createElement('div');
@@ -107,15 +105,14 @@ function addToCartAjax () {
         document.body.prepend(content);
 
         let popup = document.getElementsByClassName('cart-popup-content');
-        setTimeout(function() {
+        setTimeout(function () {
             popup[0].className += ' show';
         }, 50);
 
         /**
          * Close popup
          */
-        function close ()
-        {
+        function close() {
             let containers = document.getElementsByClassName('cart-popup-container');
             for (let i = 0; i < containers.length; i++) {
                 containers[i].remove();
@@ -128,7 +125,7 @@ function addToCartAjax () {
         }
 
         return {
-            'close': close
-        }
+            close: close,
+        };
     }
 }

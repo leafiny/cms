@@ -7,8 +7,9 @@ html {
     padding: 0;
 }
 
-body,.pure-g [class*="pure-u"] {
-    font-family: Segoe UI,system-ui,-apple-system,sans-serif;
+body,
+.pure-g [class*='pure-u'] {
+    font-family: Segoe UI, system-ui, -apple-system, sans-serif;
     font-size: 16px;
 }
 
@@ -55,7 +56,7 @@ h3 {
 h4,
 h5,
 h6 {
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
 }
 
 h1 {
@@ -80,7 +81,7 @@ h5 {
 }
 
 h6 {
-    font-size: .875em;
+    font-size: 0.875em;
 }
 
 ol,
@@ -89,7 +90,7 @@ ul {
 }
 
 li {
-    margin-top: .4rem;
+    margin-top: 0.4rem;
 }
 
 ul ul,
@@ -101,11 +102,13 @@ ol ol {
 
 blockquote {
     padding: 1em;
-    background: #F6F8FA;
-    border-left: 5px solid #E5E7EB;
+    background: #f6f8fa;
+    border-left: 5px solid #e5e7eb;
 }
 
-.main-content, .footer-content, .nav-content {
+.main-content,
+.footer-content,
+.nav-content {
     padding: 0;
     margin: 0;
 }
@@ -266,7 +269,11 @@ main {
 }
 
 /* forms */
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
     line-height: 1.3em;
 }
 
@@ -364,7 +371,7 @@ button, input, optgroup, select, textarea {
 }
 
 .container-form .snippet-content {
-    background: #F6F6F6;
+    background: #f6f6f6;
     border: 1px solid #e5e5e5;
     margin-bottom: 20px;
     font-size: 0.9em;
@@ -378,7 +385,7 @@ button, input, optgroup, select, textarea {
 }
 
 .container-form .snippet-content input:-moz-read-only,
-.container-form .snippet-content input:read-only{
+.container-form .snippet-content input:read-only {
     background-color: #fff;
 }
 
@@ -409,7 +416,7 @@ button, input, optgroup, select, textarea {
 }
 
 .pure-button.gray {
-    background: #E3E3E3;
+    background: #e3e3e3;
     color: #000;
 }
 
@@ -429,20 +436,20 @@ button, input, optgroup, select, textarea {
 
 .container-grid .toolbar .right button,
 .container-grid .toolbar .right a,
-.container-grid .toolbar .right input[type="submit"] {
+.container-grid .toolbar .right input[type='submit'] {
     margin: 0 0 10px 10px;
 }
 
 .container-grid .toolbar select,
 .container-grid .toolbar .left button,
 .container-grid .toolbar .left a,
-.container-grid .toolbar .left input[type="submit"] {
+.container-grid .toolbar .left input[type='submit'] {
     margin-right: 10px;
 }
 
 .container-grid .toolbar select {
     width: 150px;
-    height: 2.20em;
+    height: 2.2em;
     vertical-align: middle;
 }
 
@@ -497,25 +504,82 @@ button, input, optgroup, select, textarea {
     padding: 30px 10px;
 }
 
-.container-grid table .width-5 {width: 5%; min-width: 40px}
-.container-grid table .width-10 {width: 10%; min-width: 60px}
-.container-grid table .width-15 {width: 15%; min-width: 90px}
-.container-grid table .width-20 {width: 20%; min-width: 120px}
-.container-grid table .width-25 {width: 25%; min-width: 150px}
-.container-grid table .width-30 {width: 30%; min-width: 180px}
-.container-grid table .width-35 {width: 35%; min-width: 210px}
-.container-grid table .width-40 {width: 40%; min-width: 240px}
-.container-grid table .width-45 {width: 45%; min-width: 270px}
-.container-grid table .width-50 {width: 50%; min-width: 300px}
-.container-grid table .width-55 {width: 55%; min-width: 300px}
-.container-grid table .width-60 {width: 60%; min-width: 300px}
-.container-grid table .width-65 {width: 65%; min-width: 300px}
-.container-grid table .width-70 {width: 70%; min-width: 300px}
-.container-grid table .width-75 {width: 75%; min-width: 300px}
-.container-grid table .width-80 {width: 80%; min-width: 300px}
-.container-grid table .width-85 {width: 85%; min-width: 300px}
-.container-grid table .width-90 {width: 90%; min-width: 300px}
-.container-grid table .width-95 {width: 95%; min-width: 300px}
+.container-grid table .width-5 {
+    width: 5%;
+    min-width: 40px;
+}
+.container-grid table .width-10 {
+    width: 10%;
+    min-width: 60px;
+}
+.container-grid table .width-15 {
+    width: 15%;
+    min-width: 90px;
+}
+.container-grid table .width-20 {
+    width: 20%;
+    min-width: 120px;
+}
+.container-grid table .width-25 {
+    width: 25%;
+    min-width: 150px;
+}
+.container-grid table .width-30 {
+    width: 30%;
+    min-width: 180px;
+}
+.container-grid table .width-35 {
+    width: 35%;
+    min-width: 210px;
+}
+.container-grid table .width-40 {
+    width: 40%;
+    min-width: 240px;
+}
+.container-grid table .width-45 {
+    width: 45%;
+    min-width: 270px;
+}
+.container-grid table .width-50 {
+    width: 50%;
+    min-width: 300px;
+}
+.container-grid table .width-55 {
+    width: 55%;
+    min-width: 300px;
+}
+.container-grid table .width-60 {
+    width: 60%;
+    min-width: 300px;
+}
+.container-grid table .width-65 {
+    width: 65%;
+    min-width: 300px;
+}
+.container-grid table .width-70 {
+    width: 70%;
+    min-width: 300px;
+}
+.container-grid table .width-75 {
+    width: 75%;
+    min-width: 300px;
+}
+.container-grid table .width-80 {
+    width: 80%;
+    min-width: 300px;
+}
+.container-grid table .width-85 {
+    width: 85%;
+    min-width: 300px;
+}
+.container-grid table .width-90 {
+    width: 90%;
+    min-width: 300px;
+}
+.container-grid table .width-95 {
+    width: 95%;
+    min-width: 300px;
+}
 
 .container-grid .headings {
     border-bottom: 1px solid #fff;
@@ -552,8 +616,7 @@ button, input, optgroup, select, textarea {
 }
 
 .container-grid td.status .enabled,
-.container-grid td.status .info
-{
+.container-grid td.status .info {
     background: #d4edda;
     border: 1px solid #c3e6cb;
     color: #155724;
@@ -563,8 +626,7 @@ button, input, optgroup, select, textarea {
 .container-grid td.status .error,
 .container-grid td.status .emergency,
 .container-grid td.status .critical,
-.container-grid td.status .alert
-{
+.container-grid td.status .alert {
     background: #f8d7da;
     border: 1px solid #f5c6cb;
     color: #721c24;
@@ -572,8 +634,7 @@ button, input, optgroup, select, textarea {
 
 .container-grid td.status .warning,
 .container-grid td.status .notice,
-.container-grid td.status .debug
-{
+.container-grid td.status .debug {
     background: #fff3cd;
     border: 1px solid #ffeeba;
     color: #856404;
@@ -670,13 +731,27 @@ button, input, optgroup, select, textarea {
 }
 
 /* Colors */
-.dashboard li a.green {background: #719886}
-.dashboard li a.orange {background: #de8b49}
-.dashboard li a.blue {background: #729fb6}
-.dashboard li a.yellow {background: #d6ac3e}
-.dashboard li a.brown {background: #89604b}
-.dashboard li a.red {background: #851f2f}
-.dashboard li a.purple {background: #6B5976}
+.dashboard li a.green {
+    background: #719886;
+}
+.dashboard li a.orange {
+    background: #de8b49;
+}
+.dashboard li a.blue {
+    background: #729fb6;
+}
+.dashboard li a.yellow {
+    background: #d6ac3e;
+}
+.dashboard li a.brown {
+    background: #89604b;
+}
+.dashboard li a.red {
+    background: #851f2f;
+}
+.dashboard li a.purple {
+    background: #6b5976;
+}
 
 /* Modal */
 .modals {
@@ -692,7 +767,7 @@ button, input, optgroup, select, textarea {
     width: 100%;
     background: #000;
     opacity: 0.5;
-    z-index: 10000
+    z-index: 10000;
 }
 
 .modal-content {
@@ -703,13 +778,13 @@ button, input, optgroup, select, textarea {
     z-index: 20000;
     top: 50%;
     left: 50%;
-    border: 1px solid #4A545C;
+    border: 1px solid #4a545c;
     text-align: left;
     background: #fff;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.1s linear;
-    box-shadow: 0 0 9px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 9px 5px rgba(0, 0, 0, 0.3);
 }
 
 .modal-content.show {

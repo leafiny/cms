@@ -12,7 +12,7 @@
     width: 100%;
     background: #000;
     opacity: 0.5;
-    z-index: 10000
+    z-index: 10000;
 }
 
 .cart-popup-content {
@@ -24,13 +24,13 @@
     z-index: 20000;
     top: 50%;
     left: 50%;
-    border: 1px solid #4A545C;
+    border: 1px solid #4a545c;
     text-align: left;
     background: #fff;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.1s linear;
-    box-shadow: 0 0 9px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 9px 5px rgba(0, 0, 0, 0.3);
 }
 
 .cart-popup-content.show {

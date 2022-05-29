@@ -3,8 +3,9 @@
     padding: 0;
 }
 
-body,.pure-g [class*="pure-u"] {
-    font-family: Segoe UI,system-ui,-apple-system,sans-serif;
+body,
+.pure-g [class*='pure-u'] {
+    font-family: Segoe UI, system-ui, -apple-system, sans-serif;
     font-size: 16px;
 }
 
@@ -54,13 +55,13 @@ h3 {
     color: #000000;
     padding-bottom: 2px;
     margin-bottom: 0.6em;
-    border-bottom: 1px solid #F6F8FA;
+    border-bottom: 1px solid #f6f8fa;
 }
 
 h4,
 h5,
 h6 {
-    margin-bottom: .3em;
+    margin-bottom: 0.3em;
 }
 
 h1 {
@@ -84,7 +85,7 @@ h5 {
 }
 
 h6 {
-    font-size: .875em;
+    font-size: 0.875em;
 }
 
 ol,
@@ -93,7 +94,7 @@ ul {
 }
 
 li {
-    margin-top: .4rem;
+    margin-top: 0.4rem;
 }
 
 ul ul,
@@ -109,16 +110,25 @@ p {
 
 blockquote {
     padding: 1.5em;
-    background: #F6F8FA;
-    border-left: 5px solid #E5E7EB;
+    background: #f6f8fa;
+    border-left: 5px solid #e5e7eb;
 }
 
-header, main, footer, #banner, #breadcrumb {
+header,
+main,
+footer,
+#banner,
+#breadcrumb {
     width: 100%;
     position: relative;
 }
 
-.header-content, .main-content, .footer-content, .banner-content, .breadcrumb-content, .navigation-content {
+.header-content,
+.main-content,
+.footer-content,
+.banner-content,
+.breadcrumb-content,
+.navigation-content {
     max-width: 900px;
     padding: 0 20px;
     margin: 0 auto;
@@ -139,7 +149,7 @@ header, main, footer, #banner, #breadcrumb {
 /* Header */
 header {
     position: relative;
-    border-bottom: 1px solid #E5E7EB;
+    border-bottom: 1px solid #e5e7eb;
     padding: 26px 0;
 }
 
@@ -171,7 +181,7 @@ header .pure-form .search-form input {
 
 header .search-form button.pure-button {
     display: inline-block;
-    padding: .5em .6em;
+    padding: 0.5em 0.6em;
     border: 1px solid #333;
     border-left: 0;
     border-top-left-radius: unset;
@@ -261,11 +271,15 @@ footer p {
 
 footer a {
     font-size: 1em;
-    color: #FFF;
+    color: #fff;
 }
 
 /* Forms */
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
     line-height: 1.3em;
 }
 
@@ -386,7 +400,7 @@ button, input, optgroup, select, textarea {
 
 /* Products */
 .products {
-    margin:0 -10px 0 -10px
+    margin: 0 -10px 0 -10px;
 }
 
 .products .product-content {
@@ -601,7 +615,7 @@ button, input, optgroup, select, textarea {
 }
 
 @media only screen and (max-width: 480px) {
-    .pure-form button[type=submit] {
+    .pure-form button[type='submit'] {
         margin: 0 auto;
     }
 }

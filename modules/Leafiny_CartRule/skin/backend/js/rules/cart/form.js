@@ -14,7 +14,7 @@ function commerceCartRuleConditions() {
                 event.preventDefault();
 
                 let element = template.cloneNode(true);
-                element.innerHTML = (element.innerHTML).replaceAll('{_index_}', String((new Date()).getTime()));
+                element.innerHTML = element.innerHTML.replaceAll('{_index_}', String(new Date().getTime()));
                 element.removeAttribute('id');
                 element.style.display = 'block';
                 orCondition(element);
@@ -55,7 +55,7 @@ function commerceCartRuleConditions() {
                     let condition = container.parentNode;
                     condition.parentNode.removeChild(condition);
                 } else {
-                    container.removeChild((elements[elements.length - 1]));
+                    container.removeChild(elements[elements.length - 1]);
                 }
             }
         });

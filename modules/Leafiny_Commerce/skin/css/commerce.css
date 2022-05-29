@@ -324,7 +324,7 @@
 }
 
 .checkout .order select {
-    height: 2.60em;
+    height: 2.6em;
 }
 
 .checkout .order .input-left {
@@ -448,7 +448,7 @@
 }
 
 .checkout .review .agreements .error {
-    color: #C00;
+    color: #c00;
 }
 
 /* Order Progress */
@@ -517,7 +517,7 @@
     .products .product-add-to-cart button.add-to-cart {
         background-image: none;
         line-height: 20px;
-        padding: .5em .8em;
+        padding: 0.5em 0.8em;
         font-size: 0.9em;
     }
 
@@ -546,8 +546,8 @@
     .minicart .modal {
         background: #ffffff;
         border: 0;
-        border-bottom: 1px solid #E5E7EB;
-        border-top: 1px solid #E5E7EB;
+        border-bottom: 1px solid #e5e7eb;
+        border-top: 1px solid #e5e7eb;
         z-index: 100;
         right: 0;
         left: 0;

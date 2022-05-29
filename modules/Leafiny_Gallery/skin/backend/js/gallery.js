@@ -5,7 +5,7 @@ gallery();
  *
  * @returns {boolean}
  */
-function gallery () {
+function gallery() {
     let galleryForm = document.querySelector('.gallery-form button');
 
     if (!galleryForm) {
