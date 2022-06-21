@@ -117,7 +117,7 @@ class Leafiny_Captcha
      */
     public function inline(): string
     {
-        return 'data:image/jpeg;base64,' . base64_encode($this->getImage());
+        return 'data:image/png;base64,' . base64_encode($this->getImage());
     }
 
     /**
