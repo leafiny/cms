@@ -21,51 +21,86 @@ class Leafiny_Captcha
      * @var string|null $text
      */
     private $text = null;
+
     /**
      * Font file in ttf format
      *
      * @var string $font
      */
     protected $font = __DIR__ . DS . 'Captcha' . DS . 'font.ttf';
+
     /**
      * Text color in hexadecimal
      *
      * @var string $color
      */
     protected $color = '#000000';
+
     /**
      * Background Color in hexadecimal
      *
      * @var string $background
      */
     protected $background = '#FFFFFF';
+
     /**
      * Text length
      *
      * @var int $length
      */
     protected $length = 5;
+
     /**
      * Image width in px
      *
      * @var int $width
      */
     protected $width = 92;
+
     /**
      * Image height in px
      *
      * @var int $height
      */
     protected $height = 40;
+
+    /**
+     * The font size
+     *
+     * @var int $fontSize
+     */
+    protected $fontSize = 20;
+
+    /**
+     * Text angle
+     *
+     * @var int $angle
+     */
+    protected $angle = 0;
+
+    /**
+     * Padding left
+     *
+     * @var int $paddingLeft
+     */
+    protected $paddingLeft = 5;
+
+    /**
+     * Padding top
+     *
+     * @var int $paddingTop
+     */
+    protected $paddingTop = 28;
+
     /**
      * Allowed chars
      *
      * @var string $chars
      */
-    protected $chars = 'abcdefghijklmnopqrstuvwxyz';
+    protected $chars = 'abcdefghijkmnopqrstuvwxyz23456789';
 
     /**
-     * Retrieve text to print
+     * Retrieve the text to print
      *
      * @return string
      */
@@ -90,16 +125,21 @@ class Leafiny_Captcha
         $image = imagecreate($this->getWidth(), $this->getHeight());
 
         $color = $this->hexToRgb($this->getBackground());
-        $bgColor = imagecolorallocate($image, (int)$color['r'], (int)$color['g'], (int)$color['b']);
+        imagecolorallocate($image, (int)$color['r'], (int)$color['g'], (int)$color['b']);
 
         $color = $this->hexToRgb($this->getColor());
         $ftColor = imagecolorallocate($image, (int)$color['r'], (int)$color['g'], (int)$color['b']);
 
-        $text = $this->getText();
-        $font = $this->getFont();
-
-        imagettftext($image, 20, 0, 5, 28, $bgColor, $font, $text);
-        imagettftext($image, 20, 0, 5, 28, $ftColor, $font, $text);
+        imagettftext(
+            $image,
+            $this->getFontSize(),
+            $this->getAngle(),
+            $this->getPaddingLeft(),
+            $this->getPaddingTop(),
+            $ftColor,
+            $this->getFont(),
+            $this->getText()
+        );
 
         ob_start();
         imagepng($image);
@@ -275,5 +315,85 @@ class Leafiny_Captcha
     public function setHeight(int $height): void
     {
         $this->height = $height;
+    }
+
+    /**
+     * Retrieve font size
+     *
+     * @return int
+     */
+    public function getFontSize(): int
+    {
+        return $this->fontSize;
+    }
+
+    /**
+     * Set font size
+     *
+     * @param int $fontSize
+     */
+    public function setFontSize(int $fontSize): void
+    {
+        $this->fontSize = $fontSize;
+    }
+
+    /**
+     * Retrieve padding top
+     *
+     * @return int
+     */
+    public function getPaddingTop(): int
+    {
+        return $this->paddingTop;
+    }
+
+    /**
+     * Set padding top
+     *
+     * @param int $paddingTop
+     */
+    public function setPaddingTop(int $paddingTop): void
+    {
+        $this->paddingTop = $paddingTop;
+    }
+
+    /**
+     * Retrieve padding left
+     *
+     * @return int
+     */
+    public function getPaddingLeft(): int
+    {
+        return $this->paddingLeft;
+    }
+
+    /**
+     * Set padding top
+     *
+     * @param int $paddingLeft
+     */
+    public function setPaddingLeft(int $paddingLeft): void
+    {
+        $this->paddingLeft = $paddingLeft;
+    }
+
+    /**
+     * Retrieve angle
+     *
+     * @return int
+     */
+    public function getAngle(): int
+    {
+        return $this->angle;
+    }
+
+    /**
+     * Set angle
+     *
+     * @param int $angle
+     */
+    public function setAngle(int $angle): void
+    {
+        $this->angle = $angle;
     }
 }
