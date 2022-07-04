@@ -56,7 +56,7 @@ $config = [
             'stylesheet' => [
                 'Frontend::css/pure-min.css' => 100,
                 'Frontend::css/grids-responsive-min.css' => 200,
-                'Frontend::css/style.css' => 300
+                'Frontend::css/style.css' => 1000
             ],
             'javascript' => [
                 // Load the necessary head scripts, Example:

@@ -1,0 +1,66 @@
+.filters-title {
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+.filters-attributes {
+    margin: 0 -10px 2em -10px;
+}
+
+.filters-attributes .filter-content {
+    margin: 10px;
+    position: relative;
+}
+
+.filters-attributes .attribute-label {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f9f9f9;
+    padding: 10px;
+    display: block;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.filters-attributes .attribute-toggle {
+    display: none;
+}
+
+.filters-attributes .filter-options {
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-top: -3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.1s linear;
+}
+
+.filters-attributes .attribute-toggle:checked ~ .filter-options {
+    visibility: visible;
+    opacity: 1;
+}
+
+.filters-attributes .filter-options ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 20px;
+}
+
+.filters-attributes .filter-options li {
+    margin: 10px 0;
+}
+
+.filters-attributes .filter-options li label {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.filters-attributes .filter-options .apply {
+    display: block;
+    margin: 0 auto 10px auto;
+    padding: 0.2em 0.5em;
+}

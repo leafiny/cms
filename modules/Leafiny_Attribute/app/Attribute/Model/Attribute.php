@@ -392,6 +392,10 @@ class Attribute_Model_Attribute extends Core_Model
             return [];
         }
 
+        if (empty($entityIds)) {
+            return [];
+        }
+
         $adapter->where('aev.language', $language);
         $adapter->where('aev.entity_type', $entityType);
         $adapter->where('aev.entity_id', $entityIds, 'IN');

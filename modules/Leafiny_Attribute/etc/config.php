@@ -15,6 +15,11 @@ $config = [
     ],
 
     'block' => [
+        'head' => [
+            'stylesheet' => [
+                'Leafiny_Attribute::css/attribute.css' => 400,
+            ],
+        ],
         'category.products.filters' => [
             'class'    => Attribute_Block_Products_Filters::class,
             'template' => 'Leafiny_Attribute::block/products/filters.twig',
