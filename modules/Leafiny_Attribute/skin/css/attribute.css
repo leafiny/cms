@@ -16,10 +16,15 @@
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background: #f9f9f9;
+    background: #f9f9f9 url(../images/list.png) no-repeat center right 10px;
     padding: 10px;
     display: block;
     -webkit-tap-highlight-color: transparent;
+}
+
+.filters-attributes .attribute-label:hover,
+.filters-attributes .attribute-toggle:checked ~ .attribute-label {
+    background-color: #dfdfdf;
 }
 
 .filters-attributes .attribute-toggle {
