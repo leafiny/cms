@@ -43,6 +43,7 @@ $config = [
             'entity' => [
                 'category' => [
                     'enabled' => 1,
+                    'helper'  => 'category',
                 ],
             ]
         ],

@@ -45,7 +45,7 @@ class Attribute_Helper_Attribute extends Core_Helper
     /**
      * Retrieve all entities with attribute system
      *
-     * @return array
+     * @return Leafiny_Object[]
      */
     public function getEntities(): array
     {
@@ -63,6 +63,43 @@ class Attribute_Helper_Attribute extends Core_Helper
         }
 
         return $result;
+    }
+
+    /**
+     * Retrieve allowed filter codes for entity
+     *
+     * @param string $entityType
+     *
+     * @return string[]
+     */
+    public function getAllowedFilters(string $entityType): array
+    {
+        /** @var Attribute_Model_Attribute $attributeModel */
+        $attributeModel = App::getSingleton('model', 'attribute');
+
+        $filters = [
+            [
+                'column' => 'entity_type',
+                'value'  => $entityType
+            ],
+            [
+                'column' => 'is_filterable',
+                'value'  => 1
+            ],
+        ];
+
+        $allowed = [];
+
+        try {
+            $attributes = $attributeModel->getList($filters);
+            foreach ($attributes as $attribute) {
+                $allowed[] = $attribute->getData('code');
+            }
+        } catch (Throwable $throwable) {
+            App::log($throwable, Core_Interface_Log::ERR);
+        }
+
+        return $allowed;
     }
 
     /**

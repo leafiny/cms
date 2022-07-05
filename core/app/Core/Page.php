@@ -158,18 +158,20 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
     }
 
     /**
-     * Retrieve POST AND REQUEST params
+     * Retrieve POST and/or GET params
+     *
+     * @param array $types
      *
      * @return Leafiny_Object
      */
-    public function getParams(): Leafiny_Object
+    public function getParams(array $types = ['get', 'post']): Leafiny_Object
     {
         $object = new Leafiny_Object();
 
         $post    = $_POST;
-        $request = $_REQUEST;
+        $request = $_GET;
 
-        if (!empty($post)) {
+        if (in_array('post', $types) && !empty($post)) {
             foreach ($post as $field => $value) {
                 if (is_array($value)) {
                     $data = new Leafiny_Object();
@@ -180,7 +182,7 @@ class Core_Page extends Core_Template_Abstract implements Core_Interface_Page
             }
         }
 
-        if (!empty($request)) {
+        if (in_array('get', $types) && !empty($request)) {
             foreach ($request as $field => $value) {
                 if (is_array($value)) {
                     $data = new Leafiny_Object();

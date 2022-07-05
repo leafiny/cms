@@ -131,7 +131,7 @@ class Core_Model extends Leafiny_Object
             if (!isset($join['table'], $join['condition'])) {
                 continue;
             }
-            $adapter->join($join['table'], $join['condition']);
+            $adapter->join($join['table'], $join['condition'], $join['type'] ?? '');
         }
 
         if (empty($columns)) {

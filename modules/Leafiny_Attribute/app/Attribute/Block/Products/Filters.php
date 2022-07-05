@@ -16,6 +16,46 @@ declare(strict_types=1);
 class Attribute_Block_Products_Filters extends Core_Block
 {
     /**
+     * Retrieve current filters
+     *
+     * @param Core_Page $page
+     *
+     * @return Leafiny_Object
+     */
+    public function getCurrentFilters(Core_Page $page): Leafiny_Object
+    {
+        return $page->getParams(['get']);
+    }
+
+    /**
+     * Retrieve current page URL
+     *
+     * @param Core_Page $page
+     *
+     * @return string
+     */
+    public function getPageUrl(Core_Page $page): string
+    {
+        return App::getUrlRewrite($page->getObjectKey(), 'category') . '#catalog';
+    }
+
+    /**
+     * Are there any products?
+     *
+     * @param int $categoryId
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function hasItems(int $categoryId): bool
+    {
+        /** @var Catalog_Helper_Catalog_Product $helper */
+        $helper = App::getSingleton('helper', 'catalog_product');
+
+        return (bool)$helper->getTotalCategoryProducts($categoryId);
+    }
+
+    /**
      * Retrieve filters
      *
      * @param int|null $categoryId

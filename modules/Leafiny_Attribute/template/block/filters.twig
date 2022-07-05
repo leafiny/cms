@@ -1,9 +1,10 @@
 {% set category = page.getCustom('category') %}
 {% set filters = block.getFilters(category.getCategoryId) %}
 {% if filters is not empty %}
+    {% set current = block.getCurrentFilters(page) %}
     <div class="filters">
         <div class="filters-title">{{ 'Narrow by:'|translate }}</div>
-        <form action="#" method="get" class="filters-attributes pure-g">
+        <form action="{{ block.getPageUrl(page) }}" method="get" class="filters-attributes pure-g">
         {% for filter in filters %}
             {% if filter.getOptions is not empty %}
                 <div class="filter pure-u-1-2 pure-u-md-1-3 pure-u-lg-1-4">
@@ -15,7 +16,7 @@
                             {% for option in filter.getOptions %}
                                 {% set optionId = 'option_' ~ filter.getAttributeCode ~ '_' ~ option.getOptionId %}
                                 <li>
-                                    <input type="checkbox" id="{{ optionId }}" name="{{ filter.getAttributeCode }}[]" value="{{ option.getOptionId }}" />
+                                    <input type="checkbox" id="{{ optionId }}" name="{{ filter.getAttributeCode }}[{{ loop.index - 1 }}]" value="{{ option.getOptionId }}"{% if option.getOptionId in current.getData(filter.getAttributeCode).getData %} checked="checked"{% endif %} />
                                     <label for="{{ optionId }}">{{ option.getLabel }} ({{ option.getTotal }})</label>
                                 </li>
                             {% endfor %}
@@ -27,5 +28,8 @@
             {% endif %}
         {% endfor %}
         </form>
+        {% if not block.hasItems(category.getCategoryId) %}
+            <p>{{ 'We can\'t find products matching the selection.'|translate }}</p>
+        {% endif %}
     </div>
 {% endif %}

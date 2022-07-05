@@ -22,7 +22,8 @@ $config = [
         ],
         'category.products.filters' => [
             'class'    => Attribute_Block_Products_Filters::class,
-            'template' => 'Leafiny_Attribute::block/products/filters.twig',
+            'template' => 'Leafiny_Attribute::block/filters.twig',
+            'entity'   => 'catalog_product',
             'disabled' => !class_exists('Catalog_Helper_Catalog_Product'),
         ],
 
@@ -153,6 +154,10 @@ $config = [
         'blog_post_save_after' => [
             'blog_post_save_attributes' => 50,
         ],
+
+        'frontend_page_post_process' => [
+            'page_filters_apply' => 10,
+        ],
     ],
 
     'observer' => [
@@ -179,6 +184,10 @@ $config = [
         'blog_post_save_attributes' => [
             'class'  => Attribute_Observer_Attributes_Save::class,
             'entity' => 'blog_post',
+        ],
+
+        'page_filters_apply' => [
+            'class' => Attribute_Observer_Filters_Apply::class,
         ],
     ],
 ];

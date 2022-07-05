@@ -68,9 +68,17 @@ class Catalog_Block_Category_Products_Multipage extends Core_Block
     {
         $url = App::getUrlRewrite($page->getObjectKey(), 'category');
 
+        $params = $page->getParams(['get']);
+        $params->setData(Catalog_Helper_Catalog_Product::URL_PARAM_PAGE);
         if ($number > 1) {
-            $url .= '?' . Catalog_Helper_Catalog_Product::URL_PARAM_PAGE . '=' . $number;
+            $params->setData(Catalog_Helper_Catalog_Product::URL_PARAM_PAGE, $number);
         }
+
+        $query = [];
+        foreach ($params->getData() as $param => $value) {
+            $query[$param] = $value instanceof Leafiny_Object ? $value->getData() : $value;
+        }
+        $url .= '?' . http_build_query($query);
 
         return $url;
     }
