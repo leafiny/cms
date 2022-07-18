@@ -26,23 +26,23 @@ class Attribute_Block_Products_Filters extends Attribute_Block_Filters
     }
 
     /**
-     * Are there any products?
+     * Retrieve total of filtered items in the category
      *
-     * @param int $categoryId
+     * @param int|null $categoryId
      *
-     * @return bool
+     * @return int|null
      * @throws Exception
      */
-    public function hasItems(int $categoryId): bool
+    public function getTotalItems(?int $categoryId = null): ?int
     {
         /** @var Catalog_Helper_Catalog_Product $helper */
         $helper = App::getSingleton('helper', 'catalog_product');
 
-        return (bool)$helper->getTotalCategoryProducts($categoryId);
+        return $helper->getTotalCategoryProducts($categoryId);
     }
 
     /**
-     * Retrieve all category product ids
+     * Retrieve all item identifiers in the category
      *
      * @param int|null $categoryId
      *
@@ -51,6 +51,10 @@ class Attribute_Block_Products_Filters extends Attribute_Block_Filters
      */
     public function getItemIds(?int $categoryId = null): array
     {
+        if ($this->getData('_item_ids')) {
+            return $this->getData('_item_ids');
+        }
+
         /** @var Catalog_Helper_Catalog_Product $helper */
         $helper = App::getSingleton('helper', 'catalog_product');
         /** @var Catalog_Model_Product $model */
@@ -67,6 +71,8 @@ class Attribute_Block_Products_Filters extends Attribute_Block_Filters
             $productIds[] = (int)$product->getData('product_id');
         }
 
-        return $productIds;
+        $this->setData('_item_ids', $productIds);
+
+        return $this->getData('_item_ids');
     }
 }

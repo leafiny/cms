@@ -23,16 +23,16 @@ abstract class Attribute_Block_Filters extends Core_Block
     abstract public function getEntityType(): string;
 
     /**
-     * Are there any items in category?
+     * Retrieve total of filtered items in the category
      *
-     * @param int $categoryId
+     * @param int|null $categoryId
      *
-     * @return bool
+     * @return int|null
      */
-    abstract public function hasItems(int $categoryId): bool;
+    abstract public function getTotalItems(?int $categoryId): ?int;
 
     /**
-     * Retrieve item identifiers
+     * Retrieve all item identifiers in the category
      *
      * @param int|null $categoryId
      *
@@ -49,6 +49,10 @@ abstract class Attribute_Block_Filters extends Core_Block
      */
     public function getFiltersApplied(Core_Page $page): array
     {
+        if ($this->getData('_filters_applied')) {
+            return $this->getData('_filters_applied');
+        }
+
         $filters = $page->getParams(['get']);
         if (empty($filters)) {
             return [];
@@ -76,9 +80,18 @@ abstract class Attribute_Block_Filters extends Core_Block
                     if (!isset($filter->getData('options')[(int)$optionId])) {
                         continue;
                     }
+                    $option->setData(
+                        'option_label',
+                        $option->getData('label')[$page->getLanguage(true)] ?? null
+                    );
                     $applied[(int)$optionId] = $option;
                 }
                 $filter->setData('applied_options', $applied);
+
+                $filter->setData(
+                    'attribute_label',
+                    $filter->getData('label')[$page->getLanguage(true)] ?? null
+                );
 
                 $current[$code] = $filter;
             }
@@ -86,7 +99,9 @@ abstract class Attribute_Block_Filters extends Core_Block
             App::log($throwable, Core_Interface_Log::ERR);
         }
 
-        return $current;
+        $this->setData('_filters_applied', $current);
+
+        return $this->getData('_filters_applied');
     }
 
     /**
@@ -102,6 +117,60 @@ abstract class Attribute_Block_Filters extends Core_Block
     }
 
     /**
+     * Retrieve filtered URL
+     *
+     * @param Core_Page $page
+     * @param string    $attributeCode
+     * @param int       $optionId
+     * @param string    $action
+     *
+     * @return string
+     */
+    public function getFilteredUrl(Core_Page $page, string $attributeCode, int $optionId, string $action = 'add'): string
+    {
+        $url = App::getUrlRewrite($page->getObjectKey(), 'category');
+
+        $params = $page->getParams(['get']);
+
+        if ($action === 'add') {
+            $options = [];
+            if ($params->getData($attributeCode)) {
+                $options = $params->getData($attributeCode);
+                if (!($options instanceof Leafiny_Object)) {
+                    $options = new Leafiny_Object([(int)$options]);
+                }
+                $options = $options->getData();
+            }
+            $options[] = $optionId;
+            $options = array_values(array_unique($options));
+            sort($options);
+            $params->setData($attributeCode, $options);
+        }
+
+        if ($action === 'remove') {
+            foreach ($params->getData() as $code => $options) {
+                if (!($options instanceof Leafiny_Object)) {
+                    continue;
+                }
+                $options = $options->getData();
+                if ($code === $attributeCode) {
+                    foreach ($options as $key => $id) {
+                        if ($optionId !== (int)$id) {
+                            continue;
+                        }
+                        unset($options[$key]);
+                    }
+                }
+                $options = array_values(array_unique($options));
+                sort($options);
+                $params->setData($code, $options);
+            }
+        }
+
+        return $url . '?' . http_build_query($params->getData()) . '#filters';
+    }
+
+    /**
      * Retrieve filters
      *
      * @param int|null $categoryId
@@ -110,19 +179,26 @@ abstract class Attribute_Block_Filters extends Core_Block
      */
     public function getFilters(?int $categoryId = null): array
     {
+        if ($this->getData('_filters')) {
+            return $this->getData('_filters');
+        }
+
+        $this->setData('_filters', []);
+
         /** @var Attribute_Model_Attribute $attributeModel */
         $attributeModel = App::getSingleton('model', 'attribute');
 
         try {
-            return $attributeModel->getFilterableEntityAttributes(
+            $filters = $attributeModel->getFilterableEntityAttributes(
                 $this->getItemIds($categoryId),
                 $this->getEntityType(),
                 App::getLanguage()
             );
+            $this->setData('_filters', $filters);
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }
 
-        return [];
+        return $this->getData('_filters');
     }
 }

@@ -2,8 +2,13 @@
 {% set filters = block.getFilters(category.getCategoryId) %}
 {% if filters is not empty %}
     {% set applied = block.getFiltersApplied(page) %}
+    {% set totalItems = block.getTotalItems(category.getCategoryId) %}
     <div class="filters" id="filters">
-        <div class="filters-title">{{ 'Narrow by:'|translate }}</div>
+        {% if totalItems is not null %}
+            <span class="total-items">{{ totalItems }} {{ totalItems > 1 ? 'items' : 'item' }}</span>
+        {% endif %}
+        <input type="checkbox" name="narrow-by" id="narrow-by" class="narrow-by-toggle" value="1" />
+        <label for="narrow-by" class="filters-title">{{ 'Filters'|translate }}</label>
         <form action="{{ block.getPageUrl(page) }}" method="get" class="attribute-filters-form pure-g">
         {% for filter in filters %}
             {% if filter.getOptions is not empty %}
@@ -28,14 +33,22 @@
             {% endif %}
         {% endfor %}
         </form>
-        {% if not block.hasItems(category.getCategoryId) %}
-            <p>{{ 'We can\'t find items matching the selection.'|translate }}</p>
-        {% endif %}
-
         {% if applied is not empty %}
             <div class="attribute-filters-applied">
-
+                {% for filter in applied %}
+                    {% for option in filter.getAppliedOptions %}
+                        <span class="option">
+                            <span class="label">{{ option.getOptionLabel }}</span>
+                            <a href="{{ block.getFilteredUrl(page, filter.getCode, option.getOptionId, 'remove') }}" class="remove">
+                                <span>X</span>
+                            </a>
+                        </span>
+                    {% endfor %}
+                {% endfor %}
             </div>
+        {% endif %}
+        {% if not totalItems %}
+            <p>{{ 'We can\'t find items matching the selection.'|translate }}</p>
         {% endif %}
     </div>
 {% endif %}

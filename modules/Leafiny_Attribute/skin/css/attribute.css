@@ -1,14 +1,32 @@
-.filters-title {
-    margin: 0 0 10px 0;
+.filters .filters-title {
+    display: inline-block;
+    margin: 0 0 1em 0;
     text-transform: uppercase;
+    cursor: pointer;
+    background: url(../images/filter.png) no-repeat left;
+    padding-left: 32px;
+    font-size: 1.2em;
+}
+
+.filters .total-items {
+    float: right;
+}
+
+.filters .narrow-by-toggle {
+    display: none;
 }
 
 .attribute-filters-form {
-    margin: 0 -10px 2em -10px;
+    margin: 0 -10px 1em -10px;
+    display: none;
+}
+
+.narrow-by-toggle:checked ~ .attribute-filters-form {
+    display: block;
 }
 
 .attribute-filters-form .filter-content {
-    margin: 10px;
+    margin: 0 10px 10px 10px;
     position: relative;
 }
 
@@ -68,4 +86,41 @@
     display: block;
     margin: 0 auto 10px auto;
     padding: 0.2em 0.5em;
+}
+
+.attribute-filters-applied {
+    margin: 0 0 1em 0;
+    padding: 0;
+}
+
+.attribute-filters-applied .attribute-label {
+    font-weight: bold;
+}
+
+.attribute-filters-applied .option {
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.attribute-filters-applied .option .label {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 16px;
+    padding: 10px 12px;
+}
+
+.attribute-filters-applied .option .remove {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px 12px;
+    background: url(../images/remove.png) no-repeat center;
+    width: 16px;
+    height: 16px;
+    border-left: 1px solid #ccc;
+}
+
+.attribute-filters-applied .option .remove span {
+    display: none;
 }
