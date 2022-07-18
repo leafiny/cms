@@ -138,6 +138,10 @@ class Core_Model extends Leafiny_Object
             $columns = 'main_table.*';
         }
 
+        if ($this->getPrimaryKey()) {
+            $adapter->groupBy('main_table.' . $this->getPrimaryKey());
+        }
+
         $result = $adapter->get($this->getMainTable() . ' as main_table', $limit, $columns);
 
         if ($adapter->getLastErrno()) {
