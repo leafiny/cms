@@ -194,7 +194,7 @@ class Attribute_Model_Attribute extends Core_Model
 
         $options = [];
         foreach ($result as $option) {
-            $options[] = $this->getOption((int)$option['option_id']);
+            $options[(int)$option['option_id']] = $this->getOption((int)$option['option_id']);
         }
 
         return $options;
