@@ -13,30 +13,16 @@ declare(strict_types=1);
 /**
  * Class Attribute_Block_Products_Filters
  */
-class Attribute_Block_Products_Filters extends Core_Block
+class Attribute_Block_Products_Filters extends Attribute_Block_Filters
 {
     /**
-     * Retrieve current filters
-     *
-     * @param Core_Page $page
-     *
-     * @return Leafiny_Object
-     */
-    public function getCurrentFilters(Core_Page $page): Leafiny_Object
-    {
-        return $page->getParams(['get']);
-    }
-
-    /**
-     * Retrieve current page URL
-     *
-     * @param Core_Page $page
+     * Retrieve entity type name
      *
      * @return string
      */
-    public function getPageUrl(Core_Page $page): string
+    public function getEntityType(): string
     {
-        return App::getUrlRewrite($page->getObjectKey(), 'category') . '#catalog';
+        return 'catalog_product';
     }
 
     /**
@@ -56,31 +42,6 @@ class Attribute_Block_Products_Filters extends Core_Block
     }
 
     /**
-     * Retrieve filters
-     *
-     * @param int|null $categoryId
-     *
-     * @return array
-     */
-    public function getFilters(?int $categoryId = null): array
-    {
-        /** @var Attribute_Model_Attribute $attributeModel */
-        $attributeModel = App::getSingleton('model', 'attribute');
-
-        try {
-            return $attributeModel->getFilterableEntityAttributes(
-                $this->getCategoryProductIds($categoryId),
-                'catalog_product',
-                App::getLanguage()
-            );
-        } catch (Throwable $throwable) {
-            App::log($throwable, Core_Interface_Log::ERR);
-        }
-
-        return [];
-    }
-
-    /**
      * Retrieve all category product ids
      *
      * @param int|null $categoryId
@@ -88,7 +49,7 @@ class Attribute_Block_Products_Filters extends Core_Block
      * @return int[]
      * @throws Exception
      */
-    public function getCategoryProductIds(?int $categoryId = null): array
+    public function getItemIds(?int $categoryId = null): array
     {
         /** @var Catalog_Helper_Catalog_Product $helper */
         $helper = App::getSingleton('helper', 'catalog_product');
