@@ -3,16 +3,16 @@
     text-transform: uppercase;
 }
 
-.filters-attributes {
+.attribute-filters-form {
     margin: 0 -10px 2em -10px;
 }
 
-.filters-attributes .filter-content {
+.attribute-filters-form .filter-content {
     margin: 10px;
     position: relative;
 }
 
-.filters-attributes .attribute-label {
+.attribute-filters-form .attribute-label {
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -22,16 +22,16 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.filters-attributes .attribute-label:hover,
-.filters-attributes .attribute-toggle:checked ~ .attribute-label {
+.attribute-filters-form .attribute-label:hover,
+.attribute-filters-form .attribute-toggle:checked ~ .attribute-label {
     background-color: #dfdfdf;
 }
 
-.filters-attributes .attribute-toggle {
+.attribute-filters-form .attribute-toggle {
     display: none;
 }
 
-.filters-attributes .filter-options {
+.attribute-filters-form .filter-options {
     position: absolute;
     z-index: 100;
     left: 0;
@@ -44,27 +44,27 @@
     transition: visibility 0s, opacity 0.1s linear;
 }
 
-.filters-attributes .attribute-toggle:checked ~ .filter-options {
+.attribute-filters-form .attribute-toggle:checked ~ .filter-options {
     visibility: visible;
     opacity: 1;
 }
 
-.filters-attributes .filter-options ul {
+.attribute-filters-form .filter-options ul {
     list-style-type: none;
     margin: 0;
     padding: 10px 20px;
 }
 
-.filters-attributes .filter-options li {
+.attribute-filters-form .filter-options li {
     margin: 10px 0;
 }
 
-.filters-attributes .filter-options li label {
+.attribute-filters-form .filter-options li label {
     margin-left: 5px;
     cursor: pointer;
 }
 
-.filters-attributes .filter-options .apply {
+.attribute-filters-form .filter-options .apply {
     display: block;
     margin: 0 auto 10px auto;
     padding: 0.2em 0.5em;
