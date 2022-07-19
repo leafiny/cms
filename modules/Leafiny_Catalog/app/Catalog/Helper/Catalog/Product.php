@@ -104,7 +104,7 @@ class Catalog_Helper_Catalog_Product extends Core_Helper
      */
     public function getLimit(): int
     {
-        return $this->getCustom('product_per_page') ?: 10;
+        return $this->getCustom('item_per_page') ?: 10;
     }
 
     /**
@@ -114,7 +114,7 @@ class Catalog_Helper_Catalog_Product extends Core_Helper
      */
     public function getJoins(): array
     {
-        return $this->getCustom('product_joins') ?: [];
+        return $this->getCustom('list_joins') ?: [];
     }
 
     /**
@@ -124,7 +124,7 @@ class Catalog_Helper_Catalog_Product extends Core_Helper
      */
     public function getColumns(): array
     {
-        return $this->getCustom('product_columns') ?: [];
+        return $this->getCustom('list_columns') ?: [];
     }
 
     /**

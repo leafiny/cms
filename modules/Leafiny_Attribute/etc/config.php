@@ -32,6 +32,12 @@ $config = [
             'entity'   => 'catalog_product',
             'disabled' => !class_exists('Catalog_Helper_Catalog_Product'),
         ],
+        'category.posts.filters' => [
+            'class'    => Attribute_Block_Posts_Filters::class,
+            'template' => 'Leafiny_Attribute::block/filters.twig',
+            'entity'   => 'blog_post',
+            'disabled' => !class_exists('Blog_Helper_Blog_Post'),
+        ],
 
         'admin.head' => [
             'stylesheet' => [
@@ -73,7 +79,8 @@ $config = [
     'page' => [
         '/category/*.html' => [
             'children' => [
-                'category.products.filters' => 99,
+                'category.products.filters' => 95,
+                'category.posts.filters'    => 245,
             ]
         ],
 

@@ -98,7 +98,7 @@ class Cms_Helper_Cms_Block extends Core_Helper
             ],
         ];
 
-        return $this->getCustom('block_sort_order') ?: $sortOrder;
+        return $this->getCustom('list_sort_order') ?: $sortOrder;
     }
 
     /**
@@ -108,7 +108,7 @@ class Cms_Helper_Cms_Block extends Core_Helper
      */
     public function getJoins(): array
     {
-        return $this->getCustom('block_joins') ?: [];
+        return $this->getCustom('list_joins') ?: [];
     }
 
     /**
@@ -118,6 +118,6 @@ class Cms_Helper_Cms_Block extends Core_Helper
      */
     public function getColumns(): array
     {
-        return $this->getCustom('block_columns') ?: [];
+        return $this->getCustom('list_columns') ?: [];
     }
 }

@@ -36,10 +36,13 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
         $entities = $attributeHelper->getEntities();
 
         $current = $page->getParams(['get']);
-        $joins = [];
 
         foreach ($entities as $entityIdentifier => $options) {
             $allowed = $attributeHelper->getAllowedFilters($entityIdentifier);
+            $joins = [];
+
+            /** @var Core_Model $model */
+            $model = App::getSingleton('model', $entityIdentifier);
 
             foreach ($current->getData() as $code => $filter) {
                 if (!($filter instanceof Leafiny_Object)) {
@@ -53,7 +56,7 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
                     continue;
                 }
                 $conditions = [
-                    'main_table.product_id = ' . $alias . '.entity_id',
+                    'main_table.' . $model->getPrimaryKey() . ' = ' . $alias . '.entity_id',
                     $alias . '.entity_type = "' . $entityIdentifier . '"',
                     $alias . '.language = "' . $page->getLanguage(true) . '"',
                     $alias . '.attribute_code = "' . $code . '"',
@@ -67,13 +70,13 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
             }
 
             if (!empty($joins)) {
-                /** @var Core_Helper $catalogHelper */
-                $catalogHelper = App::getSingleton('helper', $options->getData('helper'));
-                $catalogHelper->setCustom(
-                    'product_joins',
+                /** @var Core_Helper $helper */
+                $helper = App::getSingleton('helper', $options->getData('helper'));
+                $helper->setCustom(
+                    'list_joins',
                     array_merge(
                         $joins,
-                        $catalogHelper->getCustom('product_joins') ?: []
+                        $helper->getCustom('list_joins') ?: []
                     )
                 );
                 $page->setCustom('robots', 'NOINDEX,NOFOLLOW');

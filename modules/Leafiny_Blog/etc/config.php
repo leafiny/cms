@@ -21,7 +21,7 @@ $config = [
     'helper' => [
         'blog_post' => [
             'class'         => Blog_Helper_Blog_Post::class,
-            'post_per_page' => 10,
+            'item_per_page' => 10,
         ],
         'fpc_cache' => [
             'allowed_params' => [

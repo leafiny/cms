@@ -60,7 +60,7 @@ class Gallery_Helper_Gallery_Group extends Core_Helper
      */
     public function getSortOrder(): array
     {
-        return $this->getCustom('group_sort_order') ?: [];
+        return $this->getCustom('list_sort_order') ?: [];
     }
 
     /**
@@ -70,7 +70,7 @@ class Gallery_Helper_Gallery_Group extends Core_Helper
      */
     public function getJoins(): array
     {
-        return $this->getCustom('group_joins') ?: [];
+        return $this->getCustom('list_joins') ?: [];
     }
 
     /**
@@ -80,6 +80,6 @@ class Gallery_Helper_Gallery_Group extends Core_Helper
      */
     public function getColumns(): array
     {
-        return $this->getCustom('group_columns') ?: [];
+        return $this->getCustom('list_columns') ?: [];
     }
 }

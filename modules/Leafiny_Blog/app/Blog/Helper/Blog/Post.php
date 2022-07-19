@@ -120,7 +120,7 @@ class Blog_Helper_Blog_Post extends Core_Helper
      */
     public function getLimit(): int
     {
-        return $this->getCustom('post_per_page') ?: 10;
+        return $this->getCustom('item_per_page') ?: 10;
     }
 
     /**
@@ -130,7 +130,7 @@ class Blog_Helper_Blog_Post extends Core_Helper
      */
     public function getJoins(): array
     {
-        return $this->getCustom('post_joins') ?: [];
+        return $this->getCustom('list_joins') ?: [];
     }
 
     /**
@@ -140,7 +140,7 @@ class Blog_Helper_Blog_Post extends Core_Helper
      */
     public function getColumns(): array
     {
-        return $this->getCustom('post_columns') ?: [];
+        return $this->getCustom('list_columns') ?: [];
     }
 
     /**
