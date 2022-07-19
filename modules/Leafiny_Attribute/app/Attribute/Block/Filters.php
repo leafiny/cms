@@ -203,7 +203,7 @@ abstract class Attribute_Block_Filters extends Core_Block
     }
 
     /**
-     * Retie option hex color
+     * Retrieve option hex color
      *
      * @param Leafiny_Object $option
      *
