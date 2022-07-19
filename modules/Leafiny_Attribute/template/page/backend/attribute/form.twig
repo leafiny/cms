@@ -48,7 +48,7 @@
         <fieldset class="depends" data-parent="input_type" data-values="select,multiselect,radio,checkbox">
             <legend>{{ 'Options'|translate }}</legend>
             <div class="pure-g">
-                {% set options = form.getOptions %}
+                {% set options = form.getOptions|array_values %}
                 {% set optionQty = max(form.getOptionQty, options|length, 1) %}
                 <div class="pure-u-1 field required">
                     <label for="option_qty">{{ 'Number of options'|translate }} :</label>
