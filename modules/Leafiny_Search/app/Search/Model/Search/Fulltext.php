@@ -241,9 +241,12 @@ class Search_Model_Search_Fulltext extends Core_Model implements Search_Interfac
             }
         }
 
-        $adapter->setQueryOption(['IGNORE']);
+        foreach ($candidates as $candidate) {
+            $adapter->setQueryOption(['IGNORE']);
+            $adapter->insert($this->wordsTable, $candidate);
+        }
 
-        return (bool)$adapter->insertMulti($this->wordsTable, $candidates);
+        return true;
     }
 
     /**
