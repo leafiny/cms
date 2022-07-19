@@ -82,6 +82,29 @@
     cursor: pointer;
 }
 
+.attribute-filters-form .filter-options li.color {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.attribute-filters-form .filter-options li.color label {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0 8px 0 0;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.attribute-filters-form .filter-options li.color label span,
+.attribute-filters-form .filter-options li.color input {
+    display: none;
+}
+
+.attribute-filters-form .filter-options li.color input:checked ~ label {
+    border: 2px solid #333;
+}
+
 .attribute-filters-form .filter-options .apply {
     display: block;
     margin: 0 auto 10px auto;

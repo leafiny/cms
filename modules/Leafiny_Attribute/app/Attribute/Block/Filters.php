@@ -201,4 +201,25 @@ abstract class Attribute_Block_Filters extends Core_Block
 
         return $this->getData('_filters');
     }
+
+    /**
+     * Retie option hex color
+     *
+     * @param Leafiny_Object $option
+     *
+     * @return string|null
+     */
+    public function getColor(Leafiny_Object $option): ?string
+    {
+        $custom = $option->getData('custom');
+
+        if (!$custom) {
+            return null;
+        }
+        if (!preg_match('/#([a-f0-9]{3}){1,2}\b/i', $custom)) {
+            return null;
+        }
+
+        return $custom;
+    }
 }

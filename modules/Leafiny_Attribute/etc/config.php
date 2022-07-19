@@ -1,6 +1,12 @@
 <?php
 
 $config = [
+    'app' => [
+        'twig_filters' => [
+            'attribute' => Attribute_Twig_Filters::class,
+        ],
+    ],
+
     'model' => [
         'attribute' => [
             'class' => Attribute_Model_Attribute::class,

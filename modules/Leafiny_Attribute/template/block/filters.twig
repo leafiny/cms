@@ -19,10 +19,13 @@
                         <div class="filter-options">
                             <ul>
                             {% for option in filter.getOptions %}
+                                {% set color = block.getColor(option) %}
                                 {% set optionId = 'option_' ~ filter.getAttributeCode ~ '_' ~ option.getOptionId %}
-                                <li>
+                                <li{% if color %} class="color"{% endif %}>
                                     <input type="checkbox" id="{{ optionId }}" name="{{ filter.getAttributeCode }}[{{ loop.index - 1 }}]" value="{{ option.getOptionId }}"{% if applied[filter.getAttributeCode]['applied_options'][option.getOptionId] is defined %} checked="checked"{% endif %} />
-                                    <label for="{{ optionId }}">{{ option.getLabel }} ({{ option.getTotal }})</label>
+                                    <label for="{{ optionId }}"{% if color %} style="background: {{ color }}"{% endif %}>
+                                        <span>{{ option.getLabel }} ({{ option.getTotal }})</span>
+                                    </label>
                                 </li>
                             {% endfor %}
                             </ul>
