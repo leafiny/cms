@@ -36,13 +36,7 @@ class Search_Page_Backend_Refresh extends Backend_Page_Admin_Page_Abstract
             );
         } catch (Throwable $throwable) {
             $this->setErrorMessage($throwable->getMessage());
-            App::dispatchEvent(
-                'flush_cache_error',
-                [
-                    'type'  => 'search',
-                    'error' => $throwable->getMessage(),
-                ]
-            );
+            App::log($throwable, Core_Interface_Log::ERR);
         }
 
         $this->redirect($this->getRefererUrl());
