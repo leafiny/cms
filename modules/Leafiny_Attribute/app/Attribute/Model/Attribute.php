@@ -81,6 +81,8 @@ class Attribute_Model_Attribute extends Core_Model
             $this->addOptions($attributeId, $options);
         }
 
+        $this->reindex();
+
         return $attributeId;
     }
 
@@ -151,6 +153,9 @@ class Attribute_Model_Attribute extends Core_Model
         if (!$adapter) {
             return false;
         }
+
+        $adapter->where('attribute_id', $attributeId);
+        $adapter->delete('attribute_translate');
 
         foreach ($labels as $language => $label) {
             $adapter->insert(
@@ -554,6 +559,46 @@ class Attribute_Model_Attribute extends Core_Model
                 }
             };
         };
+
+        return true;
+    }
+
+    /**
+     * Reindex entity table
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function reindex(): bool
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return false;
+        }
+
+        $adapter->query('
+            UPDATE `attribute_entity_value` as aev
+            INNER JOIN `attribute_translate` as at ON at.`attribute_id` = aev.`attribute_id` AND at.`language` = aev.`language`
+            SET aev.`attribute_label` = at.`label`
+        ');
+
+        $adapter->query('
+            UPDATE `attribute_entity_value` as aev
+            INNER JOIN `attribute` as a ON a.`attribute_id` = aev.`attribute_id`
+            SET aev.`attribute_code` = a.`code`, aev.`attribute_position` = a.`position`
+        ');
+
+        $adapter->query('
+            UPDATE `attribute_entity_value` as aev
+            INNER JOIN `attribute_option_translate` as aot ON aot.`option_id` = aev.`option_id` AND aot.`language` = aev.`language`
+            SET aev.`option_label` = aot.`label`
+        ');
+
+        $adapter->query('
+            UPDATE `attribute_entity_value` as aev
+            INNER JOIN `attribute_option` as ao ON ao.`option_id` = aev.`option_id`
+            SET aev.`option_custom` = ao.`custom`, aev.`option_position` = ao.`position`
+        ');
 
         return true;
     }
