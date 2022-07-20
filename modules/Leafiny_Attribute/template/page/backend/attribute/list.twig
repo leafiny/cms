@@ -1,4 +1,5 @@
 {% set helper = page.getHelper('attribute') %}
+{% set entities = helper.getEntities %}
 <form method="post" action="{{ page.getActionUrl }}" class="container-grid">
     {{ child('admin.list.toolbar') }}
     <div class="grid">
@@ -21,8 +22,10 @@
                     <th>
                         <select name="filter[entity_type]">
                             <option value=""></option>
-                            {% for entity,options in helper.getEntities %}
-                                <option value="{{ entity }}"{% if page.getFilter('entity_type') == entity %} selected="selected"{% endif %}>{{ entity }}</option>
+                            {% for entity,options in entities %}
+                                <option value="{{ entity }}"{% if page.getFilter('entity_type') == entity %} selected="selected"{% endif %}>
+                                    {{ options.getName ?: entity }}
+                                </option>
                             {% endfor %}
                         </select>
                     </th>
@@ -52,7 +55,13 @@
                             <td><label for="id_{{ data.getAttributeId }}">{{ data.getAttributeId }}</label></td>
                             <td>{{ data.getCode }}</td>
                             <td>{{ data.getLabel }}</td>
-                            <td>{{ data.getEntityType }}</td>
+                            <td>
+                                {% if entities[data.getEntityType] is defined %}
+                                    {{ entities[data.getEntityType].getName ?: data.getEntityType }}
+                                {% else %}
+                                    {{ data.getEntityType }}
+                                {% endif %}
+                            </td>
                             <td>{% if helper.getInputTypes[data.getInputType] is defined %}{{ helper.getInputTypes[data.getInputType] }}{% endif %}</td>
                             <td>
                                 <a href="{{ page.getEditUrl(data.getAttributeId) }}">{{ 'Edit'|translate }}</a>

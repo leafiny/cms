@@ -155,6 +155,7 @@ $config = [
             'entity' => [
                 'catalog_product' => [
                     'enabled' => 1,
+                    'name'    => 'Catalog Product',
                     'helper'  => 'catalog_product',
                 ],
             ]

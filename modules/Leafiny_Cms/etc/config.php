@@ -57,6 +57,7 @@ $config = [
             'entity' => [
                 'cms_page' => [
                     'enabled' => 1,
+                    'name'    => 'CMS Page',
                     'helper'  => 'cms_page',
                 ],
             ],

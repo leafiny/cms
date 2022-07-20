@@ -32,6 +32,7 @@ $config = [
             'entity' => [
                 'blog_post' => [
                     'enabled' => 1,
+                    'name'    => 'Blog Post',
                     'helper'  => 'blog_post',
                 ],
             ]

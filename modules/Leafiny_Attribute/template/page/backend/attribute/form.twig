@@ -17,7 +17,9 @@
                     <label for="entity_type">{{ 'Entity'|translate }} <span>*</span> :</label>
                     <select id="entity_type" class="pure-u-1 pure-u-xl-4-5" name="entity_type" required{% if form.getAttributeId %} disabled{% endif %}>
                         {% for entity,options in helper.getEntities %}
-                            <option value="{{ entity }}"{% if form.getEntityType == entity %} selected="selected"{% endif %}>{{ entity }}</option>
+                            <option value="{{ entity }}"{% if form.getEntityType == entity %} selected="selected"{% endif %}>
+                                {{ options.getName ?: entity }}
+                            </option>
                         {% endfor %}
                     </select>
                 </div>
