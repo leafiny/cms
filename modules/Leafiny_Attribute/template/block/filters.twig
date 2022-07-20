@@ -40,8 +40,9 @@
             <div class="attribute-filters-applied">
                 {% for filter in applied %}
                     {% for option in filter.getAppliedOptions %}
-                        <span class="option">
-                            <span class="label">{{ option.getOptionLabel }}</span>
+                        {% set color = block.getColor(option) %}
+                        <span class="option{% if color %} color{% endif %}">
+                            <span class="label"{% if color %} style="background: {{ color }}"{% endif %}><span>{{ option.getOptionLabel }}</span></span>
                             <a href="{{ block.getFilteredUrl(page, filter.getCode, option.getOptionId, 'remove') }}" class="remove">
                                 <span>X</span>
                             </a>

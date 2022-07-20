@@ -134,6 +134,16 @@
     padding: 10px 12px;
 }
 
+.attribute-filters-applied .option.color .label::before {
+    content: "\00a0";
+    display: inline-block;
+    width: 17px;
+}
+
+.attribute-filters-applied .option.color .label span {
+    display: none;
+}
+
 .attribute-filters-applied .option .remove {
     display: inline-block;
     vertical-align: middle;
