@@ -41,6 +41,29 @@ abstract class Attribute_Block_Filters extends Core_Block
     abstract public function getItemIds(?int $categoryId = null): array;
 
     /**
+     * Can show filter block content
+     *
+     * @param Leafiny_Object $category
+     *
+     * @return bool
+     */
+    public function canShow(Leafiny_Object $category): bool
+    {
+        $status = new Leafiny_Object(['show_filters' => true]);
+
+        App::dispatchEvent(
+            'category_show_filters',
+            [
+                'category'    => $category,
+                'entity_type' => $this->getEntityType(),
+                'status'      => $status
+            ]
+        );
+
+        return (bool)$status->getData('show_filters');
+    }
+
+    /**
      * Retrieve current filters
      *
      * @param Core_Page $page
@@ -69,6 +92,9 @@ abstract class Attribute_Block_Filters extends Core_Block
                 }
                 $filter = $attributeModel->get($code, 'code');
                 if (!$filter->getData($attributeModel->getPrimaryKey())) {
+                    continue;
+                }
+                if ($filter->getData('entity_type') !== $this->getEntityType()) {
                     continue;
                 }
                 $applied = [];
@@ -113,7 +139,7 @@ abstract class Attribute_Block_Filters extends Core_Block
      */
     public function getPageUrl(Core_Page $page): string
     {
-        return App::getUrlRewrite($page->getObjectKey(), 'category') . '#filters';
+        return App::getUrlRewrite($page->getObjectKey(), 'category') . '#' . $this->getIdentifier();
     }
 
     /**
@@ -167,7 +193,7 @@ abstract class Attribute_Block_Filters extends Core_Block
             }
         }
 
-        return $url . '?' . http_build_query($params->getData()) . '#filters';
+        return $url . '?' . http_build_query($params->getData()) . '#' . $this->getIdentifier();
     }
 
     /**
@@ -221,5 +247,15 @@ abstract class Attribute_Block_Filters extends Core_Block
         }
 
         return $custom;
+    }
+
+    /**
+     * Retrieve identifier
+     *
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return 'filters_' . $this->getEntityType();
     }
 }
