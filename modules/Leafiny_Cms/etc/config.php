@@ -53,6 +53,14 @@ $config = [
                 ],
             ],
         ],
+        'attribute' => [
+            'entity' => [
+                'cms_page' => [
+                    'enabled' => 1,
+                    'helper'  => 'cms_page',
+                ],
+            ],
+        ],
     ],
 
     'block' => [
