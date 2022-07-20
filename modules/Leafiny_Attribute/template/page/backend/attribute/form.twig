@@ -51,7 +51,7 @@
             </div>
         </fieldset>
 
-        <fieldset class="depends" data-parent="input_type" data-values="select,multiselect,radio,checkbox">
+        <fieldset class="depends" data-parent="input_type" data-values="{{ helper.getInputTypesWithOptions|join(',') }}">
             <legend>{{ 'Options'|translate }}</legend>
             <div class="pure-g">
                 {% set options = form.getOptions|array_values %}
@@ -60,7 +60,7 @@
                     <label for="option_qty">{{ 'Number of options'|translate }} :</label>
                     <input id="option_qty" type="text" class="pure-u-1 pure-u-xl-4-5" name="option_qty" value="{{ optionQty }}"/>
                 </div>
-                <div class="pure-u-1 field depends" data-parent="entity_type" data-values="catalog_product,blog_post">
+                <div class="pure-u-1 field depends" data-parent="entity_type" data-values="{{ helper.getFilterableEntityTypes|join(',') }}">
                     <label for="is_filterable">{{ 'Is filterable'|translate }} :</label>
                     <select id="is_filterable" class="pure-u-1 pure-u-xl-4-5" name="is_filterable">
                         <option value="0"{% if form.getIsFilterable == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
@@ -70,7 +70,7 @@
             </div>
         </fieldset>
 
-        <div class="attribute-options depends" data-parent="input_type" data-values="select,multiselect,radio,checkbox">
+        <div class="attribute-options depends" data-parent="input_type" data-values="{{ helper.getInputTypesWithOptions|join(',') }}">
             <table class="pure-table pure-table-bordered">
                 <thead>
                     <tr>

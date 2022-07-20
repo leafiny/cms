@@ -133,4 +133,18 @@ class Attribute_Helper_Attribute extends Core_Helper
 
         return ['select', 'multiselect'];
     }
+
+    /**
+     * Retrieve filterable entity types
+     *
+     * @return array
+     */
+    public function getFilterableEntityTypes(): array
+    {
+        if ($this->getCustom('filterable_entity_types')) {
+            return array_filter($this->getCustom('filterable_entity_types'));
+        }
+
+        return ['catalog_product', 'blog_post'];
+    }
 }
