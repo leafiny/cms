@@ -17,7 +17,7 @@
                         <div class="filter-content">
                             <input type="checkbox" id="filter_{{ filter.getAttributeCode }}" value="1" class="attribute-toggle" />
                             <label for="filter_{{ filter.getAttributeCode }}" class="attribute-label">{{ filter.getAttributeLabel }}</label>
-                            <div class="filter-options">
+                            <div class="filter-options" style="z-index:{{ 100 - loop.index }}">
                                 <ul>
                                 {% for option in filter.getOptions %}
                                     {% set color = block.getColor(option) %}
