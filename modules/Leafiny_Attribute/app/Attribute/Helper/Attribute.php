@@ -70,7 +70,7 @@ class Attribute_Helper_Attribute extends Core_Helper
      *
      * @param string $entityType
      *
-     * @return string[]
+     * @return Leafiny_Object[]
      */
     public function getAllowedFilters(string $entityType): array
     {
@@ -93,7 +93,7 @@ class Attribute_Helper_Attribute extends Core_Helper
         try {
             $attributes = $attributeModel->getList($filters);
             foreach ($attributes as $attribute) {
-                $allowed[] = $attribute->getData('code');
+                $allowed[$attribute->getData('code')] = $attribute;
             }
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);

@@ -39,7 +39,12 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
 
         foreach ($entities as $entityIdentifier => $options) {
             $allowed = $attributeHelper->getAllowedFilters($entityIdentifier);
+            if (empty($allowed)) {
+                continue;
+            }
+
             $joins = [];
+            $applied = [];
 
             /** @var Core_Model $model */
             $model = App::getSingleton('model', $entityIdentifier);
@@ -48,25 +53,31 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
                 if (!($filter instanceof Leafiny_Object)) {
                     continue;
                 }
-                if (!in_array($code, $allowed)) {
+                if (!isset($allowed[$code])) {
                     continue;
                 }
                 $alias = 'aev_' . $code;
                 if (isset($joins[$alias])) {
                     continue;
                 }
+
+                $optionIds = $this->sanitize($filter);
+                $allowed[$code]->setData('applied_option_ids', $optionIds);
+
                 $conditions = [
                     'main_table.' . $model->getPrimaryKey() . ' = ' . $alias . '.entity_id',
                     $alias . '.entity_type = "' . $entityIdentifier . '"',
                     $alias . '.language = "' . $page->getLanguage(true) . '"',
                     $alias . '.attribute_code = "' . $code . '"',
-                    $alias . '.option_id IN ("' . join('", "', $this->sanitize($filter)) . '")'
+                    $alias . '.option_id IN ("' . join('", "', $optionIds) . '")'
                 ];
                 $joins[$alias] = [
                     'table' => 'attribute_entity_value as ' . $alias,
                     'condition' => join(' AND ', $conditions),
                     'type' => 'INNER',
                 ];
+
+                $applied[$code] = $allowed[$code];
             }
 
             if (!empty($joins)) {
@@ -79,16 +90,38 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
                         $helper->getCustom('list_joins') ?: []
                     )
                 );
-                $page->setCustom('robots', 'NOINDEX,NOFOLLOW');
+
+                $this->updateFilteredPageData($page, $applied);
+
                 App::dispatchEvent(
                     'page_applied_filters',
                     [
                         'page'              => $page,
                         'entity_identifier' => $entityIdentifier,
+                        'applied_filters'   => $applied,
                     ]
                 );
             }
         }
+    }
+
+    /**
+     * Update page data
+     *
+     * @param Core_Page $page
+     * @param array $applied
+     *
+     * @return void
+     */
+    public function updateFilteredPageData(Core_Page $page, array $applied): void
+    {
+        $page->setCustom('robots', 'NOINDEX,NOFOLLOW');
+
+        $title = $page->getCustom('meta_title') . ' - ' . App::translate('Filtered by:');
+        foreach ($applied as $filter) {
+            $title .= ' ' . $filter->getData('label') . ',';
+        }
+        $page->setCustom('meta_title', trim($title, ','));
     }
 
     /**
