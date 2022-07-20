@@ -135,7 +135,7 @@
 }
 
 .attribute-filters-applied .option.color .label::before {
-    content: "\00a0";
+    content: '\00a0';
     display: inline-block;
     width: 17px;
 }
