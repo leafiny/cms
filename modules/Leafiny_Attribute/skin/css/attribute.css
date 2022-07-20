@@ -107,8 +107,8 @@
 
 .attribute-filters-form .filter-options .apply {
     display: block;
-    margin: 0 auto 10px auto;
-    padding: 0.2em 0.5em;
+    margin: 10px auto 20px auto;
+    padding: 0.4em 1em 0.5em 1em;
 }
 
 .attribute-filters-applied {
