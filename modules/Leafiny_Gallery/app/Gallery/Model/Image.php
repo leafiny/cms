@@ -46,36 +46,27 @@ class Gallery_Model_Image extends Core_Model
      */
     public function getMainImage(int $entityId, string $entityType): ?Leafiny_Object
     {
-        $filters = [
-            [
-                'column'   => 'entity_id',
-                'value'    => $entityId,
-                'operator' => '=',
-            ],
-            [
-                'column'   => 'entity_type',
-                'value'    => $entityType,
-                'operator' => '='
-            ],
-            [
-                'column'   => 'position',
-                'value'    => 1,
-                'operator' => '=',
-            ],
-            [
-                'column'   => 'status',
-                'value'    => 1,
-                'operator' => '=',
-            ],
-        ];
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return null;
+        }
 
-        $images = $this->getList($filters, [], [0, 1]);
+        $adapter->where('entity_id', $entityId);
+        $adapter->where('entity_type', $entityType);
+        $adapter->where('position', 1);
+        $adapter->where('status', 1);
+
+        $images = $adapter->get($this->getMainTable(), [0, 1]);
+
+        if ($adapter->getLastErrno()) {
+            throw new Exception($adapter->getLastError());
+        }
 
         if (empty($images)) {
             return null;
         }
 
-        return reset($images);
+        return new Leafiny_Object(reset($images));
     }
 
     /**
@@ -89,32 +80,30 @@ class Gallery_Model_Image extends Core_Model
      */
     public function getActivatedImages(int $entityId, string $entityType): array
     {
-        $filters = [
-            [
-                'column'   => 'entity_id',
-                'value'    => $entityId,
-                'operator' => '=',
-            ],
-            [
-                'column'   => 'entity_type',
-                'value'    => $entityType,
-                'operator' => '='
-            ],
-            [
-                'column'   => 'status',
-                'value'    => 1,
-                'operator' => '=',
-            ],
-        ];
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return [];
+        }
 
-        $orders = [
-            [
-                'order' => 'position',
-                'dir'   => 'ASC',
-            ]
-        ];
+        $adapter->where('entity_id', $entityId);
+        $adapter->where('entity_type', $entityType);
+        $adapter->where('status', 1);
+        $adapter->orderBy('position', 'ASC');
 
-        return $this->getList($filters, $orders);
+        $images = $adapter->get($this->getMainTable());
+
+        if ($adapter->getLastErrno()) {
+            throw new Exception($adapter->getLastError());
+        }
+
+        foreach ($images as $key => $data) {
+            $object = new Leafiny_Object();
+            $object->setData($data);
+
+            $images[$key] = $object;
+        }
+
+        return $images;
     }
 
     /**
@@ -136,6 +125,10 @@ class Gallery_Model_Image extends Core_Model
         $adapter->where('entity_id', $entityId);
         $adapter->where('entity_type', $entityType);
         $adapter->delete($this->getMainTable());
+
+        if ($adapter->getLastErrno()) {
+            throw new Exception($adapter->getLastError());
+        }
 
         return true;
     }
