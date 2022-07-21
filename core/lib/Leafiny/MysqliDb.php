@@ -39,6 +39,12 @@ class Leafiny_MysqliDb extends MysqliDb
      * @var Leafiny_Object[] $queries
      */
     protected $queries = [];
+    /**
+     * Table columns persistence
+     *
+     * @var array $columns
+     */
+    protected $columns = [];
 
     /**
      * Method attempts to prepare the SQL query
@@ -253,7 +259,7 @@ class Leafiny_MysqliDb extends MysqliDb
     }
 
     /**
-     * CHeck if column exists in table
+     * Check if column exists in table
      *
      * @param string $table
      * @param string $column
@@ -263,17 +269,11 @@ class Leafiny_MysqliDb extends MysqliDb
      */
     public function tableColumnExists(string $table, string $column): bool
     {
-        $result = $this->mysqli()->query('SHOW COLUMNS FROM `' . $table . '` LIKE "' . $column . '"');
-
-        if ($this->mysqli()->errno) {
-            throw new Exception($this->mysqli()->error);
-        }
-
-        return (bool)$result->num_rows;
+        return in_array($column, $this->getTableColumns($table));
     }
 
     /**
-     * CHeck if column exists in table
+     * Retrieve all columns for the given table
      *
      * @param string $table
      *
@@ -282,23 +282,26 @@ class Leafiny_MysqliDb extends MysqliDb
      */
     public function getTableColumns(string $table): array
     {
+        if (isset($this->columns[$table])) {
+            return $this->columns[$table];
+        }
+
         $columns = $this->mysqli()->query('SHOW COLUMNS FROM `' . $table . '`');
 
         if ($this->mysqli()->errno) {
             throw new Exception($this->mysqli()->error);
         }
 
-        $result = [];
-
+        $this->columns[$table] = [];
         foreach ($columns as $column) {
-            $result[] = $column['Field'];
+            $this->columns[$table][] = $column['Field'];
         }
 
-        return $result;
+        return $this->columns[$table];
     }
 
     /**
-     * CHeck if column exists in table
+     * Retrieve all nullable columns in the table
      *
      * @param string $table
      *
