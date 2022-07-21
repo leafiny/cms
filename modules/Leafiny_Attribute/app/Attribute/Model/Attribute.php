@@ -21,12 +21,20 @@ class Attribute_Model_Attribute extends Core_Model
      * @var string $mainTable
      */
     protected $mainTable = 'attribute';
+
     /**
      * Primary key
      *
      * @var string $primaryKey
      */
     protected $primaryKey = 'attribute_id';
+
+    /**
+     * Stored option date
+     *
+     * @var array
+     */
+    protected $options = [];
 
     /**
      * Save the attribute
@@ -215,6 +223,10 @@ class Attribute_Model_Attribute extends Core_Model
      */
     public function getOption(int $optionId): Leafiny_Object
     {
+        if (isset($this->options[$optionId])) {
+            return $this->options[$optionId];
+        }
+
         $adapter = $this->getAdapter();
         if (!$adapter) {
             return new Leafiny_Object();
@@ -249,6 +261,8 @@ class Attribute_Model_Attribute extends Core_Model
                 )
             );
         }
+
+        $this->options[$optionId] = $object;
 
         return $object;
     }
