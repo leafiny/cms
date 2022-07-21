@@ -115,11 +115,27 @@ class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Int
      */
     public function updateFilteredPageData(Core_Page $page, array $applied): void
     {
+        /** @var Attribute_Model_Attribute $attributeModel */
+        $attributeModel = App::getSingleton('model', 'attribute');
+
         $page->setCustom('robots', 'NOINDEX,NOFOLLOW');
 
         $title = $page->getCustom('meta_title') . ' - ' . App::translate('Filtered by:');
         foreach ($applied as $filter) {
-            $title .= ' ' . $filter->getData('label') . ',';
+            $label = $filter->getData('label');
+
+            try {
+                $labels = $attributeModel->getAttributeLabels((int)$filter->getData('attribute_id'));
+                foreach ($labels as $local) {
+                    if ($local['language'] === $page->getLanguage(true)) {
+                        $label = $local['label'];
+                    }
+                }
+            } catch (Throwable $throwable) {
+                App::log($throwable, Core_Interface_Log::ERR);
+            }
+
+            $title .= ' ' . $label . ',';
         }
         $page->setCustom('meta_title', trim($title, ','));
     }
