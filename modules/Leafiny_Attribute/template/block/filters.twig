@@ -6,7 +6,7 @@
         {% set totalItems = block.getTotalItems(category.getCategoryId) %}
         <div class="filters" id="{{ block.getIdentifier }}">
             {% if totalItems is not null %}
-                <span class="total-items">{{ totalItems }} {{ totalItems > 1 ? 'items' : 'item' }}</span>
+                <span class="total-items">{{ totalItems }} {{ totalItems > 1 ? 'items'|translate : 'item'|translate }}</span>
             {% endif %}
             <input type="checkbox" name="narrow-by" id="narrow_by_{{ block.getIdentifier }}" class="narrow-by-toggle" value="1" />
             <label for="narrow_by_{{ block.getIdentifier }}" class="filters-title">{{ 'Filters'|translate }}</label>
