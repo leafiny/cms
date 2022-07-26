@@ -25,9 +25,11 @@
         </div>
     {% endif %}
 
-    {{ include(template_from_string(data.getContent)) }}
-</div>
+    <div class="post-content">
+        {{ include(template_from_string(data.getContent)) }}
+    </div>
 
-{% for child in page.getChildren %}
-    {{ child(child) }}
-{% endfor %}
+    {% for child in page.getChildren %}
+        {{ child(child) }}
+    {% endfor %}
+</div>

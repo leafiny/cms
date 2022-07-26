@@ -13,4 +13,8 @@
     <div class="page-view">
         {{ include(template_from_string(data.getContent)) }}
     </div>
+
+    {% for child in page.getChildren %}
+        {{ child(child) }}
+    {% endfor %}
 </div>
