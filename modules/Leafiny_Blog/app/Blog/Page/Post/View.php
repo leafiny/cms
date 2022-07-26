@@ -141,4 +141,24 @@ class Blog_Page_Post_View extends Core_Page
 
         return $gallery->getActivatedImages($postId, 'category');
     }
+
+    /**
+     * Retrieve Children blocks
+     *
+     * @return string[]
+     */
+    public function getChildren(): array
+    {
+        $children = $this->getCustom('children');
+
+        if (!$children) {
+            return [];
+        }
+
+        $children = array_filter($children, 'strlen');
+
+        asort($children);
+
+        return array_keys($children);
+    }
 }

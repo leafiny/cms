@@ -65,12 +65,10 @@ class Blog_Block_Post_Comments extends Core_Block
             [
                 'column'   => 'status',
                 'value'    => 1,
-                'operator' => '=',
             ],
             [
                 'column'   => 'language',
                 'value'    => App::getLanguage(),
-                'operator' => '=',
             ],
         ];
     }

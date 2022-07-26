@@ -78,6 +78,9 @@ $config = [
         ],
         'blog.post.comments' => [
             'template' => 'Leafiny_Blog::block/post/comments.twig',
+        ],
+        'blog.post.comments.content' => [
+            'template' => 'Leafiny_Blog::block/post/comments/content.twig',
             'class'    => Blog_Block_Post_Comments::class
         ],
 
@@ -136,6 +139,9 @@ $config = [
             'blog_post_dynamic_metadata' => [
                 'meta_title'       => '{{title}}',
                 'meta_description' => '{{_category_1}} {{title}}',
+            ],
+            'children' => [
+                'blog.post.comments' => 100,
             ],
         ],
         '/post/comment/post/' => [

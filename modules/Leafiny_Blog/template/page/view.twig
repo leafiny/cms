@@ -28,4 +28,6 @@
     {{ include(template_from_string(data.getContent)) }}
 </div>
 
-<!-- nocache::'blog.post.comments' -->{{ child('blog.post.comments') }}<!-- /nocache::'blog.post.comments' -->
+{% for child in page.getChildren %}
+    {{ child(child) }}
+{% endfor %}
