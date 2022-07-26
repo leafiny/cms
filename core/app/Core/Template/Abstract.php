@@ -476,7 +476,14 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             // Ignore missing template
         }
 
-        return $content;
+        $result = new Leafiny_Object(['content' => $content]);
+
+        App::dispatchEvent(
+            'render_block_after',
+            ['result' => $result, 'block' => $block, 'page' => $this, 'vars' => $vars]
+        );
+
+        return $result->getData('content');
     }
 
     /**
