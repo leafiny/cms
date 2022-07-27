@@ -23,6 +23,10 @@ class Attribute_Observer_Attributes_Get extends Core_Observer implements Core_In
     {
         /** @var Leafiny_Object $data */
         $data = $object->getData('object');
+        if (!$data->hasData()) {
+            return;
+        }
+
         /** @var Attribute_Model_Attribute $model */
         $model = App::getSingleton('model', 'attribute');
 
