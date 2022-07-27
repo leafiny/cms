@@ -35,6 +35,14 @@
                     <label for="position">{{ 'Position'|translate }} :</label>
                     <input id="position" type="text" class="pure-u-1 pure-u-xl-4-5" name="position" value="{{ form.getPosition }}" />
                 </div>
+                <div class="pure-u-1 field">
+                    <label for="show_in_list">{{ 'Show in list'|translate }} :</label>
+                    <select id="show_in_list" class="pure-u-1 pure-u-xl-4-5" name="show_in_list">
+                        <option value="0"{% if form.getShowInList == '0' %} selected="selected"{% endif %}>{{ 'No'|translate }}</option>
+                        <option value="1"{% if form.getShowInList == '1' %} selected="selected"{% endif %}>{{ 'Yes'|translate }}</option>
+                    </select>
+                    <p class="note">{{ 'Show in feature list on entity page'|translate }}</p>
+                </div>
             </div>
         </fieldset>
 

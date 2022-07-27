@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Helper_Attribute
- */
 class Attribute_Helper_Attribute extends Core_Helper
 {
     /**

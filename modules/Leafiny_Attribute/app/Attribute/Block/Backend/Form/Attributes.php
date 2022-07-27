@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Block_Backend_Form_Attributes
- */
 class Attribute_Block_Backend_Form_Attributes extends Core_Block
 {
     /**

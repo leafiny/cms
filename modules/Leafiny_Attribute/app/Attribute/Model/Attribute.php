@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Model_Attribute
- */
 class Attribute_Model_Attribute extends Core_Model
 {
     /**
@@ -395,6 +392,35 @@ class Attribute_Model_Attribute extends Core_Model
     }
 
     /**
+     * Retrieve attributes to show in list
+     *
+     * @param string|null $entityType
+     * @return array
+     * @throws Exception
+     */
+    public function getShowInListAttributeCodes(?string $entityType = null): array
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return [];
+        }
+
+        $adapter->where('show_in_list', 1);
+        if ($entityType !== null) {
+            $adapter->where('entity_type', $entityType);
+        }
+
+        $result = $adapter->get($this->getMainTable(), null, 'code');
+
+        $attributes = [];
+        foreach ($result as $attribute) {
+            $attributes[] = $attribute['code'];
+        }
+
+        return $attributes;
+    }
+
+    /**
      * Retrieve filterable attributes
      *
      * @param int[] $entityIds
@@ -478,18 +504,31 @@ class Attribute_Model_Attribute extends Core_Model
         $adapter->where('language', $language);
         $adapter->where('entity_id', $entityId);
         $adapter->where('entity_type', $entityType);
+        $adapter->orderBy('attribute_position', 'ASC');
+        $adapter->orderBy('option_position', 'ASC');
 
         $result = $adapter->get('attribute_entity_value');
 
         $values = [];
         foreach ($result as $row) {
             if (!isset($values[$row['attribute_code']])) {
-                $values[$row['attribute_code']] = [];
+                $values[$row['attribute_code']] = new Leafiny_Object(['options' => []]);
             }
-            $values[$row['attribute_code']][$row['option_id'] ?: 0] = new Leafiny_Object(
+            $options = $values[$row['attribute_code']]->getData('options');
+            $options[$row['option_id']] = new Leafiny_Object(
                 [
-                    'value'  => $row['option_label'],
+                    'id'     => $row['option_id'],
+                    'label'  => $row['option_label'],
                     'custom' => $row['option_custom'] ?: null,
+                ]
+            );
+
+            $values[$row['attribute_code']]->setData(
+                [
+                    'id'      => $row['attribute_id'],
+                    'label'   => $row['attribute_label'],
+                    'code'    => $row['attribute_code'],
+                    'options' => $options,
                 ]
             );
         }

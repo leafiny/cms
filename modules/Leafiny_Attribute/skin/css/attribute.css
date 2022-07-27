@@ -157,3 +157,29 @@
 .attribute-filters-applied .option .remove span {
     display: none;
 }
+
+.attribute-list {
+    margin: 2em 0;
+}
+
+.attribute-list .line {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.attribute-list .line:first-child {
+    border-top: 1px solid #e7e7e7;
+}
+
+.attribute-list .label {
+    font-weight: bold;
+    background: #f3f3f3;
+    padding: 10px;
+}
+
+.attribute-list .options {
+    padding: 10px;
+}
+
+.attribute-list .options span {
+    margin-right: 5px;
+}

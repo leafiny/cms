@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Observer_Attributes_Get
- */
 class Attribute_Observer_Attributes_Get extends Core_Observer implements Core_Interface_Observer
 {
     /**

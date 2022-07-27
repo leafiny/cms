@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Page_Backend_Attribute_Option_Delete
- */
 class Attribute_Page_Backend_Attribute_Option_Delete extends Backend_Page_Admin_Page_Abstract
 {
     /**

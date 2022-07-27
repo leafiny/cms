@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Twig_Filters
- */
 class Attribute_Twig_Filters
 {
     /**

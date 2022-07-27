@@ -11,7 +11,7 @@
                            type="text"
                            class="pure-u-1 pure-u-xl-4-5"
                            name="_attributes[{{ attribute.getCode }}][]"
-                           value="{{ form.getAttributes[attribute.getCode]|first.getValue }}"
+                           value="{{ form.getAttributes[attribute.getCode].getOptions|first.getLabel }}"
                     />
                 {% endif %}
                 {% if attribute.input_type in ['select', 'multiselect'] %}
@@ -22,7 +22,7 @@
                             {% if attribute.input_type == 'multiselect' %}multiple="multiple"{% endif %}>
                         <option value=""></option>
                         {% for option in options %}
-                            <option value="{{ option.getOptionId }}"{% if option.getOptionId in form.getAttributes[attribute.getCode]|keys %} selected="selected"{% endif %}>
+                            <option value="{{ option.getOptionId }}"{% if option.getOptionId in form.getAttributes[attribute.getCode].getOptions|keys %} selected="selected"{% endif %}>
                                 {{ option.getLabel[page.getLanguage(true)] }}
                             </option>
                         {% endfor %}

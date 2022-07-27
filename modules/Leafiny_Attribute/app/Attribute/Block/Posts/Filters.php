@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Block_Posts_Filters
- */
 class Attribute_Block_Posts_Filters extends Attribute_Block_Filters
 {
     /**

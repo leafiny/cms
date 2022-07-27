@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Observer_Filters_Apply
- */
 class Attribute_Observer_Filters_Apply extends Core_Observer implements Core_Interface_Observer
 {
     /**

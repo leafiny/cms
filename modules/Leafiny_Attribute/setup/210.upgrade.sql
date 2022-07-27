@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `attribute` (
      `input_type` VARCHAR(255) NOT NULL DEFAULT 'text',
      `option_qty` INT(10) NOT NULL DEFAULT 0,
      `is_filterable` INT(1) NOT NULL DEFAULT 0,
+     `show_in_list` INT(1) NOT NULL DEFAULT 0,
      `position` INT(10) NOT NULL DEFAULT 0,
      PRIMARY KEY (`attribute_id`),
      UNIQUE KEY (`code`)

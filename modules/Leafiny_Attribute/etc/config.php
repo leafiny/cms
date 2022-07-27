@@ -26,17 +26,37 @@ $config = [
                 'Leafiny_Attribute::css/attribute.css' => 400,
             ],
         ],
+
         'category.products.filters' => [
             'class'    => Attribute_Block_Products_Filters::class,
             'template' => 'Leafiny_Attribute::block/filters.twig',
-            'entity'   => 'catalog_product',
             'disabled' => !class_exists('Catalog_Helper_Catalog_Product'),
         ],
         'category.posts.filters' => [
             'class'    => Attribute_Block_Posts_Filters::class,
             'template' => 'Leafiny_Attribute::block/filters.twig',
-            'entity'   => 'blog_post',
             'disabled' => !class_exists('Blog_Helper_Blog_Post'),
+        ],
+
+        'category.attribute.list' => [
+            'class'      => Attribute_Block_List::class,
+            'template'   => 'Leafiny_Attribute::block/list.twig',
+            'entity_key' => 'category',
+        ],
+        'product.attribute.list' => [
+            'class'      => Attribute_Block_List::class,
+            'template'   => 'Leafiny_Attribute::block/list.twig',
+            'entity_key' => 'product',
+        ],
+        'post.attribute.list' => [
+            'class'      => Attribute_Block_List::class,
+            'template'   => 'Leafiny_Attribute::block/list.twig',
+            'entity_key' => 'post',
+        ],
+        'page.attribute.list' => [
+            'class'      => Attribute_Block_List::class,
+            'template'   => 'Leafiny_Attribute::block/list.twig',
+            'entity_key' => 'page',
         ],
 
         'admin.head' => [
@@ -87,6 +107,22 @@ $config = [
             'children' => [
                 'category.products.filters' => 95,
                 'category.posts.filters'    => 245,
+                'category.attribute.list' => 500,
+            ]
+        ],
+        '/product/*.html' => [
+            'children' => [
+                'product.attribute.list' => 50,
+            ]
+        ],
+        '/post/*.html' => [
+            'children' => [
+                'post.attribute.list' => 50,
+            ]
+        ],
+        '/page/*.html' => [
+            'children' => [
+                'page.attribute.list' => 50,
             ]
         ],
 

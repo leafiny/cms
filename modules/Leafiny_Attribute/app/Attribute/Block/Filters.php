@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Block_Filters
- */
 abstract class Attribute_Block_Filters extends Core_Block
 {
     /**

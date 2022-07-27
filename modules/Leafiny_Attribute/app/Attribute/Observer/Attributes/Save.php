@@ -10,9 +10,6 @@
 
 declare(strict_types=1);
 
-/**
- * Class Attribute_Observer_Attributes_Save
- */
 class Attribute_Observer_Attributes_Save extends Core_Observer implements Core_Interface_Observer
 {
     /**
