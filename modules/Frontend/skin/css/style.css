@@ -553,40 +553,6 @@ textarea {
     line-height: 28px;
 }
 
-/* Comments */
-.post-comment .comment-count {
-    font-weight: bold;
-}
-
-.post-comment .comment-content {
-    border: 1px solid #e5e5e5;
-    border-left-width: 3px;
-    padding: 20px;
-    margin-bottom: 2em;
-}
-
-.post-comment .user {
-    margin-bottom: 1em;
-}
-
-.post-comment .comment {
-    font-size: 0.9em;
-}
-
-.post-comment .user .name {
-    font-size: 1.1em;
-    font-weight: bold;
-}
-
-.post-comment .user .date {
-    color: #555;
-    font-size: 0.9em;
-}
-
-.post-comment legend {
-    font-weight: bold;
-}
-
 /* Pages */
 .cms-page .page-image {
     margin-bottom: 2em;

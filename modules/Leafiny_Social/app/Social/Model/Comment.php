@@ -58,6 +58,39 @@ class Social_Model_Comment extends Core_Model
     }
 
     /**
+     * Retrieve entity comments
+     *
+     * @param int    $entityId
+     * @param string $entityType
+     * @param string $language
+     *
+     * @return Leafiny_Object[]
+     * @throws Exception
+     */
+    public function getEntityComments(int $entityId, string $entityType, string $language): array
+    {
+        $adapter = $this->getAdapter();
+        if (!$adapter) {
+            return [];
+        }
+
+        $adapter->where('entity_id', $entityId);
+        $adapter->where('entity_type', $entityType);
+        $adapter->where('status', 1);
+        $adapter->where('language', $language);
+
+        $adapter->orderBy('created_at', 'DESC');
+
+        $result = $adapter->get($this->getMainTable());
+
+        foreach ($result as $key => $comment) {
+            $result[$key] = new Leafiny_Object($comment);
+        }
+
+        return $result;
+    }
+
+    /**
      * Retrieve default status
      *
      * @return int
@@ -90,6 +123,12 @@ class Social_Model_Comment extends Core_Model
             return '';
         }
 
+        if (!$object->getData('entity_id')) {
+            return 'The entity identifier cannot be empty';
+        }
+        if (!$object->getData('entity_type')) {
+            return 'The entity type cannot be empty';
+        }
         if (!$object->getData('comment')) {
             return 'The comment cannot be empty';
         }

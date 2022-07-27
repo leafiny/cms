@@ -8,7 +8,30 @@ $config = [
         ],
     ],
 
+    'helper' => [
+        'social_comment' => [
+            'class' => Social_Helper_Comment::class,
+        ],
+    ],
+
     'block' => [
+        'head' => [
+            'stylesheet' => [
+                'Leafiny_Social::css/comment.css' => 800,
+            ],
+        ],
+
+        'social.comments.content' => [
+            'template' => 'Leafiny_Social::block/comments/content.twig',
+            'class'    => Social_Block_Comment::class
+        ],
+
+        'blog.post.comments' => [
+            'template'    => 'Leafiny_Social::block/comments.twig',
+            'entity_type' => 'blog_post',
+            'entity_key'  => 'post'
+        ],
+
         'admin.menu' => [
             'tree' => [
                 280 => [
@@ -24,6 +47,18 @@ $config = [
     ],
 
     'page' => [
+        '/social/comment/post/' => [
+            'class'              => Social_Page_Comment_Post::class,
+            'template'           => null,
+            'form_code_required' => true,
+        ],
+
+        '/post/*.html' => [
+            'children' => [
+                'blog.post.comments' => 100,
+            ],
+        ],
+
         /* Admin Comment */
         '/admin/*/comment/list/' => [
             'title'            => 'Comments',

@@ -76,13 +76,6 @@ $config = [
             'template' => 'Leafiny_Blog::block/post/default.twig',
             'class'    => Blog_Block_Post_Default::class
         ],
-        'blog.post.comments' => [
-            'template' => 'Leafiny_Blog::block/post/comments.twig',
-        ],
-        'blog.post.comments.content' => [
-            'template' => 'Leafiny_Blog::block/post/comments/content.twig',
-            'class'    => Blog_Block_Post_Comments::class
-        ],
 
         'admin.head' => [
             'stylesheet' => [
@@ -140,14 +133,6 @@ $config = [
                 'meta_title'       => '{{title}}',
                 'meta_description' => '{{_category_1}} {{title}}',
             ],
-            'children' => [
-                'blog.post.comments' => 100,
-            ],
-        ],
-        '/post/comment/post/' => [
-            'class'              => Blog_Page_Post_Comment_Post::class,
-            'template'           => null,
-            'form_code_required' => true,
         ],
 
         /* Admin Pages */

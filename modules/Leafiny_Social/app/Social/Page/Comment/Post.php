@@ -10,10 +10,7 @@
 
 declare(strict_types=1);
 
-/**
- * Class Blog_Page_Post_Comment_Post
- */
-class Blog_Page_Post_Comment_Post extends Core_Page
+class Social_Page_Comment_Post extends Core_Page
 {
     /**
      * Execute action
@@ -31,23 +28,37 @@ class Blog_Page_Post_Comment_Post extends Core_Page
             $this->redirect($this->getRefererUrl());
         }
 
-        $postId = $form->getData('post_id');
-        if (!$postId) {
+        $entityId = $form->getData('entity_id');
+        if (!$entityId) {
             $this->redirect($this->getRefererUrl());
         }
 
-        /** @var Blog_Model_Post $model */
-        $model = App::getObject('model', 'blog_post');
-        $post = $model->get($postId);
-
-        if (!$post->getData('post_id')) {
+        $entityType = $form->getData('entity_type');
+        if (!$entityType) {
             $this->redirect($this->getRefererUrl());
         }
 
-        $this->setTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_DATA_KEY, $form);
+        /** @var Core_Helper_Crypt $encrypt */
+        $encrypt = App::getObject('helper_crypt');
+
+        $entityId = $encrypt->decrypt($entityId);
+        $entityType = $encrypt->decrypt($entityType);
+
+        /** @var Core_Model $model */
+        $model = App::getObject('model', $entityType);
+        $entity = $model->get($entityId);
+
+        if (!$entity->getData($model->getPrimaryKey())) {
+            $this->redirect($this->getRefererUrl());
+        }
+
+        /** @var Social_Helper_Comment $helperComment */
+        $helperComment = App::getSingleton('helper', 'social_comment');
+
+        $this->setTmpSessionData($helperComment->getFormDataKey($entityType), $form);
 
         /** @var Social_Model_Comment $comment */
-        $comment = App::getObject('model', 'social_comment');
+        $comment = App::getSingleton('model', 'social_comment');
         $error = $comment->validate($form);
 
         if ($this->isFormCodeRequired()) {
@@ -58,7 +69,7 @@ class Blog_Page_Post_Comment_Post extends Core_Page
         }
 
         if (!empty($error)) {
-            $this->setTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_ERROR_KEY, $this->translate($error));
+            $this->setTmpSessionData($helperComment->getFormErrorKey($entityType), $this->translate($error));
             $this->redirect($this->getRefererUrl() . '#comment-form');
         }
 
@@ -66,17 +77,20 @@ class Blog_Page_Post_Comment_Post extends Core_Page
             $data = new Leafiny_Object();
             $data->setData(
                 [
-                    'name'    => $form->getData('name'),
-                    'email'   => $form->getData('email'),
-                    'comment' => $form->getData('comment'),
-                    'referer' => $post->getData('title'),
+                    'entity_id'   => $entityId,
+                    'entity_type' => $entityType,
+                    'name'        => $form->getData('name'),
+                    'email'       => $form->getData('email'),
+                    'comment'     => $form->getData('comment'),
+                    'referer'     => $entity->getData('title') ?: $entity->getData('name'),
                 ]
             );
+            if ($entity->getData('path_key')) {
+                $data->setData('link', $this->getUrlRewrite($entity->getData('path_key'), $entityType));
+            }
+
             $commentId = $comment->save($data);
 
-            $model->addComment((int)$postId, $commentId);
-
-            $data->setData('link', $this->getUrlRewrite($post->getData('path_key'), 'blog_post'));
             $data->setData('status', $comment->getDefaultStatus());
 
             /** @var Core_Mail $mail */
@@ -93,12 +107,12 @@ class Blog_Page_Post_Comment_Post extends Core_Page
                 ];
             }
 
-            $this->setTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_SUCCESS_KEY, join(' ', $success));
-            $this->unsTmpSessionData(Blog_Helper_Blog_Post::COMMENT_FORM_DATA_KEY);
+            $this->setTmpSessionData($helperComment->getFormSuccessKey($entityType), join(' ', $success));
+            $this->unsTmpSessionData($helperComment->getFormDataKey($entityType));
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
             $this->setTmpSessionData(
-                Blog_Helper_Blog_Post::COMMENT_FORM_ERROR_KEY,
+                $helperComment->getFormErrorKey($entityType),
                 $this->translate('An error occurred when adding comment')
             );
             $this->redirect($this->getRefererUrl() . '#comment-form');

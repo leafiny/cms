@@ -1,7 +1,8 @@
-<div class="post-comment" id="comments">
+{% set entity = page.getCustom(block.getEntityKey) %}
+<div class="social-comments" id="comments">
     <h2>{{ 'Comments'|translate }}</h2>
 
-    {% set comments = block.getComments(page.getCustom('post').getPostId) %}
+    {% set comments = block.getComments(entity) %}
 
     {% if block.getSuccessMessage(page) %}
         <p class="alert-message success pure-u-1">{{ block.getSuccessMessage(page) }}</p>
@@ -33,7 +34,7 @@
         </div>
     {% endif %}
 
-    <form method="post" id="comment-form" class="pure-form pure-form-stacked" action="{{ page.getUrl('/post/comment/post/') }}">
+    <form method="post" id="comment-form" class="pure-form pure-form-stacked" action="{{ page.getUrl('/social/comment/post/') }}">
         {% if block.getErrorMessage(page) %}
             <p class="alert-message error">{{ block.getErrorMessage(page) }}</p>
         {% endif %}
@@ -63,7 +64,8 @@
                     <p>
                         <span>* {{ 'Required fields'|translate }}</span>
                     </p>
-                    <input type="hidden" name="post_id" value="{{ page.getCustom('post').getPostId }}" />
+                    <input type="hidden" name="entity_id" value="{{ block.getEntityId(entity)|crypt }}" />
+                    <input type="hidden" name="entity_type" value="{{ block.getEntityType|crypt }}" />
                     <button type="submit" class="pure-button black">{{ 'Post your comment'|translate }} &check;</button>
                 </div>
             </div>
