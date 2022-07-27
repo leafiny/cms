@@ -18,11 +18,13 @@ class Backend_Page_Account_Form extends Backend_Page_Admin_Form
     /**
      * Retrieve POST AND REQUEST params
      *
+     * @param string[] $types
+     *
      * @return Leafiny_Object
      */
-    public function getParams(): Leafiny_Object
+    public function getParams(array $types = ['get', 'post']): Leafiny_Object
     {
-        $params = parent::getParams();
+        $params = parent::getParams($types);
 
         /** @var Backend_Model_Admin_User $user */
         $user = App::getObject('model', 'admin_user');
