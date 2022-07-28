@@ -21,13 +21,14 @@ $config = [
             ],
         ],
 
-        'social.comments.content' => [
-            'template' => 'Leafiny_Social::block/comments/content.twig',
-            'class'    => Social_Block_Comment::class
+        'blog.post.comments' => [
+            'template'      => 'Leafiny_Social::block/comments.twig',
+            'content_block' => 'blog.post.comments.content'
         ],
 
-        'blog.post.comments' => [
-            'template'    => 'Leafiny_Social::block/comments.twig',
+        'blog.post.comments.content' => [
+            'template'    => 'Leafiny_Social::block/comments/content.twig',
+            'class'       => Social_Block_Comment::class,
             'entity_type' => 'blog_post',
             'entity_key'  => 'post'
         ],

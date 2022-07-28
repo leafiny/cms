@@ -1,3 +1,4 @@
-<!-- nocache::'social.comments.content',{'entity_type':'{{ block.getCustom('entity_type') }}','entity_key':'{{ block.getCustom('entity_key') }}'} -->
-{{ child('social.comments.content', {'entity_type':block.getCustom('entity_type'),'entity_key':block.getCustom('entity_key')}) }}
-<!-- /nocache::'social.comments.content' -->
+{% set contentBlock = block.getCustom('content_block') %}
+{% if contentBlock %}
+<!-- nocache::'{{ contentBlock }}' -->{{ child(contentBlock) }}<!-- /nocache::'{{ contentBlock }}' -->
+{% endif %}
