@@ -25,12 +25,44 @@ $config = [
             'template'      => 'Leafiny_Social::block/comments.twig',
             'content_block' => 'blog.post.comments.content'
         ],
-
         'blog.post.comments.content' => [
             'template'    => 'Leafiny_Social::block/comments/content.twig',
             'class'       => Social_Block_Comment::class,
             'entity_type' => 'blog_post',
             'entity_key'  => 'post'
+        ],
+
+        'catalog.product.comments' => [
+            'template'      => 'Leafiny_Social::block/comments.twig',
+            'content_block' => 'catalog.product.comments.content'
+        ],
+        'catalog.product.comments.content' => [
+            'template'    => 'Leafiny_Social::block/comments/content.twig',
+            'class'       => Social_Block_Comment::class,
+            'entity_type' => 'catalog_product',
+            'entity_key'  => 'product'
+        ],
+
+        'cms.page.comments' => [
+            'template'      => 'Leafiny_Social::block/comments.twig',
+            'content_block' => 'cms.page.comments.content'
+        ],
+        'cms.page.comments.content' => [
+            'template'    => 'Leafiny_Social::block/comments/content.twig',
+            'class'       => Social_Block_Comment::class,
+            'entity_type' => 'cms_page',
+            'entity_key'  => 'page'
+        ],
+
+        'category.comments' => [
+            'template'      => 'Leafiny_Social::block/comments.twig',
+            'content_block' => 'category.comments.content'
+        ],
+        'category.comments.content' => [
+            'template'    => 'Leafiny_Social::block/comments/content.twig',
+            'class'       => Social_Block_Comment::class,
+            'entity_type' => 'category',
+            'entity_key'  => 'category'
         ],
 
         'admin.menu' => [
@@ -57,6 +89,24 @@ $config = [
         '/post/*.html' => [
             'children' => [
                 'blog.post.comments' => 100,
+            ],
+        ],
+        '/product/*.html' => [
+            'children' => [
+                // Override in the frontend module to enabled comments on product page
+                'catalog.product.comments' => false,
+            ],
+        ],
+        '/page/*.html' => [
+            'children' => [
+                // Override in the frontend module to enabled comments on static page
+                'cms.page.comments' => false,
+            ],
+        ],
+        '/category/*.html' => [
+            'children' => [
+                // Override in the frontend module to enabled comments on category page
+                'category.comments' => false,
             ],
         ],
 

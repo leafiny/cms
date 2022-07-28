@@ -50,13 +50,17 @@ class Social_Block_Comment extends Core_Block
     /**
      * Retrieve entity comments
      *
-     * @param Leafiny_Object $entity
+     * @param Leafiny_Object|null $entity
      *
      * @return Leafiny_Object[]
      */
-    public function getComments(Leafiny_Object $entity): array
+    public function getComments(?Leafiny_Object $entity): array
     {
         $comments = [];
+
+        if (!$entity) {
+            return $comments;
+        }
 
         try {
             /** @var Social_Model_Comment $model */

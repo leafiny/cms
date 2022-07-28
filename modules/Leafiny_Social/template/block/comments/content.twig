@@ -1,5 +1,6 @@
 {% set entity = page.getCustom(block.getEntityKey) %}
-<div class="social-comments" id="comments">
+{% if entity %}
+<div class="social-comments pure-u-1" id="comments">
     <h2>{{ 'Comments'|translate }}</h2>
 
     {% set comments = block.getComments(entity) %}
@@ -72,3 +73,4 @@
         </fieldset>
     </form>
 </div>
+{% endif %}
