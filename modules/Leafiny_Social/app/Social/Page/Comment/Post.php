@@ -82,6 +82,7 @@ class Social_Page_Comment_Post extends Core_Page
                     'name'        => $form->getData('name'),
                     'email'       => $form->getData('email'),
                     'comment'     => $form->getData('comment'),
+                    'note'        => $form->getData('note'),
                     'referer'     => $entity->getData('title') ?: $entity->getData('name'),
                 ]
             );
@@ -89,7 +90,7 @@ class Social_Page_Comment_Post extends Core_Page
                 $data->setData('link', $this->getUrlRewrite($entity->getData('path_key'), $entityType));
             }
 
-            $commentId = $comment->save($data);
+            $comment->save($data);
 
             $data->setData('status', $comment->getDefaultStatus());
 
