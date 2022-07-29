@@ -10,7 +10,7 @@ Leafiny is a CMS who not bloated with features that you don't need.
 # Requirements
 
 * Apache 2.4+
-* PHP 7.2.0 to PHP 8.1.X
+* PHP 7.2.5 to PHP 8.1.X
 * MySQL 5.6+ / MariaDB 10.0+
 
 ## PHP extensions
