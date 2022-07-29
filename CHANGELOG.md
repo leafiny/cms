@@ -1,6 +1,18 @@
 ## 1.11.0
 
-- Not yet released
+- New Attributes management and filters features
+- Twig updated to 3.4.1
+- Allow to enable Twig debug
+- PHPMailer updated to 6.6.3
+- Dependency on the comment feature to enable it on all pages
+- Code style updated to PSR12
+- Admin menu renamed to System
+- Homogenization of entities in categories
+- Images retriever performance improvement
+- Add to cart for negative quantity fixed
+- New render block event added
+- Allow to add child blocks on all entity views
+- Default language sort order updated
 
 ---
 
