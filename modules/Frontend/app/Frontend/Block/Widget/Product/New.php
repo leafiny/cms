@@ -17,7 +17,7 @@ class Frontend_Block_Widget_Product_New extends Core_Block
      *
      * @return Leafiny_Object[]
      */
-    Public function getProducts(): array
+    public function getProducts(): array
     {
         $filters = [
             'status' => [

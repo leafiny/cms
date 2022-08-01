@@ -17,7 +17,7 @@ class Frontend_Block_Widget_Gallery_Banner extends Core_Block
      *
      * @return Leafiny_Object[]
      */
-    Public function getImages(): array
+    public function getImages(): array
     {
         /** @var Gallery_Model_Group $groupModel */
         $groupModel = App::getSingleton('model', 'gallery_group');
