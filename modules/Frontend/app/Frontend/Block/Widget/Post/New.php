@@ -17,7 +17,7 @@ class Frontend_Block_Widget_Post_New extends Core_Block
      *
      * @return Leafiny_Object[]
      */
-    Public function getPosts(): array
+    public function getPosts(): array
     {
         $filters = [
             'status' => [
