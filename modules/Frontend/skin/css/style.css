@@ -456,6 +456,25 @@ textarea {
     margin: 10px;
 }
 
+/* Banner */
+.banner {
+    position: relative;
+    padding-bottom: 38%;
+}
+
+.banner .banner-item {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transition: opacity 1s;
+}
+
+.banner .banner-item.hide {
+    opacity: 0;
+    z-index: -1;
+}
+
 /* Multi-pages */
 .multipage {
     margin: 1.5em 0 0.5em 0;

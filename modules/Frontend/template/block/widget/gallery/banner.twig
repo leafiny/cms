@@ -1,8 +1,8 @@
 {% set images = block.getImages %}
 {% if images|length %}
-    <div class="gallery pure-g">
+    <div class="gallery banner pure-g">
         {% for image in images %}
-            <div class="pure-u-1">
+            <div class="pure-u-1 banner-item{% if loop.index > 1 %} hide{% endif %}">
                 {{ child('gallery.image.default', {'image':image}) }}
             </div>
         {% endfor %}
