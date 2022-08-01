@@ -14,6 +14,7 @@
 - Allow to add child blocks on all entity views
 - Default language sort order updated
 - Columns logic outside the entity item default view
+- Default widgets added
 
 ---
 

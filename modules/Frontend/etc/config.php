@@ -94,14 +94,17 @@ $config = [
         'widget.product.new' => [
             'class'    => Frontend_Block_Widget_Product_New::class,
             'template' => 'Frontend::block/widget/product/new.twig',
+            'disabled' => !class_exists('Catalog_Model_Product'),
         ],
         'widget.post.new' => [
             'class'    => Frontend_Block_Widget_Post_New::class,
             'template' => 'Frontend::block/widget/post/new.twig',
+            'disabled' => !class_exists('Blog_Model_Post'),
         ],
         'widget.gallery.banner' => [
             'class'     => Frontend_Block_Widget_Gallery_Banner::class,
             'template'  => 'Frontend::block/widget/gallery/banner.twig',
+            'disabled' => !class_exists('Gallery_Model_Group'),
         ],
     ],
 ];
