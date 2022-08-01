@@ -3,7 +3,9 @@
 {% if posts is not empty %}
     <div class="posts pure-g" id="posts">
         {% for post in posts %}
-            {{ child('blog.post.default', {'post':post}) }}
+            <div class="pure-u-1">
+                {{ child('blog.post.default', {'post':post}) }}
+            </div>
         {% endfor %}
     </div>
     {{ child('category.posts.multipage', {'category_id':category.getCategoryId}) }}

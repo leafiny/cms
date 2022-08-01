@@ -2,7 +2,9 @@
 {% if block.isEnabled and images|length %}
     <div class="gallery pure-g">
         {% for image in images %}
-            {{ child('gallery.image.default', {'image':image}) }}
+            <div class="pure-u-1-2 pure-u-md-1-4">
+                {{ child('gallery.image.default', {'image':image}) }}
+            </div>
         {% endfor %}
     </div>
 {% endif %}

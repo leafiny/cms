@@ -3,7 +3,9 @@
 {% if pages is not empty %}
     <div class="pages pure-g">
         {% for cms_page in pages %}
-            {{ child('cms.page.default', {'cms_page':cms_page}) }}
+            <div class="pure-u-1-2 pure-u-md-1-4">
+                {{ child('cms.page.default', {'cms_page':cms_page}) }}
+            </div>
         {% endfor %}
     </div>
 {% endif %}
