@@ -1,0 +1,12 @@
+{% set products = block.getProducts %}
+{% if products is not empty %}
+    <h2>{{ 'New products'|translate }}</h2>
+    <div class="products pure-g">
+        {% for product in products %}
+            <div class="pure-u-1-2 pure-u-lg-1-4">
+                {{ child('catalog.product.default', {'product':product}) }}
+            </div>
+        {% endfor %}
+    </div>
+    {{ child('category.products.multipage', {'category_id':category.getCategoryId}) }}
+{% endif %}

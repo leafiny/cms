@@ -26,10 +26,9 @@ $config = [
         ],
         '/' => [
             'title'            => 'Home',
-            'content'          => 'Frontend::page/index.twig',
+            'content'          => 'Frontend::page/home.twig',
             'meta_title'       => 'Home',
             'meta_description' => 'Welcome to Leafiny!',
-            'banner_text'      => 'Welcome to Leafiny',
         ],
     ],
 
@@ -90,6 +89,19 @@ $config = [
                 'Frontend::js/app.js' => 100
             ],
             'class' => Frontend_Block_Script::class
+        ],
+
+        'widget.product.new' => [
+            'class'    => Frontend_Block_Widget_Product_New::class,
+            'template' => 'Frontend::block/widget/product/new.twig',
+        ],
+        'widget.post.new' => [
+            'class'    => Frontend_Block_Widget_Post_New::class,
+            'template' => 'Frontend::block/widget/post/new.twig',
+        ],
+        'widget.gallery.banner' => [
+            'class'     => Frontend_Block_Widget_Gallery_Banner::class,
+            'template'  => 'Frontend::block/widget/gallery/banner.twig',
         ],
     ],
 ];

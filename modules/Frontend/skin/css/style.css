@@ -400,7 +400,7 @@ textarea {
 
 /* Products */
 .products {
-    margin: 0 -10px 0 -10px;
+    margin: 0 -10px 2em -10px;
 }
 
 .products .product-content {
@@ -449,15 +449,11 @@ textarea {
 
 /* Gallery */
 .gallery {
-    margin: 0 -10px 0 -10px;
+    margin: 0 -10px 2em -10px;
 }
 
 .gallery-list-content {
     margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background: #efefef;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.12);
 }
 
 /* Multi-pages */
@@ -476,6 +472,10 @@ textarea {
 }
 
 /* Posts */
+.posts {
+    margin-bottom: 2em;
+}
+
 .post-list {
     position: relative;
     margin: 20px 0 10px 0;
