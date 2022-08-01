@@ -40,7 +40,7 @@ class Gallery_Observer_Backend_Gallery_ProcessImages extends Core_Observer imple
         if ($data->getData('gallery_image')) {
             $image = $data->getData('gallery_image');
 
-            $fields = ['position', 'label', 'link', 'text'];
+            $fields = ['position', 'label', 'link', 'text', 'class_name'];
 
             foreach ($fields as $field) {
                 if (isset($image[$field])) {

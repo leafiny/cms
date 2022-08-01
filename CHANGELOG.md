@@ -15,6 +15,7 @@
 - Default language sort order updated
 - Columns logic outside the entity item default view
 - Default widgets added
+- Allow to add custom class to gallery image
 
 ---
 

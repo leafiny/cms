@@ -1,6 +1,6 @@
 {% set image = block.getImage %}
 <div class="gallery-list">
-    <div class="gallery-list-content">
+    <div class="gallery-list-content{% if image.getClassName %} {{ image.getClassName }}{% endif %}">
         {% if image.getLink %}<a href="{{ image.getLink }}">{% endif %}
         <img src="{{ page.getMediaUrl(image.getImage) }}" alt="{{ image.getLabel }}" class="pure-u-1" />
         {% if image.getLink %}</a>{% endif %}

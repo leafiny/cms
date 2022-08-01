@@ -2,7 +2,7 @@
 {% if images|length %}
     <div class="gallery banner pure-g">
         {% for image in images %}
-            <div class="pure-u-1 banner-item{% if loop.index > 1 %} hide{% endif %}">
+            <div class="pure-u-1 banner-item{% if image.getClassName %} {{ image.getClassName }}{% endif %}{% if loop.index > 1 %} hide{% endif %}">
                 {{ child('gallery.image.default', {'image':image}) }}
             </div>
         {% endfor %}

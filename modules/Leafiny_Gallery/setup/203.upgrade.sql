@@ -1,0 +1,1 @@
+ALTER TABLE `gallery_image` ADD COLUMN `class_name` VARCHAR(255) NULL;
