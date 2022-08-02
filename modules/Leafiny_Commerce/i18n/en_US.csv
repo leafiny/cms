@@ -155,3 +155,5 @@
 "Tracking URL","Tracking URL"
 "Tracking URL:","Tracking URL:"
 "The {tracking_number} variable in the URL will be replaced with the tracking number (e.g.: %s).","The {tracking_number} variable in the URL will be replaced with the tracking number (e.g.: %s)."
+"Max allowed quantity in cart","Max allowed quantity in cart"
+"Allow Backorders","Allow Backorders"

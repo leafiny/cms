@@ -101,8 +101,16 @@ class Commerce_Helper_Cart extends Core_Helper
 
         $item->setData('sale_id', $saleId);
 
-        if ((int)$item->getData('qty') > (int)$product->getData('qty')) {
-            $item->setData('qty', (int)$product->getData('qty'));
+        if (!$product->getData('allow_backorders')) {
+            if ((int)$item->getData('qty') > (int)$product->getData('qty')) {
+                $item->setData('qty', (int)$product->getData('qty'));
+            }
+        }
+
+        if ($product->getData('max_allowed_quantity') !== null) {
+            if ((int)$item->getData('qty') > (int)$product->getData('max_allowed_quantity')) {
+                $item->setData('qty', (int)$product->getData('max_allowed_quantity'));
+            }
         }
 
         App::dispatchEvent('cart_add_product_before', ['item' => $item, 'product' => $product]);
@@ -142,6 +150,17 @@ class Commerce_Helper_Cart extends Core_Helper
             $priceExclTax = $item->getData('custom_excl_tax_unit');
         }
 
+        $maxQty = 9999;
+        if (!$product->getData('allow_backorders')) {
+            $maxQty = (int)$product->getData('qty');
+        }
+
+        if ($product->getData('max_allowed_quantity') !== null) {
+            if ($maxQty > (int)$product->getData('max_allowed_quantity')) {
+                $maxQty = (int)$product->getData('max_allowed_quantity');
+            }
+        }
+
         $item->addData(
             [
                 'product_id'    => $product->getData('product_id'),
@@ -155,7 +174,7 @@ class Commerce_Helper_Cart extends Core_Helper
                 'weight_unit'   => $product->getData('weight'),
                 'tax_rule_id'   => $product->getData('tax_rule_id'),
                 'tax_percent'   => $product->getData('tax_percent'),
-                'max_qty'       => $product->getData('qty'),
+                'max_qty'       => $maxQty,
                 'can_update'    => 1,
             ]
         );
