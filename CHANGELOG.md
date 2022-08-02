@@ -18,6 +18,7 @@
 - Columns logic outside the entity item default view
 - Default widgets added
 - Allow to add custom class to gallery image
+- Fix negative quantities in cart
 
 ---
 
