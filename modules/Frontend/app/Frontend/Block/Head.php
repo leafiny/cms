@@ -29,10 +29,20 @@ class Frontend_Block_Head extends Core_Block
         }
 
         $stylesheets = array_filter($stylesheets, 'strlen');
-
         asort($stylesheets);
+        $stylesheets = array_keys($stylesheets);
 
-        return array_keys($stylesheets);
+        if (!$this->getCustom('merge_css')) {
+            foreach ($stylesheets as $key => $stylesheet) {
+                $stylesheets[$key] = $this->getSkinUrl($stylesheet);
+            }
+            return $stylesheets;
+        }
+
+        /** @var Frontend_Helper_Combine_Css $combine */
+        $combine = App::getSingleton('helper', 'combine_css');
+
+        return [$combine->mergeResources($stylesheets)];
     }
 
     /**

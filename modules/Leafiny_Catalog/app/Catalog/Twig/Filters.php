@@ -10,10 +10,7 @@
 
 declare(strict_types=1);
 
-/**
- * Class Frontend_Twig_Filters
- */
-class Frontend_Twig_Filters
+class Catalog_Twig_Filters
 {
     /**
      * Add twig filters

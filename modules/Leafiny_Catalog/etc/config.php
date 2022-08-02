@@ -1,6 +1,12 @@
 <?php
 
 $config = [
+    'app' => [
+        'twig_filters' => [
+            'catalog' => Catalog_Twig_Filters::class,
+        ],
+    ],
+
     'model' => [
         'catalog_product' => [
             'class' => Catalog_Model_Product::class,

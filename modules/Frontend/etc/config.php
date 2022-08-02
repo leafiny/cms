@@ -1,10 +1,10 @@
 <?php
 
 $config = [
-    'app' => [
-        'twig_filters' => [
-            'frontend' => Frontend_Twig_Filters::class,
-        ],
+    'helper' => [
+        'combine_css' => [
+            'class' => Frontend_Helper_Combine_Css::class,
+        ]
     ],
 
     'session' => [
@@ -57,6 +57,7 @@ $config = [
                 'Frontend::css/grids-responsive-min.css' => 200,
                 'Frontend::css/style.css' => 1000
             ],
+            'merge_css' => true,
             'javascript' => [
                 // Load the necessary head scripts, Example:
                 // 'Frontend::js/jquery-3.6.0.min.js' => 100

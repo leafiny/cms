@@ -3,7 +3,7 @@
 <title>{{ page.getCustom('meta_title')|translate }}</title>
 <meta name="description" content="{{ page.getCustom('meta_description')|translate }}" />
 {% for css in block.getStylesheets %}
-<link rel="stylesheet" href="{{ page.getSkinUrl(css) }}" />
+<link rel="stylesheet" href="{{ css }}" />
 {% endfor %}
 {% for js in block.getScripts %}
 <script type="text/javascript" src="{{ page.getSkinUrl(js) }}"></script>
