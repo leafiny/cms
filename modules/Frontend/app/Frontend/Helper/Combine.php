@@ -75,6 +75,9 @@ abstract class Frontend_Helper_Combine extends Core_Helper
         $files = [];
         foreach ($resources as $resource) {
             $path = $this->getModulesDir() . $this->getModuleFile($resource, Core_Helper::SKIN_DIRECTORY);
+            if (!file_exists($path)) {
+                continue;
+            }
             $url = $this->getModuleUrl($this->getModuleFile($resource, Core_Helper::SKIN_DIRECTORY, true));
             $files[] = new Leafiny_Object(
                 [

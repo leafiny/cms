@@ -4,7 +4,10 @@ $config = [
     'helper' => [
         'combine_css' => [
             'class' => Frontend_Helper_Combine_Css::class,
-        ]
+        ],
+        'combine_js' => [
+            'class' => Frontend_Helper_Combine_Js::class,
+        ],
     ],
 
     'session' => [
@@ -57,12 +60,13 @@ $config = [
                 'Frontend::css/grids-responsive-min.css' => 200,
                 'Frontend::css/style.css' => 1000
             ],
-            'merge_css' => true,
+            'merge_css' => false,
             'javascript' => [
                 // Load the necessary head scripts, Example:
                 // 'Frontend::js/jquery-3.6.0.min.js' => 100
             ],
-            'class' => Frontend_Block_Head::class
+            'merge_js' => false,
+            'class' => Frontend_Block_Resources::class
         ],
         'header' => [
             'template' => 'Frontend::block/header.twig',
@@ -89,7 +93,8 @@ $config = [
                 // Load the necessary scripts before body end
                 'Frontend::js/app.js' => 100
             ],
-            'class' => Frontend_Block_Script::class
+            'merge_js' => false,
+            'class'    => Frontend_Block_Resources::class
         ],
 
         'widget.product.new' => [
@@ -105,7 +110,7 @@ $config = [
         'widget.gallery.banner' => [
             'class'     => Frontend_Block_Widget_Gallery_Banner::class,
             'template'  => 'Frontend::block/widget/gallery/banner.twig',
-            'disabled' => !class_exists('Gallery_Model_Group'),
+            'disabled'  => !class_exists('Gallery_Model_Group'),
         ],
     ],
 ];

@@ -4,7 +4,8 @@
 - Twig updated to 3.4.1
 - Allow to enable Twig debug
 - PHPMailer updated to 6.6.3
-- Allow to merge and compress CSS files
+- Allow to merge and compress JS / CSS files
+- Add JS and CSS for a specific page in head
 - Dependency on the comment feature to enable it on all pages
 - Code style updated to PSR12
 - Admin menu renamed to System

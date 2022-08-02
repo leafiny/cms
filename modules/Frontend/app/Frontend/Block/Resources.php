@@ -10,22 +10,25 @@
 
 declare(strict_types=1);
 
-/**
- * Class Frontend_Block_Head
- */
-class Frontend_Block_Head extends Core_Block
+class Frontend_Block_Resources extends Core_Block
 {
     /**
      * Retrieve Stylesheets
      *
+     * @param Core_Page|null $page
+     *
      * @return string[]
      */
-    public function getStylesheets(): array
+    public function getStylesheets(?Core_Page $page = null): array
     {
         $stylesheets = $this->getCustom('stylesheet');
 
         if (!$stylesheets) {
             return [];
+        }
+
+        if ($page !== null) {
+            $stylesheets = array_replace($stylesheets, $page->getCustom('stylesheet') ?: []);
         }
 
         $stylesheets = array_filter($stylesheets, 'strlen');
@@ -48,9 +51,11 @@ class Frontend_Block_Head extends Core_Block
     /**
      * Retrieve Scripts
      *
+     * @param Core_Page|null $page
+     *
      * @return string[]
      */
-    public function getScripts(): array
+    public function getScripts(?Core_Page $page = null): array
     {
         $scripts = $this->getCustom('javascript');
 
@@ -58,10 +63,24 @@ class Frontend_Block_Head extends Core_Block
             return [];
         }
 
+        if ($page !== null) {
+            $scripts = array_replace($scripts, $page->getCustom('javascript') ?: []);
+        }
+
         $scripts = array_filter($scripts, 'strlen');
-
         asort($scripts);
+        $scripts = array_keys($scripts);
 
-        return array_keys($scripts);
+        if (!$this->getCustom('merge_js')) {
+            foreach ($scripts as $key => $script) {
+                $scripts[$key] = $this->getSkinUrl($script);
+            }
+            return $scripts;
+        }
+
+        /** @var Frontend_Helper_Combine_Css $combine */
+        $combine = App::getSingleton('helper', 'combine_js');
+
+        return [$combine->mergeResources($scripts)];
     }
 }
