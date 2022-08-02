@@ -57,12 +57,14 @@ class Commerce_Page_Checkout_Items_Update extends Core_Page
                     continue;
                 }
 
-                if ($qty > $product->getData('qty')) {
-                    $qty = $product->getData('qty');
+                $qty = abs((int)$qty) ?: 1;
+
+                if ($qty > (int)$product->getData('qty')) {
+                    $qty = (int)$product->getData('qty');
                     $this->setWarningMessage(App::translate('The requested quantity is not available'));
                 }
 
-                $item->setData('qty', (int)$qty);
+                $item->setData('qty', $qty);
                 $model->save($item);
             }
 

@@ -89,6 +89,8 @@ class Commerce_Helper_Cart extends Core_Helper
 
         $item = $model->getItem($saleId, $product->getData('product_id'), 'product_id');
 
+        $qty = abs($qty) ?: 1;
+
         if ($item->getData('item_id')) {
             $qty = (int)$item->getData('qty') + $qty;
         }
@@ -99,7 +101,7 @@ class Commerce_Helper_Cart extends Core_Helper
 
         $item->setData('sale_id', $saleId);
 
-        if ($item->getData('qty') > $product->getData('qty')) {
+        if ((int)$item->getData('qty') > (int)$product->getData('qty')) {
             $item->setData('qty', (int)$product->getData('qty'));
         }
 
