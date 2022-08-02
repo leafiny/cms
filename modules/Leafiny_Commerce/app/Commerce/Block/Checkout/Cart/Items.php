@@ -77,4 +77,24 @@ class Commerce_Block_Checkout_Cart_Items extends Commerce_Block_Checkout
             }
         }
     }
+
+    /**
+     * Retrieve max item quantity
+     *
+     * @param Leafiny_Object $item
+     *
+     * @return int
+     */
+    public function getMaxQty(Leafiny_Object $item): int
+    {
+        $maxQty = $item->getData('max_qty');
+        if ($maxQty > 10) {
+            $maxQty = 10;
+        }
+        if ($maxQty <= 0) {
+            $maxQty = 1;
+        }
+
+        return $maxQty;
+    }
 }

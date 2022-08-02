@@ -31,11 +31,14 @@
                 <div class="price pure-u-1-3">{{ item.getInclTaxUnit > 0 ? item.getInclTaxUnit|currency : 'Free'|translate }}</div>
                 <div class="qty pure-u-2-3 pure-u-md-1-3">
                     {% if item.getCanUpdate %}
-                        {% set maxQty = item.getMaxQty > 10 ? 10 : item.getMaxQty %}
+                        {% set maxQty = block.getMaxQty(item) %}
                         <select name="qty[{{ item.getItemId|crypt }}]" class="update_item">
                             {% for i in 1..maxQty %}
                                 <option value="{{ i }}"{% if item.getQty == i %} selected="selected"{% endif %}>{{ i }}</option>
                             {% endfor %}
+                            {% if item.getQty > maxQty %}
+                                <option value="{{ item.getQty }}" selected="selected">{{ item.getQty }}</option>
+                            {% endif %}
                         </select>
                         <a href="{{ block.getRemoveUrl(item) }}"><img src="{{ block.getMediaUrl('Leafiny_Commerce::trash.png') }}" alt="{{ 'Remove'|translate }}" /></a>
                     {% endif %}

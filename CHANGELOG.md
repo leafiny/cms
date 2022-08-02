@@ -19,6 +19,7 @@
 - Default widgets added
 - Allow to add custom class to gallery image
 - Fix negative quantities in cart
+- Allow backorders and max quantity in cart
 
 ---
 
