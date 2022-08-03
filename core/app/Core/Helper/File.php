@@ -39,7 +39,7 @@ class Core_Helper_File extends Core_Helper
      *
      * @return string|null the new filename prefixed with the subdirectory
      */
-    function imageResize(
+    public function imageResize(
         string $directory,
         string $filename,
         int $maxWidth,
@@ -48,8 +48,7 @@ class Core_Helper_File extends Core_Helper
         string $newName = null,
         string $toExt = null,
         string $sub = 'web'
-    ): ?string
-    {
+    ): ?string {
         $info = pathinfo($filename);
         $directory = rtrim($directory, DS);
         $filename = $directory . DS . $filename;

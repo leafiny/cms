@@ -1,0 +1,25 @@
+{% set entity = page.getCustom(block.getCustom('entity_key')) %}
+{% set attributes = block.getAttributes(entity) %}
+{% if attributes is not empty %}
+<div class="pure-u-1 attribute-list">
+    <h3>{{ 'Information'|translate }}</h3>
+    <div class="attributes">
+    {% for attribute in attributes %}
+        <div class="line pure-u-1 attribute-{{ attribute.getCode }}">
+            <div class="pure-u-1-3">
+                <div class="label">
+                    <span>{{ attribute.getLabel }}</span>
+                </div>
+            </div>
+            <div class="pure-u-2-3">
+                <div class="options">
+                {% for option in attribute.getOptions %}
+                    <span>{{ option.getLabel }}</span>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endif %}

@@ -22,7 +22,7 @@
 
 .pure-menu-link {
     padding: 0 1em;
-    border-bottom: 3px solid #FFFFFF;
+    border-bottom: 3px solid #ffffff;
 }
 
 .pure-menu-link:focus,
@@ -35,7 +35,7 @@
 }
 
 .pure-menu-link.active {
-    border-bottom: 3px solid #9DE187;
+    border-bottom: 3px solid #9de187;
 }
 
 /* Child Menu */
@@ -69,8 +69,8 @@
         display: none;
         position: absolute;
         background: #ffffff;
-        border-bottom: 1px solid #E5E7EB;
-        border-top: 1px solid #E5E7EB;
+        border-bottom: 1px solid #e5e7eb;
+        border-top: 1px solid #e5e7eb;
         padding: 10px 0;
         z-index: 1000;
         text-align: left;
@@ -92,7 +92,8 @@
         border: 0;
     }
 
-    .menu-list.categories a,.menu-list.categories a:hover {
+    .menu-list.categories a,
+    .menu-list.categories a:hover {
         border: 0;
     }
 

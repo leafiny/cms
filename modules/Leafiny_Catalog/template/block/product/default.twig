@@ -1,5 +1,5 @@
 {% set product = block.getProduct %}
-<div class="product pure-u-1-2 pure-u-lg-1-3">
+<div class="product">
     <div class="product-content">
         {% set image = block.getMainImage(product.getProductId) %}
         <a href="{{ page.getUrlRewrite(product.getPathKey, 'catalog_product') }}">

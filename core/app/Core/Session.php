@@ -123,6 +123,6 @@ class Core_Session extends Leafiny_Object
      */
     public function getHelper(): Core_Helper
     {
-        return new Core_Helper;
+        return new Core_Helper();
     }
 }

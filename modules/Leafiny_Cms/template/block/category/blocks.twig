@@ -3,7 +3,9 @@
 {% if blocks is not empty %}
     <div class="blocks pure-g">
         {% for cms_block in blocks %}
-            {{ child('cms.block.default', {'cms_block':cms_block}) }}
+            <div class="pure-u-1 pure-u-md-1-2">
+                {{ child('cms.block.default', {'cms_block':cms_block}) }}
+            </div>
         {% endfor %}
     </div>
 {% endif %}

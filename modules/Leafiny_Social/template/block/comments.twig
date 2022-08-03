@@ -1,0 +1,4 @@
+{% set contentBlock = block.getCustom('content_block') %}
+{% if contentBlock %}
+<!-- nocache::'{{ contentBlock }}' -->{{ child(contentBlock) }}<!-- /nocache::'{{ contentBlock }}' -->
+{% endif %}

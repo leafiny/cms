@@ -4,7 +4,7 @@ for (let i = 0; i < editors.length; i++) {
     runEditor(editors[i]);
 }
 
-function runEditor (editor) {
+function runEditor(editor) {
     let converter = new showdown.Converter();
 
     let $ = editor.querySelector.bind(editor);
@@ -18,7 +18,7 @@ function runEditor (editor) {
         }
 
         $('.' + className).style.display = 'block';
-    }
+    };
 
     let convert = function (content) {
         if (getType(content) === 'markdown') {
@@ -27,7 +27,7 @@ function runEditor (editor) {
         if (getType(content) === 'html') {
             return cleanMarkdown(converter.makeMarkdown(content.value));
         }
-    }
+    };
 
     let getType = function (element) {
         if (element.classList.contains('editor-markdown')) {
@@ -38,14 +38,14 @@ function runEditor (editor) {
         }
 
         return 'preview';
-    }
+    };
 
     let cleanMarkdown = function (value) {
         value = value.replace(/<!-- -->/g, '');
         value = value.replace(/\n\s*\n/g, '\n\n');
 
         return value;
-    }
+    };
 
     let editorActions = $$('.editor-action');
 
@@ -78,7 +78,7 @@ function runEditor (editor) {
         }
 
         editorContents[i].addEventListener('change', function () {
-            let type  = getType(editorContents[i]);
+            let type = getType(editorContents[i]);
             let value = convert(editorContents[i]);
 
             if (type === 'markdown') {

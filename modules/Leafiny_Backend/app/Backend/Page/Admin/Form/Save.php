@@ -119,5 +119,7 @@ class Backend_Page_Admin_Form_Save extends Backend_Page_Admin_Page_Abstract
      *
      * @param Leafiny_Object $post
      */
-    public function validate(Leafiny_Object $post): void {}
+    public function validate(Leafiny_Object $post): void
+    {
+    }
 }

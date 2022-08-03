@@ -5,7 +5,8 @@ declare(strict_types=1);
 /**
  * Deploy all the resources in the public directory
  */
-class Deployment {
+class Deployment
+{
     /**
      * The crypt key file
      *
@@ -140,7 +141,7 @@ class Deployment {
      */
     public function getMediaDir(): string
     {
-        return $this->getRootDir() . 'media'  . self::DS;
+        return $this->getRootDir() . 'media' . self::DS;
     }
 
     /**
@@ -150,7 +151,7 @@ class Deployment {
      */
     public function getPubDir(): string
     {
-        return $this->getRootDir() . $this->pubDirectory  . self::DS;
+        return $this->getRootDir() . $this->pubDirectory . self::DS;
     }
 
     /**
@@ -160,7 +161,7 @@ class Deployment {
      */
     public function getModulesDir(): string
     {
-        return $this->getRootDir() . 'modules'  . self::DS;
+        return $this->getRootDir() . 'modules' . self::DS;
     }
 
     /**
@@ -170,7 +171,7 @@ class Deployment {
      */
     public function getVarDir(): string
     {
-        return $this->getRootDir() . 'var'  . self::DS;
+        return $this->getRootDir() . 'var' . self::DS;
     }
 
     /**

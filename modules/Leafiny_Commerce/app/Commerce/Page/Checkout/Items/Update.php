@@ -57,12 +57,23 @@ class Commerce_Page_Checkout_Items_Update extends Core_Page
                     continue;
                 }
 
-                if ($qty > $product->getData('qty')) {
-                    $qty = $product->getData('qty');
-                    $this->setWarningMessage(App::translate('The requested quantity is not available'));
+                $qty = abs((int)$qty) ?: 1;
+
+                if (!$product->getData('allow_backorders')) {
+                    if ($qty > (int)$product->getData('qty')) {
+                        $qty = (int)$product->getData('qty');
+                        $this->setWarningMessage(App::translate('The requested quantity is not available'));
+                    }
                 }
 
-                $item->setData('qty', (int)$qty);
+                if ($product->getData('max_allowed_quantity') !== null) {
+                    if ($qty > (int)$product->getData('max_allowed_quantity')) {
+                        $qty = (int)$product->getData('max_allowed_quantity');
+                        $this->setWarningMessage(App::translate('The requested quantity is not available'));
+                    }
+                }
+
+                $item->setData('qty', $qty);
                 $model->save($item);
             }
 

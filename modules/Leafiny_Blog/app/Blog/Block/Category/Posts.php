@@ -25,7 +25,11 @@ class Blog_Block_Category_Posts extends Core_Block
      */
     public function getPosts(int $categoryId): array
     {
-        /** @var Blog_Helper_Data $helper */
+        if ($this->getCustom('posts')) {
+            return $this->getCustom('posts');
+        }
+
+        /** @var Blog_Helper_Blog_Post $helper */
         $helper = App::getSingleton('helper', 'blog_post');
 
         return $helper->getCategoryPosts($categoryId, $this->getPageNumber());
@@ -38,6 +42,6 @@ class Blog_Block_Category_Posts extends Core_Block
      */
     public function getPageNumber(): int
     {
-        return (int)$this->getParentObjectParams()->getData(Blog_Helper_Data::URL_PARAM_PAGE) ?: 1;
+        return (int)$this->getParentObjectParams()->getData(Blog_Helper_Blog_Post::URL_PARAM_PAGE) ?: 1;
     }
 }

@@ -57,7 +57,7 @@ class Leafiny_Config
      */
     public function get($path)
     {
-        return isset($this->result[$path]) ? $this->result[$path] : false;
+        return $this->result[$path] ?? false;
     }
 
     /**

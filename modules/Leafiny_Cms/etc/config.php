@@ -22,8 +22,11 @@ $config = [
     ],
 
     'helper' => [
-        'cms' => [
-            'class' => Cms_Helper_Cms::class,
+        'cms_block' => [
+            'class' => Cms_Helper_Cms_Block::class,
+        ],
+        'cms_page' => [
+            'class' => Cms_Helper_Cms_Page::class,
         ],
         'search' => [
             'entity' => [
@@ -47,6 +50,15 @@ $config = [
                     'language' => 'language',
                     'block'    => 'search.cms.blocks',
                     'position' => 400,
+                ],
+            ],
+        ],
+        'attribute' => [
+            'entity' => [
+                'cms_page' => [
+                    'enabled' => 1,
+                    'name'    => 'CMS Page',
+                    'helper'  => 'cms_page',
                 ],
             ],
         ],

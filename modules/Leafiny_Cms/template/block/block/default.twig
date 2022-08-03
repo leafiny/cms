@@ -1,5 +1,5 @@
 {% set cms_block = block.getCmsBlock %}
-<div class="block-list pure-u-1 pure-u-md-1-2">
+<div class="block-list">
     <div class="block-list-content">
         {{ include(template_from_string(cms_block.getContent)) }}
     </div>

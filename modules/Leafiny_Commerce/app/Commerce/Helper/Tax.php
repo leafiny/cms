@@ -18,8 +18,9 @@ class Commerce_Helper_Tax extends Core_Helper
     /**
      * Calculate product prices
      *
-     * @param Leafiny_Object $object
+     * @param Leafiny_Object      $object
      * @param Leafiny_Object|null $address
+     * @param string              $prefix
      *
      * @return void
      */

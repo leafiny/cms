@@ -1,0 +1,60 @@
+{% set category = page.getCustom('category') %}
+{% if block.canShow(category) %}
+    {% set filters = block.getFilters(category.getCategoryId) %}
+    {% if filters is not empty %}
+        {% set applied = block.getFiltersApplied(page) %}
+        {% set totalItems = block.getTotalItems(category.getCategoryId) %}
+        <div class="filters" id="{{ block.getIdentifier }}">
+            {% if totalItems is not null %}
+                <span class="total-items">{{ totalItems }} {{ totalItems > 1 ? 'items'|translate : 'item'|translate }}</span>
+            {% endif %}
+            <input type="checkbox" name="narrow-by" id="narrow_by_{{ block.getIdentifier }}" class="narrow-by-toggle" value="1" />
+            <label for="narrow_by_{{ block.getIdentifier }}" class="filters-title">{{ 'Filters'|translate }}</label>
+            <form action="{{ block.getPageUrl(page) }}" method="get" class="attribute-filters-form pure-g">
+            {% for filter in filters %}
+                {% if filter.getOptions is not empty %}
+                    <div class="filter pure-u-1-2 pure-u-md-1-3 pure-u-lg-1-4">
+                        <div class="filter-content">
+                            <input type="checkbox" id="filter_{{ filter.getAttributeCode }}" value="1" class="attribute-toggle" />
+                            <label for="filter_{{ filter.getAttributeCode }}" class="attribute-label">{{ filter.getAttributeLabel }}</label>
+                            <div class="filter-options" style="z-index:{{ 100 - loop.index }}">
+                                <ul>
+                                {% for option in filter.getOptions %}
+                                    {% set color = block.getColor(option) %}
+                                    {% set optionId = 'option_' ~ filter.getAttributeCode ~ '_' ~ option.getOptionId %}
+                                    <li{% if color %} class="color"{% endif %}>
+                                        <input type="checkbox" id="{{ optionId }}" name="{{ filter.getAttributeCode }}[{{ loop.index - 1 }}]" value="{{ option.getOptionId }}"{% if applied[filter.getAttributeCode]['applied_options'][option.getOptionId] is defined %} checked="checked"{% endif %} />
+                                        <label for="{{ optionId }}"{% if color %} style="background: {{ color }}"{% endif %}>
+                                            <span>{{ option.getLabel }} ({{ option.getTotal }})</span>
+                                        </label>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                                <button type="submit" class="pure-button black apply"><span>{{ 'Apply'|translate }}</span></button>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </form>
+            {% if applied is not empty %}
+                <div class="attribute-filters-applied">
+                    {% for filter in applied %}
+                        {% for option in filter.getAppliedOptions %}
+                            {% set color = block.getColor(option) %}
+                            <span class="option{% if color %} color{% endif %}">
+                                <span class="label"{% if color %} style="background: {{ color }}"{% endif %}><span>{{ option.getOptionLabel }}</span></span>
+                                <a href="{{ block.getFilteredUrl(page, filter.getCode, option.getOptionId, 'remove') }}" class="remove">
+                                    <span>X</span>
+                                </a>
+                            </span>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if not totalItems %}
+                <p>{{ 'We can\'t find items matching the selection.'|translate }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %}

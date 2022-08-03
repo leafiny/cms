@@ -104,6 +104,16 @@ class Gallery_Block_Backend_Form_Gallery extends Core_Block
     }
 
     /**
+     * Retrieve if link must be shown
+     *
+     * @return bool
+     */
+    public function showClassName(): bool
+    {
+        return (bool)$this->getCustom('show_class_name');
+    }
+
+    /**
      * Retrieve if position must be shown
      *
      * @return bool

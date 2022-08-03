@@ -20,13 +20,22 @@ $config = [
 
     'helper' => [
         'blog_post' => [
-            'class'         => Blog_Helper_Data::class,
-            'post_per_page' => 10,
+            'class'         => Blog_Helper_Blog_Post::class,
+            'item_per_page' => 10,
         ],
         'fpc_cache' => [
             'allowed_params' => [
-                'blog' => Blog_Helper_Data::URL_PARAM_PAGE
+                'blog' => Blog_Helper_Blog_Post::URL_PARAM_PAGE
             ],
+        ],
+        'attribute' => [
+            'entity' => [
+                'blog_post' => [
+                    'enabled' => 1,
+                    'name'    => 'Blog Post',
+                    'helper'  => 'blog_post',
+                ],
+            ]
         ],
         'search' => [
             'entity' => [
@@ -66,10 +75,6 @@ $config = [
         'blog.post.default' => [
             'template' => 'Leafiny_Blog::block/post/default.twig',
             'class'    => Blog_Block_Post_Default::class
-        ],
-        'blog.post.comments' => [
-            'template' => 'Leafiny_Blog::block/post/comments.twig',
-            'class'    => Blog_Block_Post_Comments::class
         ],
 
         'admin.head' => [
@@ -128,11 +133,6 @@ $config = [
                 'meta_title'       => '{{title}}',
                 'meta_description' => '{{_category_1}} {{title}}',
             ],
-        ],
-        '/post/comment/post/' => [
-            'class'              => Blog_Page_Post_Comment_Post::class,
-            'template'           => null,
-            'form_code_required' => true,
         ],
 
         /* Admin Pages */

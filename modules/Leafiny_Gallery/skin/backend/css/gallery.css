@@ -1,9 +1,9 @@
 .gallery-images {
-    margin:0 -10px 0 -10px
+    margin: 0 -10px 0 -10px;
 }
 
 .gallery-images .delete {
-    color: #A00;
+    color: #a00;
     float: right;
 }
 

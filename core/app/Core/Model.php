@@ -131,11 +131,15 @@ class Core_Model extends Leafiny_Object
             if (!isset($join['table'], $join['condition'])) {
                 continue;
             }
-            $adapter->join($join['table'], $join['condition']);
+            $adapter->join($join['table'], $join['condition'], $join['type'] ?? '');
         }
 
         if (empty($columns)) {
-            $columns = '*';
+            $columns = 'main_table.*';
+        }
+
+        if ($this->getPrimaryKey()) {
+            $adapter->groupBy('main_table.' . $this->getPrimaryKey());
         }
 
         $result = $adapter->get($this->getMainTable() . ' as main_table', $limit, $columns);

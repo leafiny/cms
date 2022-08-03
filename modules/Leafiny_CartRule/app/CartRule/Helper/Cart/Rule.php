@@ -77,8 +77,7 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
 
                 if (!$rule->getData('status') ||
                     $ruleModel->isExpired($rule->getData('expire')) ||
-                    !$this->isValid($sale, $items, $rule))
-                {
+                    !$this->isValid($sale, $items, $rule)) {
                     if (!$sale->getData('_keep_rules')) {
                         $this->removeCartRule((int)$rule->getData('rule_id'), $saleId);
                     }
@@ -86,7 +85,7 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
                 }
 
                 $priority = (int)$rule->getData('priority');
-                while(isset($result[$priority])) {
+                while (isset($result[$priority])) {
                     $priority++;
                 }
                 $result[$priority] = $rule;
@@ -502,7 +501,6 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
 
                 $cartHelper->updateItem($item, $product);
             }
-
         } catch (Throwable $throwable) {
             App::log($throwable, Core_Interface_Log::ERR);
         }
@@ -855,8 +853,7 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
      */
     protected function compare($value1, $value2, string $operator): bool
     {
-        $compare = function ($value1, $value2, string $operator): bool
-        {
+        $compare = function ($value1, $value2, string $operator): bool {
             switch ($operator) {
                 case 'eq':
                     return $value1 == $value2;
@@ -886,11 +883,11 @@ class CartRule_Helper_Cart_Rule extends Core_Helper
             return (bool)$data->getData('result');
         };
 
-        if(is_array($value1)) {
+        if (is_array($value1)) {
             if ($operator === 'ne') {
                 return !in_array($value2, $value1);
             }
-            return !empty(array_filter($value1, function($value) use($value2, $operator, $compare) {
+            return !empty(array_filter($value1, function ($value) use ($value2, $operator, $compare) {
                 return $compare($value, $value2, $operator);
             }));
         }

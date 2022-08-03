@@ -52,6 +52,10 @@
                                 <input name="{{ block.getInputDataName }}[link][{{ image.getImageId }}]" class="pure-u-1" value="{{ image.getLink }}" placeholder="{{ 'Link'|translate }}" />
                             {% endif %}
 
+                            {% if block.showClassName %}
+                                <input name="{{ block.getInputDataName }}[class_name][{{ image.getImageId }}]" class="pure-u-1" value="{{ image.getClassName }}" placeholder="{{ 'Class'|translate }}" />
+                            {% endif %}
+
                             {% if block.showTag %}
                                 <input class="pure-u-1 snippet" value="{{ block.getTag(image)|raw }}" readonly />
                             {% endif %}

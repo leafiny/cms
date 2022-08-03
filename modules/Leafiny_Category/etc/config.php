@@ -39,6 +39,15 @@ $config = [
                 ],
             ],
         ],
+        'attribute' => [
+            'entity' => [
+                'category' => [
+                    'enabled' => 1,
+                    'name'    => 'Category',
+                    'helper'  => 'category',
+                ],
+            ]
+        ],
     ],
 
     'block' => [

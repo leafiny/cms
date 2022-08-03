@@ -55,7 +55,7 @@
             {% set maxFileNumber = page.getCustom('max_file_number') ?: 10000 %}
             <legend>{{ maxFileNumber > 1 ? 'Images'|translate : 'Image'|translate }}</legend>
             <div class="pure-u-1 field pure-u-xl-4-5">
-                {{ child('admin.gallery.form', {'show_label':true, 'show_tag':true, 'show_link':true, 'number_per_row':4}) }}
+                {{ child('admin.gallery.form', {'show_label':true, 'show_tag':true, 'show_link':true, 'show_class_name':true, 'number_per_row':4}) }}
             </div>
         </fieldset>
 

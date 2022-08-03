@@ -71,6 +71,9 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             if (App::getConfig('app.twig_cache')) {
                 $options['cache'] = $this->getHelper()->getCacheDir() . self::CACHE_TWIG_DIRECTORY . DS;
             }
+            if (App::getConfig('app.twig_debug')) {
+                $options['debug'] = true;
+            }
 
             $loader = new Twig\Loader\FilesystemLoader($paths);
             $twig = new Twig\Environment($loader, $options);
@@ -215,6 +218,9 @@ abstract class Core_Template_Abstract extends Leafiny_Object
 
         /* Required Extensions */
         $twig->addExtension(new Twig\Extension\StringLoaderExtension());
+        if (App::getConfig('app.twig_debug')) {
+            $twig->addExtension(new Twig\Extension\DebugExtension());
+        }
     }
 
     /**
@@ -470,7 +476,14 @@ abstract class Core_Template_Abstract extends Leafiny_Object
             // Ignore missing template
         }
 
-        return $content;
+        $result = new Leafiny_Object(['content' => $content]);
+
+        App::dispatchEvent(
+            'render_block_after',
+            ['result' => $result, 'block' => $block, 'page' => $this, 'vars' => $vars]
+        );
+
+        return $result->getData('content');
     }
 
     /**

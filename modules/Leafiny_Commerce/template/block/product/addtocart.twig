@@ -1,9 +1,9 @@
 {% set product = block.getCustom('product') %}
-{% if product.getQty %}
+{% if product.getAllowBackorders or product.getQty > 0 %}
     <form action="{{ block.getAddUrl(product) }}" method="post" class="pure-form product-add-to-cart">
         <div class="product-qty">
-            <label for="qty">{{ 'Quantity'|translate }}</label>
-            <input type="text" id="qty" name="qty" value="1" />
+            <label for="qty_{{ product.getProductId }}">{{ 'Quantity'|translate }}</label>
+            <input type="text" id="qty_{{ product.getProductId }}" name="qty" value="1" />
         </div>
         <button type="submit" class="pure-button black add-to-cart"><span>{{ block.getButtonLabel }}</span></button>
     </form>

@@ -1,0 +1,75 @@
+{% set helper = page.getHelper('attribute') %}
+{% set entities = helper.getEntities %}
+<form method="post" action="{{ page.getActionUrl }}" class="container-grid">
+    {{ child('admin.list.toolbar') }}
+    <div class="grid">
+        <table class="pure-table">
+            <thead>
+                <tr class="headings">
+                    <th class="width-5 center"><input type="checkbox" class="select-all" name="select" value="" /></th>
+                    <th class="width-10"><a href="{{ page.getSortOrderUrl('attribute_id') }}">{{ 'ID'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('code') }}">{{ 'Code'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('label') }}">{{ 'Label'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('entity_type') }}">{{ 'Entity'|translate }}</a></th>
+                    <th class="width-20"><a href="{{ page.getSortOrderUrl('input_type') }}">{{ 'Input'|translate }}</a></th>
+                    <th class="width-5">{{ 'Action'|translate }}</th>
+                </tr>
+                <tr class="pure-form filters">
+                    <th></th>
+                    <th><input type="text" name="filter[attribute_id]" value="{{ page.getFilter('attribute_id') }}" /></th>
+                    <th><input type="text" name="filter[code]" value="{{ page.getFilter('code') }}" /></th>
+                    <th><input type="text" name="filter[label]" value="{{ page.getFilter('label') }}" /></th>
+                    <th>
+                        <select name="filter[entity_type]">
+                            <option value=""></option>
+                            {% for entity,options in entities %}
+                                <option value="{{ entity }}"{% if page.getFilter('entity_type') == entity %} selected="selected"{% endif %}>
+                                    {{ options.getName ?: entity }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th>
+                        <select name="filter[input_type]">
+                            <option value=""></option>
+                            {% for code,label in helper.getInputTypes %}
+                                <option value="{{ code }}"{% if page.getFilter('input_type') == code %} selected="selected"{% endif %}>{{ label|translate }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set list = page.getList %}
+                {% if list is empty %}
+                    <tr>
+                        <td class="empty" colspan="9">
+                            {{ 'We couldn\'t find any records.'|translate }}
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for key,data in list %}
+                        <tr{% if key is odd %} class="pure-table-odd"{% endif %}>
+                            <td class="center"><input type="checkbox" id="id_{{ data.getAttributeId }}" name="id[]" class="select-id" value="{{ data.getAttributeId }}" /></td>
+                            <td><label for="id_{{ data.getAttributeId }}">{{ data.getAttributeId }}</label></td>
+                            <td>{{ data.getCode }}</td>
+                            <td>{{ data.getLabel }}</td>
+                            <td>
+                                {% if entities[data.getEntityType] is defined %}
+                                    {{ entities[data.getEntityType].getName ?: data.getEntityType }}
+                                {% else %}
+                                    {{ data.getEntityType }}
+                                {% endif %}
+                            </td>
+                            <td>{% if helper.getInputTypes[data.getInputType] is defined %}{{ helper.getInputTypes[data.getInputType] }}{% endif %}</td>
+                            <td>
+                                <a href="{{ page.getEditUrl(data.getAttributeId) }}">{{ 'Edit'|translate }}</a>
+                            </td>
+                        </tr>
+                    {% endfor  %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</form>

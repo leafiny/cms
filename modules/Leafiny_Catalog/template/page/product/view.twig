@@ -40,4 +40,8 @@
             {{ product.getDescription|raw }}
         </div>
     </div>
+
+    {% for child in page.getChildren %}
+        {{ child(child) }}
+    {% endfor %}
 </div>

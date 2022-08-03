@@ -75,6 +75,9 @@ $config = [
     ],
 
     'helper' => [
+        'gallery_group' => [
+            'class' => Gallery_Helper_Gallery_Group::class,
+        ],
         'search' => [
             'entity' => [
                 'gallery_image' => [

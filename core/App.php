@@ -21,7 +21,7 @@ final class App
     /**
      * @var string VERSION
      */
-    public const VERSION = '1.10.6';
+    public const VERSION = '1.11.0';
     /**
      * @var string MODULES_DIRECTORY
      */
@@ -649,7 +649,7 @@ final class App
         $logClassName = $_SERVER['log_class_name'] ?? 'Log';
 
         if (class_exists($logClassName)) {
-            return new $logClassName;
+            return new $logClassName();
         }
 
         return null;

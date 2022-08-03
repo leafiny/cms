@@ -1,9 +1,12 @@
 <?php
 
 $config = [
-    'app' => [
-        'twig_filters' => [
-            'frontend' => Frontend_Twig_Filters::class,
+    'helper' => [
+        'combine_css' => [
+            'class' => Frontend_Helper_Combine_Css::class,
+        ],
+        'combine_js' => [
+            'class' => Frontend_Helper_Combine_Js::class,
         ],
     ],
 
@@ -26,10 +29,9 @@ $config = [
         ],
         '/' => [
             'title'            => 'Home',
-            'content'          => 'Frontend::page/index.twig',
+            'content'          => 'Frontend::page/home.twig',
             'meta_title'       => 'Home',
             'meta_description' => 'Welcome to Leafiny!',
-            'banner_text'      => 'Welcome to Leafiny',
         ],
     ],
 
@@ -56,13 +58,15 @@ $config = [
             'stylesheet' => [
                 'Frontend::css/pure-min.css' => 100,
                 'Frontend::css/grids-responsive-min.css' => 200,
-                'Frontend::css/style.css' => 300
+                'Frontend::css/style.css' => 1000
             ],
+            'merge_css' => false,
             'javascript' => [
                 // Load the necessary head scripts, Example:
                 // 'Frontend::js/jquery-3.6.0.min.js' => 100
             ],
-            'class' => Frontend_Block_Head::class
+            'merge_js' => false,
+            'class' => Frontend_Block_Resources::class
         ],
         'header' => [
             'template' => 'Frontend::block/header.twig',
@@ -89,7 +93,24 @@ $config = [
                 // Load the necessary scripts before body end
                 'Frontend::js/app.js' => 100
             ],
-            'class' => Frontend_Block_Script::class
+            'merge_js' => false,
+            'class'    => Frontend_Block_Resources::class
+        ],
+
+        'widget.product.new' => [
+            'class'    => Frontend_Block_Widget_Product_New::class,
+            'template' => 'Frontend::block/widget/product/new.twig',
+            'disabled' => !class_exists('Catalog_Model_Product'),
+        ],
+        'widget.post.new' => [
+            'class'    => Frontend_Block_Widget_Post_New::class,
+            'template' => 'Frontend::block/widget/post/new.twig',
+            'disabled' => !class_exists('Blog_Model_Post'),
+        ],
+        'widget.gallery.banner' => [
+            'class'     => Frontend_Block_Widget_Gallery_Banner::class,
+            'template'  => 'Frontend::block/widget/gallery/banner.twig',
+            'disabled'  => !class_exists('Gallery_Model_Group'),
         ],
     ],
 ];

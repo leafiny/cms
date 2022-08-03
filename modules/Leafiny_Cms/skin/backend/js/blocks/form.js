@@ -6,7 +6,7 @@ copyBlockSnippet();
  *
  * @returns {boolean}
  */
-function copyBlockSnippet () {
+function copyBlockSnippet() {
     let blockSnippet = document.getElementById('block-snippet');
     let copyLink = document.getElementById('block-copy-snippet');
 

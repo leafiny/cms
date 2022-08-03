@@ -164,6 +164,6 @@ class Core_Config extends Leafiny_Config
      */
     public function getHelper(): Core_Helper
     {
-        return new Core_Helper;
+        return new Core_Helper();
     }
 }

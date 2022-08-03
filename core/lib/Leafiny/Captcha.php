@@ -169,12 +169,12 @@ class Leafiny_Captcha
      */
     public function hexToRgb(string $color): array
     {
-        $hex = ltrim($color,'#');
+        $hex = ltrim($color, '#');
 
         return [
-            'r' => hexdec(substr($hex,0,2)),
-            'g' => hexdec(substr($hex,2,2)),
-            'b' => hexdec(substr($hex,4,2))
+            'r' => hexdec(substr($hex, 0, 2)),
+            'g' => hexdec(substr($hex, 2, 2)),
+            'b' => hexdec(substr($hex, 4, 2))
         ];
     }
 

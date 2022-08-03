@@ -38,7 +38,7 @@ class Commerce_Model_Sale_Item extends Core_Model
      */
     public function save(Leafiny_Object $object): ?int
     {
-        $qty = (int)$object->getData('qty');
+        $qty = abs((int)$object->getData('qty')) ?: 1;
         $inclTaxUnit = $object->getData('incl_tax_unit');
         $exclTaxUnit = $object->getData('excl_tax_unit');
         $weightUnit  = $object->getData('weight_unit');

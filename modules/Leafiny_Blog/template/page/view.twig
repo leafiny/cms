@@ -25,7 +25,11 @@
         </div>
     {% endif %}
 
-    {{ include(template_from_string(data.getContent)) }}
-</div>
+    <div class="post-content">
+        {{ include(template_from_string(data.getContent)) }}
+    </div>
 
-<!-- nocache::'blog.post.comments' -->{{ child('blog.post.comments') }}<!-- /nocache::'blog.post.comments' -->
+    {% for child in page.getChildren %}
+        {{ child(child) }}
+    {% endfor %}
+</div>

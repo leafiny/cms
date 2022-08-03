@@ -1,6 +1,12 @@
 <?php
 
 $config = [
+    'app' => [
+        'twig_filters' => [
+            'catalog' => Catalog_Twig_Filters::class,
+        ],
+    ],
+
     'model' => [
         'catalog_product' => [
             'class' => Catalog_Model_Product::class,
@@ -143,13 +149,22 @@ $config = [
 
     'helper' => [
         'catalog_product' => [
-            'class'            => Catalog_Helper_Data::class,
-            'product_per_page' => 12,
+            'class'         => Catalog_Helper_Catalog_Product::class,
+            'item_per_page' => 12,
         ],
         'fpc_cache' => [
             'allowed_params' => [
-                'catalog' => Catalog_Helper_Data::URL_PARAM_PAGE
+                'catalog' => Catalog_Helper_Catalog_Product::URL_PARAM_PAGE
             ],
+        ],
+        'attribute' => [
+            'entity' => [
+                'catalog_product' => [
+                    'enabled' => 1,
+                    'name'    => 'Catalog Product',
+                    'helper'  => 'catalog_product',
+                ],
+            ]
         ],
         'search' => [
             'entity' => [

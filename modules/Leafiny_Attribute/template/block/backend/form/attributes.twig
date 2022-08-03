@@ -1,0 +1,34 @@
+{% set form = page.getFormData %}
+{% if block.canShow %}
+    <fieldset>
+        <legend>{{ 'Attributes'|translate }}</legend>
+        {% set attributes = block.getAttributes %}
+        {% for attribute in attributes %}
+            <div class="pure-u-1 field">
+                <label for="attribute_{{ attribute.getCode }}">{{ attribute.getLabel }} :</label>
+                {% if attribute.input_type == 'text' %}
+                    <input id="attribute_{{ attribute.getCode }}"
+                           type="text"
+                           class="pure-u-1 pure-u-xl-4-5"
+                           name="_attributes[{{ attribute.getCode }}][]"
+                           value="{{ form.getAttributes[attribute.getCode].getOptions|first.getLabel }}"
+                    />
+                {% endif %}
+                {% if attribute.input_type in ['select', 'multiselect'] %}
+                    {% set options = block.getOptions(attribute.getAttributeId) %}
+                    <select id="attribute_{{ attribute.getCode }}"
+                            class="pure-u-1 pure-u-xl-4-5"
+                            name="_attributes[{{ attribute.getCode }}][]"
+                            {% if attribute.input_type == 'multiselect' %}multiple="multiple"{% endif %}>
+                        <option value=""></option>
+                        {% for option in options %}
+                            <option value="{{ option.getOptionId }}"{% if option.getOptionId in form.getAttributes[attribute.getCode].getOptions|keys %} selected="selected"{% endif %}>
+                                {{ option.getLabel[page.getLanguage(true)] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </fieldset>
+{% endif %}

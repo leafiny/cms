@@ -141,4 +141,24 @@ class Cms_Page_Static_Content extends Core_Page
 
         return $gallery->getActivatedImages($pageId, 'category');
     }
+
+    /**
+     * Retrieve Children blocks
+     *
+     * @return string[]
+     */
+    public function getChildren(): array
+    {
+        $children = $this->getCustom('children');
+
+        if (!$children) {
+            return [];
+        }
+
+        $children = array_filter($children, 'strlen');
+
+        asort($children);
+
+        return array_keys($children);
+    }
 }

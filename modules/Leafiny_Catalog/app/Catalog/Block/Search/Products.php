@@ -27,21 +27,18 @@ class Catalog_Block_Search_Products extends Core_Block
             return [];
         }
 
-        $filters = [
+        /** @var Catalog_Helper_Catalog_Product $helper */
+        $helper = App::getSingleton('helper', 'catalog_product');
+        $helper->setCustom(
+            'product_filters',
             [
-                'column' => 'status',
-                'value'  => 1,
-            ],
-            [
-                'column' => 'language',
-                'value'  => App::getLanguage(),
-            ],
-            [
-                'column'   => 'product_id',
-                'value'    => $this->getProductIds(),
-                'operator' => 'IN',
-            ],
-        ];
+                'product_id' => [
+                    'column'   => 'product_id',
+                    'value'    => $this->getProductIds(),
+                    'operator' => 'IN',
+                ],
+            ]
+        );
 
         $orders = [
             [
@@ -52,9 +49,9 @@ class Catalog_Block_Search_Products extends Core_Block
         ];
 
         /** @var Catalog_Model_Product $model */
-        $model = App::getObject('model', 'catalog_product');
+        $model = App::getSingleton('model', 'catalog_product');
 
-        return $model->getList($filters, $orders, $this->getLimit());
+        return $model->getList($helper->getFilters(), $orders, $this->getLimit());
     }
 
     /**
@@ -64,7 +61,7 @@ class Catalog_Block_Search_Products extends Core_Block
      */
     public function getLimit(): array
     {
-        return $this->getCustom('limit') ?? [0, 100];
+        return $this->getCustom('limit') ?: [0, 100];
     }
 
     /**

@@ -1,12 +1,13 @@
+{# Frontend_Block_Resources #}
 <meta charset="{{ block.getCustom('charset') }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ page.getCustom('meta_title')|translate }}</title>
 <meta name="description" content="{{ page.getCustom('meta_description')|translate }}" />
-{% for css in block.getStylesheets %}
-<link rel="stylesheet" href="{{ page.getSkinUrl(css) }}" />
+{% for css in block.getStylesheets(page) %}
+<link rel="stylesheet" href="{{ css }}" />
 {% endfor %}
-{% for js in block.getScripts %}
-<script type="text/javascript" src="{{ page.getSkinUrl(js) }}"></script>
+{% for js in block.getScripts(page) %}
+<script type="text/javascript" src="{{ js }}"></script>
 {% endfor %}
 {% if page.getCustom('canonical') %}
 <link rel="canonical" href="{{ page.getUrl(page.getCustom('canonical')) }}" />

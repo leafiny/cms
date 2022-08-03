@@ -3,7 +3,9 @@
 {% if products is not empty %}
     <div class="products pure-g" id="catalog">
         {% for product in products %}
-            {{ child('catalog.product.default', {'product':product}) }}
+            <div class="pure-u-1-2 pure-u-lg-1-3">
+                {{ child('catalog.product.default', {'product':product}) }}
+            </div>
         {% endfor %}
     </div>
     {{ child('category.products.multipage', {'category_id':category.getCategoryId}) }}

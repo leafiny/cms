@@ -1,0 +1,32 @@
+.social-comments .comment-count {
+    font-weight: bold;
+}
+
+.social-comments .comment-content {
+    border: 1px solid #e5e5e5;
+    border-left-width: 3px;
+    padding: 20px;
+    margin-bottom: 2em;
+}
+
+.social-comments .user {
+    margin-bottom: 1em;
+}
+
+.social-comments .comment {
+    font-size: 0.9em;
+}
+
+.social-comments .user .name {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.social-comments .user .date {
+    color: #555;
+    font-size: 0.9em;
+}
+
+.social-comments legend {
+    font-weight: bold;
+}

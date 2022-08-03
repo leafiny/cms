@@ -140,4 +140,24 @@ class Catalog_Page_Product_View extends Core_Page
 
         return $gallery->getActivatedImages($productId, 'catalog_product');
     }
+
+    /**
+     * Retrieve Children blocks
+     *
+     * @return string[]
+     */
+    public function getChildren(): array
+    {
+        $children = $this->getCustom('children');
+
+        if (!$children) {
+            return [];
+        }
+
+        $children = array_filter($children, 'strlen');
+
+        asort($children);
+
+        return array_keys($children);
+    }
 }
