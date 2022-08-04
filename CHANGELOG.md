@@ -2,6 +2,7 @@
 
 - Widget banner now localized
 - Specific language directory for merged resources
+- Prod sample config file added
 
 ## 1.11.0
 
