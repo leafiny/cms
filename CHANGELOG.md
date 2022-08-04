@@ -1,3 +1,7 @@
+## 1.11.1
+
+- Widget banner now localized
+
 ## 1.11.0
 
 - New Attributes management and filters features

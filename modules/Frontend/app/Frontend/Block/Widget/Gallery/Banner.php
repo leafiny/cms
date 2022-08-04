@@ -23,7 +23,7 @@ class Frontend_Block_Widget_Gallery_Banner extends Core_Block
         $groupModel = App::getSingleton('model', 'gallery_group');
 
         try {
-            $group = $groupModel->get($this->getCustom('group_key'), 'path_key');
+            $group = $groupModel->getByKey($this->getCustom('group_key'), App::getLanguage());
             if ($group->hasData()) {
                 /** @var Gallery_Model_Image $gallery */
                 $gallery = App::getSingleton('model', 'gallery_image');
