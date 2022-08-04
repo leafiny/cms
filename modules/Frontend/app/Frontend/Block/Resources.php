@@ -45,7 +45,7 @@ class Frontend_Block_Resources extends Core_Block
         /** @var Frontend_Helper_Combine_Css $combine */
         $combine = App::getSingleton('helper', 'combine_css');
 
-        return [$combine->mergeResources($stylesheets)];
+        return [$combine->mergeResources($stylesheets, 'merged' . DS . App::getLanguage())];
     }
 
     /**
@@ -81,6 +81,6 @@ class Frontend_Block_Resources extends Core_Block
         /** @var Frontend_Helper_Combine_Css $combine */
         $combine = App::getSingleton('helper', 'combine_js');
 
-        return [$combine->mergeResources($scripts)];
+        return [$combine->mergeResources($scripts, 'merged' . DS . App::getLanguage())];
     }
 }

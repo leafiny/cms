@@ -1,6 +1,7 @@
 ## 1.11.1
 
 - Widget banner now localized
+- Specific language directory for merged resources
 
 ## 1.11.0
 
