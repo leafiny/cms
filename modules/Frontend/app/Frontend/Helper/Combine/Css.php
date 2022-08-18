@@ -59,11 +59,21 @@ class Frontend_Helper_Combine_Css extends Frontend_Helper_Combine
      */
     protected function clean(string $content): string
     {
-        $content = preg_replace('/\s{2,}/', ' ', $content);
-        $content = str_replace("\n", '', $content);
-        $content = str_replace(', ', ',', $content);
-        $content = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content);
+        $tokenizers = [
+            '/\s+/'                                          => ' ', // Normalize whitespace
+            '/(\s+)(\/\*(.*?)\*\/)(\s+)/'                    => '$2', // Remove spaces before and after comments
+            '!/\*[^*]*\*+([^/][^*]*\*+)*/!'                  => '', // Remove comments
+            '/;(?=\s*})/'                                    => '', // Remove ; before }
+            '/(,|:|;|\{|}) /'                                => '$1', // Remove space after , : ; { }
+            '/ (,|;|\{|})/'                                  => '$1', // Remove space before , ; { }
+            '/(:| )0\.([0-9]+)(%|em|ex|px|in|cm|mm|pt|pc)/i' => '${1}.${2}${3}', // Strips leading 0 on decimal values
+            '/(:| )(\.?)0(%|em|ex|px|in|cm|mm|pt|pc)/i'      => '${1}0', // Strips units if value is 0
+        ];
 
-        return $content;
+        foreach ($tokenizers as $pattern => $replacement) {
+            $content = preg_replace($pattern, $replacement, $content);
+        }
+
+        return trim($content);
     }
 }
